@@ -1,0 +1,169 @@
+DEFAULT_MIN_LENGTH = 1
+DEFAULT_MAX_LENGTH = 2048
+DEFAULT_MIN_BYTES = 1
+DEFAULT_MAX_BYTES = 52428800
+DEFAULT_MIN = 0
+DEFAULT_MAX = 41
+
+
+/**
+ * The Image entity.
+ * @author yuvytung
+ */
+entity Image {
+    /** the uuid equivalent id (primary key) */
+    uuid UUID required
+    /** imageData is data of image in binary form */
+    imageData ImageBlob required unique
+    /** name of image (Default is uuid + extension)*/
+    nameImage String maxlength(1024)
+    /** extension of image (Example .jpg .png ... ) */
+    extension String maxlength(16)
+    /** typeFile */
+    typeFile String maxlength(32)
+    /** role */
+    role String required
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
+    /** deleted (deleted set to true , not delete set to false)*/
+    deleted Boolean
+}
+
+/**
+ * The Video entity.
+ * @author yuvytung
+ */
+entity Video {
+    /** the uuid equivalent id (primary key) */
+    uuid UUID required unique
+    /** videoData is data of video in binary form */
+    videoData AnyBlob required
+    /** name of video (Default is uuid + extension)*/
+    nameVideo String maxlength(1024)
+    /** extension of video (Example .mp4 ... ) */
+    extension String maxlength(16) 
+    /** typeFile */
+    typeFile String maxlength(32)
+    /** role */
+    role String required
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
+    /** deleted (deleted set to true , not delete set to false)*/
+    deleted Boolean
+}
+
+
+
+/**
+ * The Post entity.
+ * @author A true hipster
+ */
+entity Post {
+    /** uuid */
+    uuid UUID required unique
+    /** idShow */
+    idShow String required unique maxlength(16)
+    /** content */
+    content String unique
+    /** role */
+    role String required
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
+    /** deleted (deleted set to true , not delete set to false)*/
+    deleted Boolean
+
+}
+
+/**
+ * The Post entity.
+ * @author A true hipster
+ */
+entity SimplePost {
+    /** uuid */
+    uuid UUID required unique
+    /** idShow */
+    idShow String required unique maxlength(16)
+    /** title */
+    title String required maxlength(128)
+    /** price */
+    price  Double required 
+    /** price */
+    salePrice  Double required 
+    /** percentSale */
+    percentSale  Double
+    /** imageUrl */
+    imageUrl String 
+    /** other content */
+    otherContent String unique
+    /** typeProduct */
+    typeProduct String
+    /** role */
+    role String required
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
+    /** deleted (deleted set to true , not delete set to false)*/
+    deleted Boolean
+
+}
+
+/**
+ * The Payment entity.
+ * @author A true hipster
+ */
+entity Payment {
+    /** uuid */
+    uuid UUID required unique
+    /** idShow */
+    idShow String required unique maxlength(16)
+    /** status */
+    status String
+
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+}

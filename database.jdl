@@ -5,10 +5,7 @@ DEFAULT_MAX_BYTES = 52428800
 DEFAULT_MIN = 0
 DEFAULT_MAX = 64
 
-relationship
-{
-     to
-}
+
 
 /**
  * The PostDetails entity.
@@ -205,8 +202,8 @@ entity Bill
     addressCode String
     /** addressDetails */
     addressDetails String
-
-    comment
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */

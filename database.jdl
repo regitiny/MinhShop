@@ -3,7 +3,97 @@ DEFAULT_MAX_LENGTH = 2048
 DEFAULT_MIN_BYTES = 1
 DEFAULT_MAX_BYTES = 52428800
 DEFAULT_MIN = 0
-DEFAULT_MAX = 41
+DEFAULT_MAX = 64
+
+relationship
+{
+     to
+}
+
+/**
+ * The PostDetails entity.
+ * @author A true hipster
+ */
+entity PostDetails {
+    /** uuid */
+    uuid UUID required unique
+    /** idShow */
+    publicId String required unique minlength(3) maxlength(16) pattern(/[A-z]+[0-9]+/ )
+    /** content */
+    content String unique required
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
+}
+
+/**
+ * The Post entity.
+ * @author A true hipster
+ */
+entity SimplePost {
+    /** uuid */
+    uuid UUID required unique
+    /** title */
+    title String required maxlength(128)
+    /** price */
+    price  Double required
+    /** price */
+    salePrice  Double required
+    /** percentSale */
+    percentSale  Float required min(0) max(100)
+    /** imageUrl */
+    imageUrl String required
+    /** scores */
+    scores Float required min(0) max(100)
+    /** simple content */
+    simpleContent String unique
+    /** otherInfo (Json) */
+    otherInfo String required
+    /** role */
+    role String required
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
+}
+
+
+/**
+  * The TypePost entity.
+  * @author a true jhipster
+  */
+entity TypePost
+{
+    /** uuid */
+    uuid UUID required unique
+    /** typeName */
+    typeName String required unique
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+}
 
 
 /**
@@ -14,7 +104,7 @@ entity Image {
     /** the uuid equivalent id (primary key) */
     uuid UUID required
     /** imageData is data of image in binary form */
-    imageData ImageBlob required unique
+    imageData ImageBlob required
     /** name of image (Default is uuid + extension)*/
     nameImage String maxlength(1024)
     /** extension of image (Example .jpg .png ... ) */
@@ -40,10 +130,10 @@ entity Image {
 }
 
 /**
- * The Video entity.
+ * The File entity.
  * @author yuvytung
  */
-entity Video {
+entity File {
     /** the uuid equivalent id (primary key) */
     uuid UUID required unique
     /** videoData is data of video in binary form */
@@ -51,82 +141,9 @@ entity Video {
     /** name of video (Default is uuid + extension)*/
     nameVideo String maxlength(1024)
     /** extension of video (Example .mp4 ... ) */
-    extension String maxlength(16) 
+    extension String maxlength(16)
     /** typeFile */
     typeFile String maxlength(32)
-    /** role */
-    role String required
-    /** createdDate */
-    createdDate  Instant required
-    /** modifiedDate */
-    modifiedDate  Instant required
-    /** createdBy */
-    createdBy String required
-    /** modifiedBy */
-    modifiedBy String required
-    /** dataSize */
-    dataSize Long
-    /** comment */
-    comment String maxlength(DEFAULT_MAX_LENGTH)
-    /** deleted (deleted set to true , not delete set to false)*/
-    deleted Boolean
-}
-
-
-
-/**
- * The Post entity.
- * @author A true hipster
- */
-entity Post {
-    /** uuid */
-    uuid UUID required unique
-    /** idShow */
-    idShow String required unique maxlength(16)
-    /** content */
-    content String unique
-    /** role */
-    role String required
-    /** createdDate */
-    createdDate  Instant required
-    /** modifiedDate */
-    modifiedDate  Instant required
-    /** createdBy */
-    createdBy String required
-    /** modifiedBy */
-    modifiedBy String required
-    /** dataSize */
-    dataSize Long
-    /** comment */
-    comment String maxlength(DEFAULT_MAX_LENGTH)
-    /** deleted (deleted set to true , not delete set to false)*/
-    deleted Boolean
-
-}
-
-/**
- * The Post entity.
- * @author A true hipster
- */
-entity SimplePost {
-    /** uuid */
-    uuid UUID required unique
-    /** idShow */
-    idShow String required unique maxlength(16)
-    /** title */
-    title String required maxlength(128)
-    /** price */
-    price  Double required 
-    /** price */
-    salePrice  Double required 
-    /** percentSale */
-    percentSale  Double
-    /** imageUrl */
-    imageUrl String 
-    /** other content */
-    otherContent String unique
-    /** typeProduct */
-    typeProduct String
     /** role */
     role String required
     /** createdDate */
@@ -150,11 +167,10 @@ entity SimplePost {
  * The Payment entity.
  * @author A true hipster
  */
-entity Payment {
+entity Payment
+{
     /** uuid */
     uuid UUID required unique
-    /** idShow */
-    idShow String required unique maxlength(16)
     /** status */
     status String
 
@@ -166,4 +182,96 @@ entity Payment {
     createdBy String required
     /** modifiedBy */
     modifiedBy String required
+}
+
+/**
+  * The BillDetails entity.
+  * @author a true jhipster
+  */
+entity Bill
+{
+    /** uuid */
+    uuid UUID required  unique
+    /** idShow */
+    billId String required  unique maxlength(16)
+    /** phoneNumber */
+    phoneNumber String required minlength(10) maxlength(10) pattern(/[0-9]+/)
+    /** email */
+    email String
+
+    /** addressDetails */
+    addressDetails String
+    /** addressCode */
+    addressCode String
+    /** addressDetails */
+    addressDetails String
+
+    comment
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+}
+
+/**
+  * The UserOtherInfo entity.
+  * @author a true jhipster
+  */
+entity UserOtherInfo
+{
+    /** addressDetails */
+    addressDetails String
+    /** addressCode */
+    addressCode String
+    /** addressDetails */
+    addressDetails String
+
+
+}
+
+
+
+relationship OneToMany
+{
+    TypePost to SimplePost{typePost(typeName)}
+}
+relationship OneToOne
+{
+   SimplePost{postDetails(publicId) required} to PostDetails{simplePost} with jpaDerivedIdentifier
+}
+
+
+dto * with mapstruct
+paginate * with  infinite-scroll
+search * with elasticsearch
+service * with serviceImpl
+//service * with serviceClass
+//pagination infinite-scroll  pager
+
+/**
+  * The HanhChinhVN entity.
+  * @author a true jhipster
+  */
+entity HanhChinhVN
+{
+    /** name Example("Ninh Kiều")*/
+    name String required
+    /** slug Example("ninh-kieu")*/
+    slug String required
+    /** type Example("quan")*/
+    type String required
+    /** nameWithType Example("Quận Ninh Kiều") */
+    nameWithType String  required
+    /** code Example("916") */
+    code String required
+    /** parentCode Example("92") , equal to 0 is the city*/
+    parentCode String required
+    /** path Example("Ninh Kiều, Cần Thơ")*/
+    path String
+    /** pathWithType Example("Quận Ninh Kiều, Thành phố Cần Thơ")*/
+    pathWithType String
 }

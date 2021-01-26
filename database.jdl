@@ -235,7 +235,7 @@ entity UserOtherInfo
     /** addressDetails */
     addressDetails String
     /** dateOfBirth */
-    dateOfBirth Date
+    dateOfBirth LocalDate
 }
 
 

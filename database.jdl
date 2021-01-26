@@ -223,14 +223,22 @@ entity Bill
   */
 entity UserOtherInfo
 {
+    /** uuid */
+    uuid UUID required unique
+    /** phoneNumber */
+    phoneNumber String minlength(10) maxlength(10) pattern(/[0-9]+/)
+    /** email */
+    email String
+    /** wardCode */
+    wardCode String
+    /** distCode */
+    distCode String
+    /** cityCode */
+    cityCode String
     /** addressDetails */
     addressDetails String
-    /** addressCode */
-    addressCode String
-    /** addressDetails */
-    addressDetails String
-
-
+    /** dateOfBirth */
+    dateOfBirth Date
 }
 
 
@@ -241,9 +249,11 @@ relationship OneToMany
 }
 relationship OneToOne
 {
-   SimplePost{postDetails(publicId) required} to PostDetails{simplePost} with jpaDerivedIdentifier
+    SimplePost{postDetails(publicId) required} to PostDetails{simplePost} with jpaDerivedIdentifier
+    UserOtherInfo{user} to User,
+    Payment{billId(billId)} to Bill{Payment},
+    Bill{userOtherInfo} to UserOtherInfo
 }
-
 
 dto * with mapstruct
 paginate * with  infinite-scroll

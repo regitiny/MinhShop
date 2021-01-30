@@ -1,0 +1,83 @@
+{
+  "name": "PostDetails",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "javadoc": "uuid",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "publicId",
+      "fieldType": "String",
+      "javadoc": "idShow",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesPattern": "[A-z]+[0-9]+"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String",
+      "javadoc": "content",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "javadoc": "createdDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "Instant",
+      "javadoc": "modifiedDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "createdBy",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "javadoc": "modifiedBy",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataSize",
+      "fieldType": "Long",
+      "javadoc": "dataSize"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String",
+      "javadoc": "comment",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "simplePost",
+      "otherEntityRelationshipName": "postDetails",
+      "relationshipName": "simplePost",
+      "ownerSide": false
+    }
+  ],
+  "javadoc": "The PostDetails entity.\\n@author A true hipster",
+  "entityTableName": "post_details",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "searchEngine": "elasticsearch",
+  "changelogDate": "20210130161418"
+}

@@ -1,0 +1,53 @@
+{
+  "minhShopApp": {
+    "userOtherInfo": {
+      "home": {
+        "title": "User Other Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một User Other Info",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật User Other Info",
+        "search": "Tìm User Other Info",
+        "notFound": "No User Other Infos found"
+      },
+      "created": "Một User Other Info mới được tạo với định danh {{ param }}",
+      "updated": "Một User Other Info cập nhật với định danh {{ param }}",
+      "deleted": "Một User Other Info đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa User Other Info {{ id }}?"
+      },
+      "detail": {
+        "title": "User Other Info"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "wardCode": "Ward Code",
+      "distCode": "Dist Code",
+      "cityCode": "City Code",
+      "addressDetails": "Address Details",
+      "dateOfBirth": "Date Of Birth",
+      "otherInfo": "Other Info",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "userName": "User Name",
+      "help": {
+        "uuid": "uuid",
+        "phoneNumber": "phoneNumber",
+        "email": "email",
+        "wardCode": "wardCode",
+        "distCode": "distCode",
+        "cityCode": "cityCode",
+        "addressDetails": "addressDetails",
+        "dateOfBirth": "dateOfBirth",
+        "otherInfo": "otherInfo",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy"
+      }
+    }
+  }
+}

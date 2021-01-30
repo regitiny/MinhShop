@@ -1,0 +1,38 @@
+{
+  "minhShopApp": {
+    "typePost": {
+      "home": {
+        "title": "Type Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Type Post",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Type Post",
+        "search": "Tìm Type Post",
+        "notFound": "No Type Posts found"
+      },
+      "created": "Một Type Post mới được tạo với định danh {{ param }}",
+      "updated": "Một Type Post cập nhật với định danh {{ param }}",
+      "deleted": "Một Type Post đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Type Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Type Post"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "typeName": "Type Name",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "help": {
+        "uuid": "uuid",
+        "typeName": "typeName",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy"
+      }
+    }
+  }
+}

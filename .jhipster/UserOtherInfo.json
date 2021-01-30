@@ -1,0 +1,101 @@
+{
+  "name": "UserOtherInfo",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "javadoc": "uuid",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String",
+      "javadoc": "phoneNumber",
+      "fieldValidateRules": ["minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMinlength": "10",
+      "fieldValidateRulesMaxlength": "10",
+      "fieldValidateRulesPattern": "[0-9]+"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "javadoc": "email"
+    },
+    {
+      "fieldName": "wardCode",
+      "fieldType": "String",
+      "javadoc": "wardCode"
+    },
+    {
+      "fieldName": "distCode",
+      "fieldType": "String",
+      "javadoc": "distCode"
+    },
+    {
+      "fieldName": "cityCode",
+      "fieldType": "String",
+      "javadoc": "cityCode"
+    },
+    {
+      "fieldName": "addressDetails",
+      "fieldType": "String",
+      "javadoc": "addressDetails"
+    },
+    {
+      "fieldName": "dateOfBirth",
+      "fieldType": "LocalDate",
+      "javadoc": "dateOfBirth"
+    },
+    {
+      "fieldName": "otherInfo",
+      "fieldType": "String",
+      "javadoc": "otherInfo"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "javadoc": "createdDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "Instant",
+      "javadoc": "modifiedDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "createdBy",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "javadoc": "modifiedBy",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "userOtherInfo",
+      "relationshipName": "userName",
+      "otherEntityField": "login",
+      "ownerSide": true
+    }
+  ],
+  "javadoc": "The UserOtherInfo entity.\\n@author a true jhipster",
+  "entityTableName": "user_other_info",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "searchEngine": "elasticsearch",
+  "changelogDate": "20210130161426"
+}

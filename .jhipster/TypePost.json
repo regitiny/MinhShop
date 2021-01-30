@@ -1,0 +1,54 @@
+{
+  "name": "TypePost",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "javadoc": "uuid",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "typeName",
+      "fieldType": "String",
+      "javadoc": "typeName",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "javadoc": "createdDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "Instant",
+      "javadoc": "modifiedDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "createdBy",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "javadoc": "modifiedBy",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "javadoc": "The TypePost entity.\\n@author a true jhipster",
+  "entityTableName": "type_post",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "searchEngine": "elasticsearch",
+  "changelogDate": "20210130161420"
+}

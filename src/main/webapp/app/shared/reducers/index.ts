@@ -12,6 +12,46 @@ import activate, { ActivateState } from 'app/modules/account/activate/activate.r
 import password, { PasswordState } from 'app/modules/account/password/password.reducer';
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
+// prettier-ignore
+import postDetails, {
+  PostDetailsState
+} from 'app/entities/post-details/post-details.reducer';
+// prettier-ignore
+import simplePost, {
+  SimplePostState
+} from 'app/entities/simple-post/simple-post.reducer';
+// prettier-ignore
+import typePost, {
+  TypePostState
+} from 'app/entities/type-post/type-post.reducer';
+// prettier-ignore
+import typePostFilter, {
+  TypePostFilterState
+} from 'app/entities/type-post-filter/type-post-filter.reducer';
+// prettier-ignore
+import image, {
+  ImageState
+} from 'app/entities/image/image.reducer';
+// prettier-ignore
+import file, {
+  FileState
+} from 'app/entities/file/file.reducer';
+// prettier-ignore
+import payment, {
+  PaymentState
+} from 'app/entities/payment/payment.reducer';
+// prettier-ignore
+import bill, {
+  BillState
+} from 'app/entities/bill/bill.reducer';
+// prettier-ignore
+import userOtherInfo, {
+  UserOtherInfoState
+} from 'app/entities/user-other-info/user-other-info.reducer';
+// prettier-ignore
+import hanhChinhVN, {
+  HanhChinhVNState
+} from 'app/entities/hanh-chinh-vn/hanh-chinh-vn.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -25,6 +65,16 @@ export interface IRootState {
   readonly passwordReset: PasswordResetState;
   readonly password: PasswordState;
   readonly settings: SettingsState;
+  readonly postDetails: PostDetailsState;
+  readonly simplePost: SimplePostState;
+  readonly typePost: TypePostState;
+  readonly typePostFilter: TypePostFilterState;
+  readonly image: ImageState;
+  readonly file: FileState;
+  readonly payment: PaymentState;
+  readonly bill: BillState;
+  readonly userOtherInfo: UserOtherInfoState;
+  readonly hanhChinhVN: HanhChinhVNState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -40,6 +90,16 @@ const rootReducer = combineReducers<IRootState>({
   passwordReset,
   password,
   settings,
+  postDetails,
+  simplePost,
+  typePost,
+  typePostFilter,
+  image,
+  file,
+  payment,
+  bill,
+  userOtherInfo,
+  hanhChinhVN,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

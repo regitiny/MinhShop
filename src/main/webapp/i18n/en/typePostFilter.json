@@ -1,0 +1,39 @@
+{
+  "minhShopApp": {
+    "typePostFilter": {
+      "home": {
+        "title": "Type Post Filters",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Type Post Filter",
+        "createOrEditLabel": "Create or edit a Type Post Filter",
+        "search": "Search for Type Post Filter",
+        "notFound": "No Type Post Filters found"
+      },
+      "created": "A new Type Post Filter is created with identifier {{ param }}",
+      "updated": "A Type Post Filter is updated with identifier {{ param }}",
+      "deleted": "A Type Post Filter is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Type Post Filter {{ id }}?"
+      },
+      "detail": {
+        "title": "Type Post Filter"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "typeFilterName": "Type Filter Name",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "simplePost": "Simple Post",
+      "help": {
+        "uuid": "uuid",
+        "typeFilterName": "typeFilterName",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy"
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "minhShopApp": {
+    "postDetails": {
+      "home": {
+        "title": "Post Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Post Details",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Post Details",
+        "search": "Tìm Post Details",
+        "notFound": "No Post Details found"
+      },
+      "created": "Một Post Details mới được tạo với định danh {{ param }}",
+      "updated": "Một Post Details cập nhật với định danh {{ param }}",
+      "deleted": "Một Post Details đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Post Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Post Details"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "publicId": "Public Id",
+      "content": "Content",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
+      "simplePost": "Simple Post",
+      "help": {
+        "uuid": "uuid",
+        "publicId": "idShow",
+        "content": "content",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
+      }
+    }
+  }
+}

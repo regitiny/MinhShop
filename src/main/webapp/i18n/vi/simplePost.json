@@ -1,0 +1,61 @@
+{
+  "minhShopApp": {
+    "simplePost": {
+      "home": {
+        "title": "Simple Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Simple Post",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Simple Post",
+        "search": "Tìm Simple Post",
+        "notFound": "No Simple Posts found"
+      },
+      "created": "Một Simple Post mới được tạo với định danh {{ param }}",
+      "updated": "Một Simple Post cập nhật với định danh {{ param }}",
+      "deleted": "Một Simple Post đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Simple Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Simple Post"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "title": "Title",
+      "price": "Price",
+      "salePrice": "Sale Price",
+      "percentSale": "Percent Sale",
+      "imageUrl": "Image Url",
+      "scores": "Scores",
+      "simpleContent": "Simple Content",
+      "otherInfo": "Other Info",
+      "role": "Role",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
+      "postDetails": "Post Details",
+      "typePost": "Type Post",
+      "typePostFilter": "Type Post Filter",
+      "help": {
+        "uuid": "uuid",
+        "title": "title",
+        "price": "price",
+        "salePrice": "price",
+        "percentSale": "percentSale",
+        "imageUrl": "imageUrl",
+        "scores": "scores",
+        "simpleContent": "simple content",
+        "otherInfo": "otherInfo (Json)",
+        "role": "role",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
+      }
+    }
+  }
+}

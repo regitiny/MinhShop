@@ -1,0 +1,62 @@
+{
+  "name": "Payment",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "javadoc": "uuid",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String",
+      "javadoc": "status"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "javadoc": "createdDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "Instant",
+      "javadoc": "modifiedDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "createdBy",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "javadoc": "modifiedBy",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "bill",
+      "otherEntityRelationshipName": "payment",
+      "relationshipName": "billId",
+      "otherEntityField": "billId",
+      "ownerSide": true
+    }
+  ],
+  "javadoc": "The Payment entity.\\n@author A true hipster",
+  "entityTableName": "payment",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "searchEngine": "elasticsearch",
+  "changelogDate": "20210130161424"
+}

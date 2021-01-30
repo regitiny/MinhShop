@@ -1,0 +1,53 @@
+{
+  "minhShopApp": {
+    "userOtherInfo": {
+      "home": {
+        "title": "User Other Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new User Other Info",
+        "createOrEditLabel": "Create or edit a User Other Info",
+        "search": "Search for User Other Info",
+        "notFound": "No User Other Infos found"
+      },
+      "created": "A new User Other Info is created with identifier {{ param }}",
+      "updated": "A User Other Info is updated with identifier {{ param }}",
+      "deleted": "A User Other Info is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete User Other Info {{ id }}?"
+      },
+      "detail": {
+        "title": "User Other Info"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "wardCode": "Ward Code",
+      "distCode": "Dist Code",
+      "cityCode": "City Code",
+      "addressDetails": "Address Details",
+      "dateOfBirth": "Date Of Birth",
+      "otherInfo": "Other Info",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "userName": "User Name",
+      "help": {
+        "uuid": "uuid",
+        "phoneNumber": "phoneNumber",
+        "email": "email",
+        "wardCode": "wardCode",
+        "distCode": "distCode",
+        "cityCode": "cityCode",
+        "addressDetails": "addressDetails",
+        "dateOfBirth": "dateOfBirth",
+        "otherInfo": "otherInfo",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy"
+      }
+    }
+  }
+}

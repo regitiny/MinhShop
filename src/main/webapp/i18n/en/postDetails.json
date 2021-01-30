@@ -1,0 +1,45 @@
+{
+  "minhShopApp": {
+    "postDetails": {
+      "home": {
+        "title": "Post Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Post Details",
+        "createOrEditLabel": "Create or edit a Post Details",
+        "search": "Search for Post Details",
+        "notFound": "No Post Details found"
+      },
+      "created": "A new Post Details is created with identifier {{ param }}",
+      "updated": "A Post Details is updated with identifier {{ param }}",
+      "deleted": "A Post Details is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Post Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Post Details"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "publicId": "Public Id",
+      "content": "Content",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
+      "simplePost": "Simple Post",
+      "help": {
+        "uuid": "uuid",
+        "publicId": "idShow",
+        "content": "content",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
+      }
+    }
+  }
+}

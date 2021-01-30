@@ -1,0 +1,52 @@
+{
+  "minhShopApp": {
+    "file": {
+      "home": {
+        "title": "Files",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một File",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật File",
+        "search": "Tìm File",
+        "notFound": "No Files found"
+      },
+      "created": "Một File mới được tạo với định danh {{ param }}",
+      "updated": "Một File cập nhật với định danh {{ param }}",
+      "deleted": "Một File đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa File {{ id }}?"
+      },
+      "detail": {
+        "title": "File"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "videoData": "Video Data",
+      "nameVideo": "Name Video",
+      "extension": "Extension",
+      "typeFile": "Type File",
+      "role": "Role",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
+      "deleted": "Deleted",
+      "help": {
+        "uuid": "the uuid equivalent id (primary key)",
+        "videoData": "videoData is data of video in binary form",
+        "nameVideo": "name of video (Default is uuid + extension)",
+        "extension": "extension of video (Example .mp4 ... )",
+        "typeFile": "typeFile",
+        "role": "role",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment",
+        "deleted": "deleted (deleted set to true , not delete set to false)"
+      }
+    }
+  }
+}

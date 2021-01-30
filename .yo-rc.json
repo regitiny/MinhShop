@@ -45,6 +45,19 @@
     "packageFolder": "org/regitiny/minhshop",
     "jwtSecretKey": "Y2QwZDkyODYwOGVmNDc1YzQ2OWIzZGM4Yzk5MzQ2MWI2OWQ2MTA0MjNiNDFmN2RjNjc5Yzc1MmVkNGNhNTU0N2I4MmE2OWI3NzYwMTkxNmU0MTAxN2QzMTFjMWI5NDJhNTMwOWVjMmY5ZWFmODU4OWNjOWZiNTVkM2Q3OTViNmU=",
     "clientPackageManager": "npm",
-    "languages": ["vi", "en"]
+    "languages": ["vi", "en"],
+    "entities": [
+      "PostDetails",
+      "SimplePost",
+      "TypePost",
+      "TypePostFilter",
+      "Image",
+      "File",
+      "Payment",
+      "Bill",
+      "UserOtherInfo",
+      "HanhChinhVN"
+    ],
+    "lastLiquibaseTimestamp": 1612023267000
   }
 }

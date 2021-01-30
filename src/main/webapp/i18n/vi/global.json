@@ -7,6 +7,16 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Thực thể",
+        "postDetails": "Post Details",
+        "simplePost": "Simple Post",
+        "typePost": "Type Post",
+        "typePostFilter": "Type Post Filter",
+        "image": "Image",
+        "file": "File",
+        "payment": "Payment",
+        "bill": "Bill",
+        "userOtherInfo": "User Other Info",
+        "hanhChinhVn": "Hanh Chinh VN",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

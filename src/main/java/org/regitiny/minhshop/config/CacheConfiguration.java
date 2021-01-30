@@ -84,6 +84,18 @@ public class CacheConfiguration {
             createCache(cm, org.regitiny.minhshop.domain.User.class.getName(), jcacheConfiguration);
             createCache(cm, org.regitiny.minhshop.domain.Authority.class.getName(), jcacheConfiguration);
             createCache(cm, org.regitiny.minhshop.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.PostDetails.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.SimplePost.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.SimplePost.class.getName() + ".typePostFilters", jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.TypePost.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.TypePostFilter.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.TypePostFilter.class.getName() + ".simplePosts", jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.Image.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.File.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.Payment.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.Bill.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.UserOtherInfo.class.getName(), jcacheConfiguration);
+            createCache(cm, org.regitiny.minhshop.domain.HanhChinhVN.class.getName(), jcacheConfiguration);
             // jhipster-needle-redis-add-entry
         };
     }

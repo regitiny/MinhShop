@@ -1,0 +1,61 @@
+{
+  "minhShopApp": {
+    "simplePost": {
+      "home": {
+        "title": "Simple Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Simple Post",
+        "createOrEditLabel": "Create or edit a Simple Post",
+        "search": "Search for Simple Post",
+        "notFound": "No Simple Posts found"
+      },
+      "created": "A new Simple Post is created with identifier {{ param }}",
+      "updated": "A Simple Post is updated with identifier {{ param }}",
+      "deleted": "A Simple Post is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Simple Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Simple Post"
+      },
+      "id": "ID",
+      "uuid": "Uuid",
+      "title": "Title",
+      "price": "Price",
+      "salePrice": "Sale Price",
+      "percentSale": "Percent Sale",
+      "imageUrl": "Image Url",
+      "scores": "Scores",
+      "simpleContent": "Simple Content",
+      "otherInfo": "Other Info",
+      "role": "Role",
+      "createdDate": "Created Date",
+      "modifiedDate": "Modified Date",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
+      "postDetails": "Post Details",
+      "typePost": "Type Post",
+      "typePostFilter": "Type Post Filter",
+      "help": {
+        "uuid": "uuid",
+        "title": "title",
+        "price": "price",
+        "salePrice": "price",
+        "percentSale": "percentSale",
+        "imageUrl": "imageUrl",
+        "scores": "scores",
+        "simpleContent": "simple content",
+        "otherInfo": "otherInfo (Json)",
+        "role": "role",
+        "createdDate": "createdDate",
+        "modifiedDate": "modifiedDate",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
+      }
+    }
+  }
+}

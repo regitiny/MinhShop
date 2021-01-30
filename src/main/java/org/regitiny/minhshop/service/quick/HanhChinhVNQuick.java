@@ -32,9 +32,17 @@ public class HanhChinhVNQuick {
             JSONObject jsonObjectData = new JSONObject(stringJsonData);
 
             Iterator<String> cityCodes = jsonObjectData.keys();
-
-            int a = 0;
-            while (cityCodes.hasNext() && a < 2) {
+            //   đếm số thành phố
+            int maxCities = 0;
+            Iterator<String> cityCodes2 = jsonObjectData.keys();
+            while (cityCodes2.hasNext()) {
+                maxCities++;
+                cityCodes2.next();
+            }
+            // ToDo: giới hạn số lượng thành phố đc import vào database (prod thì xóa đi)
+            maxCities = 2;
+            log.info(" There are {} cities", maxCities);
+            for (int count = 0; cityCodes.hasNext() && count < maxCities; count++) {
                 String cityCode = cityCodes.next();
                 JSONObject cityObject = jsonObjectData.getJSONObject(cityCode);
 
@@ -61,7 +69,7 @@ public class HanhChinhVNQuick {
                         }
                     }
                 }
-                a++;
+                log.info("{}/{} cities added", count + 1, maxCities);
             }
         } catch (IOException e) {
             e.printStackTrace();

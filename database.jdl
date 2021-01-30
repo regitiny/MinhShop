@@ -92,6 +92,27 @@ entity TypePost
     modifiedBy String required
 }
 
+/**
+  * The TypeFilter entity.
+  * @author a true jhipster
+  */
+entity TypePostFilter
+{
+    /** uuid */
+    uuid UUID required unique
+    /**  typeFilterName  */
+    typeFilterName  String  required unique
+
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
+}
+
 
 /**
  * The Image entity.
@@ -236,20 +257,38 @@ entity UserOtherInfo
     addressDetails String
     /** dateOfBirth */
     dateOfBirth LocalDate
+    /** otherInfo */
+    otherInfo String
+    /** createdDate */
+    createdDate  Instant required
+    /** modifiedDate */
+    modifiedDate  Instant required
+    /** createdBy */
+    createdBy String required
+    /** modifiedBy */
+    modifiedBy String required
 }
 
 
 
-relationship OneToMany
-{
-    TypePost to SimplePost{typePost(typeName)}
-}
+
 relationship OneToOne
 {
-    SimplePost{postDetails(publicId) required} to PostDetails{simplePost} with jpaDerivedIdentifier
-    UserOtherInfo{user} to User,
+    SimplePost{postDetails(publicId) required} to PostDetails{simplePost} with jpaDerivedIdentifier,
+    UserOtherInfo{userName(login)} to User,
     Payment{billId(billId)} to Bill{Payment},
     Bill{userOtherInfo} to UserOtherInfo
+}
+
+relationship ManyToOne
+{
+    SimplePost{typePost(typeName)} to TypePost
+
+}
+
+relationship ManyToMany
+{
+     SimplePost{typePostFilter(typeFilterName)} to TypePostFilter{simplePost}
 }
 
 dto * with mapstruct
@@ -259,6 +298,7 @@ service * with serviceImpl
 //service * with serviceClass
 //pagination infinite-scroll  pager
 
+// other entities
 /**
   * The HanhChinhVN entity.
   * @author a true jhipster

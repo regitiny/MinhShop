@@ -41,6 +41,9 @@
             <column name="other_info" type="varchar(255)" remarks="otherInfo">
                 <constraints nullable="true" />
             </column>
+            <column name="role" type="varchar(255)" remarks="role">
+                <constraints nullable="false" />
+            </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
                 <constraints nullable="false" />
             </column>
@@ -87,6 +90,7 @@
             <column name="address_details" type="string"/>
             <column name="date_of_birth" type="date"/>
             <column name="other_info" type="string"/>
+            <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>
             <column name="created_by" type="string"/>

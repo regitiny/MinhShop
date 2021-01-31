@@ -5,6 +5,7 @@ export interface IPayment {
   id?: number;
   uuid?: string;
   status?: string | null;
+  role?: string;
   createdDate?: string;
   modifiedDate?: string;
   createdBy?: string;

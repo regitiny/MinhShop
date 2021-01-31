@@ -14,6 +14,7 @@ export default class BillUpdatePage {
   addressDetailsInput: ElementFinder = element(by.css('input#bill-addressDetails'));
   addressCodeInput: ElementFinder = element(by.css('input#bill-addressCode'));
   commentInput: ElementFinder = element(by.css('input#bill-comment'));
+  roleInput: ElementFinder = element(by.css('input#bill-role'));
   createdDateInput: ElementFinder = element(by.css('input#bill-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#bill-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#bill-createdBy'));
@@ -78,6 +79,14 @@ export default class BillUpdatePage {
 
   async getCommentInput() {
     return this.commentInput.getAttribute('value');
+  }
+
+  async setRoleInput(role) {
+    await this.roleInput.sendKeys(role);
+  }
+
+  async getRoleInput() {
+    return this.roleInput.getAttribute('value');
   }
 
   async setCreatedDateInput(createdDate) {
@@ -162,6 +171,9 @@ export default class BillUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setCommentInput('comment');
     expect(await this.getCommentInput()).to.match(/comment/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setRoleInput('role');
+    expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
     await this.setCreatedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
     expect(await this.getCreatedDateInput()).to.contain('2001-01-01T02:30');

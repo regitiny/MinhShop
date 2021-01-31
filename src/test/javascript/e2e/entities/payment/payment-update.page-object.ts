@@ -9,6 +9,7 @@ export default class PaymentUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#payment-uuid'));
   statusInput: ElementFinder = element(by.css('input#payment-status'));
+  roleInput: ElementFinder = element(by.css('input#payment-role'));
   createdDateInput: ElementFinder = element(by.css('input#payment-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#payment-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#payment-createdBy'));
@@ -33,6 +34,14 @@ export default class PaymentUpdatePage {
 
   async getStatusInput() {
     return this.statusInput.getAttribute('value');
+  }
+
+  async setRoleInput(role) {
+    await this.roleInput.sendKeys(role);
+  }
+
+  async getRoleInput() {
+    return this.roleInput.getAttribute('value');
   }
 
   async setCreatedDateInput(createdDate) {
@@ -102,6 +111,9 @@ export default class PaymentUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setStatusInput('status');
     expect(await this.getStatusInput()).to.match(/status/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setRoleInput('role');
+    expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
     await this.setCreatedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
     expect(await this.getCreatedDateInput()).to.contain('2001-01-01T02:30');

@@ -42,6 +42,13 @@ public class Payment implements Serializable {
     private String status;
 
     /**
+     * role
+     */
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -112,6 +119,19 @@ public class Payment implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public Payment role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -205,6 +225,7 @@ public class Payment implements Serializable {
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
             ", status='" + getStatus() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

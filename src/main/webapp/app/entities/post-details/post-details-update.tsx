@@ -99,14 +99,14 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
-                <Label id="publicIdLabel" for="post-details-publicId">
-                  <Translate contentKey="minhShopApp.postDetails.publicId">Public Id</Translate>
+                <Label id="postDetailsIdLabel" for="post-details-postDetailsId">
+                  <Translate contentKey="minhShopApp.postDetails.postDetailsId">Post Details Id</Translate>
                 </Label>
                 <AvField
-                  id="post-details-publicId"
-                  data-cy="publicId"
+                  id="post-details-postDetailsId"
+                  data-cy="postDetailsId"
                   type="text"
-                  name="publicId"
+                  name="postDetailsId"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
                     minLength: { value: 3, errorMessage: translate('entity.validation.minlength', { min: 3 }) },
@@ -114,8 +114,8 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                     pattern: { value: '[A-z]+[0-9]+', errorMessage: translate('entity.validation.pattern', { pattern: '[A-z]+[0-9]+' }) },
                   }}
                 />
-                <UncontrolledTooltip target="publicIdLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.publicId" />
+                <UncontrolledTooltip target="postDetailsIdLabel">
+                  <Translate contentKey="minhShopApp.postDetails.help.postDetailsId" />
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -133,6 +133,23 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                 />
                 <UncontrolledTooltip target="contentLabel">
                   <Translate contentKey="minhShopApp.postDetails.help.content" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="roleLabel" for="post-details-role">
+                  <Translate contentKey="minhShopApp.postDetails.role">Role</Translate>
+                </Label>
+                <AvField
+                  id="post-details-role"
+                  data-cy="role"
+                  type="text"
+                  name="role"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                  }}
+                />
+                <UncontrolledTooltip target="roleLabel">
+                  <Translate contentKey="minhShopApp.postDetails.help.role" />
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>

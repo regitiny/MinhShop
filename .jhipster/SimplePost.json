@@ -110,7 +110,7 @@
       "otherEntityRelationshipName": "simplePost",
       "relationshipValidateRules": "required",
       "relationshipName": "postDetails",
-      "otherEntityField": "publicId",
+      "otherEntityField": "postDetailsId",
       "ownerSide": true,
       "useJPADerivedIdentifier": true
     },

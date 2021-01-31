@@ -45,6 +45,13 @@ public class TypePostFilter implements Serializable {
     private String typeFilterName;
 
     /**
+     * role
+     */
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -115,6 +122,19 @@ public class TypePostFilter implements Serializable {
 
     public void setTypeFilterName(String typeFilterName) {
         this.typeFilterName = typeFilterName;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public TypePostFilter role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -226,6 +246,7 @@ public class TypePostFilter implements Serializable {
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
             ", typeFilterName='" + getTypeFilterName() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

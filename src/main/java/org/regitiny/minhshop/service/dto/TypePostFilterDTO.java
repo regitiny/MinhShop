@@ -31,6 +31,13 @@ public class TypePostFilterDTO implements Serializable {
     private String typeFilterName;
 
     /**
+     * role
+     */
+    @NotNull
+    @ApiModelProperty(value = "role", required = true)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -80,6 +87,14 @@ public class TypePostFilterDTO implements Serializable {
 
     public void setTypeFilterName(String typeFilterName) {
         this.typeFilterName = typeFilterName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -142,6 +157,7 @@ public class TypePostFilterDTO implements Serializable {
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
             ", typeFilterName='" + getTypeFilterName() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

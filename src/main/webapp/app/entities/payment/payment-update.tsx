@@ -108,6 +108,23 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="roleLabel" for="payment-role">
+                  <Translate contentKey="minhShopApp.payment.role">Role</Translate>
+                </Label>
+                <AvField
+                  id="payment-role"
+                  data-cy="role"
+                  type="text"
+                  name="role"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                  }}
+                />
+                <UncontrolledTooltip target="roleLabel">
+                  <Translate contentKey="minhShopApp.payment.help.role" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="createdDateLabel" for="payment-createdDate">
                   <Translate contentKey="minhShopApp.payment.createdDate">Created Date</Translate>
                 </Label>

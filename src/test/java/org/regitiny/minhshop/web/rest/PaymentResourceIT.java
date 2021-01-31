@@ -48,6 +48,9 @@ class PaymentResourceIT {
     private static final String DEFAULT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ROLE = "AAAAAAAAAA";
+    private static final String UPDATED_ROLE = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -92,6 +95,7 @@ class PaymentResourceIT {
         Payment payment = new Payment()
             .uuid(DEFAULT_UUID)
             .status(DEFAULT_STATUS)
+            .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
@@ -109,6 +113,7 @@ class PaymentResourceIT {
         Payment payment = new Payment()
             .uuid(UPDATED_UUID)
             .status(UPDATED_STATUS)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -137,6 +142,7 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testPayment.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
@@ -174,6 +180,24 @@ class PaymentResourceIT {
         int databaseSizeBeforeTest = paymentRepository.findAll().size();
         // set the field null
         payment.setUuid(null);
+
+        // Create the Payment, which fails.
+        PaymentDTO paymentDTO = paymentMapper.toDto(payment);
+
+        restPaymentMockMvc
+            .perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(paymentDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Payment> paymentList = paymentRepository.findAll();
+        assertThat(paymentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = paymentRepository.findAll().size();
+        // set the field null
+        payment.setRole(null);
 
         // Create the Payment, which fails.
         PaymentDTO paymentDTO = paymentMapper.toDto(payment);
@@ -272,6 +296,7 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
@@ -292,6 +317,7 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.id").value(payment.getId().intValue()))
             .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
@@ -320,6 +346,7 @@ class PaymentResourceIT {
         updatedPayment
             .uuid(UPDATED_UUID)
             .status(UPDATED_STATUS)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -336,6 +363,7 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testPayment.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -378,7 +406,7 @@ class PaymentResourceIT {
         Payment partialUpdatedPayment = new Payment();
         partialUpdatedPayment.setId(payment.getId());
 
-        partialUpdatedPayment.createdDate(UPDATED_CREATED_DATE).modifiedDate(UPDATED_MODIFIED_DATE);
+        partialUpdatedPayment.role(UPDATED_ROLE).createdDate(UPDATED_CREATED_DATE).modifiedBy(UPDATED_MODIFIED_BY);
 
         restPaymentMockMvc
             .perform(
@@ -394,10 +422,11 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testPayment.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
-        assertThat(testPayment.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
+        assertThat(testPayment.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testPayment.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testPayment.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
     }
 
     @Test
@@ -415,6 +444,7 @@ class PaymentResourceIT {
         partialUpdatedPayment
             .uuid(UPDATED_UUID)
             .status(UPDATED_STATUS)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -434,6 +464,7 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testPayment.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -493,6 +524,7 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))

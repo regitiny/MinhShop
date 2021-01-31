@@ -9,6 +9,7 @@ export default class TypePostFilterUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#type-post-filter-uuid'));
   typeFilterNameInput: ElementFinder = element(by.css('input#type-post-filter-typeFilterName'));
+  roleInput: ElementFinder = element(by.css('input#type-post-filter-role'));
   createdDateInput: ElementFinder = element(by.css('input#type-post-filter-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#type-post-filter-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#type-post-filter-createdBy'));
@@ -32,6 +33,14 @@ export default class TypePostFilterUpdatePage {
 
   async getTypeFilterNameInput() {
     return this.typeFilterNameInput.getAttribute('value');
+  }
+
+  async setRoleInput(role) {
+    await this.roleInput.sendKeys(role);
+  }
+
+  async getRoleInput() {
+    return this.roleInput.getAttribute('value');
   }
 
   async setCreatedDateInput(createdDate) {
@@ -85,6 +94,9 @@ export default class TypePostFilterUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setTypeFilterNameInput('typeFilterName');
     expect(await this.getTypeFilterNameInput()).to.match(/typeFilterName/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setRoleInput('role');
+    expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
     await this.setCreatedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
     expect(await this.getCreatedDateInput()).to.contain('2001-01-01T02:30');

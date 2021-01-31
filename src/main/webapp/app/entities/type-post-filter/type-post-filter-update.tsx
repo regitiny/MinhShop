@@ -116,6 +116,23 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="roleLabel" for="type-post-filter-role">
+                  <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate>
+                </Label>
+                <AvField
+                  id="type-post-filter-role"
+                  data-cy="role"
+                  type="text"
+                  name="role"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                  }}
+                />
+                <UncontrolledTooltip target="roleLabel">
+                  <Translate contentKey="minhShopApp.typePostFilter.help.role" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="createdDateLabel" for="type-post-filter-createdDate">
                   <Translate contentKey="minhShopApp.typePostFilter.createdDate">Created Date</Translate>
                 </Label>

@@ -103,16 +103,21 @@ describe('Bill e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('plum archive Gardens'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T11:28').invoke('val').should('equal', '2021-01-30T11:28');
+    cy.get(`[data-cy="role"]`).type('wireless', { force: true }).invoke('val').should('match', new RegExp('wireless'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T08:10').invoke('val').should('equal', '2021-01-30T08:10');
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T09:08').invoke('val').should('equal', '2021-01-30T09:08');
+
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-29T19:31').invoke('val').should('equal', '2021-01-29T19:31');
 
     cy.get(`[data-cy="createdBy"]`)
-      .type('Account Tennessee experiences', { force: true })
+      .type('calculating Chief', { force: true })
       .invoke('val')
-      .should('match', new RegExp('Account Tennessee experiences'));
+      .should('match', new RegExp('calculating Chief'));
 
-    cy.get(`[data-cy="modifiedBy"]`).type('Checking', { force: true }).invoke('val').should('match', new RegExp('Checking'));
+    cy.get(`[data-cy="modifiedBy"]`)
+      .type('Fantastic clear-thinking', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('Fantastic clear-thinking'));
 
     cy.setFieldSelectToLastOfEntity('userOtherInfo');
 

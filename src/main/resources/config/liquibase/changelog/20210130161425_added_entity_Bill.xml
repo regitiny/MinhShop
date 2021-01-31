@@ -35,6 +35,9 @@
             <column name="comment" type="varchar(2048)" remarks="comment">
                 <constraints nullable="true" />
             </column>
+            <column name="role" type="varchar(255)" remarks="role">
+                <constraints nullable="false" />
+            </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
                 <constraints nullable="false" />
             </column>
@@ -79,6 +82,7 @@
             <column name="address_details" type="string"/>
             <column name="address_code" type="string"/>
             <column name="comment" type="string"/>
+            <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>
             <column name="created_by" type="string"/>

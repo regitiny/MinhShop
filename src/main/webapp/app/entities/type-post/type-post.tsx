@@ -180,6 +180,9 @@ export const TypePost = (props: ITypePostProps) => {
                   <th className="hand" onClick={sort('typeName')}>
                     <Translate contentKey="minhShopApp.typePost.typeName">Type Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('role')}>
+                    <Translate contentKey="minhShopApp.typePost.role">Role</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.typePost.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -205,6 +208,7 @@ export const TypePost = (props: ITypePostProps) => {
                     </td>
                     <td>{typePost.uuid}</td>
                     <td>{typePost.typeName}</td>
+                    <td>{typePost.role}</td>
                     <td>
                       {typePost.createdDate ? <TextFormat type="date" value={typePost.createdDate} format={APP_DATE_FORMAT} /> : null}
                     </td>

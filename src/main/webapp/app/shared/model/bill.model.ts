@@ -11,6 +11,7 @@ export interface IBill {
   addressDetails?: string | null;
   addressCode?: string | null;
   comment?: string | null;
+  role?: string;
   createdDate?: string;
   modifiedDate?: string;
   createdBy?: string;

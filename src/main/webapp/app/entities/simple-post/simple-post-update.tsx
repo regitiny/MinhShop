@@ -374,7 +374,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   {postDetails
                     ? postDetails.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.publicId}
+                          {otherEntity.postDetailsId}
                         </option>
                       ))
                     : null}

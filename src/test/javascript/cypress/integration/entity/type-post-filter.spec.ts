@@ -95,16 +95,24 @@ describe('TypePostFilter e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('Delaware programming payment'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-29T21:05').invoke('val').should('equal', '2021-01-29T21:05');
+    cy.get(`[data-cy="role"]`)
+      .type('Function-based Tuna violet', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('Function-based Tuna violet'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T10:45').invoke('val').should('equal', '2021-01-30T10:45');
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T08:39').invoke('val').should('equal', '2021-01-30T08:39');
 
-    cy.get(`[data-cy="createdBy"]`).type('green', { force: true }).invoke('val').should('match', new RegExp('green'));
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T05:35').invoke('val').should('equal', '2021-01-30T05:35');
+
+    cy.get(`[data-cy="createdBy"]`)
+      .type('Plastic grow bricks-and-clicks', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('Plastic grow bricks-and-clicks'));
 
     cy.get(`[data-cy="modifiedBy"]`)
-      .type('violet hierarchy Plastic', { force: true })
+      .type('Computers Intelligent', { force: true })
       .invoke('val')
-      .should('match', new RegExp('violet hierarchy Plastic'));
+      .should('match', new RegExp('Computers Intelligent'));
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });

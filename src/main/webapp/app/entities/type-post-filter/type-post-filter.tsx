@@ -181,6 +181,9 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                     <Translate contentKey="minhShopApp.typePostFilter.typeFilterName">Type Filter Name</Translate>{' '}
                     <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('role')}>
+                    <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.typePostFilter.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -207,6 +210,7 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                     </td>
                     <td>{typePostFilter.uuid}</td>
                     <td>{typePostFilter.typeFilterName}</td>
+                    <td>{typePostFilter.role}</td>
                     <td>
                       {typePostFilter.createdDate ? (
                         <TextFormat type="date" value={typePostFilter.createdDate} format={APP_DATE_FORMAT} />

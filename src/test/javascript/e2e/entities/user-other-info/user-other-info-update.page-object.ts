@@ -16,6 +16,7 @@ export default class UserOtherInfoUpdatePage {
   addressDetailsInput: ElementFinder = element(by.css('input#user-other-info-addressDetails'));
   dateOfBirthInput: ElementFinder = element(by.css('input#user-other-info-dateOfBirth'));
   otherInfoInput: ElementFinder = element(by.css('input#user-other-info-otherInfo'));
+  roleInput: ElementFinder = element(by.css('input#user-other-info-role'));
   createdDateInput: ElementFinder = element(by.css('input#user-other-info-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#user-other-info-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#user-other-info-createdBy'));
@@ -96,6 +97,14 @@ export default class UserOtherInfoUpdatePage {
 
   async getOtherInfoInput() {
     return this.otherInfoInput.getAttribute('value');
+  }
+
+  async setRoleInput(role) {
+    await this.roleInput.sendKeys(role);
+  }
+
+  async getRoleInput() {
+    return this.roleInput.getAttribute('value');
   }
 
   async setCreatedDateInput(createdDate) {
@@ -186,6 +195,9 @@ export default class UserOtherInfoUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setOtherInfoInput('otherInfo');
     expect(await this.getOtherInfoInput()).to.match(/otherInfo/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setRoleInput('role');
+    expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
     await this.setCreatedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
     expect(await this.getCreatedDateInput()).to.contain('2001-01-01T02:30');

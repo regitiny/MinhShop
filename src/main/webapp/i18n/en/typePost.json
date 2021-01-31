@@ -21,6 +21,7 @@
       "id": "ID",
       "uuid": "Uuid",
       "typeName": "Type Name",
+      "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
       "createdBy": "Created By",
@@ -28,6 +29,7 @@
       "help": {
         "uuid": "uuid",
         "typeName": "typeName",
+        "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",

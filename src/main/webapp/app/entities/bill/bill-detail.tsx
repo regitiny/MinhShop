@@ -88,6 +88,15 @@ export const BillDetail = (props: IBillDetailProps) => {
           </dt>
           <dd>{billEntity.comment}</dd>
           <dt>
+            <span id="role">
+              <Translate contentKey="minhShopApp.bill.role">Role</Translate>
+            </span>
+            <UncontrolledTooltip target="role">
+              <Translate contentKey="minhShopApp.bill.help.role" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{billEntity.role}</dd>
+          <dt>
             <span id="createdDate">
               <Translate contentKey="minhShopApp.bill.createdDate">Created Date</Translate>
             </span>

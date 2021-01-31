@@ -90,27 +90,29 @@ describe('PostDetails e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('44672049-bcac-4200-a342-3d663a5d12c1'));
 
-    cy.get(`[data-cy="publicId"]`).type('xsE]YS77', { force: true }).invoke('val').should('match', new RegExp('xsE]YS77'));
+    cy.get(`[data-cy="postDetailsId"]`).type('xsE]YS77', { force: true }).invoke('val').should('match', new RegExp('xsE]YS77'));
 
     cy.get(`[data-cy="content"]`).type('Brand', { force: true }).invoke('val').should('match', new RegExp('Brand'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T13:09').invoke('val').should('equal', '2021-01-30T13:09');
+    cy.get(`[data-cy="role"]`).type('Specialist', { force: true }).invoke('val').should('match', new RegExp('Specialist'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-29T16:59').invoke('val').should('equal', '2021-01-29T16:59');
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-29T22:51').invoke('val').should('equal', '2021-01-29T22:51');
 
-    cy.get(`[data-cy="createdBy"]`).type('Credit', { force: true }).invoke('val').should('match', new RegExp('Credit'));
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T09:45').invoke('val').should('equal', '2021-01-30T09:45');
 
-    cy.get(`[data-cy="modifiedBy"]`)
+    cy.get(`[data-cy="createdBy"]`)
       .type('Hà bluetooth target', { force: true })
       .invoke('val')
       .should('match', new RegExp('Hà bluetooth target'));
 
-    cy.get(`[data-cy="dataSize"]`).type('12733').should('have.value', '12733');
+    cy.get(`[data-cy="modifiedBy"]`).type('bypassing', { force: true }).invoke('val').should('match', new RegExp('bypassing'));
+
+    cy.get(`[data-cy="dataSize"]`).type('77465').should('have.value', '77465');
 
     cy.get(`[data-cy="comment"]`)
-      .type('Rubber Cambridgeshire bypass', { force: true })
+      .type('Implementation Small', { force: true })
       .invoke('val')
-      .should('match', new RegExp('Rubber Cambridgeshire bypass'));
+      .should('match', new RegExp('Implementation Small'));
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });

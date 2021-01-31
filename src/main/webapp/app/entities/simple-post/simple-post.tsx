@@ -261,7 +261,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                     <td>{simplePost.comment}</td>
                     <td>
                       {simplePost.postDetails ? (
-                        <Link to={`post-details/${simplePost.postDetails.id}`}>{simplePost.postDetails.publicId}</Link>
+                        <Link to={`post-details/${simplePost.postDetails.id}`}>{simplePost.postDetails.postDetailsId}</Link>
                       ) : (
                         ''
                       )}

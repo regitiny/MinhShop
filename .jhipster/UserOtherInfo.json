@@ -52,6 +52,12 @@
       "javadoc": "otherInfo"
     },
     {
+      "fieldName": "role",
+      "fieldType": "String",
+      "javadoc": "role",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "createdDate",
       "fieldType": "Instant",
       "javadoc": "createdDate",
@@ -80,7 +86,7 @@
     {
       "relationshipType": "one-to-one",
       "otherEntityName": "user",
-      "otherEntityRelationshipName": "userOtherInfo",
+      "otherEntityRelationshipName": "otherInfo",
       "relationshipName": "userName",
       "otherEntityField": "login",
       "ownerSide": true

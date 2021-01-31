@@ -9,9 +9,9 @@ import org.regitiny.minhshop.service.dto.PostDetailsDTO;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface PostDetailsMapper extends EntityMapper<PostDetailsDTO, PostDetails> {
-    @Named("publicId")
+    @Named("postDetailsId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "publicId", source = "publicId")
-    PostDetailsDTO toDtoPublicId(PostDetails postDetails);
+    @Mapping(target = "postDetailsId", source = "postDetailsId")
+    PostDetailsDTO toDtoPostDetailsId(PostDetails postDetails);
 }

@@ -95,16 +95,18 @@ describe('TypePost e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('web-enabled Burundi'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T04:53').invoke('val').should('equal', '2021-01-30T04:53');
+    cy.get(`[data-cy="role"]`).type('Towels copying', { force: true }).invoke('val').should('match', new RegExp('Towels copying'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T15:04').invoke('val').should('equal', '2021-01-30T15:04');
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T01:47').invoke('val').should('equal', '2021-01-30T01:47');
 
-    cy.get(`[data-cy="createdBy"]`).type('Rupee', { force: true }).invoke('val').should('match', new RegExp('Rupee'));
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T10:12').invoke('val').should('equal', '2021-01-30T10:12');
 
-    cy.get(`[data-cy="modifiedBy"]`)
-      .type('magnetic Versatile Coves', { force: true })
+    cy.get(`[data-cy="createdBy"]`)
+      .type('indexing blue ivory', { force: true })
       .invoke('val')
-      .should('match', new RegExp('magnetic Versatile Coves'));
+      .should('match', new RegExp('indexing blue ivory'));
+
+    cy.get(`[data-cy="modifiedBy"]`).type('Markets Tasty', { force: true }).invoke('val').should('match', new RegExp('Markets Tasty'));
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });

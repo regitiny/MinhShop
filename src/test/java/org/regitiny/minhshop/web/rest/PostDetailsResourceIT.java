@@ -45,11 +45,14 @@ class PostDetailsResourceIT {
     private static final UUID DEFAULT_UUID = UUID.randomUUID();
     private static final UUID UPDATED_UUID = UUID.randomUUID();
 
-    private static final String DEFAULT_PUBLIC_ID = "yaVttR4";
-    private static final String UPDATED_PUBLIC_ID = "Chb`2";
+    private static final String DEFAULT_POST_DETAILS_ID = "yaVttR4";
+    private static final String UPDATED_POST_DETAILS_ID = "Chb`2";
 
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ROLE = "AAAAAAAAAA";
+    private static final String UPDATED_ROLE = "BBBBBBBBBB";
 
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -100,8 +103,9 @@ class PostDetailsResourceIT {
     public static PostDetails createEntity(EntityManager em) {
         PostDetails postDetails = new PostDetails()
             .uuid(DEFAULT_UUID)
-            .publicId(DEFAULT_PUBLIC_ID)
+            .postDetailsId(DEFAULT_POST_DETAILS_ID)
             .content(DEFAULT_CONTENT)
+            .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
@@ -120,8 +124,9 @@ class PostDetailsResourceIT {
     public static PostDetails createUpdatedEntity(EntityManager em) {
         PostDetails postDetails = new PostDetails()
             .uuid(UPDATED_UUID)
-            .publicId(UPDATED_PUBLIC_ID)
+            .postDetailsId(UPDATED_POST_DETAILS_ID)
             .content(UPDATED_CONTENT)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -153,8 +158,9 @@ class PostDetailsResourceIT {
         assertThat(postDetailsList).hasSize(databaseSizeBeforeCreate + 1);
         PostDetails testPostDetails = postDetailsList.get(postDetailsList.size() - 1);
         assertThat(testPostDetails.getUuid()).isEqualTo(DEFAULT_UUID);
-        assertThat(testPostDetails.getPublicId()).isEqualTo(DEFAULT_PUBLIC_ID);
+        assertThat(testPostDetails.getPostDetailsId()).isEqualTo(DEFAULT_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testPostDetails.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testPostDetails.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
@@ -212,10 +218,10 @@ class PostDetailsResourceIT {
 
     @Test
     @Transactional
-    void checkPublicIdIsRequired() throws Exception {
+    void checkPostDetailsIdIsRequired() throws Exception {
         int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
         // set the field null
-        postDetails.setPublicId(null);
+        postDetails.setPostDetailsId(null);
 
         // Create the PostDetails, which fails.
         PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
@@ -236,6 +242,26 @@ class PostDetailsResourceIT {
         int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
         // set the field null
         postDetails.setContent(null);
+
+        // Create the PostDetails, which fails.
+        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
+
+        restPostDetailsMockMvc
+            .perform(
+                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
+        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
+        // set the field null
+        postDetails.setRole(null);
 
         // Create the PostDetails, which fails.
         PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
@@ -343,8 +369,9 @@ class PostDetailsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(postDetails.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
-            .andExpect(jsonPath("$.[*].publicId").value(hasItem(DEFAULT_PUBLIC_ID)))
+            .andExpect(jsonPath("$.[*].postDetailsId").value(hasItem(DEFAULT_POST_DETAILS_ID)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
@@ -366,8 +393,9 @@ class PostDetailsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(postDetails.getId().intValue()))
             .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
-            .andExpect(jsonPath("$.publicId").value(DEFAULT_PUBLIC_ID))
+            .andExpect(jsonPath("$.postDetailsId").value(DEFAULT_POST_DETAILS_ID))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
@@ -397,8 +425,9 @@ class PostDetailsResourceIT {
         em.detach(updatedPostDetails);
         updatedPostDetails
             .uuid(UPDATED_UUID)
-            .publicId(UPDATED_PUBLIC_ID)
+            .postDetailsId(UPDATED_POST_DETAILS_ID)
             .content(UPDATED_CONTENT)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -418,8 +447,9 @@ class PostDetailsResourceIT {
         assertThat(postDetailsList).hasSize(databaseSizeBeforeUpdate);
         PostDetails testPostDetails = postDetailsList.get(postDetailsList.size() - 1);
         assertThat(testPostDetails.getUuid()).isEqualTo(UPDATED_UUID);
-        assertThat(testPostDetails.getPublicId()).isEqualTo(UPDATED_PUBLIC_ID);
+        assertThat(testPostDetails.getPostDetailsId()).isEqualTo(UPDATED_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testPostDetails.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPostDetails.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -468,6 +498,7 @@ class PostDetailsResourceIT {
 
         partialUpdatedPostDetails
             .content(UPDATED_CONTENT)
+            .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
             .comment(UPDATED_COMMENT);
@@ -485,11 +516,12 @@ class PostDetailsResourceIT {
         assertThat(postDetailsList).hasSize(databaseSizeBeforeUpdate);
         PostDetails testPostDetails = postDetailsList.get(postDetailsList.size() - 1);
         assertThat(testPostDetails.getUuid()).isEqualTo(DEFAULT_UUID);
-        assertThat(testPostDetails.getPublicId()).isEqualTo(DEFAULT_PUBLIC_ID);
+        assertThat(testPostDetails.getPostDetailsId()).isEqualTo(DEFAULT_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testPostDetails.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
-        assertThat(testPostDetails.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testPostDetails.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testPostDetails.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testPostDetails.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
         assertThat(testPostDetails.getComment()).isEqualTo(UPDATED_COMMENT);
@@ -509,8 +541,9 @@ class PostDetailsResourceIT {
 
         partialUpdatedPostDetails
             .uuid(UPDATED_UUID)
-            .publicId(UPDATED_PUBLIC_ID)
+            .postDetailsId(UPDATED_POST_DETAILS_ID)
             .content(UPDATED_CONTENT)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -531,8 +564,9 @@ class PostDetailsResourceIT {
         assertThat(postDetailsList).hasSize(databaseSizeBeforeUpdate);
         PostDetails testPostDetails = postDetailsList.get(postDetailsList.size() - 1);
         assertThat(testPostDetails.getUuid()).isEqualTo(UPDATED_UUID);
-        assertThat(testPostDetails.getPublicId()).isEqualTo(UPDATED_PUBLIC_ID);
+        assertThat(testPostDetails.getPostDetailsId()).isEqualTo(UPDATED_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testPostDetails.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPostDetails.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -593,8 +627,9 @@ class PostDetailsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(postDetails.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
-            .andExpect(jsonPath("$.[*].publicId").value(hasItem(DEFAULT_PUBLIC_ID)))
+            .andExpect(jsonPath("$.[*].postDetailsId").value(hasItem(DEFAULT_POST_DETAILS_ID)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))

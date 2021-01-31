@@ -177,11 +177,15 @@ export const PostDetails = (props: IPostDetailsProps) => {
                   <th className="hand" onClick={sort('uuid')}>
                     <Translate contentKey="minhShopApp.postDetails.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('publicId')}>
-                    <Translate contentKey="minhShopApp.postDetails.publicId">Public Id</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={sort('postDetailsId')}>
+                    <Translate contentKey="minhShopApp.postDetails.postDetailsId">Post Details Id</Translate>{' '}
+                    <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('content')}>
                     <Translate contentKey="minhShopApp.postDetails.content">Content</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('role')}>
+                    <Translate contentKey="minhShopApp.postDetails.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.postDetails.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
@@ -213,8 +217,9 @@ export const PostDetails = (props: IPostDetailsProps) => {
                       </Button>
                     </td>
                     <td>{postDetails.uuid}</td>
-                    <td>{postDetails.publicId}</td>
+                    <td>{postDetails.postDetailsId}</td>
                     <td>{postDetails.content}</td>
+                    <td>{postDetails.role}</td>
                     <td>
                       {postDetails.createdDate ? <TextFormat type="date" value={postDetails.createdDate} format={APP_DATE_FORMAT} /> : null}
                     </td>

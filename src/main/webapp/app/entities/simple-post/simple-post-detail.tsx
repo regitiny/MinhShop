@@ -177,7 +177,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
           <dt>
             <Translate contentKey="minhShopApp.simplePost.postDetails">Post Details</Translate>
           </dt>
-          <dd>{simplePostEntity.postDetails ? simplePostEntity.postDetails.publicId : ''}</dd>
+          <dd>{simplePostEntity.postDetails ? simplePostEntity.postDetails.postDetailsId : ''}</dd>
           <dt>
             <Translate contentKey="minhShopApp.simplePost.typePost">Type Post</Translate>
           </dt>

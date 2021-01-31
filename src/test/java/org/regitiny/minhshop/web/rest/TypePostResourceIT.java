@@ -48,6 +48,9 @@ class TypePostResourceIT {
     private static final String DEFAULT_TYPE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_TYPE_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ROLE = "AAAAAAAAAA";
+    private static final String UPDATED_ROLE = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -92,6 +95,7 @@ class TypePostResourceIT {
         TypePost typePost = new TypePost()
             .uuid(DEFAULT_UUID)
             .typeName(DEFAULT_TYPE_NAME)
+            .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
@@ -109,6 +113,7 @@ class TypePostResourceIT {
         TypePost typePost = new TypePost()
             .uuid(UPDATED_UUID)
             .typeName(UPDATED_TYPE_NAME)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -139,6 +144,7 @@ class TypePostResourceIT {
         TypePost testTypePost = typePostList.get(typePostList.size() - 1);
         assertThat(testTypePost.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testTypePost.getTypeName()).isEqualTo(DEFAULT_TYPE_NAME);
+        assertThat(testTypePost.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testTypePost.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testTypePost.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testTypePost.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
@@ -198,6 +204,26 @@ class TypePostResourceIT {
         int databaseSizeBeforeTest = typePostRepository.findAll().size();
         // set the field null
         typePost.setTypeName(null);
+
+        // Create the TypePost, which fails.
+        TypePostDTO typePostDTO = typePostMapper.toDto(typePost);
+
+        restTypePostMockMvc
+            .perform(
+                post("/api/type-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(typePostDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<TypePost> typePostList = typePostRepository.findAll();
+        assertThat(typePostList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = typePostRepository.findAll().size();
+        // set the field null
+        typePost.setRole(null);
 
         // Create the TypePost, which fails.
         TypePostDTO typePostDTO = typePostMapper.toDto(typePost);
@@ -306,6 +332,7 @@ class TypePostResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(typePost.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].typeName").value(hasItem(DEFAULT_TYPE_NAME)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
@@ -326,6 +353,7 @@ class TypePostResourceIT {
             .andExpect(jsonPath("$.id").value(typePost.getId().intValue()))
             .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
             .andExpect(jsonPath("$.typeName").value(DEFAULT_TYPE_NAME))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
@@ -354,6 +382,7 @@ class TypePostResourceIT {
         updatedTypePost
             .uuid(UPDATED_UUID)
             .typeName(UPDATED_TYPE_NAME)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -370,6 +399,7 @@ class TypePostResourceIT {
         TypePost testTypePost = typePostList.get(typePostList.size() - 1);
         assertThat(testTypePost.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testTypePost.getTypeName()).isEqualTo(UPDATED_TYPE_NAME);
+        assertThat(testTypePost.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testTypePost.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testTypePost.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testTypePost.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -412,7 +442,7 @@ class TypePostResourceIT {
         TypePost partialUpdatedTypePost = new TypePost();
         partialUpdatedTypePost.setId(typePost.getId());
 
-        partialUpdatedTypePost.uuid(UPDATED_UUID).typeName(UPDATED_TYPE_NAME).modifiedDate(UPDATED_MODIFIED_DATE);
+        partialUpdatedTypePost.uuid(UPDATED_UUID).typeName(UPDATED_TYPE_NAME).createdDate(UPDATED_CREATED_DATE);
 
         restTypePostMockMvc
             .perform(
@@ -428,8 +458,9 @@ class TypePostResourceIT {
         TypePost testTypePost = typePostList.get(typePostList.size() - 1);
         assertThat(testTypePost.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testTypePost.getTypeName()).isEqualTo(UPDATED_TYPE_NAME);
-        assertThat(testTypePost.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
-        assertThat(testTypePost.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
+        assertThat(testTypePost.getRole()).isEqualTo(DEFAULT_ROLE);
+        assertThat(testTypePost.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testTypePost.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testTypePost.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testTypePost.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
     }
@@ -449,6 +480,7 @@ class TypePostResourceIT {
         partialUpdatedTypePost
             .uuid(UPDATED_UUID)
             .typeName(UPDATED_TYPE_NAME)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -468,6 +500,7 @@ class TypePostResourceIT {
         TypePost testTypePost = typePostList.get(typePostList.size() - 1);
         assertThat(testTypePost.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testTypePost.getTypeName()).isEqualTo(UPDATED_TYPE_NAME);
+        assertThat(testTypePost.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testTypePost.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testTypePost.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testTypePost.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -527,6 +560,7 @@ class TypePostResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(typePost.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].typeName").value(hasItem(DEFAULT_TYPE_NAME)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))

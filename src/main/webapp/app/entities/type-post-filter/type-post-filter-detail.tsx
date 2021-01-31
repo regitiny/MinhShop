@@ -44,6 +44,15 @@ export const TypePostFilterDetail = (props: ITypePostFilterDetailProps) => {
           </dt>
           <dd>{typePostFilterEntity.typeFilterName}</dd>
           <dt>
+            <span id="role">
+              <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate>
+            </span>
+            <UncontrolledTooltip target="role">
+              <Translate contentKey="minhShopApp.typePostFilter.help.role" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostFilterEntity.role}</dd>
+          <dt>
             <span id="createdDate">
               <Translate contentKey="minhShopApp.typePostFilter.createdDate">Created Date</Translate>
             </span>

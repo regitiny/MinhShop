@@ -107,16 +107,21 @@ describe('UserOtherInfo e2e test', () => {
 
     cy.get(`[data-cy="otherInfo"]`).type('back-end', { force: true }).invoke('val').should('match', new RegExp('back-end'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T07:51').invoke('val').should('equal', '2021-01-30T07:51');
+    cy.get(`[data-cy="role"]`).type('payment middleware', { force: true }).invoke('val').should('match', new RegExp('payment middleware'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T00:41').invoke('val').should('equal', '2021-01-30T00:41');
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T10:16').invoke('val').should('equal', '2021-01-30T10:16');
 
-    cy.get(`[data-cy="createdBy"]`).type('Market compress', { force: true }).invoke('val').should('match', new RegExp('Market compress'));
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T13:37').invoke('val').should('equal', '2021-01-30T13:37');
 
-    cy.get(`[data-cy="modifiedBy"]`)
+    cy.get(`[data-cy="createdBy"]`)
       .type('reserved Cheese Keyboard', { force: true })
       .invoke('val')
       .should('match', new RegExp('reserved Cheese Keyboard'));
+
+    cy.get(`[data-cy="modifiedBy"]`)
+      .type('Underpass Awesome De-engineered', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('Underpass Awesome De-engineered'));
 
     cy.setFieldSelectToLastOfEntity('userName');
 

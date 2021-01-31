@@ -12,6 +12,7 @@ export interface IUserOtherInfo {
   addressDetails?: string | null;
   dateOfBirth?: string | null;
   otherInfo?: string | null;
+  role?: string;
   createdDate?: string;
   modifiedDate?: string;
   createdBy?: string;

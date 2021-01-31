@@ -185,6 +185,23 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="roleLabel" for="bill-role">
+                  <Translate contentKey="minhShopApp.bill.role">Role</Translate>
+                </Label>
+                <AvField
+                  id="bill-role"
+                  data-cy="role"
+                  type="text"
+                  name="role"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                  }}
+                />
+                <UncontrolledTooltip target="roleLabel">
+                  <Translate contentKey="minhShopApp.bill.help.role" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="createdDateLabel" for="bill-createdDate">
                   <Translate contentKey="minhShopApp.bill.createdDate">Created Date</Translate>
                 </Label>

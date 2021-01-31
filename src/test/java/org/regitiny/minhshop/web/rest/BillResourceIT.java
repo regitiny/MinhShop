@@ -63,6 +63,9 @@ class BillResourceIT {
     private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
     private static final String UPDATED_COMMENT = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ROLE = "AAAAAAAAAA";
+    private static final String UPDATED_ROLE = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -112,6 +115,7 @@ class BillResourceIT {
             .addressDetails(DEFAULT_ADDRESS_DETAILS)
             .addressCode(DEFAULT_ADDRESS_CODE)
             .comment(DEFAULT_COMMENT)
+            .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
@@ -134,6 +138,7 @@ class BillResourceIT {
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
             .comment(UPDATED_COMMENT)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -167,6 +172,7 @@ class BillResourceIT {
         assertThat(testBill.getAddressDetails()).isEqualTo(DEFAULT_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(DEFAULT_ADDRESS_CODE);
         assertThat(testBill.getComment()).isEqualTo(DEFAULT_COMMENT);
+        assertThat(testBill.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
@@ -240,6 +246,24 @@ class BillResourceIT {
         int databaseSizeBeforeTest = billRepository.findAll().size();
         // set the field null
         bill.setPhoneNumber(null);
+
+        // Create the Bill, which fails.
+        BillDTO billDTO = billMapper.toDto(bill);
+
+        restBillMockMvc
+            .perform(post("/api/bills").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(billDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Bill> billList = billRepository.findAll();
+        assertThat(billList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = billRepository.findAll().size();
+        // set the field null
+        bill.setRole(null);
 
         // Create the Bill, which fails.
         BillDTO billDTO = billMapper.toDto(bill);
@@ -343,6 +367,7 @@ class BillResourceIT {
             .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS)))
             .andExpect(jsonPath("$.[*].addressCode").value(hasItem(DEFAULT_ADDRESS_CODE)))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
@@ -368,6 +393,7 @@ class BillResourceIT {
             .andExpect(jsonPath("$.addressDetails").value(DEFAULT_ADDRESS_DETAILS))
             .andExpect(jsonPath("$.addressCode").value(DEFAULT_ADDRESS_CODE))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
@@ -401,6 +427,7 @@ class BillResourceIT {
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
             .comment(UPDATED_COMMENT)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -422,6 +449,7 @@ class BillResourceIT {
         assertThat(testBill.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(UPDATED_ADDRESS_CODE);
         assertThat(testBill.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testBill.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -468,7 +496,8 @@ class BillResourceIT {
             .billId(UPDATED_BILL_ID)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .addressDetails(UPDATED_ADDRESS_DETAILS)
-            .addressCode(UPDATED_ADDRESS_CODE);
+            .addressCode(UPDATED_ADDRESS_CODE)
+            .modifiedBy(UPDATED_MODIFIED_BY);
 
         restBillMockMvc
             .perform(
@@ -489,10 +518,11 @@ class BillResourceIT {
         assertThat(testBill.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(UPDATED_ADDRESS_CODE);
         assertThat(testBill.getComment()).isEqualTo(DEFAULT_COMMENT);
+        assertThat(testBill.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testBill.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testBill.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
     }
 
     @Test
@@ -515,6 +545,7 @@ class BillResourceIT {
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
             .comment(UPDATED_COMMENT)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -539,6 +570,7 @@ class BillResourceIT {
         assertThat(testBill.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(UPDATED_ADDRESS_CODE);
         assertThat(testBill.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testBill.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -603,6 +635,7 @@ class BillResourceIT {
             .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS)))
             .andExpect(jsonPath("$.[*].addressCode").value(hasItem(DEFAULT_ADDRESS_CODE)))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))

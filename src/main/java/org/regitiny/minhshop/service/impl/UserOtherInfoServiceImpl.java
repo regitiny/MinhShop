@@ -95,6 +95,10 @@ public class UserOtherInfoServiceImpl implements UserOtherInfoService {
                         existingUserOtherInfo.setOtherInfo(userOtherInfoDTO.getOtherInfo());
                     }
 
+                    if (userOtherInfoDTO.getRole() != null) {
+                        existingUserOtherInfo.setRole(userOtherInfoDTO.getRole());
+                    }
+
                     if (userOtherInfoDTO.getCreatedDate() != null) {
                         existingUserOtherInfo.setCreatedDate(userOtherInfoDTO.getCreatedDate());
                     }

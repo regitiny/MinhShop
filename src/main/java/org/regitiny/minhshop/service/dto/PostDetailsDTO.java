@@ -24,13 +24,13 @@ public class PostDetailsDTO implements Serializable {
     private UUID uuid;
 
     /**
-     * idShow
+     * postDetailsId
      */
     @NotNull
     @Size(min = 3, max = 16)
     @Pattern(regexp = "[A-z]+[0-9]+")
-    @ApiModelProperty(value = "idShow", required = true)
-    private String publicId;
+    @ApiModelProperty(value = "postDetailsId", required = true)
+    private String postDetailsId;
 
     /**
      * content
@@ -38,6 +38,13 @@ public class PostDetailsDTO implements Serializable {
     @NotNull
     @ApiModelProperty(value = "content", required = true)
     private String content;
+
+    /**
+     * role
+     */
+    @NotNull
+    @ApiModelProperty(value = "role", required = true)
+    private String role;
 
     /**
      * createdDate
@@ -96,12 +103,12 @@ public class PostDetailsDTO implements Serializable {
         this.uuid = uuid;
     }
 
-    public String getPublicId() {
-        return publicId;
+    public String getPostDetailsId() {
+        return postDetailsId;
     }
 
-    public void setPublicId(String publicId) {
-        this.publicId = publicId;
+    public void setPostDetailsId(String postDetailsId) {
+        this.postDetailsId = postDetailsId;
     }
 
     public String getContent() {
@@ -110,6 +117,14 @@ public class PostDetailsDTO implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -187,8 +202,9 @@ public class PostDetailsDTO implements Serializable {
         return "PostDetailsDTO{" +
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
-            ", publicId='" + getPublicId() + "'" +
+            ", postDetailsId='" + getPostDetailsId() + "'" +
             ", content='" + getContent() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

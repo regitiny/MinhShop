@@ -111,6 +111,15 @@ export const UserOtherInfoDetail = (props: IUserOtherInfoDetailProps) => {
           </dt>
           <dd>{userOtherInfoEntity.otherInfo}</dd>
           <dt>
+            <span id="role">
+              <Translate contentKey="minhShopApp.userOtherInfo.role">Role</Translate>
+            </span>
+            <UncontrolledTooltip target="role">
+              <Translate contentKey="minhShopApp.userOtherInfo.help.role" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{userOtherInfoEntity.role}</dd>
+          <dt>
             <span id="createdDate">
               <Translate contentKey="minhShopApp.userOtherInfo.createdDate">Created Date</Translate>
             </span>

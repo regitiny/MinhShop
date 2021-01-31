@@ -43,6 +43,15 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
           </dt>
           <dd>{paymentEntity.status}</dd>
           <dt>
+            <span id="role">
+              <Translate contentKey="minhShopApp.payment.role">Role</Translate>
+            </span>
+            <UncontrolledTooltip target="role">
+              <Translate contentKey="minhShopApp.payment.help.role" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{paymentEntity.role}</dd>
+          <dt>
             <span id="createdDate">
               <Translate contentKey="minhShopApp.payment.createdDate">Created Date</Translate>
             </span>

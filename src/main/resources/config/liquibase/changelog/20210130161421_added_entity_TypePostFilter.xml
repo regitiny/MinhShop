@@ -20,6 +20,9 @@
             <column name="type_filter_name" type="varchar(255)" remarks="typeFilterName">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_type_post_filter__type_filter_name" />
             </column>
+            <column name="role" type="varchar(255)" remarks="role">
+                <constraints nullable="false" />
+            </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
                 <constraints nullable="false" />
             </column>
@@ -56,6 +59,7 @@
             <column name="id" type="numeric"/>
             <column name="uuid" type="string"/>
             <column name="type_filter_name" type="string"/>
+            <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>
             <column name="created_by" type="string"/>

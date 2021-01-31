@@ -46,6 +46,12 @@
       "fieldValidateRulesMaxlength": "2048"
     },
     {
+      "fieldName": "role",
+      "fieldType": "String",
+      "javadoc": "role",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "createdDate",
       "fieldType": "Instant",
       "javadoc": "createdDate",

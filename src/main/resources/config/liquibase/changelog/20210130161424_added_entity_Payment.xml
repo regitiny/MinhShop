@@ -20,6 +20,9 @@
             <column name="status" type="varchar(255)" remarks="status">
                 <constraints nullable="true" />
             </column>
+            <column name="role" type="varchar(255)" remarks="role">
+                <constraints nullable="false" />
+            </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
                 <constraints nullable="false" />
             </column>
@@ -59,6 +62,7 @@
             <column name="id" type="numeric"/>
             <column name="uuid" type="string"/>
             <column name="status" type="string"/>
+            <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>
             <column name="created_by" type="string"/>

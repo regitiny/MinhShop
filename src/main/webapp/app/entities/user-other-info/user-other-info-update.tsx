@@ -181,6 +181,23 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="roleLabel" for="user-other-info-role">
+                  <Translate contentKey="minhShopApp.userOtherInfo.role">Role</Translate>
+                </Label>
+                <AvField
+                  id="user-other-info-role"
+                  data-cy="role"
+                  type="text"
+                  name="role"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                  }}
+                />
+                <UncontrolledTooltip target="roleLabel">
+                  <Translate contentKey="minhShopApp.userOtherInfo.help.role" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="createdDateLabel" for="user-other-info-createdDate">
                   <Translate contentKey="minhShopApp.userOtherInfo.createdDate">Created Date</Translate>
                 </Label>

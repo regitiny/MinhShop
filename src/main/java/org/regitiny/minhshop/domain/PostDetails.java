@@ -36,13 +36,13 @@ public class PostDetails implements Serializable {
     private UUID uuid;
 
     /**
-     * idShow
+     * postDetailsId
      */
     @NotNull
     @Size(min = 3, max = 16)
     @Pattern(regexp = "[A-z]+[0-9]+")
-    @Column(name = "public_id", length = 16, nullable = false, unique = true)
-    private String publicId;
+    @Column(name = "post_details_id", length = 16, nullable = false, unique = true)
+    private String postDetailsId;
 
     /**
      * content
@@ -50,6 +50,13 @@ public class PostDetails implements Serializable {
     @NotNull
     @Column(name = "content", nullable = false, unique = true)
     private String content;
+
+    /**
+     * role
+     */
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private String role;
 
     /**
      * createdDate
@@ -123,17 +130,17 @@ public class PostDetails implements Serializable {
         this.uuid = uuid;
     }
 
-    public String getPublicId() {
-        return this.publicId;
+    public String getPostDetailsId() {
+        return this.postDetailsId;
     }
 
-    public PostDetails publicId(String publicId) {
-        this.publicId = publicId;
+    public PostDetails postDetailsId(String postDetailsId) {
+        this.postDetailsId = postDetailsId;
         return this;
     }
 
-    public void setPublicId(String publicId) {
-        this.publicId = publicId;
+    public void setPostDetailsId(String postDetailsId) {
+        this.postDetailsId = postDetailsId;
     }
 
     public String getContent() {
@@ -147,6 +154,19 @@ public class PostDetails implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public PostDetails role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -271,8 +291,9 @@ public class PostDetails implements Serializable {
         return "PostDetails{" +
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
-            ", publicId='" + getPublicId() + "'" +
+            ", postDetailsId='" + getPostDetailsId() + "'" +
             ", content='" + getContent() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

@@ -67,6 +67,10 @@ public class TypePostFilterServiceImpl implements TypePostFilterService {
                         existingTypePostFilter.setTypeFilterName(typePostFilterDTO.getTypeFilterName());
                     }
 
+                    if (typePostFilterDTO.getRole() != null) {
+                        existingTypePostFilter.setRole(typePostFilterDTO.getRole());
+                    }
+
                     if (typePostFilterDTO.getCreatedDate() != null) {
                         existingTypePostFilter.setCreatedDate(typePostFilterDTO.getCreatedDate());
                     }

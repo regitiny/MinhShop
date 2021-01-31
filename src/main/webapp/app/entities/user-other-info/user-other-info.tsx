@@ -202,6 +202,9 @@ export const UserOtherInfo = (props: IUserOtherInfoProps) => {
                   <th className="hand" onClick={sort('otherInfo')}>
                     <Translate contentKey="minhShopApp.userOtherInfo.otherInfo">Other Info</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('role')}>
+                    <Translate contentKey="minhShopApp.userOtherInfo.role">Role</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.userOtherInfo.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -241,6 +244,7 @@ export const UserOtherInfo = (props: IUserOtherInfoProps) => {
                       ) : null}
                     </td>
                     <td>{userOtherInfo.otherInfo}</td>
+                    <td>{userOtherInfo.role}</td>
                     <td>
                       {userOtherInfo.createdDate ? (
                         <TextFormat type="date" value={userOtherInfo.createdDate} format={APP_DATE_FORMAT} />

@@ -8,8 +8,9 @@ export default class PostDetailsUpdatePage {
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#post-details-uuid'));
-  publicIdInput: ElementFinder = element(by.css('input#post-details-publicId'));
+  postDetailsIdInput: ElementFinder = element(by.css('input#post-details-postDetailsId'));
   contentInput: ElementFinder = element(by.css('input#post-details-content'));
+  roleInput: ElementFinder = element(by.css('input#post-details-role'));
   createdDateInput: ElementFinder = element(by.css('input#post-details-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#post-details-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#post-details-createdBy'));
@@ -29,12 +30,12 @@ export default class PostDetailsUpdatePage {
     return this.uuidInput.getAttribute('value');
   }
 
-  async setPublicIdInput(publicId) {
-    await this.publicIdInput.sendKeys(publicId);
+  async setPostDetailsIdInput(postDetailsId) {
+    await this.postDetailsIdInput.sendKeys(postDetailsId);
   }
 
-  async getPublicIdInput() {
-    return this.publicIdInput.getAttribute('value');
+  async getPostDetailsIdInput() {
+    return this.postDetailsIdInput.getAttribute('value');
   }
 
   async setContentInput(content) {
@@ -43,6 +44,14 @@ export default class PostDetailsUpdatePage {
 
   async getContentInput() {
     return this.contentInput.getAttribute('value');
+  }
+
+  async setRoleInput(role) {
+    await this.roleInput.sendKeys(role);
+  }
+
+  async getRoleInput() {
+    return this.roleInput.getAttribute('value');
   }
 
   async setCreatedDateInput(createdDate) {
@@ -110,11 +119,14 @@ export default class PostDetailsUpdatePage {
     await this.setUuidInput('64c99148-3908-465d-8c4a-e510e3ade974');
     expect(await this.getUuidInput()).to.match(/64c99148-3908-465d-8c4a-e510e3ade974/);
     await waitUntilDisplayed(this.saveButton);
-    await this.setPublicIdInput('yaVttR4');
-    expect(await this.getPublicIdInput()).to.match(/yaVttR4/);
+    await this.setPostDetailsIdInput('yaVttR4');
+    expect(await this.getPostDetailsIdInput()).to.match(/yaVttR4/);
     await waitUntilDisplayed(this.saveButton);
     await this.setContentInput('content');
     expect(await this.getContentInput()).to.match(/content/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setRoleInput('role');
+    expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
     await this.setCreatedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
     expect(await this.getCreatedDateInput()).to.contain('2001-01-01T02:30');

@@ -42,6 +42,13 @@ public class TypePost implements Serializable {
     private String typeName;
 
     /**
+     * role
+     */
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -107,6 +114,19 @@ public class TypePost implements Serializable {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public TypePost role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -187,6 +207,7 @@ public class TypePost implements Serializable {
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
             ", typeName='" + getTypeName() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

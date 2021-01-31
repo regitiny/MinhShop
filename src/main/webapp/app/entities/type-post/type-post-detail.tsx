@@ -43,6 +43,15 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
           </dt>
           <dd>{typePostEntity.typeName}</dd>
           <dt>
+            <span id="role">
+              <Translate contentKey="minhShopApp.typePost.role">Role</Translate>
+            </span>
+            <UncontrolledTooltip target="role">
+              <Translate contentKey="minhShopApp.typePost.help.role" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostEntity.role}</dd>
+          <dt>
             <span id="createdDate">
               <Translate contentKey="minhShopApp.typePost.createdDate">Created Date</Translate>
             </span>

@@ -17,11 +17,14 @@
             <column name="uuid" type="${uuidType}" remarks="uuid">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__uuid" />
             </column>
-            <column name="public_id" type="varchar(16)" remarks="idShow">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__public_id" />
+            <column name="post_details_id" type="varchar(16)" remarks="postDetailsId">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__post_details_id" />
             </column>
             <column name="content" type="varchar(255)" remarks="content">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__content" />
+            </column>
+            <column name="role" type="varchar(255)" remarks="role">
+                <constraints nullable="false" />
             </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
                 <constraints nullable="false" />
@@ -64,8 +67,9 @@
                   tableName="post_details">
             <column name="id" type="numeric"/>
             <column name="uuid" type="string"/>
-            <column name="public_id" type="string"/>
+            <column name="post_details_id" type="string"/>
             <column name="content" type="string"/>
+            <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>
             <column name="created_by" type="string"/>

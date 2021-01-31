@@ -8,9 +8,9 @@
       "fieldValidateRules": ["required", "unique"]
     },
     {
-      "fieldName": "publicId",
+      "fieldName": "postDetailsId",
       "fieldType": "String",
-      "javadoc": "idShow",
+      "javadoc": "postDetailsId",
       "fieldValidateRules": ["required", "unique", "minlength", "maxlength", "pattern"],
       "fieldValidateRulesMinlength": "3",
       "fieldValidateRulesMaxlength": "16",
@@ -21,6 +21,12 @@
       "fieldType": "String",
       "javadoc": "content",
       "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "String",
+      "javadoc": "role",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "createdDate",

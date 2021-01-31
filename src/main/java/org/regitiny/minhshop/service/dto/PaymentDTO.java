@@ -30,6 +30,13 @@ public class PaymentDTO implements Serializable {
     private String status;
 
     /**
+     * role
+     */
+    @NotNull
+    @ApiModelProperty(value = "role", required = true)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -81,6 +88,14 @@ public class PaymentDTO implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedDate() {
@@ -151,6 +166,7 @@ public class PaymentDTO implements Serializable {
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
             ", status='" + getStatus() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

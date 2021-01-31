@@ -86,6 +86,13 @@ public class UserOtherInfo implements Serializable {
     private String otherInfo;
 
     /**
+     * role
+     */
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -248,6 +255,19 @@ public class UserOtherInfo implements Serializable {
         this.otherInfo = otherInfo;
     }
 
+    public String getRole() {
+        return this.role;
+    }
+
+    public UserOtherInfo role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Instant getCreatedDate() {
         return this.createdDate;
     }
@@ -346,6 +366,7 @@ public class UserOtherInfo implements Serializable {
             ", addressDetails='" + getAddressDetails() + "'" +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", otherInfo='" + getOtherInfo() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

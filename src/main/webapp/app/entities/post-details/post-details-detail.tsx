@@ -34,14 +34,14 @@ export const PostDetailsDetail = (props: IPostDetailsDetailProps) => {
           </dt>
           <dd>{postDetailsEntity.uuid}</dd>
           <dt>
-            <span id="publicId">
-              <Translate contentKey="minhShopApp.postDetails.publicId">Public Id</Translate>
+            <span id="postDetailsId">
+              <Translate contentKey="minhShopApp.postDetails.postDetailsId">Post Details Id</Translate>
             </span>
-            <UncontrolledTooltip target="publicId">
-              <Translate contentKey="minhShopApp.postDetails.help.publicId" />
+            <UncontrolledTooltip target="postDetailsId">
+              <Translate contentKey="minhShopApp.postDetails.help.postDetailsId" />
             </UncontrolledTooltip>
           </dt>
-          <dd>{postDetailsEntity.publicId}</dd>
+          <dd>{postDetailsEntity.postDetailsId}</dd>
           <dt>
             <span id="content">
               <Translate contentKey="minhShopApp.postDetails.content">Content</Translate>
@@ -51,6 +51,15 @@ export const PostDetailsDetail = (props: IPostDetailsDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{postDetailsEntity.content}</dd>
+          <dt>
+            <span id="role">
+              <Translate contentKey="minhShopApp.postDetails.role">Role</Translate>
+            </span>
+            <UncontrolledTooltip target="role">
+              <Translate contentKey="minhShopApp.postDetails.help.role" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{postDetailsEntity.role}</dd>
           <dt>
             <span id="createdDate">
               <Translate contentKey="minhShopApp.postDetails.createdDate">Created Date</Translate>

@@ -95,13 +95,18 @@ describe('Payment e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('1080p eco-centric Managed'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T12:38').invoke('val').should('equal', '2021-01-30T12:38');
+    cy.get(`[data-cy="role"]`).type('back-end', { force: true }).invoke('val').should('match', new RegExp('back-end'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-29T20:57').invoke('val').should('equal', '2021-01-29T20:57');
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T05:08').invoke('val').should('equal', '2021-01-30T05:08');
 
-    cy.get(`[data-cy="createdBy"]`).type('Mississippi', { force: true }).invoke('val').should('match', new RegExp('Mississippi'));
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T04:02').invoke('val').should('equal', '2021-01-30T04:02');
 
-    cy.get(`[data-cy="modifiedBy"]`).type('eyeballs', { force: true }).invoke('val').should('match', new RegExp('eyeballs'));
+    cy.get(`[data-cy="createdBy"]`).type('eyeballs', { force: true }).invoke('val').should('match', new RegExp('eyeballs'));
+
+    cy.get(`[data-cy="modifiedBy"]`)
+      .type('calculate Strategist', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('calculate Strategist'));
 
     cy.setFieldSelectToLastOfEntity('billId');
 

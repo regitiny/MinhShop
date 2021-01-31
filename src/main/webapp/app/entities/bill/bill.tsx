@@ -195,6 +195,9 @@ export const Bill = (props: IBillProps) => {
                   <th className="hand" onClick={sort('comment')}>
                     <Translate contentKey="minhShopApp.bill.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('role')}>
+                    <Translate contentKey="minhShopApp.bill.role">Role</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.bill.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -228,6 +231,7 @@ export const Bill = (props: IBillProps) => {
                     <td>{bill.addressDetails}</td>
                     <td>{bill.addressCode}</td>
                     <td>{bill.comment}</td>
+                    <td>{bill.role}</td>
                     <td>{bill.createdDate ? <TextFormat type="date" value={bill.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>{bill.modifiedDate ? <TextFormat type="date" value={bill.modifiedDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>{bill.createdBy}</td>

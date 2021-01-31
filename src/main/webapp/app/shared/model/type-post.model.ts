@@ -4,6 +4,7 @@ export interface ITypePost {
   id?: number;
   uuid?: string;
   typeName?: string;
+  role?: string;
   createdDate?: string;
   modifiedDate?: string;
   createdBy?: string;

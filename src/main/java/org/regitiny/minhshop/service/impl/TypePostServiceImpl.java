@@ -67,6 +67,10 @@ public class TypePostServiceImpl implements TypePostService {
                         existingTypePost.setTypeName(typePostDTO.getTypeName());
                     }
 
+                    if (typePostDTO.getRole() != null) {
+                        existingTypePost.setRole(typePostDTO.getRole());
+                    }
+
                     if (typePostDTO.getCreatedDate() != null) {
                         existingTypePost.setCreatedDate(typePostDTO.getCreatedDate());
                     }

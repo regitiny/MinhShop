@@ -87,6 +87,10 @@ public class BillServiceImpl implements BillService {
                         existingBill.setComment(billDTO.getComment());
                     }
 
+                    if (billDTO.getRole() != null) {
+                        existingBill.setRole(billDTO.getRole());
+                    }
+
                     if (billDTO.getCreatedDate() != null) {
                         existingBill.setCreatedDate(billDTO.getCreatedDate());
                     }

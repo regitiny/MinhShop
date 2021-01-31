@@ -14,10 +14,13 @@ DEFAULT_MAX = 64
 entity PostDetails {
     /** uuid */
     uuid UUID required unique
-    /** idShow */
-    publicId String required unique minlength(3) maxlength(16) pattern(/[A-z]+[0-9]+/ )
+    /** postDetailsId */
+    postDetailsId String required unique minlength(3) maxlength(16) pattern(/[A-z]+[0-9]+/ )
     /** content */
     content String unique required
+
+    /** role */
+    role String required
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */
@@ -55,6 +58,7 @@ entity SimplePost {
     simpleContent String unique
     /** otherInfo (Json) */
     otherInfo String required
+
     /** role */
     role String required
     /** createdDate */
@@ -82,6 +86,9 @@ entity TypePost
     uuid UUID required unique
     /** typeName */
     typeName String required unique
+
+    /** role */
+    role String required
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */
@@ -103,6 +110,8 @@ entity TypePostFilter
     /**  typeFilterName  */
     typeFilterName  String  required unique
 
+    /** role */
+    role String required
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */
@@ -192,6 +201,8 @@ entity Payment
     /** status */
     status String
 
+    /** role */
+    role String required
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */
@@ -216,7 +227,6 @@ entity Bill
     phoneNumber String required minlength(10) maxlength(10) pattern(/[0-9]+/)
     /** email */
     email String
-
     /** addressDetails */
     addressDetails String
     /** addressCode */
@@ -225,6 +235,9 @@ entity Bill
     addressDetails String
     /** comment */
     comment String maxlength(DEFAULT_MAX_LENGTH)
+
+    /** role */
+    role String required
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */
@@ -259,6 +272,9 @@ entity UserOtherInfo
     dateOfBirth LocalDate
     /** otherInfo */
     otherInfo String
+
+    /** role */
+    role String required
     /** createdDate */
     createdDate  Instant required
     /** modifiedDate */
@@ -274,8 +290,8 @@ entity UserOtherInfo
 
 relationship OneToOne
 {
-    SimplePost{postDetails(publicId) required} to PostDetails{simplePost} with jpaDerivedIdentifier,
-    UserOtherInfo{userName(login)} to User,
+    SimplePost{postDetails(postDetailsId) required} to PostDetails{simplePost} with jpaDerivedIdentifier,
+    UserOtherInfo{userName(login)} to User{otherInfo},
     Payment{billId(billId)} to Bill{Payment},
     Bill{userOtherInfo} to UserOtherInfo
 }

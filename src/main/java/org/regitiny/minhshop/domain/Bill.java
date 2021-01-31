@@ -78,6 +78,13 @@ public class Bill implements Serializable {
     private String comment;
 
     /**
+     * role
+     */
+    @NotNull
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -219,6 +226,19 @@ public class Bill implements Serializable {
         this.comment = comment;
     }
 
+    public String getRole() {
+        return this.role;
+    }
+
+    public Bill role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Instant getCreatedDate() {
         return this.createdDate;
     }
@@ -334,6 +354,7 @@ public class Bill implements Serializable {
             ", addressDetails='" + getAddressDetails() + "'" +
             ", addressCode='" + getAddressCode() + "'" +
             ", comment='" + getComment() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

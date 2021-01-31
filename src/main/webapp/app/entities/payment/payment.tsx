@@ -180,6 +180,9 @@ export const Payment = (props: IPaymentProps) => {
                   <th className="hand" onClick={sort('status')}>
                     <Translate contentKey="minhShopApp.payment.status">Status</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('role')}>
+                    <Translate contentKey="minhShopApp.payment.role">Role</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.payment.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -208,6 +211,7 @@ export const Payment = (props: IPaymentProps) => {
                     </td>
                     <td>{payment.uuid}</td>
                     <td>{payment.status}</td>
+                    <td>{payment.role}</td>
                     <td>{payment.createdDate ? <TextFormat type="date" value={payment.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>
                       {payment.modifiedDate ? <TextFormat type="date" value={payment.modifiedDate} format={APP_DATE_FORMAT} /> : null}

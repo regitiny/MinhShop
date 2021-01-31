@@ -4,8 +4,9 @@ import { ISimplePost } from 'app/shared/model/simple-post.model';
 export interface IPostDetails {
   id?: number;
   uuid?: string;
-  publicId?: string;
+  postDetailsId?: string;
   content?: string;
+  role?: string;
   createdDate?: string;
   modifiedDate?: string;
   createdBy?: string;

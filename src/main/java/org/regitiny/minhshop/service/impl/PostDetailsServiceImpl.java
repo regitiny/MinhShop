@@ -67,12 +67,16 @@ public class PostDetailsServiceImpl implements PostDetailsService {
                         existingPostDetails.setUuid(postDetailsDTO.getUuid());
                     }
 
-                    if (postDetailsDTO.getPublicId() != null) {
-                        existingPostDetails.setPublicId(postDetailsDTO.getPublicId());
+                    if (postDetailsDTO.getPostDetailsId() != null) {
+                        existingPostDetails.setPostDetailsId(postDetailsDTO.getPostDetailsId());
                     }
 
                     if (postDetailsDTO.getContent() != null) {
                         existingPostDetails.setContent(postDetailsDTO.getContent());
+                    }
+
+                    if (postDetailsDTO.getRole() != null) {
+                        existingPostDetails.setRole(postDetailsDTO.getRole());
                     }
 
                     if (postDetailsDTO.getCreatedDate() != null) {

@@ -66,6 +66,13 @@ public class BillDTO implements Serializable {
     private String comment;
 
     /**
+     * role
+     */
+    @NotNull
+    @ApiModelProperty(value = "role", required = true)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -159,6 +166,14 @@ public class BillDTO implements Serializable {
         this.comment = comment;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Instant getCreatedDate() {
         return createdDate;
     }
@@ -232,6 +247,7 @@ public class BillDTO implements Serializable {
             ", addressDetails='" + getAddressDetails() + "'" +
             ", addressCode='" + getAddressCode() + "'" +
             ", comment='" + getComment() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

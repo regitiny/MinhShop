@@ -75,6 +75,13 @@ public class UserOtherInfoDTO implements Serializable {
     private String otherInfo;
 
     /**
+     * role
+     */
+    @NotNull
+    @ApiModelProperty(value = "role", required = true)
+    private String role;
+
+    /**
      * createdDate
      */
     @NotNull
@@ -184,6 +191,14 @@ public class UserOtherInfoDTO implements Serializable {
         this.otherInfo = otherInfo;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Instant getCreatedDate() {
         return createdDate;
     }
@@ -259,6 +274,7 @@ public class UserOtherInfoDTO implements Serializable {
             ", addressDetails='" + getAddressDetails() + "'" +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", otherInfo='" + getOtherInfo() + "'" +
+            ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +

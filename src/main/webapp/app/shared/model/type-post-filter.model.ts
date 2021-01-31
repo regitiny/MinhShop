@@ -5,6 +5,7 @@ export interface ITypePostFilter {
   id?: number;
   uuid?: string;
   typeFilterName?: string;
+  role?: string;
   createdDate?: string;
   modifiedDate?: string;
   createdBy?: string;

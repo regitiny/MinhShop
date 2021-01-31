@@ -71,6 +71,9 @@ class UserOtherInfoResourceIT {
     private static final String DEFAULT_OTHER_INFO = "AAAAAAAAAA";
     private static final String UPDATED_OTHER_INFO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ROLE = "AAAAAAAAAA";
+    private static final String UPDATED_ROLE = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -122,6 +125,7 @@ class UserOtherInfoResourceIT {
             .addressDetails(DEFAULT_ADDRESS_DETAILS)
             .dateOfBirth(DEFAULT_DATE_OF_BIRTH)
             .otherInfo(DEFAULT_OTHER_INFO)
+            .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
@@ -146,6 +150,7 @@ class UserOtherInfoResourceIT {
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
             .otherInfo(UPDATED_OTHER_INFO)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -185,6 +190,7 @@ class UserOtherInfoResourceIT {
         assertThat(testUserOtherInfo.getAddressDetails()).isEqualTo(DEFAULT_ADDRESS_DETAILS);
         assertThat(testUserOtherInfo.getDateOfBirth()).isEqualTo(DEFAULT_DATE_OF_BIRTH);
         assertThat(testUserOtherInfo.getOtherInfo()).isEqualTo(DEFAULT_OTHER_INFO);
+        assertThat(testUserOtherInfo.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testUserOtherInfo.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testUserOtherInfo.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testUserOtherInfo.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
@@ -226,6 +232,28 @@ class UserOtherInfoResourceIT {
         int databaseSizeBeforeTest = userOtherInfoRepository.findAll().size();
         // set the field null
         userOtherInfo.setUuid(null);
+
+        // Create the UserOtherInfo, which fails.
+        UserOtherInfoDTO userOtherInfoDTO = userOtherInfoMapper.toDto(userOtherInfo);
+
+        restUserOtherInfoMockMvc
+            .perform(
+                post("/api/user-other-infos")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(userOtherInfoDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<UserOtherInfo> userOtherInfoList = userOtherInfoRepository.findAll();
+        assertThat(userOtherInfoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = userOtherInfoRepository.findAll().size();
+        // set the field null
+        userOtherInfo.setRole(null);
 
         // Create the UserOtherInfo, which fails.
         UserOtherInfoDTO userOtherInfoDTO = userOtherInfoMapper.toDto(userOtherInfo);
@@ -351,6 +379,7 @@ class UserOtherInfoResourceIT {
             .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS)))
             .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
             .andExpect(jsonPath("$.[*].otherInfo").value(hasItem(DEFAULT_OTHER_INFO)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
@@ -378,6 +407,7 @@ class UserOtherInfoResourceIT {
             .andExpect(jsonPath("$.addressDetails").value(DEFAULT_ADDRESS_DETAILS))
             .andExpect(jsonPath("$.dateOfBirth").value(DEFAULT_DATE_OF_BIRTH.toString()))
             .andExpect(jsonPath("$.otherInfo").value(DEFAULT_OTHER_INFO))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
@@ -413,6 +443,7 @@ class UserOtherInfoResourceIT {
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
             .otherInfo(UPDATED_OTHER_INFO)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -440,6 +471,7 @@ class UserOtherInfoResourceIT {
         assertThat(testUserOtherInfo.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testUserOtherInfo.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testUserOtherInfo.getOtherInfo()).isEqualTo(UPDATED_OTHER_INFO);
+        assertThat(testUserOtherInfo.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testUserOtherInfo.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testUserOtherInfo.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testUserOtherInfo.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -490,9 +522,10 @@ class UserOtherInfoResourceIT {
             .email(UPDATED_EMAIL)
             .cityCode(UPDATED_CITY_CODE)
             .otherInfo(UPDATED_OTHER_INFO)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
-            .createdBy(UPDATED_CREATED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY);
 
         restUserOtherInfoMockMvc
             .perform(
@@ -515,10 +548,11 @@ class UserOtherInfoResourceIT {
         assertThat(testUserOtherInfo.getAddressDetails()).isEqualTo(DEFAULT_ADDRESS_DETAILS);
         assertThat(testUserOtherInfo.getDateOfBirth()).isEqualTo(DEFAULT_DATE_OF_BIRTH);
         assertThat(testUserOtherInfo.getOtherInfo()).isEqualTo(UPDATED_OTHER_INFO);
+        assertThat(testUserOtherInfo.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testUserOtherInfo.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testUserOtherInfo.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
-        assertThat(testUserOtherInfo.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testUserOtherInfo.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testUserOtherInfo.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testUserOtherInfo.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
     }
 
     @Test
@@ -543,6 +577,7 @@ class UserOtherInfoResourceIT {
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
             .otherInfo(UPDATED_OTHER_INFO)
+            .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
@@ -569,6 +604,7 @@ class UserOtherInfoResourceIT {
         assertThat(testUserOtherInfo.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testUserOtherInfo.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testUserOtherInfo.getOtherInfo()).isEqualTo(UPDATED_OTHER_INFO);
+        assertThat(testUserOtherInfo.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testUserOtherInfo.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testUserOtherInfo.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testUserOtherInfo.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
@@ -635,6 +671,7 @@ class UserOtherInfoResourceIT {
             .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS)))
             .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
             .andExpect(jsonPath("$.[*].otherInfo").value(hasItem(DEFAULT_OTHER_INFO)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))

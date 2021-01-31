@@ -67,6 +67,10 @@ public class PaymentServiceImpl implements PaymentService {
                         existingPayment.setStatus(paymentDTO.getStatus());
                     }
 
+                    if (paymentDTO.getRole() != null) {
+                        existingPayment.setRole(paymentDTO.getRole());
+                    }
+
                     if (paymentDTO.getCreatedDate() != null) {
                         existingPayment.setCreatedDate(paymentDTO.getCreatedDate());
                     }

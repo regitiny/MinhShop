@@ -2,19 +2,26 @@ package org.regitiny.minhshop.service.impl;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.io.IOException;
+import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
+import org.apache.commons.lang.NullArgumentException;
 import org.regitiny.minhshop.domain.Image;
 import org.regitiny.minhshop.repository.ImageRepository;
 import org.regitiny.minhshop.repository.search.ImageSearchRepository;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.ImageService;
 import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.regitiny.minhshop.service.mapper.ImageMapper;
+import org.regitiny.tools.magic.constant.StringPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Service Implementation for managing {@link Image}.
@@ -45,6 +52,51 @@ public class ImageServiceImpl implements ImageService {
         ImageDTO result = imageMapper.toDto(image);
         imageSearchRepository.save(image);
         return result;
+    }
+
+    @Override
+    public ImageDTO upload(MultipartFile imageData) {
+        if (imageData.isEmpty()) throw new NullArgumentException("POST cái đéo gì đấy ,đéo có dữ liệu của ảnh");
+
+        ImageDTO imageDTO = new ImageDTO();
+
+        UUID uuid = UUID.randomUUID();
+        byte[] imageDataBytes = null;
+        String nameImage = uuid.toString();
+        String extension = StringPool.BLANK;
+        String typeFile = imageData.getContentType();
+        String role = StringPool.BLANK;
+        Instant createdDate = Instant.now();
+        Instant modifiedDate = Instant.now();
+        String createdBy = SecurityUtils.getCurrentUserLogin().get();
+        String modifiedBy = SecurityUtils.getCurrentUserLogin().get();
+        long dataSize = imageData.getSize();
+        String comment = null;
+
+        if (!imageData.getName().isEmpty() && imageData.getName().split("\\.").length == 2) {
+            extension = imageData.getName().split("\\.")[1];
+            nameImage += extension;
+        }
+        try {
+            imageDataBytes = imageData.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        imageDTO.setUuid(uuid);
+        imageDTO.setImageData(imageDataBytes);
+        imageDTO.setNameImage(nameImage);
+        imageDTO.setExtension(extension);
+        imageDTO.setTypeFile(typeFile);
+        imageDTO.setRole(role);
+        imageDTO.setCreatedDate(createdDate);
+        imageDTO.setModifiedDate(modifiedDate);
+        imageDTO.setCreatedBy(createdBy);
+        imageDTO.setModifiedBy(modifiedBy);
+        imageDTO.setDataSize(dataSize);
+        imageDTO.setComment(comment);
+        if (imageDataBytes != null) return save(imageDTO);
+        throw new NullArgumentException("dữ liệu đéo có thì upload làm sao được ");
     }
 
     @Override
@@ -136,6 +188,11 @@ public class ImageServiceImpl implements ImageService {
     public Optional<ImageDTO> findOne(Long id) {
         log.debug("Request to get Image : {}", id);
         return imageRepository.findById(id).map(imageMapper::toDto);
+    }
+
+    @Override
+    public Optional<ImageDTO> findByNameImage(String nameImage) {
+        return imageRepository.findOneByNameImage(nameImage).map(imageMapper::toDto);
     }
 
     @Override

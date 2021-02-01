@@ -1,5 +1,6 @@
 package org.regitiny.minhshop.repository;
 
+import java.util.Optional;
 import org.regitiny.minhshop.domain.Image;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Long> {}
+public interface ImageRepository extends JpaRepository<Image, Long> {
+    Optional<Image> findOneByNameImage(String nameImage);
+}

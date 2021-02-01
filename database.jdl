@@ -17,7 +17,7 @@ entity PostDetails {
     /** postDetailsId */
     postDetailsId String required unique minlength(3) maxlength(16) pattern(/[A-z]+[0-9]+/ )
     /** content */
-    content String unique required
+    content String unique required maxlength(1000000000)
 
     /** role */
     role String required
@@ -51,7 +51,7 @@ entity SimplePost {
     /** percentSale */
     percentSale  Float required min(0) max(100)
     /** imageUrl */
-    imageUrl String required
+    imageUrl String required maxlength(DEFAULT_MAX_LENGTH)
     /** scores */
     scores Float required min(0) max(100)
     /** simple content */

@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Service Interface for managing {@link org.regitiny.minhshop.domain.Image}.
@@ -16,6 +17,14 @@ public interface ImageService {
      * @return the persisted entity.
      */
     ImageDTO save(ImageDTO imageDTO);
+
+    /**
+     * Save a image.
+     *
+     * @param imageData the entity to save.
+     * @return the persisted entity.
+     */
+    ImageDTO upload(MultipartFile imageData);
 
     /**
      * Partially updates a image.
@@ -40,6 +49,14 @@ public interface ImageService {
      * @return the entity.
      */
     Optional<ImageDTO> findOne(Long id);
+
+    /**
+     * Get image by "nameImage".
+     *
+     * @param nameImage the id of the entity.
+     * @return the entity.
+     */
+    Optional<ImageDTO> findByNameImage(String nameImage);
 
     /**
      * Delete the "id" image.

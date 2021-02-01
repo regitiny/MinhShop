@@ -149,8 +149,12 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   model={contentState}
                   onModelChange={handleModelChange}
                   config={{
-                    imageUploadURL: '/api/images',
-                    imageUploadParam: 'image',
+                    imageUploadURL: '/api/images/froala',
+                    imageUploadParam: 'imageDataFile',
+                    requestHeaders: {
+                      Authorization:
+                        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMjI4MjA4NH0.g8O5Tgawst-PXP0W0xsWkbc1vskANVyaM9pe0CZwX8jZzgL9ZnIeXnwrBvzkAqWX7ROPtCEE_WjIIaHCWr5EPQ',
+                    },
                     imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
                     imageUploadMethod: 'POST',
                     imageUpload: true,

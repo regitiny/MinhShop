@@ -20,7 +20,7 @@
             <column name="post_details_id" type="varchar(16)" remarks="postDetailsId">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__post_details_id" />
             </column>
-            <column name="content" type="varchar(255)" remarks="content">
+            <column name="content" type="varchar(1000000000)" remarks="content">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__content" />
             </column>
             <column name="role" type="varchar(255)" remarks="role">

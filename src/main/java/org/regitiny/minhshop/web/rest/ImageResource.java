@@ -1,26 +1,26 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import lombok.extern.log4j.Log4j2;
 import org.regitiny.minhshop.service.ImageService;
 import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -29,11 +29,10 @@ import tech.jhipster.web.util.ResponseUtil;
 /**
  * REST controller for managing {@link org.regitiny.minhshop.domain.Image}.
  */
+@Log4j2
 @RestController
 @RequestMapping("/api")
 public class ImageResource {
-
-    private final Logger log = LoggerFactory.getLogger(ImageResource.class);
 
     private static final String ENTITY_NAME = "image";
 
@@ -64,6 +63,42 @@ public class ImageResource {
             .created(new URI("/api/images/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * {@code POST  /images} : upload a new image.
+     *
+     * @param imageDataFile is data of image
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new imageDTO, or with status {@code 400 (Bad Request)} if the image has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/images/froala")
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam MultipartFile imageDataFile) throws URISyntaxException {
+        log.debug("REST request to save Image : {}", imageDataFile.getSize());
+
+        ImageDTO result = imageService.upload(imageDataFile);
+        if (result != null) {
+            Map<String, String> map = new HashMap<>();
+            map.put("link", "/api/images/" + result.getNameImage());
+            return ResponseEntity
+                .ok()
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                .body(map);
+        } else throw new BadRequestAlertException("láo toét upload cái đéo gì vậy", ENTITY_NAME, "error");
+    }
+
+    @GetMapping("/images/{nameImage}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String nameImage) throws FileNotFoundException {
+        log.debug("REST request to get Image : {}", nameImage);
+        Optional<ImageDTO> result = imageService.findByNameImage(nameImage);
+        if (result.isPresent()) {
+            ImageDTO imageDTO = result.get();
+            HttpHeaders headerUtil = new HttpHeaders();
+            headerUtil.setContentType(MediaType.IMAGE_JPEG);
+            return ResponseEntity.ok().headers(headerUtil).body(imageDTO.getImageData());
+        }
+
+        throw new FileNotFoundException();
     }
 
     /**

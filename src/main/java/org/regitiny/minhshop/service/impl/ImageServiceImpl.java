@@ -73,10 +73,10 @@ public class ImageServiceImpl implements ImageService {
         long dataSize = imageData.getSize();
         String comment = null;
 
-        String imageDataName = imageData.getName();
+        String imageDataName = imageData.getOriginalFilename();
         String temp[] = imageDataName.split(StringPool.DOT_IN_REGEX);
-        if (temp.length > 2) extension = temp[temp.length - 1];
-        nameImage += extension;
+        if (temp.length >= 2) extension = temp[temp.length - 1];
+        nameImage += StringPool.PERIOD + extension;
         try {
             imageDataBytes = imageData.getBytes();
         } catch (IOException e) {

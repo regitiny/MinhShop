@@ -13,6 +13,7 @@ import { IPostDetails } from 'app/shared/model/post-details.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 export interface IPostDetailsProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -218,7 +219,9 @@ export const PostDetails = (props: IPostDetailsProps) => {
                     </td>
                     <td>{postDetails.uuid}</td>
                     <td>{postDetails.postDetailsId}</td>
-                    <td>{postDetails.content}</td>
+                    <td>
+                      <FroalaEditorView model={postDetails.content} />
+                    </td>
                     <td>{postDetails.role}</td>
                     <td>
                       {postDetails.createdDate ? <TextFormat type="date" value={postDetails.createdDate} format={APP_DATE_FORMAT} /> : null}

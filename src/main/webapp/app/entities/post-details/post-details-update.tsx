@@ -14,6 +14,13 @@ import { IPostDetails } from 'app/shared/model/post-details.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
+// froala
+import FroalaEditor from 'react-froala-wysiwyg';
+// Require Editor CSS files.
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
+
 export interface IPostDetailsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
@@ -43,11 +50,13 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
   const saveEntity = (event, errors, values) => {
     values.createdDate = convertDateTimeToServer(values.createdDate);
     values.modifiedDate = convertDateTimeToServer(values.modifiedDate);
+    const content = { content: contentState };
 
     if (errors.length === 0) {
       const entity = {
         ...postDetailsEntity,
         ...values,
+        ...content,
       };
 
       if (isNew) {
@@ -57,6 +66,11 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
       }
     }
   };
+  const [contentState, setContentState] = useState('');
+  const handleModelChange = model => setContentState(model);
+  useEffect(() => {
+    if (postDetailsEntity.content) setContentState(postDetailsEntity.content);
+  }, [postDetailsEntity]);
 
   return (
     <div>
@@ -122,13 +136,24 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                 <Label id="contentLabel" for="post-details-content">
                   <Translate contentKey="minhShopApp.postDetails.content">Content</Translate>
                 </Label>
-                <AvField
-                  id="post-details-content"
-                  data-cy="content"
-                  type="text"
-                  name="content"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                {/*<AvField*/}
+                {/*  id="post-details-content"*/}
+                {/*  data-cy="content"*/}
+                {/*  type="text" value = {contentState}*/}
+                {/*  name="content"*/}
+                {/*  validate={{*/}
+                {/*    required: { value: true, errorMessage: translate('entity.validation.required') },*/}
+                {/*  }}*/}
+                {/*/>*/}
+                <FroalaEditor
+                  model={contentState}
+                  onModelChange={handleModelChange}
+                  config={{
+                    imageUploadURL: '/api/images',
+                    imageUploadParam: 'image',
+                    imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+                    imageUploadMethod: 'POST',
+                    imageUpload: true,
                   }}
                 />
                 <UncontrolledTooltip target="contentLabel">

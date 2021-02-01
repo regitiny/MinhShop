@@ -73,18 +73,20 @@ public class ImageServiceImpl implements ImageService {
         long dataSize = imageData.getSize();
         String comment = null;
 
-        if (!imageData.getName().isEmpty() && imageData.getName().split("\\.").length == 2) {
-            extension = imageData.getName().split("\\.")[1];
-            nameImage += extension;
-        }
+        String imageDataName = imageData.getName();
+        String temp[] = imageDataName.split(StringPool.DOT_IN_REGEX);
+        if (temp.length > 2) extension = temp[temp.length - 1];
+        nameImage += extension;
         try {
             imageDataBytes = imageData.getBytes();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String imageDataContentType = typeFile + dataSize + "byte";
 
         imageDTO.setUuid(uuid);
         imageDTO.setImageData(imageDataBytes);
+        imageDTO.setImageDataContentType(imageDataContentType);
         imageDTO.setNameImage(nameImage);
         imageDTO.setExtension(extension);
         imageDTO.setTypeFile(typeFile);
@@ -95,6 +97,7 @@ public class ImageServiceImpl implements ImageService {
         imageDTO.setModifiedBy(modifiedBy);
         imageDTO.setDataSize(dataSize);
         imageDTO.setComment(comment);
+        imageDTO.setDeleted(false);
         if (imageDataBytes != null) return save(imageDTO);
         throw new NullArgumentException("dữ liệu đéo có thì upload làm sao được ");
     }

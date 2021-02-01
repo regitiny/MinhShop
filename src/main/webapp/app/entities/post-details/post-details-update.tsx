@@ -14,6 +14,8 @@ import { IPostDetails } from 'app/shared/model/post-details.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
+import { Storage } from 'react-jhipster';
+
 // froala
 import FroalaEditor from 'react-froala-wysiwyg';
 // Require Editor CSS files.
@@ -72,6 +74,8 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
     if (postDetailsEntity.content) setContentState(postDetailsEntity.content);
   }, [postDetailsEntity]);
 
+  const token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  const authToken = `Bearer ${token}`;
   return (
     <div>
       <Row className="justify-content-center">
@@ -149,11 +153,10 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   model={contentState}
                   onModelChange={handleModelChange}
                   config={{
-                    imageUploadURL: '/api/images/froala',
+                    imageUploadURL: '/api/images/upload',
                     imageUploadParam: 'imageDataFile',
                     requestHeaders: {
-                      Authorization:
-                        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMjI4MjA4NH0.g8O5Tgawst-PXP0W0xsWkbc1vskANVyaM9pe0CZwX8jZzgL9ZnIeXnwrBvzkAqWX7ROPtCEE_WjIIaHCWr5EPQ',
+                      Authorization: authToken,
                     },
                     imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
                     imageUploadMethod: 'POST',

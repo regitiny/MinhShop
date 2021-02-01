@@ -72,14 +72,14 @@ public class ImageResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new imageDTO, or with status {@code 400 (Bad Request)} if the image has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/images/froala")
+    @PostMapping("/images/upload")
     public ResponseEntity<Map<String, String>> uploadImage(@RequestParam MultipartFile imageDataFile) throws URISyntaxException {
         log.debug("REST request to save Image : {}", imageDataFile.getSize());
 
         ImageDTO result = imageService.upload(imageDataFile);
         if (result != null) {
             Map<String, String> map = new HashMap<>();
-            map.put("link", "/api/images/" + result.getNameImage());
+            map.put("link", "/api/images/public/" + result.getNameImage());
             return ResponseEntity
                 .ok()
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +87,7 @@ public class ImageResource {
         } else throw new BadRequestAlertException("láo toét upload cái đéo gì vậy", ENTITY_NAME, "error");
     }
 
-    @GetMapping("/images/{nameImage}")
+    @GetMapping("/images/public/{nameImage}")
     public ResponseEntity<byte[]> getImage(@PathVariable String nameImage) throws FileNotFoundException {
         log.debug("REST request to get Image : {}", nameImage);
         Optional<ImageDTO> result = imageService.findByNameImage(nameImage);

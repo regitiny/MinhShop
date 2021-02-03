@@ -97,7 +97,6 @@ public class ImageServiceImpl implements ImageService {
         imageDTO.setModifiedBy(modifiedBy);
         imageDTO.setDataSize(dataSize);
         imageDTO.setComment(comment);
-        imageDTO.setDeleted(false);
         if (imageDataBytes != null) return save(imageDTO);
         throw new NullArgumentException("dữ liệu đéo có thì upload làm sao được ");
     }
@@ -133,6 +132,10 @@ public class ImageServiceImpl implements ImageService {
                         existingImage.setTypeFile(imageDTO.getTypeFile());
                     }
 
+                    if (imageDTO.getSearchField() != null) {
+                        existingImage.setSearchField(imageDTO.getSearchField());
+                    }
+
                     if (imageDTO.getRole() != null) {
                         existingImage.setRole(imageDTO.getRole());
                     }
@@ -159,10 +162,6 @@ public class ImageServiceImpl implements ImageService {
 
                     if (imageDTO.getComment() != null) {
                         existingImage.setComment(imageDTO.getComment());
-                    }
-
-                    if (imageDTO.getDeleted() != null) {
-                        existingImage.setDeleted(imageDTO.getDeleted());
                     }
 
                     return existingImage;

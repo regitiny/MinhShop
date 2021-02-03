@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 
 /**
@@ -29,31 +30,27 @@ public class SimplePostDTO implements Serializable {
      * title
      */
     @NotNull
-    @Size(max = 128)
     @ApiModelProperty(value = "title", required = true)
     private String title;
 
     /**
      * price
      */
-    @NotNull
-    @ApiModelProperty(value = "price", required = true)
+    @ApiModelProperty(value = "price")
     private Double price;
 
     /**
      * price
      */
-    @NotNull
-    @ApiModelProperty(value = "price", required = true)
+    @ApiModelProperty(value = "price")
     private Double salePrice;
 
     /**
      * percentSale
      */
-    @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "100")
-    @ApiModelProperty(value = "percentSale", required = true)
+    @ApiModelProperty(value = "percentSale")
     private Float percentSale;
 
     /**
@@ -67,59 +64,58 @@ public class SimplePostDTO implements Serializable {
     /**
      * scores
      */
-    @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "100")
-    @ApiModelProperty(value = "scores", required = true)
+    @ApiModelProperty(value = "scores")
     private Float scores;
 
     /**
      * simple content
      */
-
     @ApiModelProperty(value = "simple content")
     private String simpleContent;
 
     /**
      * otherInfo (Json)
      */
-    @NotNull
-    @ApiModelProperty(value = "otherInfo (Json)", required = true)
+    @ApiModelProperty(value = "otherInfo (Json)")
     private String otherInfo;
+
+    /**
+     * searchField
+     */
+    @ApiModelProperty(value = "searchField")
+    @Lob
+    private String searchField;
 
     /**
      * role
      */
-    @NotNull
-    @ApiModelProperty(value = "role", required = true)
+    @ApiModelProperty(value = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @ApiModelProperty(value = "createdDate", required = true)
+    @ApiModelProperty(value = "createdDate")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedDate", required = true)
+    @ApiModelProperty(value = "modifiedDate")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @ApiModelProperty(value = "createdBy", required = true)
+    @ApiModelProperty(value = "createdBy")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedBy", required = true)
+    @ApiModelProperty(value = "modifiedBy")
     private String modifiedBy;
 
     /**
@@ -219,6 +215,14 @@ public class SimplePostDTO implements Serializable {
 
     public void setOtherInfo(String otherInfo) {
         this.otherInfo = otherInfo;
+    }
+
+    public String getSearchField() {
+        return searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -336,6 +340,7 @@ public class SimplePostDTO implements Serializable {
             ", scores=" + getScores() +
             ", simpleContent='" + getSimpleContent() + "'" +
             ", otherInfo='" + getOtherInfo() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +

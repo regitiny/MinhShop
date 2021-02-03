@@ -83,6 +83,15 @@ export const ImageDetail = (props: IImageDetailProps) => {
           </dt>
           <dd>{imageEntity.typeFile}</dd>
           <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.image.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.image.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{imageEntity.searchField}</dd>
+          <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.image.role">Role</Translate>
             </span>
@@ -145,15 +154,6 @@ export const ImageDetail = (props: IImageDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{imageEntity.comment}</dd>
-          <dt>
-            <span id="deleted">
-              <Translate contentKey="minhShopApp.image.deleted">Deleted</Translate>
-            </span>
-            <UncontrolledTooltip target="deleted">
-              <Translate contentKey="minhShopApp.image.help.deleted" />
-            </UncontrolledTooltip>
-          </dt>
-          <dd>{imageEntity.deleted ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/image" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

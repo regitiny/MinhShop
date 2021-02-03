@@ -9,7 +9,8 @@ export default class PostDetailsUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#post-details-uuid'));
   postDetailsIdInput: ElementFinder = element(by.css('input#post-details-postDetailsId'));
-  contentInput: ElementFinder = element(by.css('input#post-details-content'));
+  contentInput: ElementFinder = element(by.css('textarea#post-details-content'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#post-details-searchField'));
   roleInput: ElementFinder = element(by.css('input#post-details-role'));
   createdDateInput: ElementFinder = element(by.css('input#post-details-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#post-details-modifiedDate'));
@@ -44,6 +45,14 @@ export default class PostDetailsUpdatePage {
 
   async getContentInput() {
     return this.contentInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -124,6 +133,9 @@ export default class PostDetailsUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setContentInput('content');
     expect(await this.getContentInput()).to.match(/content/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
     await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);

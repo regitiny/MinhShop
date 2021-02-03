@@ -22,7 +22,7 @@ import {
   Progress,
 } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -259,6 +259,9 @@ export const SimplePost = (props: ISimplePostProps) => {
                   <DropdownItem>
                     <Translate contentKey="minhShopApp.simplePost.typePost">Type Post</Translate> <FontAwesomeIcon icon="sort" />
                   </DropdownItem>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.simplePost.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                 </DropdownMenu>
               </Dropdown>
               <div>

@@ -101,6 +101,11 @@ describe('Image e2e test', () => {
 
     cy.get(`[data-cy="typeFile"]`).type('Synergized', { force: true }).invoke('val').should('match', new RegExp('Synergized'));
 
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
     cy.get(`[data-cy="role"]`).type('Trafficway', { force: true }).invoke('val').should('match', new RegExp('Trafficway'));
 
     cy.get(`[data-cy="createdDate"]`).type('2021-01-30T08:39').invoke('val').should('equal', '2021-01-30T08:39');
@@ -121,8 +126,6 @@ describe('Image e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('Small Intelligent heuristic'));
 
-    cy.get(`[data-cy="deleted"]`).should('not.be.checked');
-    cy.get(`[data-cy="deleted"]`).click().should('be.checked');
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });
     cy.get(entityCreateSaveButtonSelector).should('not.exist');

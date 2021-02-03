@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -51,6 +51,15 @@ export const PostDetailsDetail = (props: IPostDetailsDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{postDetailsEntity.content}</dd>
+          <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.postDetails.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.postDetails.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{postDetailsEntity.searchField}</dd>
           <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.postDetails.role">Role</Translate>

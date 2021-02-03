@@ -75,6 +75,10 @@ public class PostDetailsServiceImpl implements PostDetailsService {
                         existingPostDetails.setContent(postDetailsDTO.getContent());
                     }
 
+                    if (postDetailsDTO.getSearchField() != null) {
+                        existingPostDetails.setSearchField(postDetailsDTO.getSearchField());
+                    }
+
                     if (postDetailsDTO.getRole() != null) {
                         existingPostDetails.setRole(postDetailsDTO.getRole());
                     }

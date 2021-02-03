@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 
 /**
@@ -35,44 +36,45 @@ public class PostDetailsDTO implements Serializable {
     /**
      * content
      */
-    @NotNull
-    @Size(max = 1000000000)
-    @ApiModelProperty(value = "content", required = true)
+    @ApiModelProperty(value = "content")
+    @Lob
     private String content;
+
+    /**
+     * searchField
+     */
+    @ApiModelProperty(value = "searchField")
+    @Lob
+    private String searchField;
 
     /**
      * role
      */
-    @NotNull
-    @ApiModelProperty(value = "role", required = true)
+    @ApiModelProperty(value = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @ApiModelProperty(value = "createdDate", required = true)
+    @ApiModelProperty(value = "createdDate")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedDate", required = true)
+    @ApiModelProperty(value = "modifiedDate")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @ApiModelProperty(value = "createdBy", required = true)
+    @ApiModelProperty(value = "createdBy")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedBy", required = true)
+    @ApiModelProperty(value = "modifiedBy")
     private String modifiedBy;
 
     /**
@@ -118,6 +120,14 @@ public class PostDetailsDTO implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getSearchField() {
+        return searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -205,6 +215,7 @@ public class PostDetailsDTO implements Serializable {
             ", uuid='" + getUuid() + "'" +
             ", postDetailsId='" + getPostDetailsId() + "'" +
             ", content='" + getContent() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +

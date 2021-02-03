@@ -1,6 +1,6 @@
 DEFAULT_MIN_LENGTH = 1
 DEFAULT_MAX_LENGTH = 2048
-MAX_STRING=65535
+MAX_STRING=10000
 DEFAULT_MIN_BYTES = 1
 DEFAULT_MAX_BYTES = 52428800
 DEFAULT_MIN = 0
@@ -18,18 +18,20 @@ entity PostDetails {
     /** postDetailsId */
     postDetailsId String required unique minlength(3) maxlength(16) pattern(/[A-z]+[0-9]+/ )
     /** content */
-    content String unique required maxlength(1000000000)
+    content TextBlob
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
     /** dataSize */
     dataSize Long
     /** comment */
@@ -44,32 +46,34 @@ entity SimplePost {
     /** uuid */
     uuid UUID required unique
     /** title */
-    title String required maxlength(128)
+    title String required
     /** price */
-    price  Double required
+    price  Double
     /** price */
-    salePrice  Double required
+    salePrice  Double
     /** percentSale */
-    percentSale  Float required min(0) max(100)
+    percentSale  Float min(0) max(100)
     /** imageUrl */
     imageUrl String required maxlength(DEFAULT_MAX_LENGTH)
     /** scores */
-    scores Float required min(0) max(100)
+    scores Float min(0) max(100)
     /** simple content */
-    simpleContent String unique
+    simpleContent String
     /** otherInfo (Json) */
-    otherInfo String required
+    otherInfo String
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
     /** dataSize */
     dataSize Long
     /** comment */
@@ -151,22 +155,23 @@ entity Image {
     extension String maxlength(16)
     /** typeFile */
     typeFile String maxlength(32)
+
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
     /** dataSize */
     dataSize Long
     /** comment */
     comment String maxlength(DEFAULT_MAX_LENGTH)
-    /** deleted (deleted set to true , not delete set to false)*/
-    deleted Boolean
 }
 
 /**

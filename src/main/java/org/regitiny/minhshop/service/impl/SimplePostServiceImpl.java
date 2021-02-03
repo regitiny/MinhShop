@@ -102,6 +102,10 @@ public class SimplePostServiceImpl implements SimplePostService {
                         existingSimplePost.setOtherInfo(simplePostDTO.getOtherInfo());
                     }
 
+                    if (simplePostDTO.getSearchField() != null) {
+                        existingSimplePost.setSearchField(simplePostDTO.getSearchField());
+                    }
+
                     if (simplePostDTO.getRole() != null) {
                         existingSimplePost.setRole(simplePostDTO.getRole());
                     }

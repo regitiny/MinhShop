@@ -47,44 +47,45 @@ public class PostDetails implements Serializable {
     /**
      * content
      */
-    @NotNull
-    @Size(max = 1000000000)
-    @Column(name = "content", length = 1000000000, nullable = false, unique = true)
+    @Lob
+    @Column(name = "content")
     private String content;
+
+    /**
+     * searchField
+     */
+    @Lob
+    @Column(name = "search_field")
+    private String searchField;
 
     /**
      * role
      */
-    @NotNull
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "created_by")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
     /**
@@ -155,6 +156,19 @@ public class PostDetails implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getSearchField() {
+        return this.searchField;
+    }
+
+    public PostDetails searchField(String searchField) {
+        this.searchField = searchField;
+        return this;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -294,6 +308,7 @@ public class PostDetails implements Serializable {
             ", uuid='" + getUuid() + "'" +
             ", postDetailsId='" + getPostDetailsId() + "'" +
             ", content='" + getContent() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +

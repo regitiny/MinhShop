@@ -32,7 +32,7 @@
             <column name="address_code" type="varchar(255)" remarks="addressCode">
                 <constraints nullable="true" />
             </column>
-            <column name="product" type="varchar(8192)">
+            <column name="product" type="varchar(10000)">
                 <constraints nullable="true" />
             </column>
             <column name="comment" type="varchar(2048)" remarks="comment">

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -13,7 +13,7 @@ import { ITypePost } from 'app/shared/model/type-post.model';
 import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
 import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
 import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './simple-post.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './simple-post.reducer';
 import { ISimplePost } from 'app/shared/model/simple-post.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -28,6 +28,8 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
 
   const { simplePostEntity, postDetails, typePosts, typePostFilters, loading, updating } = props;
 
+  const { searchField } = simplePostEntity;
+
   const handleClose = () => {
     props.history.push('/simple-post');
   };
@@ -41,6 +43,14 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
     props.getTypePosts();
     props.getTypePostFilters();
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -118,7 +128,6 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   name="title"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
-                    maxLength: { value: 128, errorMessage: translate('entity.validation.maxlength', { max: 128 }) },
                   }}
                 />
                 <UncontrolledTooltip target="titleLabel">
@@ -129,17 +138,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                 <Label id="priceLabel" for="simple-post-price">
                   <Translate contentKey="minhShopApp.simplePost.price">Price</Translate>
                 </Label>
-                <AvField
-                  id="simple-post-price"
-                  data-cy="price"
-                  type="string"
-                  className="form-control"
-                  name="price"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') },
-                  }}
-                />
+                <AvField id="simple-post-price" data-cy="price" type="string" className="form-control" name="price" />
                 <UncontrolledTooltip target="priceLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.price" />
                 </UncontrolledTooltip>
@@ -148,17 +147,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                 <Label id="salePriceLabel" for="simple-post-salePrice">
                   <Translate contentKey="minhShopApp.simplePost.salePrice">Sale Price</Translate>
                 </Label>
-                <AvField
-                  id="simple-post-salePrice"
-                  data-cy="salePrice"
-                  type="string"
-                  className="form-control"
-                  name="salePrice"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') },
-                  }}
-                />
+                <AvField id="simple-post-salePrice" data-cy="salePrice" type="string" className="form-control" name="salePrice" />
                 <UncontrolledTooltip target="salePriceLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.salePrice" />
                 </UncontrolledTooltip>
@@ -174,7 +163,6 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   className="form-control"
                   name="percentSale"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
                     max: { value: 100, errorMessage: translate('entity.validation.max', { max: 100 }) },
                     number: { value: true, errorMessage: translate('entity.validation.number') },
@@ -213,7 +201,6 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   className="form-control"
                   name="scores"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
                     max: { value: 100, errorMessage: translate('entity.validation.max', { max: 100 }) },
                     number: { value: true, errorMessage: translate('entity.validation.number') },
@@ -227,7 +214,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                 <Label id="simpleContentLabel" for="simple-post-simpleContent">
                   <Translate contentKey="minhShopApp.simplePost.simpleContent">Simple Content</Translate>
                 </Label>
-                <AvField id="simple-post-simpleContent" data-cy="simpleContent" type="text" name="simpleContent" validate={{}} />
+                <AvField id="simple-post-simpleContent" data-cy="simpleContent" type="text" name="simpleContent" />
                 <UncontrolledTooltip target="simpleContentLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.simpleContent" />
                 </UncontrolledTooltip>
@@ -236,32 +223,25 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                 <Label id="otherInfoLabel" for="simple-post-otherInfo">
                   <Translate contentKey="minhShopApp.simplePost.otherInfo">Other Info</Translate>
                 </Label>
-                <AvField
-                  id="simple-post-otherInfo"
-                  data-cy="otherInfo"
-                  type="text"
-                  name="otherInfo"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="simple-post-otherInfo" data-cy="otherInfo" type="text" name="otherInfo" />
                 <UncontrolledTooltip target="otherInfoLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.otherInfo" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="searchFieldLabel" for="simple-post-searchField">
+                  <Translate contentKey="minhShopApp.simplePost.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="simple-post-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.simplePost.help.searchField" />
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="roleLabel" for="simple-post-role">
                   <Translate contentKey="minhShopApp.simplePost.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="simple-post-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="simple-post-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.role" />
                 </UncontrolledTooltip>
@@ -278,9 +258,6 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.simplePostEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.createdDate" />
@@ -298,9 +275,6 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.simplePostEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.modifiedDate" />
@@ -310,15 +284,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                 <Label id="createdByLabel" for="simple-post-createdBy">
                   <Translate contentKey="minhShopApp.simplePost.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="simple-post-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="simple-post-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.createdBy" />
                 </UncontrolledTooltip>
@@ -327,15 +293,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                 <Label id="modifiedByLabel" for="simple-post-modifiedBy">
                   <Translate contentKey="minhShopApp.simplePost.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="simple-post-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="simple-post-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.simplePost.help.modifiedBy" />
                 </UncontrolledTooltip>
@@ -456,6 +414,7 @@ const mapDispatchToProps = {
   getTypePostFilters,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };

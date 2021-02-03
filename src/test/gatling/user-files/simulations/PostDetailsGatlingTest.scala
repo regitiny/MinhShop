@@ -74,7 +74,8 @@ class PostDetailsGatlingTest extends Simulation {
                 "id":null
                 , "uuid":null
                 , "postDetailsId":"SAMPLE_TEXT"
-                , "content":"SAMPLE_TEXT"
+                , "content":null
+                , "searchField":null
                 , "role":"SAMPLE_TEXT"
                 , "createdDate":"2020-01-01T00:00:00.000Z"
                 , "modifiedDate":"2020-01-01T00:00:00.000Z"

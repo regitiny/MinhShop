@@ -24,6 +24,7 @@
       "nameImage": "Name Image",
       "extension": "Extension",
       "typeFile": "Type File",
+      "searchField": "Search Field",
       "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
@@ -31,21 +32,20 @@
       "modifiedBy": "Modified By",
       "dataSize": "Data Size",
       "comment": "Comment",
-      "deleted": "Deleted",
       "help": {
         "uuid": "the uuid equivalent id (primary key)",
         "imageData": "imageData is data of image in binary form",
         "nameImage": "name of image (Default is uuid + extension)",
         "extension": "extension of image (Example .jpg .png ... )",
         "typeFile": "typeFile",
+        "searchField": "searchField",
         "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",
         "modifiedBy": "modifiedBy",
         "dataSize": "dataSize",
-        "comment": "comment",
-        "deleted": "deleted (deleted set to true , not delete set to false)"
+        "comment": "comment"
       }
     }
   }

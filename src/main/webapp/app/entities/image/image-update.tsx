@@ -19,7 +19,7 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
 
   const { imageEntity, loading, updating } = props;
 
-  const { imageData, imageDataContentType } = imageEntity;
+  const { imageData, imageDataContentType, searchField } = imageEntity;
 
   const handleClose = () => {
     props.history.push('/image');
@@ -198,18 +198,19 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="searchFieldLabel" for="image-searchField">
+                  <Translate contentKey="minhShopApp.image.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="image-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.image.help.searchField" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="roleLabel" for="image-role">
                   <Translate contentKey="minhShopApp.image.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="image-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="image-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.image.help.role" />
                 </UncontrolledTooltip>
@@ -226,9 +227,6 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.imageEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.image.help.createdDate" />
@@ -246,9 +244,6 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.imageEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.image.help.modifiedDate" />
@@ -258,15 +253,7 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
                 <Label id="createdByLabel" for="image-createdBy">
                   <Translate contentKey="minhShopApp.image.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="image-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="image-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.image.help.createdBy" />
                 </UncontrolledTooltip>
@@ -275,15 +262,7 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
                 <Label id="modifiedByLabel" for="image-modifiedBy">
                   <Translate contentKey="minhShopApp.image.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="image-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="image-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.image.help.modifiedBy" />
                 </UncontrolledTooltip>
@@ -312,15 +291,6 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
                 />
                 <UncontrolledTooltip target="commentLabel">
                   <Translate contentKey="minhShopApp.image.help.comment" />
-                </UncontrolledTooltip>
-              </AvGroup>
-              <AvGroup check>
-                <Label id="deletedLabel">
-                  <AvInput id="image-deleted" data-cy="deleted" type="checkbox" className="form-check-input" name="deleted" />
-                  <Translate contentKey="minhShopApp.image.deleted">Deleted</Translate>
-                </Label>
-                <UncontrolledTooltip target="deletedLabel">
-                  <Translate contentKey="minhShopApp.image.help.deleted" />
                 </UncontrolledTooltip>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/image" replace color="info">

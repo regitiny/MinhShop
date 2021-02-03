@@ -8,16 +8,14 @@ export interface IImage {
   nameImage?: string | null;
   extension?: string | null;
   typeFile?: string | null;
-  role?: string;
-  createdDate?: string;
-  modifiedDate?: string;
-  createdBy?: string;
-  modifiedBy?: string;
+  searchField?: string | null;
+  role?: string | null;
+  createdDate?: string | null;
+  modifiedDate?: string | null;
+  createdBy?: string | null;
+  modifiedBy?: string | null;
   dataSize?: number | null;
   comment?: string | null;
-  deleted?: boolean | null;
 }
 
-export const defaultValue: Readonly<IImage> = {
-  deleted: false,
-};
+export const defaultValue: Readonly<IImage> = {};

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -185,6 +185,9 @@ export const PostDetails = (props: IPostDetailsProps) => {
                   <th className="hand" onClick={sort('content')}>
                     <Translate contentKey="minhShopApp.postDetails.content">Content</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.postDetails.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.postDetails.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -222,6 +225,7 @@ export const PostDetails = (props: IPostDetailsProps) => {
                     <td>
                       <FroalaEditorView model={postDetails.content} />
                     </td>
+                    <td>{postDetails.searchField}</td>
                     <td>{postDetails.role}</td>
                     <td>
                       {postDetails.createdDate ? <TextFormat type="date" value={postDetails.createdDate} format={APP_DATE_FORMAT} /> : null}

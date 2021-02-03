@@ -67,38 +67,40 @@ public class Image implements Serializable {
     private String typeFile;
 
     /**
+     * searchField
+     */
+    @Lob
+    @Column(name = "search_field")
+    private String searchField;
+
+    /**
      * role
      */
-    @NotNull
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "created_by")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
     /**
@@ -113,12 +115,6 @@ public class Image implements Serializable {
     @Size(max = 2048)
     @Column(name = "comment", length = 2048)
     private String comment;
-
-    /**
-     * deleted (deleted set to true , not delete set to false)
-     */
-    @Column(name = "deleted")
-    private Boolean deleted;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -212,6 +208,19 @@ public class Image implements Serializable {
         this.typeFile = typeFile;
     }
 
+    public String getSearchField() {
+        return this.searchField;
+    }
+
+    public Image searchField(String searchField) {
+        this.searchField = searchField;
+        return this;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
+    }
+
     public String getRole() {
         return this.role;
     }
@@ -303,19 +312,6 @@ public class Image implements Serializable {
         this.comment = comment;
     }
 
-    public Boolean getDeleted() {
-        return this.deleted;
-    }
-
-    public Image deleted(Boolean deleted) {
-        this.deleted = deleted;
-        return this;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -346,6 +342,7 @@ public class Image implements Serializable {
             ", nameImage='" + getNameImage() + "'" +
             ", extension='" + getExtension() + "'" +
             ", typeFile='" + getTypeFile() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
@@ -353,7 +350,6 @@ public class Image implements Serializable {
             ", modifiedBy='" + getModifiedBy() + "'" +
             ", dataSize=" + getDataSize() +
             ", comment='" + getComment() + "'" +
-            ", deleted='" + getDeleted() + "'" +
             "}";
     }
 }

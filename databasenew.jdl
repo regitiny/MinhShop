@@ -1,6 +1,6 @@
 DEFAULT_MIN_LENGTH = 1
 DEFAULT_MAX_LENGTH = 2048
-MAX_STRING=65535
+MAX_STRING=16000
 DEFAULT_MIN_BYTES = 1
 DEFAULT_MAX_BYTES = 52428800
 DEFAULT_MIN = 0
@@ -58,9 +58,9 @@ entity SimplePost {
     /** scores */
     scores Float min(0) max(100)
     /** simple content */
-    simpleContent String
+    simpleContent String maxlength(DEFAULT_MAX_LENGTH)
     /** otherInfo (Json) */
-    otherInfo String
+    otherInfo String maxlength(DEFAULT_MAX_LENGTH)
 
     /** searchField */
     searchField TextBlob

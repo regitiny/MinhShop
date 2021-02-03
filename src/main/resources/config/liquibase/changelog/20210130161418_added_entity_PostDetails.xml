@@ -20,23 +20,26 @@
             <column name="post_details_id" type="varchar(16)" remarks="postDetailsId">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__post_details_id" />
             </column>
-            <column name="content" type="varchar(1000)" remarks="content">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_post_details__content" />
+            <column name="content" type="${clobType}" remarks="content">
+                <constraints nullable="true" />
+            </column>
+            <column name="search_field" type="${clobType}" remarks="searchField">
+                <constraints nullable="true" />
             </column>
             <column name="role" type="varchar(255)" remarks="role">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="modified_date" type="${datetimeType}" remarks="modifiedDate">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="created_by" type="varchar(255)" remarks="createdBy">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="modified_by" type="varchar(255)" remarks="modifiedBy">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="data_size" type="bigint" remarks="dataSize">
                 <constraints nullable="true" />
@@ -68,7 +71,8 @@
             <column name="id" type="numeric"/>
             <column name="uuid" type="string"/>
             <column name="post_details_id" type="string"/>
-            <column name="content" type="string"/>
+            <column name="content" type="clob"/>
+            <column name="search_field" type="clob"/>
             <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>

@@ -16,6 +16,7 @@ export default class SimplePostUpdatePage {
   scoresInput: ElementFinder = element(by.css('input#simple-post-scores'));
   simpleContentInput: ElementFinder = element(by.css('input#simple-post-simpleContent'));
   otherInfoInput: ElementFinder = element(by.css('input#simple-post-otherInfo'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#simple-post-searchField'));
   roleInput: ElementFinder = element(by.css('input#simple-post-role'));
   createdDateInput: ElementFinder = element(by.css('input#simple-post-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#simple-post-modifiedDate'));
@@ -101,6 +102,14 @@ export default class SimplePostUpdatePage {
 
   async getOtherInfoInput() {
     return this.otherInfoInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -247,6 +256,9 @@ export default class SimplePostUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setOtherInfoInput('otherInfo');
     expect(await this.getOtherInfoInput()).to.match(/otherInfo/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
     await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);

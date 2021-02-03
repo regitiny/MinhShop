@@ -17,44 +17,47 @@
             <column name="uuid" type="${uuidType}" remarks="uuid">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_simple_post__uuid" />
             </column>
-            <column name="title" type="varchar(128)" remarks="title">
+            <column name="title" type="varchar(255)" remarks="title">
                 <constraints nullable="false" />
             </column>
             <column name="price" type="double" remarks="price">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="sale_price" type="double" remarks="price">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="percent_sale" type="${floatType}" remarks="percentSale">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="image_url" type="varchar(2048)" remarks="imageUrl">
                 <constraints nullable="false" />
             </column>
             <column name="scores" type="${floatType}" remarks="scores">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="simple_content" type="varchar(255)" remarks="simple content">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_simple_post__simple_content" />
+                <constraints nullable="true" />
             </column>
             <column name="other_info" type="varchar(255)" remarks="otherInfo (Json)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
+            </column>
+            <column name="search_field" type="${clobType}" remarks="searchField">
+                <constraints nullable="true" />
             </column>
             <column name="role" type="varchar(255)" remarks="role">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="created_date" type="${datetimeType}" remarks="createdDate">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="modified_date" type="${datetimeType}" remarks="modifiedDate">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="created_by" type="varchar(255)" remarks="createdBy">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="modified_by" type="varchar(255)" remarks="modifiedBy">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="data_size" type="bigint" remarks="dataSize">
                 <constraints nullable="true" />
@@ -110,6 +113,7 @@
             <column name="scores" type="numeric"/>
             <column name="simple_content" type="string"/>
             <column name="other_info" type="string"/>
+            <column name="search_field" type="clob"/>
             <column name="role" type="string"/>
             <column name="created_date" type="${datetimeType}"/>
             <column name="modified_date" type="${datetimeType}"/>

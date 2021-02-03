@@ -16,6 +16,7 @@ export default class ImageUpdatePage {
   nameImageInput: ElementFinder = element(by.css('input#image-nameImage'));
   extensionInput: ElementFinder = element(by.css('input#image-extension'));
   typeFileInput: ElementFinder = element(by.css('input#image-typeFile'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#image-searchField'));
   roleInput: ElementFinder = element(by.css('input#image-role'));
   createdDateInput: ElementFinder = element(by.css('input#image-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#image-modifiedDate'));
@@ -23,7 +24,6 @@ export default class ImageUpdatePage {
   modifiedByInput: ElementFinder = element(by.css('input#image-modifiedBy'));
   dataSizeInput: ElementFinder = element(by.css('input#image-dataSize'));
   commentInput: ElementFinder = element(by.css('input#image-comment'));
-  deletedInput: ElementFinder = element(by.css('input#image-deleted'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -67,6 +67,14 @@ export default class ImageUpdatePage {
 
   async getTypeFileInput() {
     return this.typeFileInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -125,9 +133,6 @@ export default class ImageUpdatePage {
     return this.commentInput.getAttribute('value');
   }
 
-  getDeletedInput() {
-    return this.deletedInput;
-  }
   async save() {
     await this.saveButton.click();
   }
@@ -156,6 +161,9 @@ export default class ImageUpdatePage {
     await this.setTypeFileInput('typeFile');
     expect(await this.getTypeFileInput()).to.match(/typeFile/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
@@ -176,15 +184,6 @@ export default class ImageUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setCommentInput('comment');
     expect(await this.getCommentInput()).to.match(/comment/);
-    await waitUntilDisplayed(this.saveButton);
-    const selectedDeleted = await this.getDeletedInput().isSelected();
-    if (selectedDeleted) {
-      await this.getDeletedInput().click();
-      expect(await this.getDeletedInput().isSelected()).to.be.false;
-    } else {
-      await this.getDeletedInput().click();
-      expect(await this.getDeletedInput().isSelected()).to.be.true;
-    }
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

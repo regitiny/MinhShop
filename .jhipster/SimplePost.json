@@ -11,26 +11,23 @@
       "fieldName": "title",
       "fieldType": "String",
       "javadoc": "title",
-      "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "128"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "price",
       "fieldType": "Double",
-      "javadoc": "price",
-      "fieldValidateRules": ["required"]
+      "javadoc": "price"
     },
     {
       "fieldName": "salePrice",
       "fieldType": "Double",
-      "javadoc": "price",
-      "fieldValidateRules": ["required"]
+      "javadoc": "price"
     },
     {
       "fieldName": "percentSale",
       "fieldType": "Float",
       "javadoc": "percentSale",
-      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRules": ["min", "max"],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
     },
@@ -45,51 +42,50 @@
       "fieldName": "scores",
       "fieldType": "Float",
       "javadoc": "scores",
-      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRules": ["min", "max"],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
     },
     {
       "fieldName": "simpleContent",
       "fieldType": "String",
-      "javadoc": "simple content",
-      "fieldValidateRules": ["unique"]
+      "javadoc": "simple content"
     },
     {
       "fieldName": "otherInfo",
       "fieldType": "String",
-      "javadoc": "otherInfo (Json)",
-      "fieldValidateRules": ["required"]
+      "javadoc": "otherInfo (Json)"
+    },
+    {
+      "fieldName": "searchField",
+      "fieldType": "byte[]",
+      "javadoc": "searchField",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "role",
       "fieldType": "String",
-      "javadoc": "role",
-      "fieldValidateRules": ["required"]
+      "javadoc": "role"
     },
     {
       "fieldName": "createdDate",
       "fieldType": "Instant",
-      "javadoc": "createdDate",
-      "fieldValidateRules": ["required"]
+      "javadoc": "createdDate"
     },
     {
       "fieldName": "modifiedDate",
       "fieldType": "Instant",
-      "javadoc": "modifiedDate",
-      "fieldValidateRules": ["required"]
+      "javadoc": "modifiedDate"
     },
     {
       "fieldName": "createdBy",
       "fieldType": "String",
-      "javadoc": "createdBy",
-      "fieldValidateRules": ["required"]
+      "javadoc": "createdBy"
     },
     {
       "fieldName": "modifiedBy",
       "fieldType": "String",
-      "javadoc": "modifiedBy",
-      "fieldValidateRules": ["required"]
+      "javadoc": "modifiedBy"
     },
     {
       "fieldName": "dataSize",

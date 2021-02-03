@@ -35,6 +35,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link SimplePostResource} REST controller.
@@ -71,6 +72,9 @@ class SimplePostResourceIT {
 
     private static final String DEFAULT_OTHER_INFO = "AAAAAAAAAA";
     private static final String UPDATED_OTHER_INFO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SEARCH_FIELD = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCH_FIELD = "BBBBBBBBBB";
 
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
@@ -138,6 +142,7 @@ class SimplePostResourceIT {
             .scores(DEFAULT_SCORES)
             .simpleContent(DEFAULT_SIMPLE_CONTENT)
             .otherInfo(DEFAULT_OTHER_INFO)
+            .searchField(DEFAULT_SEARCH_FIELD)
             .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
@@ -175,6 +180,7 @@ class SimplePostResourceIT {
             .scores(UPDATED_SCORES)
             .simpleContent(UPDATED_SIMPLE_CONTENT)
             .otherInfo(UPDATED_OTHER_INFO)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
@@ -225,6 +231,7 @@ class SimplePostResourceIT {
         assertThat(testSimplePost.getScores()).isEqualTo(DEFAULT_SCORES);
         assertThat(testSimplePost.getSimpleContent()).isEqualTo(DEFAULT_SIMPLE_CONTENT);
         assertThat(testSimplePost.getOtherInfo()).isEqualTo(DEFAULT_OTHER_INFO);
+        assertThat(testSimplePost.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testSimplePost.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testSimplePost.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testSimplePost.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
@@ -352,210 +359,10 @@ class SimplePostResourceIT {
 
     @Test
     @Transactional
-    void checkPriceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setPrice(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkSalePriceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setSalePrice(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkPercentSaleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setPercentSale(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void checkImageUrlIsRequired() throws Exception {
         int databaseSizeBeforeTest = simplePostRepository.findAll().size();
         // set the field null
         simplePost.setImageUrl(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkScoresIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setScores(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkOtherInfoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setOtherInfo(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setRole(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setCreatedDate(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setModifiedDate(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setCreatedBy(null);
-
-        // Create the SimplePost, which fails.
-        SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
-
-        restSimplePostMockMvc
-            .perform(
-                post("/api/simple-posts").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(simplePostDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<SimplePost> simplePostList = simplePostRepository.findAll();
-        assertThat(simplePostList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = simplePostRepository.findAll().size();
-        // set the field null
-        simplePost.setModifiedBy(null);
 
         // Create the SimplePost, which fails.
         SimplePostDTO simplePostDTO = simplePostMapper.toDto(simplePost);
@@ -591,6 +398,7 @@ class SimplePostResourceIT {
             .andExpect(jsonPath("$.[*].scores").value(hasItem(DEFAULT_SCORES.doubleValue())))
             .andExpect(jsonPath("$.[*].simpleContent").value(hasItem(DEFAULT_SIMPLE_CONTENT)))
             .andExpect(jsonPath("$.[*].otherInfo").value(hasItem(DEFAULT_OTHER_INFO)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
@@ -639,6 +447,7 @@ class SimplePostResourceIT {
             .andExpect(jsonPath("$.scores").value(DEFAULT_SCORES.doubleValue()))
             .andExpect(jsonPath("$.simpleContent").value(DEFAULT_SIMPLE_CONTENT))
             .andExpect(jsonPath("$.otherInfo").value(DEFAULT_OTHER_INFO))
+            .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
@@ -677,6 +486,7 @@ class SimplePostResourceIT {
             .scores(UPDATED_SCORES)
             .simpleContent(UPDATED_SIMPLE_CONTENT)
             .otherInfo(UPDATED_OTHER_INFO)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
@@ -705,6 +515,7 @@ class SimplePostResourceIT {
         assertThat(testSimplePost.getScores()).isEqualTo(UPDATED_SCORES);
         assertThat(testSimplePost.getSimpleContent()).isEqualTo(UPDATED_SIMPLE_CONTENT);
         assertThat(testSimplePost.getOtherInfo()).isEqualTo(UPDATED_OTHER_INFO);
+        assertThat(testSimplePost.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testSimplePost.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testSimplePost.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testSimplePost.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
@@ -756,8 +567,9 @@ class SimplePostResourceIT {
             .imageUrl(UPDATED_IMAGE_URL)
             .scores(UPDATED_SCORES)
             .otherInfo(UPDATED_OTHER_INFO)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
-            .createdDate(UPDATED_CREATED_DATE)
+            .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
@@ -784,9 +596,10 @@ class SimplePostResourceIT {
         assertThat(testSimplePost.getScores()).isEqualTo(UPDATED_SCORES);
         assertThat(testSimplePost.getSimpleContent()).isEqualTo(DEFAULT_SIMPLE_CONTENT);
         assertThat(testSimplePost.getOtherInfo()).isEqualTo(UPDATED_OTHER_INFO);
+        assertThat(testSimplePost.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testSimplePost.getRole()).isEqualTo(UPDATED_ROLE);
-        assertThat(testSimplePost.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
-        assertThat(testSimplePost.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
+        assertThat(testSimplePost.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testSimplePost.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testSimplePost.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testSimplePost.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testSimplePost.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
@@ -815,6 +628,7 @@ class SimplePostResourceIT {
             .scores(UPDATED_SCORES)
             .simpleContent(UPDATED_SIMPLE_CONTENT)
             .otherInfo(UPDATED_OTHER_INFO)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
@@ -844,6 +658,7 @@ class SimplePostResourceIT {
         assertThat(testSimplePost.getScores()).isEqualTo(UPDATED_SCORES);
         assertThat(testSimplePost.getSimpleContent()).isEqualTo(UPDATED_SIMPLE_CONTENT);
         assertThat(testSimplePost.getOtherInfo()).isEqualTo(UPDATED_OTHER_INFO);
+        assertThat(testSimplePost.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testSimplePost.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testSimplePost.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testSimplePost.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
@@ -913,6 +728,7 @@ class SimplePostResourceIT {
             .andExpect(jsonPath("$.[*].scores").value(hasItem(DEFAULT_SCORES.doubleValue())))
             .andExpect(jsonPath("$.[*].simpleContent").value(hasItem(DEFAULT_SIMPLE_CONTENT)))
             .andExpect(jsonPath("$.[*].otherInfo").value(hasItem(DEFAULT_OTHER_INFO)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))

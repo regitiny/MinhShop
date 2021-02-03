@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link PostDetailsResource} REST controller.
@@ -50,6 +51,9 @@ class PostDetailsResourceIT {
 
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SEARCH_FIELD = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCH_FIELD = "BBBBBBBBBB";
 
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
@@ -105,6 +109,7 @@ class PostDetailsResourceIT {
             .uuid(DEFAULT_UUID)
             .postDetailsId(DEFAULT_POST_DETAILS_ID)
             .content(DEFAULT_CONTENT)
+            .searchField(DEFAULT_SEARCH_FIELD)
             .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
@@ -126,6 +131,7 @@ class PostDetailsResourceIT {
             .uuid(UPDATED_UUID)
             .postDetailsId(UPDATED_POST_DETAILS_ID)
             .content(UPDATED_CONTENT)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
@@ -160,6 +166,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testPostDetails.getPostDetailsId()).isEqualTo(DEFAULT_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testPostDetails.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testPostDetails.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
@@ -238,126 +245,6 @@ class PostDetailsResourceIT {
 
     @Test
     @Transactional
-    void checkContentIsRequired() throws Exception {
-        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
-        // set the field null
-        postDetails.setContent(null);
-
-        // Create the PostDetails, which fails.
-        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
-
-        restPostDetailsMockMvc
-            .perform(
-                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
-        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
-        // set the field null
-        postDetails.setRole(null);
-
-        // Create the PostDetails, which fails.
-        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
-
-        restPostDetailsMockMvc
-            .perform(
-                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
-        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
-        // set the field null
-        postDetails.setCreatedDate(null);
-
-        // Create the PostDetails, which fails.
-        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
-
-        restPostDetailsMockMvc
-            .perform(
-                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
-        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
-        // set the field null
-        postDetails.setModifiedDate(null);
-
-        // Create the PostDetails, which fails.
-        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
-
-        restPostDetailsMockMvc
-            .perform(
-                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
-        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
-        // set the field null
-        postDetails.setCreatedBy(null);
-
-        // Create the PostDetails, which fails.
-        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
-
-        restPostDetailsMockMvc
-            .perform(
-                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
-        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = postDetailsRepository.findAll().size();
-        // set the field null
-        postDetails.setModifiedBy(null);
-
-        // Create the PostDetails, which fails.
-        PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(postDetails);
-
-        restPostDetailsMockMvc
-            .perform(
-                post("/api/post-details").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(postDetailsDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<PostDetails> postDetailsList = postDetailsRepository.findAll();
-        assertThat(postDetailsList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllPostDetails() throws Exception {
         // Initialize the database
         postDetailsRepository.saveAndFlush(postDetails);
@@ -370,7 +257,8 @@ class PostDetailsResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(postDetails.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].postDetailsId").value(hasItem(DEFAULT_POST_DETAILS_ID)))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT)))
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
@@ -394,7 +282,8 @@ class PostDetailsResourceIT {
             .andExpect(jsonPath("$.id").value(postDetails.getId().intValue()))
             .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
             .andExpect(jsonPath("$.postDetailsId").value(DEFAULT_POST_DETAILS_ID))
-            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT))
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
+            .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
@@ -427,6 +316,7 @@ class PostDetailsResourceIT {
             .uuid(UPDATED_UUID)
             .postDetailsId(UPDATED_POST_DETAILS_ID)
             .content(UPDATED_CONTENT)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
@@ -449,6 +339,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testPostDetails.getPostDetailsId()).isEqualTo(UPDATED_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testPostDetails.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testPostDetails.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
@@ -498,10 +389,10 @@ class PostDetailsResourceIT {
 
         partialUpdatedPostDetails
             .content(UPDATED_CONTENT)
+            .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
-            .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT);
+            .dataSize(UPDATED_DATA_SIZE);
 
         restPostDetailsMockMvc
             .perform(
@@ -518,13 +409,14 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testPostDetails.getPostDetailsId()).isEqualTo(DEFAULT_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testPostDetails.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testPostDetails.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
-        assertThat(testPostDetails.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
+        assertThat(testPostDetails.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPostDetails.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testPostDetails.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testPostDetails.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
-        assertThat(testPostDetails.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testPostDetails.getComment()).isEqualTo(DEFAULT_COMMENT);
     }
 
     @Test
@@ -543,6 +435,7 @@ class PostDetailsResourceIT {
             .uuid(UPDATED_UUID)
             .postDetailsId(UPDATED_POST_DETAILS_ID)
             .content(UPDATED_CONTENT)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
@@ -566,6 +459,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testPostDetails.getPostDetailsId()).isEqualTo(UPDATED_POST_DETAILS_ID);
         assertThat(testPostDetails.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testPostDetails.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testPostDetails.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPostDetails.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPostDetails.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
@@ -628,7 +522,8 @@ class PostDetailsResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(postDetails.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].postDetailsId").value(hasItem(DEFAULT_POST_DETAILS_ID)))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT)))
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))

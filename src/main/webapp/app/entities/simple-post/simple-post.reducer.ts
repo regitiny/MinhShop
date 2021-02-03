@@ -21,6 +21,7 @@ export const ACTION_TYPES = {
   CREATE_SIMPLEPOST: 'simplePost/CREATE_SIMPLEPOST',
   UPDATE_SIMPLEPOST: 'simplePost/UPDATE_SIMPLEPOST',
   DELETE_SIMPLEPOST: 'simplePost/DELETE_SIMPLEPOST',
+  SET_BLOB: 'simplePost/SET_BLOB',
   RESET: 'simplePost/RESET',
 };
 
@@ -105,6 +106,17 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
         updateSuccess: true,
         entity: {},
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType,
+        },
+      };
+    }
     case ACTION_TYPES.RESET:
       return {
         ...initialState,
@@ -164,6 +176,15 @@ export const deleteEntity: ICrudDeleteAction<ISimplePost> = id => async dispatch
   });
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType,
+  },
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET,

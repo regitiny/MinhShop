@@ -113,6 +113,9 @@ describe('SimplePost e2e test', () => {
     cy.get(`[data-cy="otherInfo"]`).type('Borders', { force: true }).invoke('val').should('match', new RegExp('Borders'));
 
 
+    cy.get(`[data-cy="searchField"]`).type('../fake-data/blob/hipster.txt', { force: true }).invoke('val').should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
+
     cy.get(`[data-cy="role"]`).type('Coordinator Chicken', { force: true }).invoke('val').should('match', new RegExp('Coordinator Chicken'));
 
 

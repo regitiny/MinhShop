@@ -198,6 +198,9 @@ export const Image = (props: IImageProps) => {
                   <th className="hand" onClick={sort('typeFile')}>
                     <Translate contentKey="minhShopApp.image.typeFile">Type File</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.image.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.image.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -218,9 +221,6 @@ export const Image = (props: IImageProps) => {
                   </th>
                   <th className="hand" onClick={sort('comment')}>
                     <Translate contentKey="minhShopApp.image.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('deleted')}>
-                    <Translate contentKey="minhShopApp.image.deleted">Deleted</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
@@ -252,6 +252,7 @@ export const Image = (props: IImageProps) => {
                     <td>{image.nameImage}</td>
                     <td>{image.extension}</td>
                     <td>{image.typeFile}</td>
+                    <td>{image.searchField}</td>
                     <td>{image.role}</td>
                     <td>{image.createdDate ? <TextFormat type="date" value={image.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>{image.modifiedDate ? <TextFormat type="date" value={image.modifiedDate} format={APP_DATE_FORMAT} /> : null}</td>
@@ -259,7 +260,6 @@ export const Image = (props: IImageProps) => {
                     <td>{image.modifiedBy}</td>
                     <td>{image.dataSize}</td>
                     <td>{image.comment}</td>
-                    <td>{image.deleted ? 'true' : 'false'}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${image.id}`} color="info" size="sm" data-cy="entityDetailsButton">

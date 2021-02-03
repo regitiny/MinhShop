@@ -39,31 +39,27 @@ public class SimplePost implements Serializable {
      * title
      */
     @NotNull
-    @Size(max = 128)
-    @Column(name = "title", length = 128, nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     /**
      * price
      */
-    @NotNull
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private Double price;
 
     /**
      * price
      */
-    @NotNull
-    @Column(name = "sale_price", nullable = false)
+    @Column(name = "sale_price")
     private Double salePrice;
 
     /**
      * percentSale
      */
-    @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "100")
-    @Column(name = "percent_sale", nullable = false)
+    @Column(name = "percent_sale")
     private Float percentSale;
 
     /**
@@ -77,59 +73,58 @@ public class SimplePost implements Serializable {
     /**
      * scores
      */
-    @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "100")
-    @Column(name = "scores", nullable = false)
+    @Column(name = "scores")
     private Float scores;
 
     /**
      * simple content
      */
-
-    @Column(name = "simple_content", unique = true)
+    @Column(name = "simple_content")
     private String simpleContent;
 
     /**
      * otherInfo (Json)
      */
-    @NotNull
-    @Column(name = "other_info", nullable = false)
+    @Column(name = "other_info")
     private String otherInfo;
+
+    /**
+     * searchField
+     */
+    @Lob
+    @Column(name = "search_field")
+    private String searchField;
 
     /**
      * role
      */
-    @NotNull
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "created_by")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
     /**
@@ -294,6 +289,19 @@ public class SimplePost implements Serializable {
 
     public void setOtherInfo(String otherInfo) {
         this.otherInfo = otherInfo;
+    }
+
+    public String getSearchField() {
+        return this.searchField;
+    }
+
+    public SimplePost searchField(String searchField) {
+        this.searchField = searchField;
+        return this;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -471,6 +479,7 @@ public class SimplePost implements Serializable {
             ", scores=" + getScores() +
             ", simpleContent='" + getSimpleContent() + "'" +
             ", otherInfo='" + getOtherInfo() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +

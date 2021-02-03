@@ -81,6 +81,7 @@ class SimplePostGatlingTest extends Simulation {
                 , "scores":null
                 , "simpleContent":"SAMPLE_TEXT"
                 , "otherInfo":"SAMPLE_TEXT"
+                , "searchField":null
                 , "role":"SAMPLE_TEXT"
                 , "createdDate":"2020-01-01T00:00:00.000Z"
                 , "modifiedDate":"2020-01-01T00:00:00.000Z"

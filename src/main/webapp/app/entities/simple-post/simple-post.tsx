@@ -2,7 +2,25 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import {
+  Button,
+  InputGroup,
+  Col,
+  Row,
+  Table,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardHeader,
+  DropdownItem,
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  Progress,
+} from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +35,10 @@ import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-u
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export const SimplePost = (props: ISimplePostProps) => {
+  //cái danh sách sắp xếp
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
@@ -47,6 +69,14 @@ export const SimplePost = (props: ISimplePostProps) => {
 
   useEffect(() => {
     resetAll();
+  }, []);
+
+  //sử dụng để đưa giá trị mặc định của sort về ''
+  useEffect(() => {
+    setPaginationState({
+      ...paginationState,
+      sort: '',
+    });
   }, []);
 
   const startSearching = () => {
@@ -136,7 +166,7 @@ export const SimplePost = (props: ISimplePostProps) => {
         </div>
       </h2>
       <Row>
-        <Col sm="12">
+        <Col sm="12" className="p-0">
           <AvForm onSubmit={startSearching}>
             <AvGroup>
               <InputGroup>
@@ -168,139 +198,166 @@ export const SimplePost = (props: ISimplePostProps) => {
           initialLoad={false}
         >
           {simplePostList && simplePostList.length > 0 ? (
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
+            <div>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle caret>Sắp xếp theo</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('uuid')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('uuid')}>
                     <Translate contentKey="minhShopApp.simplePost.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('title')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('title')}>
                     <Translate contentKey="minhShopApp.simplePost.title">Title</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('price')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('price')}>
                     <Translate contentKey="minhShopApp.simplePost.price">Price</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('salePrice')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('salePrice')}>
                     <Translate contentKey="minhShopApp.simplePost.salePrice">Sale Price</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('percentSale')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('percentSale')}>
                     <Translate contentKey="minhShopApp.simplePost.percentSale">Percent Sale</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('imageUrl')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('imageUrl')}>
                     <Translate contentKey="minhShopApp.simplePost.imageUrl">Image Url</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('scores')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('scores')}>
                     <Translate contentKey="minhShopApp.simplePost.scores">Scores</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('simpleContent')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('simpleContent')}>
                     <Translate contentKey="minhShopApp.simplePost.simpleContent">Simple Content</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('otherInfo')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('otherInfo')}>
                     <Translate contentKey="minhShopApp.simplePost.otherInfo">Other Info</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('role')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.simplePost.role">Role</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('createdDate')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('createdDate')}>
                     <Translate contentKey="minhShopApp.simplePost.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('modifiedDate')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('modifiedDate')}>
                     <Translate contentKey="minhShopApp.simplePost.modifiedDate">Modified Date</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('createdBy')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('createdBy')}>
                     <Translate contentKey="minhShopApp.simplePost.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('modifiedBy')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('modifiedBy')}>
                     <Translate contentKey="minhShopApp.simplePost.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('dataSize')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('dataSize')}>
                     <Translate contentKey="minhShopApp.simplePost.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('comment')}>
+                  </DropdownItem>
+                  <DropdownItem className="hand" onClick={sort('comment')}>
                     <Translate contentKey="minhShopApp.simplePost.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </DropdownItem>
+                  <DropdownItem>
                     <Translate contentKey="minhShopApp.simplePost.postDetails">Post Details</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
+                  </DropdownItem>
+                  <DropdownItem>
                     <Translate contentKey="minhShopApp.simplePost.typePost">Type Post</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <div>
                 {simplePostList.map((simplePost, i) => (
-                  <tr key={`entity-${i}`} data-cy="entityTable">
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${simplePost.id}`} color="link" size="sm">
-                        {simplePost.id}
-                      </Button>
-                    </td>
-                    <td>{simplePost.uuid}</td>
-                    <td>{simplePost.title}</td>
-                    <td>{simplePost.price}</td>
-                    <td>{simplePost.salePrice}</td>
-                    <td>{simplePost.percentSale}</td>
-                    <td>{simplePost.imageUrl}</td>
-                    <td>{simplePost.scores}</td>
-                    <td>{simplePost.simpleContent}</td>
-                    <td>{simplePost.otherInfo}</td>
-                    <td>{simplePost.role}</td>
-                    <td>
-                      {simplePost.createdDate ? <TextFormat type="date" value={simplePost.createdDate} format={APP_DATE_FORMAT} /> : null}
-                    </td>
-                    <td>
-                      {simplePost.modifiedDate ? <TextFormat type="date" value={simplePost.modifiedDate} format={APP_DATE_FORMAT} /> : null}
-                    </td>
-                    <td>{simplePost.createdBy}</td>
-                    <td>{simplePost.modifiedBy}</td>
-                    <td>{simplePost.dataSize}</td>
-                    <td>{simplePost.comment}</td>
-                    <td>
-                      {simplePost.postDetails ? (
-                        <Link to={`post-details/${simplePost.postDetails.id}`}>{simplePost.postDetails.postDetailsId}</Link>
-                      ) : (
-                        ''
-                      )}
-                    </td>
-                    <td>
-                      {simplePost.typePost ? <Link to={`type-post/${simplePost.typePost.id}`}>{simplePost.typePost.typeName}</Link> : ''}
-                    </td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${simplePost.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${simplePost.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button
-                          tag={Link}
-                          to={`${match.url}/${simplePost.id}/delete`}
-                          color="danger"
-                          size="sm"
-                          data-cy="entityDeleteButton"
-                        >
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
+                  <div key={`entity-${i}`} data-cy="entityTable" className="col-lg-4 col-md-6 col-xs-12 float-left px-0 p-md-1 p-lg-2">
+                    <div className="">
+                      <Card className="p-1 p-sm-1 p-lg-0">
+                        <CardHeader className="px-1 px-md-1 p-lg-2">
+                          <div className="float-group">
+                            <CardTitle tag="h4" className="float-left">
+                              {simplePost.title}
+                            </CardTitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted float-right pt-2">
+                              {' '}
+                              <i>mã: </i>
+                              {simplePost.postDetails ? (
+                                <Link to={`post-details/${simplePost.postDetails.id}`}>{simplePost.postDetails.postDetailsId}</Link>
+                              ) : (
+                                ''
+                              )}
+                            </CardSubtitle>
+                          </div>
+                          <div>
+                            <CardImg top width="100%" src={simplePost.imageUrl} alt="Card image cap" />
+                          </div>
+                        </CardHeader>
+                        <CardBody>
+                          <CardText className="">
+                            <p className="float-left">Giá gốc: </p>
+                            <div className="float-left text-secondary">
+                              <del>{simplePost.price}đ</del>
+                            </div>
+                            <br />
+                          </CardText>
+                          <CardText className="">
+                            <p className="float-left">Chỉ còn: </p>
+                            <div className="float-left text-danger">
+                              <b>{simplePost.salePrice}đ</b>
+                            </div>
+                            <div className="float-left badge badge-danger text-white">-{simplePost.percentSale}%</div>
+                            <br />
+                          </CardText>
+                          <div className="text-center" style={{ width: '200px' }}>
+                            <Progress animated value={simplePost.scores}>
+                              {simplePost.scores}
+                            </Progress>
+                          </div>
+                          <CardText>{simplePost.simpleContent}</CardText>
+                          <CardText>{simplePost.otherInfo}</CardText>
+                          <CardText>{simplePost.comment}</CardText>
+                          <div>
+                            {simplePost.typePost ? (
+                              <Link to={`type-post/${simplePost.typePost.id}`}>{simplePost.typePost.typeName}</Link>
+                            ) : (
+                              ''
+                            )}
+                          </div>
+                          <div className="text-right">
+                            <div className="btn-group flex-btn-group-container">
+                              <Button tag={Link} to={`${match.url}/${simplePost.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                                <FontAwesomeIcon icon="eye" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.view">View</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`${match.url}/${simplePost.id}/edit`}
+                                color="primary"
+                                size="sm"
+                                data-cy="entityEditButton"
+                              >
+                                <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.edit">Edit</Translate>
+                                </span>
+                              </Button>
+                              <Button
+                                tag={Link}
+                                to={`${match.url}/${simplePost.id}/delete`}
+                                color="danger"
+                                size="sm"
+                                data-cy="entityDeleteButton"
+                              >
+                                <FontAwesomeIcon icon="trash" />{' '}
+                                <span className="d-none d-md-inline">
+                                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                                </span>
+                              </Button>
+                            </div>
+                          </div>
+                        </CardBody>
+                      </Card>
+                    </div>
+                    <div></div>
+                  </div>
                 ))}
-              </tbody>
-            </Table>
+              </div>
+            </div>
           ) : (
             !loading && (
               <div className="alert alert-warning">

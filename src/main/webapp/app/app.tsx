@@ -46,8 +46,8 @@ export const App = (props: IAppProps) => {
             isOpenAPIEnabled={props.isOpenAPIEnabled}
           />
         </ErrorBoundary>
-        <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
+        <div className="container-fluid view-container px-0" id="app-view-container">
+          <Card className="jh-card px-0 px-md-1 px-lg-2">
             <ErrorBoundary>
               <AppRoutes />
             </ErrorBoundary>

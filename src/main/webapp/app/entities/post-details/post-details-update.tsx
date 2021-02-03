@@ -62,13 +62,12 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
   const saveEntity = (event, errors, values) => {
     values.createdDate = convertDateTimeToServer(values.createdDate);
     values.modifiedDate = convertDateTimeToServer(values.modifiedDate);
-    const content = { content: contentState };
 
     if (errors.length === 0) {
       const entity = {
         ...postDetailsEntity,
         ...values,
-        ...content,
+        ...{ content: contentState },
       };
 
       if (isNew) {

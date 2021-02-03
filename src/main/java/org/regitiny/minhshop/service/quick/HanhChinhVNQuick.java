@@ -40,7 +40,7 @@ public class HanhChinhVNQuick {
                 cityCodes2.next();
             }
             // ToDo: giới hạn số lượng thành phố đc import vào database (prod thì xóa đi)
-            //            maxCities = 0;
+            maxCities = 0;
             log.info(" There are {} cities", maxCities);
             for (int count = 0; cityCodes.hasNext() && count < maxCities; count++) {
                 String cityCode = cityCodes.next();

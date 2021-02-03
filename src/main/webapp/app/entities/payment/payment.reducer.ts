@@ -21,6 +21,7 @@ export const ACTION_TYPES = {
   CREATE_PAYMENT: 'payment/CREATE_PAYMENT',
   UPDATE_PAYMENT: 'payment/UPDATE_PAYMENT',
   DELETE_PAYMENT: 'payment/DELETE_PAYMENT',
+  SET_BLOB: 'payment/SET_BLOB',
   RESET: 'payment/RESET',
 };
 
@@ -105,6 +106,17 @@ export default (state: PaymentState = initialState, action): PaymentState => {
         updateSuccess: true,
         entity: {},
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType,
+        },
+      };
+    }
     case ACTION_TYPES.RESET:
       return {
         ...initialState,
@@ -164,6 +176,15 @@ export const deleteEntity: ICrudDeleteAction<IPayment> = id => async dispatch =>
   });
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType,
+  },
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET,

@@ -13,12 +13,15 @@ export default class BillUpdatePage {
   emailInput: ElementFinder = element(by.css('input#bill-email'));
   addressDetailsInput: ElementFinder = element(by.css('input#bill-addressDetails'));
   addressCodeInput: ElementFinder = element(by.css('input#bill-addressCode'));
+  productInput: ElementFinder = element(by.css('input#bill-product'));
   commentInput: ElementFinder = element(by.css('input#bill-comment'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#bill-searchField'));
   roleInput: ElementFinder = element(by.css('input#bill-role'));
   createdDateInput: ElementFinder = element(by.css('input#bill-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#bill-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#bill-createdBy'));
   modifiedByInput: ElementFinder = element(by.css('input#bill-modifiedBy'));
+  dataSizeInput: ElementFinder = element(by.css('input#bill-dataSize'));
   userOtherInfoSelect: ElementFinder = element(by.css('select#bill-userOtherInfo'));
 
   getPageTitle() {
@@ -73,12 +76,28 @@ export default class BillUpdatePage {
     return this.addressCodeInput.getAttribute('value');
   }
 
+  async setProductInput(product) {
+    await this.productInput.sendKeys(product);
+  }
+
+  async getProductInput() {
+    return this.productInput.getAttribute('value');
+  }
+
   async setCommentInput(comment) {
     await this.commentInput.sendKeys(comment);
   }
 
   async getCommentInput() {
     return this.commentInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -119,6 +138,14 @@ export default class BillUpdatePage {
 
   async getModifiedByInput() {
     return this.modifiedByInput.getAttribute('value');
+  }
+
+  async setDataSizeInput(dataSize) {
+    await this.dataSizeInput.sendKeys(dataSize);
+  }
+
+  async getDataSizeInput() {
+    return this.dataSizeInput.getAttribute('value');
   }
 
   async userOtherInfoSelectLastOption() {
@@ -169,8 +196,14 @@ export default class BillUpdatePage {
     await this.setAddressCodeInput('addressCode');
     expect(await this.getAddressCodeInput()).to.match(/addressCode/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setProductInput('product');
+    expect(await this.getProductInput()).to.match(/product/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setCommentInput('comment');
     expect(await this.getCommentInput()).to.match(/comment/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
     await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
@@ -186,6 +219,9 @@ export default class BillUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setModifiedByInput('modifiedBy');
     expect(await this.getModifiedByInput()).to.match(/modifiedBy/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setDataSizeInput('5');
+    expect(await this.getDataSizeInput()).to.eq('5');
     await this.userOtherInfoSelectLastOption();
     await this.save();
     await waitUntilHidden(this.saveButton);

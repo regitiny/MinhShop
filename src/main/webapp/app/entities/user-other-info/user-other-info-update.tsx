@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './user-other-info.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './user-other-info.reducer';
 import { IUserOtherInfo } from 'app/shared/model/user-other-info.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -22,6 +22,8 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
 
   const { userOtherInfoEntity, users, loading, updating } = props;
 
+  const { searchField } = userOtherInfoEntity;
+
   const handleClose = () => {
     props.history.push('/user-other-info');
   };
@@ -33,6 +35,14 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
 
     props.getUsers();
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -181,18 +191,19 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="searchFieldLabel" for="user-other-info-searchField">
+                  <Translate contentKey="minhShopApp.userOtherInfo.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="user-other-info-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.userOtherInfo.help.searchField" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="roleLabel" for="user-other-info-role">
                   <Translate contentKey="minhShopApp.userOtherInfo.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="user-other-info-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="user-other-info-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.userOtherInfo.help.role" />
                 </UncontrolledTooltip>
@@ -209,9 +220,6 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.userOtherInfoEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.userOtherInfo.help.createdDate" />
@@ -229,9 +237,6 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.userOtherInfoEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.userOtherInfo.help.modifiedDate" />
@@ -241,15 +246,7 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
                 <Label id="createdByLabel" for="user-other-info-createdBy">
                   <Translate contentKey="minhShopApp.userOtherInfo.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="user-other-info-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="user-other-info-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.userOtherInfo.help.createdBy" />
                 </UncontrolledTooltip>
@@ -258,17 +255,35 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
                 <Label id="modifiedByLabel" for="user-other-info-modifiedBy">
                   <Translate contentKey="minhShopApp.userOtherInfo.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="user-other-info-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="user-other-info-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.userOtherInfo.help.modifiedBy" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="dataSizeLabel" for="user-other-info-dataSize">
+                  <Translate contentKey="minhShopApp.userOtherInfo.dataSize">Data Size</Translate>
+                </Label>
+                <AvField id="user-other-info-dataSize" data-cy="dataSize" type="string" className="form-control" name="dataSize" />
+                <UncontrolledTooltip target="dataSizeLabel">
+                  <Translate contentKey="minhShopApp.userOtherInfo.help.dataSize" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="commentLabel" for="user-other-info-comment">
+                  <Translate contentKey="minhShopApp.userOtherInfo.comment">Comment</Translate>
+                </Label>
+                <AvField
+                  id="user-other-info-comment"
+                  data-cy="comment"
+                  type="text"
+                  name="comment"
+                  validate={{
+                    maxLength: { value: 2048, errorMessage: translate('entity.validation.maxlength', { max: 2048 }) },
+                  }}
+                />
+                <UncontrolledTooltip target="commentLabel">
+                  <Translate contentKey="minhShopApp.userOtherInfo.help.comment" />
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -319,6 +334,7 @@ const mapDispatchToProps = {
   getUsers,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };

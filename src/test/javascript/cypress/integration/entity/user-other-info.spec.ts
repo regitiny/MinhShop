@@ -107,6 +107,11 @@ describe('UserOtherInfo e2e test', () => {
 
     cy.get(`[data-cy="otherInfo"]`).type('back-end', { force: true }).invoke('val').should('match', new RegExp('back-end'));
 
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
     cy.get(`[data-cy="role"]`).type('payment middleware', { force: true }).invoke('val').should('match', new RegExp('payment middleware'));
 
     cy.get(`[data-cy="createdDate"]`).type('2021-01-30T10:16').invoke('val').should('equal', '2021-01-30T10:16');
@@ -122,6 +127,10 @@ describe('UserOtherInfo e2e test', () => {
       .type('Underpass Awesome De-engineered', { force: true })
       .invoke('val')
       .should('match', new RegExp('Underpass Awesome De-engineered'));
+
+    cy.get(`[data-cy="dataSize"]`).type('9221').should('have.value', '9221');
+
+    cy.get(`[data-cy="comment"]`).type('tan', { force: true }).invoke('val').should('match', new RegExp('tan'));
 
     cy.setFieldSelectToLastOfEntity('userName');
 

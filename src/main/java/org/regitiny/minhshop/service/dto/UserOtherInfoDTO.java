@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 
 /**
@@ -75,39 +76,54 @@ public class UserOtherInfoDTO implements Serializable {
     private String otherInfo;
 
     /**
+     * searchField
+     */
+    @ApiModelProperty(value = "searchField")
+    @Lob
+    private String searchField;
+
+    /**
      * role
      */
-    @NotNull
-    @ApiModelProperty(value = "role", required = true)
+    @ApiModelProperty(value = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @ApiModelProperty(value = "createdDate", required = true)
+    @ApiModelProperty(value = "createdDate")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedDate", required = true)
+    @ApiModelProperty(value = "modifiedDate")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @ApiModelProperty(value = "createdBy", required = true)
+    @ApiModelProperty(value = "createdBy")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedBy", required = true)
+    @ApiModelProperty(value = "modifiedBy")
     private String modifiedBy;
+
+    /**
+     * dataSize
+     */
+    @ApiModelProperty(value = "dataSize")
+    private Long dataSize;
+
+    /**
+     * comment
+     */
+    @Size(max = 2048)
+    @ApiModelProperty(value = "comment")
+    private String comment;
 
     private UserDTO userName;
 
@@ -191,6 +207,14 @@ public class UserOtherInfoDTO implements Serializable {
         this.otherInfo = otherInfo;
     }
 
+    public String getSearchField() {
+        return searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
+    }
+
     public String getRole() {
         return role;
     }
@@ -229,6 +253,22 @@ public class UserOtherInfoDTO implements Serializable {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public Long getDataSize() {
+        return dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public UserDTO getUserName() {
@@ -274,11 +314,14 @@ public class UserOtherInfoDTO implements Serializable {
             ", addressDetails='" + getAddressDetails() + "'" +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", otherInfo='" + getOtherInfo() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", modifiedBy='" + getModifiedBy() + "'" +
+            ", dataSize=" + getDataSize() +
+            ", comment='" + getComment() + "'" +
             ", userName=" + getUserName() +
             "}";
     }

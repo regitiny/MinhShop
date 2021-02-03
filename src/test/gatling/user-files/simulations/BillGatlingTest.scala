@@ -78,12 +78,15 @@ class BillGatlingTest extends Simulation {
                 , "email":"SAMPLE_TEXT"
                 , "addressDetails":"SAMPLE_TEXT"
                 , "addressCode":"SAMPLE_TEXT"
+                , "product":"SAMPLE_TEXT"
                 , "comment":"SAMPLE_TEXT"
+                , "searchField":null
                 , "role":"SAMPLE_TEXT"
                 , "createdDate":"2020-01-01T00:00:00.000Z"
                 , "modifiedDate":"2020-01-01T00:00:00.000Z"
                 , "createdBy":"SAMPLE_TEXT"
                 , "modifiedBy":"SAMPLE_TEXT"
+                , "dataSize":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_bill_url"))).exitHereIfFailed

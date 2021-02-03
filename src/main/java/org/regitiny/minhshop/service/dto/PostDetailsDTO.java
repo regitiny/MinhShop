@@ -36,6 +36,7 @@ public class PostDetailsDTO implements Serializable {
      * content
      */
     @NotNull
+    @Size(max = 1000000000)
     @ApiModelProperty(value = "content", required = true)
     private String content;
 

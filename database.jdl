@@ -1,5 +1,6 @@
 DEFAULT_MIN_LENGTH = 1
 DEFAULT_MAX_LENGTH = 2048
+MAX_STRING=65535
 DEFAULT_MIN_BYTES = 1
 DEFAULT_MAX_BYTES = 52428800
 DEFAULT_MIN = 0
@@ -87,16 +88,22 @@ entity TypePost
     /** typeName */
     typeName String required unique
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
 }
 
 /**
@@ -110,16 +117,22 @@ entity TypePostFilter
     /**  typeFilterName  */
     typeFilterName  String  required unique
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
 }
 
 
@@ -171,23 +184,23 @@ entity File {
     extension String maxlength(16)
     /** typeFile */
     typeFile String maxlength(32)
+
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
     /** dataSize */
     dataSize Long
     /** comment */
     comment String maxlength(DEFAULT_MAX_LENGTH)
-    /** deleted (deleted set to true , not delete set to false)*/
-    deleted Boolean
-
 }
 
 /**
@@ -201,16 +214,22 @@ entity Payment
     /** status */
     status String
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
 }
 
 /**
@@ -233,19 +252,26 @@ entity Bill
     addressCode String
     /** addressDetails */
     addressDetails String
+    product String maxlength(MAX_STRING)
     /** comment */
     comment String maxlength(DEFAULT_MAX_LENGTH)
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
 }
 
 /**
@@ -273,16 +299,22 @@ entity UserOtherInfo
     /** otherInfo */
     otherInfo String
 
+    /** searchField */
+    searchField TextBlob
     /** role */
-    role String required
+    role String
     /** createdDate */
-    createdDate  Instant required
+    createdDate  Instant
     /** modifiedDate */
-    modifiedDate  Instant required
+    modifiedDate  Instant
     /** createdBy */
-    createdBy String required
+    createdBy String
     /** modifiedBy */
-    modifiedBy String required
+    modifiedBy String
+    /** dataSize */
+    dataSize Long
+    /** comment */
+    comment String maxlength(DEFAULT_MAX_LENGTH)
 }
 
 

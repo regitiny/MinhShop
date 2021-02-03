@@ -104,6 +104,11 @@ describe('File e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('web functionalities'));
 
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
     cy.get(`[data-cy="role"]`)
       .type('Synergized Gloves Bacon', { force: true })
       .invoke('val')
@@ -127,8 +132,6 @@ describe('File e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('virtual Paradigm Tools'));
 
-    cy.get(`[data-cy="deleted"]`).should('not.be.checked');
-    cy.get(`[data-cy="deleted"]`).click().should('be.checked');
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });
     cy.get(entityCreateSaveButtonSelector).should('not.exist');

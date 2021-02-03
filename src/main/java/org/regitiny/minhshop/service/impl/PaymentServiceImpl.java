@@ -67,6 +67,10 @@ public class PaymentServiceImpl implements PaymentService {
                         existingPayment.setStatus(paymentDTO.getStatus());
                     }
 
+                    if (paymentDTO.getSearchField() != null) {
+                        existingPayment.setSearchField(paymentDTO.getSearchField());
+                    }
+
                     if (paymentDTO.getRole() != null) {
                         existingPayment.setRole(paymentDTO.getRole());
                     }
@@ -85,6 +89,14 @@ public class PaymentServiceImpl implements PaymentService {
 
                     if (paymentDTO.getModifiedBy() != null) {
                         existingPayment.setModifiedBy(paymentDTO.getModifiedBy());
+                    }
+
+                    if (paymentDTO.getDataSize() != null) {
+                        existingPayment.setDataSize(paymentDTO.getDataSize());
+                    }
+
+                    if (paymentDTO.getComment() != null) {
+                        existingPayment.setComment(paymentDTO.getComment());
                     }
 
                     return existingPayment;

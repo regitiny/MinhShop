@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -202,6 +202,9 @@ export const UserOtherInfo = (props: IUserOtherInfoProps) => {
                   <th className="hand" onClick={sort('otherInfo')}>
                     <Translate contentKey="minhShopApp.userOtherInfo.otherInfo">Other Info</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.userOtherInfo.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.userOtherInfo.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -216,6 +219,12 @@ export const UserOtherInfo = (props: IUserOtherInfoProps) => {
                   </th>
                   <th className="hand" onClick={sort('modifiedBy')}>
                     <Translate contentKey="minhShopApp.userOtherInfo.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('dataSize')}>
+                    <Translate contentKey="minhShopApp.userOtherInfo.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('comment')}>
+                    <Translate contentKey="minhShopApp.userOtherInfo.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="minhShopApp.userOtherInfo.userName">User Name</Translate> <FontAwesomeIcon icon="sort" />
@@ -244,6 +253,7 @@ export const UserOtherInfo = (props: IUserOtherInfoProps) => {
                       ) : null}
                     </td>
                     <td>{userOtherInfo.otherInfo}</td>
+                    <td>{userOtherInfo.searchField}</td>
                     <td>{userOtherInfo.role}</td>
                     <td>
                       {userOtherInfo.createdDate ? (
@@ -257,6 +267,8 @@ export const UserOtherInfo = (props: IUserOtherInfoProps) => {
                     </td>
                     <td>{userOtherInfo.createdBy}</td>
                     <td>{userOtherInfo.modifiedBy}</td>
+                    <td>{userOtherInfo.dataSize}</td>
+                    <td>{userOtherInfo.comment}</td>
                     <td>{userOtherInfo.userName ? userOtherInfo.userName.login : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">

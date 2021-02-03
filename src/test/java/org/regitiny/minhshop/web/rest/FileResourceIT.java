@@ -60,6 +60,9 @@ class FileResourceIT {
     private static final String DEFAULT_TYPE_FILE = "AAAAAAAAAA";
     private static final String UPDATED_TYPE_FILE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SEARCH_FIELD = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCH_FIELD = "BBBBBBBBBB";
+
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
 
@@ -80,9 +83,6 @@ class FileResourceIT {
 
     private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
     private static final String UPDATED_COMMENT = "BBBBBBBBBB";
-
-    private static final Boolean DEFAULT_DELETED = false;
-    private static final Boolean UPDATED_DELETED = true;
 
     @Autowired
     private FileRepository fileRepository;
@@ -120,14 +120,14 @@ class FileResourceIT {
             .nameVideo(DEFAULT_NAME_VIDEO)
             .extension(DEFAULT_EXTENSION)
             .typeFile(DEFAULT_TYPE_FILE)
+            .searchField(DEFAULT_SEARCH_FIELD)
             .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
             .modifiedBy(DEFAULT_MODIFIED_BY)
             .dataSize(DEFAULT_DATA_SIZE)
-            .comment(DEFAULT_COMMENT)
-            .deleted(DEFAULT_DELETED);
+            .comment(DEFAULT_COMMENT);
         return file;
     }
 
@@ -145,14 +145,14 @@ class FileResourceIT {
             .nameVideo(UPDATED_NAME_VIDEO)
             .extension(UPDATED_EXTENSION)
             .typeFile(UPDATED_TYPE_FILE)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT)
-            .deleted(UPDATED_DELETED);
+            .comment(UPDATED_COMMENT);
         return file;
     }
 
@@ -181,6 +181,7 @@ class FileResourceIT {
         assertThat(testFile.getNameVideo()).isEqualTo(DEFAULT_NAME_VIDEO);
         assertThat(testFile.getExtension()).isEqualTo(DEFAULT_EXTENSION);
         assertThat(testFile.getTypeFile()).isEqualTo(DEFAULT_TYPE_FILE);
+        assertThat(testFile.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testFile.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testFile.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testFile.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
@@ -188,7 +189,6 @@ class FileResourceIT {
         assertThat(testFile.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
         assertThat(testFile.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
         assertThat(testFile.getComment()).isEqualTo(DEFAULT_COMMENT);
-        assertThat(testFile.getDeleted()).isEqualTo(DEFAULT_DELETED);
 
         // Validate the File in Elasticsearch
         verify(mockFileSearchRepository, times(1)).save(testFile);
@@ -236,96 +236,6 @@ class FileResourceIT {
 
     @Test
     @Transactional
-    void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = fileRepository.findAll().size();
-        // set the field null
-        file.setRole(null);
-
-        // Create the File, which fails.
-        FileDTO fileDTO = fileMapper.toDto(file);
-
-        restFileMockMvc
-            .perform(post("/api/files").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(fileDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<File> fileList = fileRepository.findAll();
-        assertThat(fileList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = fileRepository.findAll().size();
-        // set the field null
-        file.setCreatedDate(null);
-
-        // Create the File, which fails.
-        FileDTO fileDTO = fileMapper.toDto(file);
-
-        restFileMockMvc
-            .perform(post("/api/files").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(fileDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<File> fileList = fileRepository.findAll();
-        assertThat(fileList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = fileRepository.findAll().size();
-        // set the field null
-        file.setModifiedDate(null);
-
-        // Create the File, which fails.
-        FileDTO fileDTO = fileMapper.toDto(file);
-
-        restFileMockMvc
-            .perform(post("/api/files").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(fileDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<File> fileList = fileRepository.findAll();
-        assertThat(fileList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = fileRepository.findAll().size();
-        // set the field null
-        file.setCreatedBy(null);
-
-        // Create the File, which fails.
-        FileDTO fileDTO = fileMapper.toDto(file);
-
-        restFileMockMvc
-            .perform(post("/api/files").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(fileDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<File> fileList = fileRepository.findAll();
-        assertThat(fileList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = fileRepository.findAll().size();
-        // set the field null
-        file.setModifiedBy(null);
-
-        // Create the File, which fails.
-        FileDTO fileDTO = fileMapper.toDto(file);
-
-        restFileMockMvc
-            .perform(post("/api/files").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(fileDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<File> fileList = fileRepository.findAll();
-        assertThat(fileList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllFiles() throws Exception {
         // Initialize the database
         fileRepository.saveAndFlush(file);
@@ -342,14 +252,14 @@ class FileResourceIT {
             .andExpect(jsonPath("$.[*].nameVideo").value(hasItem(DEFAULT_NAME_VIDEO)))
             .andExpect(jsonPath("$.[*].extension").value(hasItem(DEFAULT_EXTENSION)))
             .andExpect(jsonPath("$.[*].typeFile").value(hasItem(DEFAULT_TYPE_FILE)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
             .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
-            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
-            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())));
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
     }
 
     @Test
@@ -370,14 +280,14 @@ class FileResourceIT {
             .andExpect(jsonPath("$.nameVideo").value(DEFAULT_NAME_VIDEO))
             .andExpect(jsonPath("$.extension").value(DEFAULT_EXTENSION))
             .andExpect(jsonPath("$.typeFile").value(DEFAULT_TYPE_FILE))
+            .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
             .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY))
             .andExpect(jsonPath("$.dataSize").value(DEFAULT_DATA_SIZE.intValue()))
-            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
-            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()));
+            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT));
     }
 
     @Test
@@ -406,14 +316,14 @@ class FileResourceIT {
             .nameVideo(UPDATED_NAME_VIDEO)
             .extension(UPDATED_EXTENSION)
             .typeFile(UPDATED_TYPE_FILE)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT)
-            .deleted(UPDATED_DELETED);
+            .comment(UPDATED_COMMENT);
         FileDTO fileDTO = fileMapper.toDto(updatedFile);
 
         restFileMockMvc
@@ -430,6 +340,7 @@ class FileResourceIT {
         assertThat(testFile.getNameVideo()).isEqualTo(UPDATED_NAME_VIDEO);
         assertThat(testFile.getExtension()).isEqualTo(UPDATED_EXTENSION);
         assertThat(testFile.getTypeFile()).isEqualTo(UPDATED_TYPE_FILE);
+        assertThat(testFile.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testFile.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testFile.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testFile.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
@@ -437,7 +348,6 @@ class FileResourceIT {
         assertThat(testFile.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testFile.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
         assertThat(testFile.getComment()).isEqualTo(UPDATED_COMMENT);
-        assertThat(testFile.getDeleted()).isEqualTo(UPDATED_DELETED);
 
         // Validate the File in Elasticsearch
         verify(mockFileSearchRepository).save(testFile);
@@ -481,10 +391,10 @@ class FileResourceIT {
             .videoData(UPDATED_VIDEO_DATA)
             .videoDataContentType(UPDATED_VIDEO_DATA_CONTENT_TYPE)
             .extension(UPDATED_EXTENSION)
-            .role(UPDATED_ROLE)
+            .searchField(UPDATED_SEARCH_FIELD)
+            .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
-            .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .createdBy(UPDATED_CREATED_BY);
 
         restFileMockMvc
             .perform(
@@ -504,14 +414,14 @@ class FileResourceIT {
         assertThat(testFile.getNameVideo()).isEqualTo(DEFAULT_NAME_VIDEO);
         assertThat(testFile.getExtension()).isEqualTo(UPDATED_EXTENSION);
         assertThat(testFile.getTypeFile()).isEqualTo(DEFAULT_TYPE_FILE);
-        assertThat(testFile.getRole()).isEqualTo(UPDATED_ROLE);
-        assertThat(testFile.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testFile.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
+        assertThat(testFile.getRole()).isEqualTo(DEFAULT_ROLE);
+        assertThat(testFile.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testFile.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testFile.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testFile.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testFile.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
         assertThat(testFile.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
         assertThat(testFile.getComment()).isEqualTo(DEFAULT_COMMENT);
-        assertThat(testFile.getDeleted()).isEqualTo(DEFAULT_DELETED);
     }
 
     @Test
@@ -533,14 +443,14 @@ class FileResourceIT {
             .nameVideo(UPDATED_NAME_VIDEO)
             .extension(UPDATED_EXTENSION)
             .typeFile(UPDATED_TYPE_FILE)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT)
-            .deleted(UPDATED_DELETED);
+            .comment(UPDATED_COMMENT);
 
         restFileMockMvc
             .perform(
@@ -560,6 +470,7 @@ class FileResourceIT {
         assertThat(testFile.getNameVideo()).isEqualTo(UPDATED_NAME_VIDEO);
         assertThat(testFile.getExtension()).isEqualTo(UPDATED_EXTENSION);
         assertThat(testFile.getTypeFile()).isEqualTo(UPDATED_TYPE_FILE);
+        assertThat(testFile.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testFile.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testFile.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testFile.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
@@ -567,7 +478,6 @@ class FileResourceIT {
         assertThat(testFile.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testFile.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
         assertThat(testFile.getComment()).isEqualTo(UPDATED_COMMENT);
-        assertThat(testFile.getDeleted()).isEqualTo(UPDATED_DELETED);
     }
 
     @Test
@@ -627,13 +537,13 @@ class FileResourceIT {
             .andExpect(jsonPath("$.[*].nameVideo").value(hasItem(DEFAULT_NAME_VIDEO)))
             .andExpect(jsonPath("$.[*].extension").value(hasItem(DEFAULT_EXTENSION)))
             .andExpect(jsonPath("$.[*].typeFile").value(hasItem(DEFAULT_TYPE_FILE)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
             .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
-            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
-            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())));
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
     }
 }

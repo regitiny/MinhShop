@@ -9,11 +9,14 @@ export default class TypePostFilterUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#type-post-filter-uuid'));
   typeFilterNameInput: ElementFinder = element(by.css('input#type-post-filter-typeFilterName'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#type-post-filter-searchField'));
   roleInput: ElementFinder = element(by.css('input#type-post-filter-role'));
   createdDateInput: ElementFinder = element(by.css('input#type-post-filter-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#type-post-filter-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#type-post-filter-createdBy'));
   modifiedByInput: ElementFinder = element(by.css('input#type-post-filter-modifiedBy'));
+  dataSizeInput: ElementFinder = element(by.css('input#type-post-filter-dataSize'));
+  commentInput: ElementFinder = element(by.css('input#type-post-filter-comment'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -33,6 +36,14 @@ export default class TypePostFilterUpdatePage {
 
   async getTypeFilterNameInput() {
     return this.typeFilterNameInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -75,6 +86,22 @@ export default class TypePostFilterUpdatePage {
     return this.modifiedByInput.getAttribute('value');
   }
 
+  async setDataSizeInput(dataSize) {
+    await this.dataSizeInput.sendKeys(dataSize);
+  }
+
+  async getDataSizeInput() {
+    return this.dataSizeInput.getAttribute('value');
+  }
+
+  async setCommentInput(comment) {
+    await this.commentInput.sendKeys(comment);
+  }
+
+  async getCommentInput() {
+    return this.commentInput.getAttribute('value');
+  }
+
   async save() {
     await this.saveButton.click();
   }
@@ -95,6 +122,9 @@ export default class TypePostFilterUpdatePage {
     await this.setTypeFilterNameInput('typeFilterName');
     expect(await this.getTypeFilterNameInput()).to.match(/typeFilterName/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
@@ -109,6 +139,12 @@ export default class TypePostFilterUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setModifiedByInput('modifiedBy');
     expect(await this.getModifiedByInput()).to.match(/modifiedBy/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setDataSizeInput('5');
+    expect(await this.getDataSizeInput()).to.eq('5');
+    await waitUntilDisplayed(this.saveButton);
+    await this.setCommentInput('comment');
+    expect(await this.getCommentInput()).to.match(/comment/);
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

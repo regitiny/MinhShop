@@ -60,6 +60,7 @@ public class SimplePostDTO implements Serializable {
      * imageUrl
      */
     @NotNull
+    @Size(max = 2048)
     @ApiModelProperty(value = "imageUrl", required = true)
     private String imageUrl;
 

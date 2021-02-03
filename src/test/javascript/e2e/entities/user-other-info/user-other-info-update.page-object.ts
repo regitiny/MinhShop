@@ -16,11 +16,14 @@ export default class UserOtherInfoUpdatePage {
   addressDetailsInput: ElementFinder = element(by.css('input#user-other-info-addressDetails'));
   dateOfBirthInput: ElementFinder = element(by.css('input#user-other-info-dateOfBirth'));
   otherInfoInput: ElementFinder = element(by.css('input#user-other-info-otherInfo'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#user-other-info-searchField'));
   roleInput: ElementFinder = element(by.css('input#user-other-info-role'));
   createdDateInput: ElementFinder = element(by.css('input#user-other-info-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#user-other-info-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#user-other-info-createdBy'));
   modifiedByInput: ElementFinder = element(by.css('input#user-other-info-modifiedBy'));
+  dataSizeInput: ElementFinder = element(by.css('input#user-other-info-dataSize'));
+  commentInput: ElementFinder = element(by.css('input#user-other-info-comment'));
   userNameSelect: ElementFinder = element(by.css('select#user-other-info-userName'));
 
   getPageTitle() {
@@ -99,6 +102,14 @@ export default class UserOtherInfoUpdatePage {
     return this.otherInfoInput.getAttribute('value');
   }
 
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
+  }
+
   async setRoleInput(role) {
     await this.roleInput.sendKeys(role);
   }
@@ -137,6 +148,22 @@ export default class UserOtherInfoUpdatePage {
 
   async getModifiedByInput() {
     return this.modifiedByInput.getAttribute('value');
+  }
+
+  async setDataSizeInput(dataSize) {
+    await this.dataSizeInput.sendKeys(dataSize);
+  }
+
+  async getDataSizeInput() {
+    return this.dataSizeInput.getAttribute('value');
+  }
+
+  async setCommentInput(comment) {
+    await this.commentInput.sendKeys(comment);
+  }
+
+  async getCommentInput() {
+    return this.commentInput.getAttribute('value');
   }
 
   async userNameSelectLastOption() {
@@ -196,6 +223,9 @@ export default class UserOtherInfoUpdatePage {
     await this.setOtherInfoInput('otherInfo');
     expect(await this.getOtherInfoInput()).to.match(/otherInfo/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
@@ -210,6 +240,12 @@ export default class UserOtherInfoUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setModifiedByInput('modifiedBy');
     expect(await this.getModifiedByInput()).to.match(/modifiedBy/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setDataSizeInput('5');
+    expect(await this.getDataSizeInput()).to.eq('5');
+    await waitUntilDisplayed(this.saveButton);
+    await this.setCommentInput('comment');
+    expect(await this.getCommentInput()).to.match(/comment/);
     await this.userNameSelectLastOption();
     await this.save();
     await waitUntilHidden(this.saveButton);

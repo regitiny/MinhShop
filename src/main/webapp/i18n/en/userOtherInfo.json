@@ -28,11 +28,14 @@
       "addressDetails": "Address Details",
       "dateOfBirth": "Date Of Birth",
       "otherInfo": "Other Info",
+      "searchField": "Search Field",
       "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
       "createdBy": "Created By",
       "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
       "userName": "User Name",
       "help": {
         "uuid": "uuid",
@@ -44,11 +47,14 @@
         "addressDetails": "addressDetails",
         "dateOfBirth": "dateOfBirth",
         "otherInfo": "otherInfo",
+        "searchField": "searchField",
         "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",
-        "modifiedBy": "modifiedBy"
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
       }
     }
   }

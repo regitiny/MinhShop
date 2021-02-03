@@ -195,6 +195,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
                   name="imageUrl"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
+                    maxLength: { value: 2048, errorMessage: translate('entity.validation.maxlength', { max: 2048 }) },
                   }}
                 />
                 <UncontrolledTooltip target="imageUrlLabel">

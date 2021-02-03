@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -42,6 +42,15 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.status}</dd>
+          <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.payment.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.payment.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{paymentEntity.searchField}</dd>
           <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.payment.role">Role</Translate>
@@ -91,6 +100,24 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.modifiedBy}</dd>
+          <dt>
+            <span id="dataSize">
+              <Translate contentKey="minhShopApp.payment.dataSize">Data Size</Translate>
+            </span>
+            <UncontrolledTooltip target="dataSize">
+              <Translate contentKey="minhShopApp.payment.help.dataSize" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{paymentEntity.dataSize}</dd>
+          <dt>
+            <span id="comment">
+              <Translate contentKey="minhShopApp.payment.comment">Comment</Translate>
+            </span>
+            <UncontrolledTooltip target="comment">
+              <Translate contentKey="minhShopApp.payment.help.comment" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{paymentEntity.comment}</dd>
           <dt>
             <Translate contentKey="minhShopApp.payment.billId">Bill Id</Translate>
           </dt>

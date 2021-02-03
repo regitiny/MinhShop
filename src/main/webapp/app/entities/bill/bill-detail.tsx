@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -79,6 +79,12 @@ export const BillDetail = (props: IBillDetailProps) => {
           </dt>
           <dd>{billEntity.addressCode}</dd>
           <dt>
+            <span id="product">
+              <Translate contentKey="minhShopApp.bill.product">Product</Translate>
+            </span>
+          </dt>
+          <dd>{billEntity.product}</dd>
+          <dt>
             <span id="comment">
               <Translate contentKey="minhShopApp.bill.comment">Comment</Translate>
             </span>
@@ -87,6 +93,15 @@ export const BillDetail = (props: IBillDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{billEntity.comment}</dd>
+          <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.bill.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.bill.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{billEntity.searchField}</dd>
           <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.bill.role">Role</Translate>
@@ -132,6 +147,15 @@ export const BillDetail = (props: IBillDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{billEntity.modifiedBy}</dd>
+          <dt>
+            <span id="dataSize">
+              <Translate contentKey="minhShopApp.bill.dataSize">Data Size</Translate>
+            </span>
+            <UncontrolledTooltip target="dataSize">
+              <Translate contentKey="minhShopApp.bill.help.dataSize" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{billEntity.dataSize}</dd>
           <dt>
             <Translate contentKey="minhShopApp.bill.userOtherInfo">User Other Info</Translate>
           </dt>

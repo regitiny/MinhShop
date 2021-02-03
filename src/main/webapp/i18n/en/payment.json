@@ -21,20 +21,26 @@
       "id": "ID",
       "uuid": "Uuid",
       "status": "Status",
+      "searchField": "Search Field",
       "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
       "createdBy": "Created By",
       "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
       "billId": "Bill Id",
       "help": {
         "uuid": "uuid",
         "status": "status",
+        "searchField": "searchField",
         "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",
-        "modifiedBy": "modifiedBy"
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
       }
     }
   }

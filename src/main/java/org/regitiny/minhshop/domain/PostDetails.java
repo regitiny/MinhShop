@@ -48,7 +48,8 @@ public class PostDetails implements Serializable {
      * content
      */
     @NotNull
-    @Column(name = "content", nullable = false, unique = true)
+    @Size(max = 1000000000)
+    @Column(name = "content", length = 1000000000, nullable = false, unique = true)
     private String content;
 
     /**

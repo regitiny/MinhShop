@@ -77,6 +77,7 @@ class FileGatlingTest extends Simulation {
                 , "nameVideo":"SAMPLE_TEXT"
                 , "extension":"SAMPLE_TEXT"
                 , "typeFile":"SAMPLE_TEXT"
+                , "searchField":null
                 , "role":"SAMPLE_TEXT"
                 , "createdDate":"2020-01-01T00:00:00.000Z"
                 , "modifiedDate":"2020-01-01T00:00:00.000Z"
@@ -84,7 +85,6 @@ class FileGatlingTest extends Simulation {
                 , "modifiedBy":"SAMPLE_TEXT"
                 , "dataSize":null
                 , "comment":"SAMPLE_TEXT"
-                , "deleted":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_file_url"))).exitHereIfFailed

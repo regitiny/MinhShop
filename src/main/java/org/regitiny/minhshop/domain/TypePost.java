@@ -42,39 +42,54 @@ public class TypePost implements Serializable {
     private String typeName;
 
     /**
+     * searchField
+     */
+    @Lob
+    @Column(name = "search_field")
+    private String searchField;
+
+    /**
      * role
      */
-    @NotNull
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "created_by")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
+
+    /**
+     * dataSize
+     */
+    @Column(name = "data_size")
+    private Long dataSize;
+
+    /**
+     * comment
+     */
+    @Size(max = 2048)
+    @Column(name = "comment", length = 2048)
+    private String comment;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -114,6 +129,19 @@ public class TypePost implements Serializable {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getSearchField() {
+        return this.searchField;
+    }
+
+    public TypePost searchField(String searchField) {
+        this.searchField = searchField;
+        return this;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -181,6 +209,32 @@ public class TypePost implements Serializable {
         this.modifiedBy = modifiedBy;
     }
 
+    public Long getDataSize() {
+        return this.dataSize;
+    }
+
+    public TypePost dataSize(Long dataSize) {
+        this.dataSize = dataSize;
+        return this;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
+    }
+
+    public String getComment() {
+        return this.comment;
+    }
+
+    public TypePost comment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -207,11 +261,14 @@ public class TypePost implements Serializable {
             "id=" + getId() +
             ", uuid='" + getUuid() + "'" +
             ", typeName='" + getTypeName() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", modifiedBy='" + getModifiedBy() + "'" +
+            ", dataSize=" + getDataSize() +
+            ", comment='" + getComment() + "'" +
             "}";
     }
 }

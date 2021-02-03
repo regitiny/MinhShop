@@ -14,34 +14,47 @@
       "fieldValidateRules": ["required", "unique"]
     },
     {
+      "fieldName": "searchField",
+      "fieldType": "byte[]",
+      "javadoc": "searchField",
+      "fieldTypeBlobContent": "text"
+    },
+    {
       "fieldName": "role",
       "fieldType": "String",
-      "javadoc": "role",
-      "fieldValidateRules": ["required"]
+      "javadoc": "role"
     },
     {
       "fieldName": "createdDate",
       "fieldType": "Instant",
-      "javadoc": "createdDate",
-      "fieldValidateRules": ["required"]
+      "javadoc": "createdDate"
     },
     {
       "fieldName": "modifiedDate",
       "fieldType": "Instant",
-      "javadoc": "modifiedDate",
-      "fieldValidateRules": ["required"]
+      "javadoc": "modifiedDate"
     },
     {
       "fieldName": "createdBy",
       "fieldType": "String",
-      "javadoc": "createdBy",
-      "fieldValidateRules": ["required"]
+      "javadoc": "createdBy"
     },
     {
       "fieldName": "modifiedBy",
       "fieldType": "String",
-      "javadoc": "modifiedBy",
-      "fieldValidateRules": ["required"]
+      "javadoc": "modifiedBy"
+    },
+    {
+      "fieldName": "dataSize",
+      "fieldType": "Long",
+      "javadoc": "dataSize"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String",
+      "javadoc": "comment",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
     }
   ],
   "relationships": [],

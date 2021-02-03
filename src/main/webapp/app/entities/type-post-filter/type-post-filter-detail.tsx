@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -43,6 +43,15 @@ export const TypePostFilterDetail = (props: ITypePostFilterDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostFilterEntity.typeFilterName}</dd>
+          <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.typePostFilter.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.typePostFilter.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostFilterEntity.searchField}</dd>
           <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate>
@@ -96,6 +105,24 @@ export const TypePostFilterDetail = (props: ITypePostFilterDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostFilterEntity.modifiedBy}</dd>
+          <dt>
+            <span id="dataSize">
+              <Translate contentKey="minhShopApp.typePostFilter.dataSize">Data Size</Translate>
+            </span>
+            <UncontrolledTooltip target="dataSize">
+              <Translate contentKey="minhShopApp.typePostFilter.help.dataSize" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostFilterEntity.dataSize}</dd>
+          <dt>
+            <span id="comment">
+              <Translate contentKey="minhShopApp.typePostFilter.comment">Comment</Translate>
+            </span>
+            <UncontrolledTooltip target="comment">
+              <Translate contentKey="minhShopApp.typePostFilter.help.comment" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostFilterEntity.comment}</dd>
         </dl>
         <Button tag={Link} to="/type-post-filter" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

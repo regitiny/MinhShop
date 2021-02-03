@@ -70,6 +70,10 @@ public class Bill implements Serializable {
     @Column(name = "address_code")
     private String addressCode;
 
+    @Size(max = 65535)
+    @Column(name = "product", length = 65535)
+    private String product;
+
     /**
      * comment
      */
@@ -78,39 +82,47 @@ public class Bill implements Serializable {
     private String comment;
 
     /**
+     * searchField
+     */
+    @Lob
+    @Column(name = "search_field")
+    private String searchField;
+
+    /**
      * role
      */
-    @NotNull
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "created_by")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
+
+    /**
+     * dataSize
+     */
+    @Column(name = "data_size")
+    private Long dataSize;
 
     @JsonIgnoreProperties(value = { "userName" }, allowSetters = true)
     @OneToOne
@@ -213,6 +225,19 @@ public class Bill implements Serializable {
         this.addressCode = addressCode;
     }
 
+    public String getProduct() {
+        return this.product;
+    }
+
+    public Bill product(String product) {
+        this.product = product;
+        return this;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
     public String getComment() {
         return this.comment;
     }
@@ -224,6 +249,19 @@ public class Bill implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getSearchField() {
+        return this.searchField;
+    }
+
+    public Bill searchField(String searchField) {
+        this.searchField = searchField;
+        return this;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -291,6 +329,19 @@ public class Bill implements Serializable {
         this.modifiedBy = modifiedBy;
     }
 
+    public Long getDataSize() {
+        return this.dataSize;
+    }
+
+    public Bill dataSize(Long dataSize) {
+        this.dataSize = dataSize;
+        return this;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
+    }
+
     public UserOtherInfo getUserOtherInfo() {
         return this.userOtherInfo;
     }
@@ -353,12 +404,15 @@ public class Bill implements Serializable {
             ", email='" + getEmail() + "'" +
             ", addressDetails='" + getAddressDetails() + "'" +
             ", addressCode='" + getAddressCode() + "'" +
+            ", product='" + getProduct() + "'" +
             ", comment='" + getComment() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", modifiedBy='" + getModifiedBy() + "'" +
+            ", dataSize=" + getDataSize() +
             "}";
     }
 }

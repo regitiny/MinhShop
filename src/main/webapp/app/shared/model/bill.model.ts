@@ -10,12 +10,15 @@ export interface IBill {
   email?: string | null;
   addressDetails?: string | null;
   addressCode?: string | null;
+  product?: string | null;
   comment?: string | null;
-  role?: string;
-  createdDate?: string;
-  modifiedDate?: string;
-  createdBy?: string;
-  modifiedBy?: string;
+  searchField?: string | null;
+  role?: string | null;
+  createdDate?: string | null;
+  modifiedDate?: string | null;
+  createdBy?: string | null;
+  modifiedBy?: string | null;
+  dataSize?: number | null;
   userOtherInfo?: IUserOtherInfo | null;
   payment?: IPayment | null;
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -42,6 +42,15 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.typeName}</dd>
+          <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.typePost.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.typePost.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostEntity.searchField}</dd>
           <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.typePost.role">Role</Translate>
@@ -91,6 +100,24 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.modifiedBy}</dd>
+          <dt>
+            <span id="dataSize">
+              <Translate contentKey="minhShopApp.typePost.dataSize">Data Size</Translate>
+            </span>
+            <UncontrolledTooltip target="dataSize">
+              <Translate contentKey="minhShopApp.typePost.help.dataSize" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostEntity.dataSize}</dd>
+          <dt>
+            <span id="comment">
+              <Translate contentKey="minhShopApp.typePost.comment">Comment</Translate>
+            </span>
+            <UncontrolledTooltip target="comment">
+              <Translate contentKey="minhShopApp.typePost.help.comment" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{typePostEntity.comment}</dd>
         </dl>
         <Button tag={Link} to="/type-post" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

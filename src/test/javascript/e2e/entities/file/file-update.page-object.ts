@@ -16,6 +16,7 @@ export default class FileUpdatePage {
   nameVideoInput: ElementFinder = element(by.css('input#file-nameVideo'));
   extensionInput: ElementFinder = element(by.css('input#file-extension'));
   typeFileInput: ElementFinder = element(by.css('input#file-typeFile'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#file-searchField'));
   roleInput: ElementFinder = element(by.css('input#file-role'));
   createdDateInput: ElementFinder = element(by.css('input#file-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#file-modifiedDate'));
@@ -23,7 +24,6 @@ export default class FileUpdatePage {
   modifiedByInput: ElementFinder = element(by.css('input#file-modifiedBy'));
   dataSizeInput: ElementFinder = element(by.css('input#file-dataSize'));
   commentInput: ElementFinder = element(by.css('input#file-comment'));
-  deletedInput: ElementFinder = element(by.css('input#file-deleted'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -67,6 +67,14 @@ export default class FileUpdatePage {
 
   async getTypeFileInput() {
     return this.typeFileInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -125,9 +133,6 @@ export default class FileUpdatePage {
     return this.commentInput.getAttribute('value');
   }
 
-  getDeletedInput() {
-    return this.deletedInput;
-  }
   async save() {
     await this.saveButton.click();
   }
@@ -156,6 +161,9 @@ export default class FileUpdatePage {
     await this.setTypeFileInput('typeFile');
     expect(await this.getTypeFileInput()).to.match(/typeFile/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
@@ -176,15 +184,6 @@ export default class FileUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setCommentInput('comment');
     expect(await this.getCommentInput()).to.match(/comment/);
-    await waitUntilDisplayed(this.saveButton);
-    const selectedDeleted = await this.getDeletedInput().isSelected();
-    if (selectedDeleted) {
-      await this.getDeletedInput().click();
-      expect(await this.getDeletedInput().isSelected()).to.be.false;
-    } else {
-      await this.getDeletedInput().click();
-      expect(await this.getDeletedInput().isSelected()).to.be.true;
-    }
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

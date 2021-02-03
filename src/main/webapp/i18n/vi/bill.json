@@ -25,12 +25,15 @@
       "email": "Email",
       "addressDetails": "Address Details",
       "addressCode": "Address Code",
+      "product": "Product",
       "comment": "Comment",
+      "searchField": "Search Field",
       "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
       "createdBy": "Created By",
       "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
       "userOtherInfo": "User Other Info",
       "payment": "Payment",
       "help": {
@@ -41,11 +44,13 @@
         "addressDetails": "addressDetails",
         "addressCode": "addressCode",
         "comment": "comment",
+        "searchField": "searchField",
         "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",
-        "modifiedBy": "modifiedBy"
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize"
       }
     }
   }

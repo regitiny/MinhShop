@@ -21,6 +21,7 @@ export const ACTION_TYPES = {
   CREATE_BILL: 'bill/CREATE_BILL',
   UPDATE_BILL: 'bill/UPDATE_BILL',
   DELETE_BILL: 'bill/DELETE_BILL',
+  SET_BLOB: 'bill/SET_BLOB',
   RESET: 'bill/RESET',
 };
 
@@ -105,6 +106,17 @@ export default (state: BillState = initialState, action): BillState => {
         updateSuccess: true,
         entity: {},
       };
+    case ACTION_TYPES.SET_BLOB: {
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType,
+        },
+      };
+    }
     case ACTION_TYPES.RESET:
       return {
         ...initialState,
@@ -164,6 +176,15 @@ export const deleteEntity: ICrudDeleteAction<IBill> = id => async dispatch => {
   });
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType,
+  },
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET,

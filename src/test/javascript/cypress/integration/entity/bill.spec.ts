@@ -98,26 +98,32 @@ describe('Bill e2e test', () => {
 
     cy.get(`[data-cy="addressCode"]`).type('Decentralized', { force: true }).invoke('val').should('match', new RegExp('Decentralized'));
 
-    cy.get(`[data-cy="comment"]`)
+    cy.get(`[data-cy="product"]`)
       .type('plum archive Gardens', { force: true })
       .invoke('val')
       .should('match', new RegExp('plum archive Gardens'));
 
-    cy.get(`[data-cy="role"]`).type('wireless', { force: true }).invoke('val').should('match', new RegExp('wireless'));
+    cy.get(`[data-cy="comment"]`).type('wireless', { force: true }).invoke('val').should('match', new RegExp('wireless'));
 
-    cy.get(`[data-cy="createdDate"]`).type('2021-01-30T09:08').invoke('val').should('equal', '2021-01-30T09:08');
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
 
-    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-29T19:31').invoke('val').should('equal', '2021-01-29T19:31');
+    cy.get(`[data-cy="role"]`).type('COM', { force: true }).invoke('val').should('match', new RegExp('COM'));
+
+    cy.get(`[data-cy="createdDate"]`).type('2021-01-29T22:21').invoke('val').should('equal', '2021-01-29T22:21');
+
+    cy.get(`[data-cy="modifiedDate"]`).type('2021-01-30T06:21').invoke('val').should('equal', '2021-01-30T06:21');
 
     cy.get(`[data-cy="createdBy"]`)
-      .type('calculating Chief', { force: true })
+      .type('Future Fantastic clear-thinking', { force: true })
       .invoke('val')
-      .should('match', new RegExp('calculating Chief'));
+      .should('match', new RegExp('Future Fantastic clear-thinking'));
 
-    cy.get(`[data-cy="modifiedBy"]`)
-      .type('Fantastic clear-thinking', { force: true })
-      .invoke('val')
-      .should('match', new RegExp('Fantastic clear-thinking'));
+    cy.get(`[data-cy="modifiedBy"]`).type('panel', { force: true }).invoke('val').should('match', new RegExp('panel'));
+
+    cy.get(`[data-cy="dataSize"]`).type('50368').should('have.value', '50368');
 
     cy.setFieldSelectToLastOfEntity('userOtherInfo');
 

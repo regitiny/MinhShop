@@ -78,6 +78,10 @@ public class FileServiceImpl implements FileService {
                         existingFile.setTypeFile(fileDTO.getTypeFile());
                     }
 
+                    if (fileDTO.getSearchField() != null) {
+                        existingFile.setSearchField(fileDTO.getSearchField());
+                    }
+
                     if (fileDTO.getRole() != null) {
                         existingFile.setRole(fileDTO.getRole());
                     }
@@ -104,10 +108,6 @@ public class FileServiceImpl implements FileService {
 
                     if (fileDTO.getComment() != null) {
                         existingFile.setComment(fileDTO.getComment());
-                    }
-
-                    if (fileDTO.getDeleted() != null) {
-                        existingFile.setDeleted(fileDTO.getDeleted());
                     }
 
                     return existingFile;

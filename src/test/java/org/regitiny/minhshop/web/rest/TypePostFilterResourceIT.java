@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link TypePostFilterResource} REST controller.
@@ -48,6 +49,9 @@ class TypePostFilterResourceIT {
     private static final String DEFAULT_TYPE_FILTER_NAME = "AAAAAAAAAA";
     private static final String UPDATED_TYPE_FILTER_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SEARCH_FIELD = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCH_FIELD = "BBBBBBBBBB";
+
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
 
@@ -62,6 +66,12 @@ class TypePostFilterResourceIT {
 
     private static final String DEFAULT_MODIFIED_BY = "AAAAAAAAAA";
     private static final String UPDATED_MODIFIED_BY = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_DATA_SIZE = 1L;
+    private static final Long UPDATED_DATA_SIZE = 2L;
+
+    private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
+    private static final String UPDATED_COMMENT = "BBBBBBBBBB";
 
     @Autowired
     private TypePostFilterRepository typePostFilterRepository;
@@ -95,11 +105,14 @@ class TypePostFilterResourceIT {
         TypePostFilter typePostFilter = new TypePostFilter()
             .uuid(DEFAULT_UUID)
             .typeFilterName(DEFAULT_TYPE_FILTER_NAME)
+            .searchField(DEFAULT_SEARCH_FIELD)
             .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
-            .modifiedBy(DEFAULT_MODIFIED_BY);
+            .modifiedBy(DEFAULT_MODIFIED_BY)
+            .dataSize(DEFAULT_DATA_SIZE)
+            .comment(DEFAULT_COMMENT);
         return typePostFilter;
     }
 
@@ -113,11 +126,14 @@ class TypePostFilterResourceIT {
         TypePostFilter typePostFilter = new TypePostFilter()
             .uuid(UPDATED_UUID)
             .typeFilterName(UPDATED_TYPE_FILTER_NAME)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
         return typePostFilter;
     }
 
@@ -146,11 +162,14 @@ class TypePostFilterResourceIT {
         TypePostFilter testTypePostFilter = typePostFilterList.get(typePostFilterList.size() - 1);
         assertThat(testTypePostFilter.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testTypePostFilter.getTypeFilterName()).isEqualTo(DEFAULT_TYPE_FILTER_NAME);
+        assertThat(testTypePostFilter.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testTypePostFilter.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testTypePostFilter.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testTypePostFilter.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testTypePostFilter.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testTypePostFilter.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testTypePostFilter.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
+        assertThat(testTypePostFilter.getComment()).isEqualTo(DEFAULT_COMMENT);
 
         // Validate the TypePostFilter in Elasticsearch
         verify(mockTypePostFilterSearchRepository, times(1)).save(testTypePostFilter);
@@ -228,116 +247,6 @@ class TypePostFilterResourceIT {
 
     @Test
     @Transactional
-    void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = typePostFilterRepository.findAll().size();
-        // set the field null
-        typePostFilter.setRole(null);
-
-        // Create the TypePostFilter, which fails.
-        TypePostFilterDTO typePostFilterDTO = typePostFilterMapper.toDto(typePostFilter);
-
-        restTypePostFilterMockMvc
-            .perform(
-                post("/api/type-post-filters")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(typePostFilterDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<TypePostFilter> typePostFilterList = typePostFilterRepository.findAll();
-        assertThat(typePostFilterList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = typePostFilterRepository.findAll().size();
-        // set the field null
-        typePostFilter.setCreatedDate(null);
-
-        // Create the TypePostFilter, which fails.
-        TypePostFilterDTO typePostFilterDTO = typePostFilterMapper.toDto(typePostFilter);
-
-        restTypePostFilterMockMvc
-            .perform(
-                post("/api/type-post-filters")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(typePostFilterDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<TypePostFilter> typePostFilterList = typePostFilterRepository.findAll();
-        assertThat(typePostFilterList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = typePostFilterRepository.findAll().size();
-        // set the field null
-        typePostFilter.setModifiedDate(null);
-
-        // Create the TypePostFilter, which fails.
-        TypePostFilterDTO typePostFilterDTO = typePostFilterMapper.toDto(typePostFilter);
-
-        restTypePostFilterMockMvc
-            .perform(
-                post("/api/type-post-filters")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(typePostFilterDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<TypePostFilter> typePostFilterList = typePostFilterRepository.findAll();
-        assertThat(typePostFilterList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = typePostFilterRepository.findAll().size();
-        // set the field null
-        typePostFilter.setCreatedBy(null);
-
-        // Create the TypePostFilter, which fails.
-        TypePostFilterDTO typePostFilterDTO = typePostFilterMapper.toDto(typePostFilter);
-
-        restTypePostFilterMockMvc
-            .perform(
-                post("/api/type-post-filters")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(typePostFilterDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<TypePostFilter> typePostFilterList = typePostFilterRepository.findAll();
-        assertThat(typePostFilterList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = typePostFilterRepository.findAll().size();
-        // set the field null
-        typePostFilter.setModifiedBy(null);
-
-        // Create the TypePostFilter, which fails.
-        TypePostFilterDTO typePostFilterDTO = typePostFilterMapper.toDto(typePostFilter);
-
-        restTypePostFilterMockMvc
-            .perform(
-                post("/api/type-post-filters")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(typePostFilterDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<TypePostFilter> typePostFilterList = typePostFilterRepository.findAll();
-        assertThat(typePostFilterList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllTypePostFilters() throws Exception {
         // Initialize the database
         typePostFilterRepository.saveAndFlush(typePostFilter);
@@ -350,11 +259,14 @@ class TypePostFilterResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(typePostFilter.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].typeFilterName").value(hasItem(DEFAULT_TYPE_FILTER_NAME)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)));
+            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
+            .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
     }
 
     @Test
@@ -371,11 +283,14 @@ class TypePostFilterResourceIT {
             .andExpect(jsonPath("$.id").value(typePostFilter.getId().intValue()))
             .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
             .andExpect(jsonPath("$.typeFilterName").value(DEFAULT_TYPE_FILTER_NAME))
+            .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
-            .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY));
+            .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY))
+            .andExpect(jsonPath("$.dataSize").value(DEFAULT_DATA_SIZE.intValue()))
+            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT));
     }
 
     @Test
@@ -400,11 +315,14 @@ class TypePostFilterResourceIT {
         updatedTypePostFilter
             .uuid(UPDATED_UUID)
             .typeFilterName(UPDATED_TYPE_FILTER_NAME)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
         TypePostFilterDTO typePostFilterDTO = typePostFilterMapper.toDto(updatedTypePostFilter);
 
         restTypePostFilterMockMvc
@@ -421,11 +339,14 @@ class TypePostFilterResourceIT {
         TypePostFilter testTypePostFilter = typePostFilterList.get(typePostFilterList.size() - 1);
         assertThat(testTypePostFilter.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testTypePostFilter.getTypeFilterName()).isEqualTo(UPDATED_TYPE_FILTER_NAME);
+        assertThat(testTypePostFilter.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testTypePostFilter.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testTypePostFilter.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testTypePostFilter.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testTypePostFilter.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testTypePostFilter.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testTypePostFilter.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
+        assertThat(testTypePostFilter.getComment()).isEqualTo(UPDATED_COMMENT);
 
         // Validate the TypePostFilter in Elasticsearch
         verify(mockTypePostFilterSearchRepository).save(testTypePostFilter);
@@ -470,9 +391,11 @@ class TypePostFilterResourceIT {
 
         partialUpdatedTypePostFilter
             .typeFilterName(UPDATED_TYPE_FILTER_NAME)
-            .role(UPDATED_ROLE)
+            .searchField(UPDATED_SEARCH_FIELD)
+            .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
-            .createdBy(UPDATED_CREATED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .comment(UPDATED_COMMENT);
 
         restTypePostFilterMockMvc
             .perform(
@@ -488,11 +411,14 @@ class TypePostFilterResourceIT {
         TypePostFilter testTypePostFilter = typePostFilterList.get(typePostFilterList.size() - 1);
         assertThat(testTypePostFilter.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testTypePostFilter.getTypeFilterName()).isEqualTo(UPDATED_TYPE_FILTER_NAME);
-        assertThat(testTypePostFilter.getRole()).isEqualTo(UPDATED_ROLE);
-        assertThat(testTypePostFilter.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testTypePostFilter.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
+        assertThat(testTypePostFilter.getRole()).isEqualTo(DEFAULT_ROLE);
+        assertThat(testTypePostFilter.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testTypePostFilter.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
-        assertThat(testTypePostFilter.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
-        assertThat(testTypePostFilter.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testTypePostFilter.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testTypePostFilter.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testTypePostFilter.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
+        assertThat(testTypePostFilter.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 
     @Test
@@ -510,11 +436,14 @@ class TypePostFilterResourceIT {
         partialUpdatedTypePostFilter
             .uuid(UPDATED_UUID)
             .typeFilterName(UPDATED_TYPE_FILTER_NAME)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
 
         restTypePostFilterMockMvc
             .perform(
@@ -530,11 +459,14 @@ class TypePostFilterResourceIT {
         TypePostFilter testTypePostFilter = typePostFilterList.get(typePostFilterList.size() - 1);
         assertThat(testTypePostFilter.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testTypePostFilter.getTypeFilterName()).isEqualTo(UPDATED_TYPE_FILTER_NAME);
+        assertThat(testTypePostFilter.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testTypePostFilter.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testTypePostFilter.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testTypePostFilter.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testTypePostFilter.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testTypePostFilter.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testTypePostFilter.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
+        assertThat(testTypePostFilter.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 
     @Test
@@ -590,10 +522,13 @@ class TypePostFilterResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(typePostFilter.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].typeFilterName").value(hasItem(DEFAULT_TYPE_FILTER_NAME)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)));
+            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
+            .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
     }
 }

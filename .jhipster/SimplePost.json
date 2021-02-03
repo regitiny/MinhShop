@@ -38,7 +38,8 @@
       "fieldName": "imageUrl",
       "fieldType": "String",
       "javadoc": "imageUrl",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "scores",

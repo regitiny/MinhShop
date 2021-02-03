@@ -5,11 +5,14 @@ export interface IPayment {
   id?: number;
   uuid?: string;
   status?: string | null;
-  role?: string;
-  createdDate?: string;
-  modifiedDate?: string;
-  createdBy?: string;
-  modifiedBy?: string;
+  searchField?: string | null;
+  role?: string | null;
+  createdDate?: string | null;
+  modifiedDate?: string | null;
+  createdBy?: string | null;
+  modifiedBy?: string | null;
+  dataSize?: number | null;
+  comment?: string | null;
   billId?: IBill | null;
 }
 

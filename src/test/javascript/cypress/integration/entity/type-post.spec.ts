@@ -95,6 +95,11 @@ describe('TypePost e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('web-enabled Burundi'));
 
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
     cy.get(`[data-cy="role"]`).type('Towels copying', { force: true }).invoke('val').should('match', new RegExp('Towels copying'));
 
     cy.get(`[data-cy="createdDate"]`).type('2021-01-30T01:47').invoke('val').should('equal', '2021-01-30T01:47');
@@ -107,6 +112,13 @@ describe('TypePost e2e test', () => {
       .should('match', new RegExp('indexing blue ivory'));
 
     cy.get(`[data-cy="modifiedBy"]`).type('Markets Tasty', { force: true }).invoke('val').should('match', new RegExp('Markets Tasty'));
+
+    cy.get(`[data-cy="dataSize"]`).type('88957').should('have.value', '88957');
+
+    cy.get(`[data-cy="comment"]`)
+      .type('bandwidth optical backing', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('bandwidth optical backing'));
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });

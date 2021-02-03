@@ -83,6 +83,15 @@ export const FileDetail = (props: IFileDetailProps) => {
           </dt>
           <dd>{fileEntity.typeFile}</dd>
           <dt>
+            <span id="searchField">
+              <Translate contentKey="minhShopApp.file.searchField">Search Field</Translate>
+            </span>
+            <UncontrolledTooltip target="searchField">
+              <Translate contentKey="minhShopApp.file.help.searchField" />
+            </UncontrolledTooltip>
+          </dt>
+          <dd>{fileEntity.searchField}</dd>
+          <dt>
             <span id="role">
               <Translate contentKey="minhShopApp.file.role">Role</Translate>
             </span>
@@ -145,15 +154,6 @@ export const FileDetail = (props: IFileDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.comment}</dd>
-          <dt>
-            <span id="deleted">
-              <Translate contentKey="minhShopApp.file.deleted">Deleted</Translate>
-            </span>
-            <UncontrolledTooltip target="deleted">
-              <Translate contentKey="minhShopApp.file.help.deleted" />
-            </UncontrolledTooltip>
-          </dt>
-          <dd>{fileEntity.deleted ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/file" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -56,38 +56,40 @@ public class FileDTO implements Serializable {
     private String typeFile;
 
     /**
+     * searchField
+     */
+    @ApiModelProperty(value = "searchField")
+    @Lob
+    private String searchField;
+
+    /**
      * role
      */
-    @NotNull
-    @ApiModelProperty(value = "role", required = true)
+    @ApiModelProperty(value = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @ApiModelProperty(value = "createdDate", required = true)
+    @ApiModelProperty(value = "createdDate")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedDate", required = true)
+    @ApiModelProperty(value = "modifiedDate")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @ApiModelProperty(value = "createdBy", required = true)
+    @ApiModelProperty(value = "createdBy")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedBy", required = true)
+    @ApiModelProperty(value = "modifiedBy")
     private String modifiedBy;
 
     /**
@@ -102,12 +104,6 @@ public class FileDTO implements Serializable {
     @Size(max = 2048)
     @ApiModelProperty(value = "comment")
     private String comment;
-
-    /**
-     * deleted (deleted set to true , not delete set to false)
-     */
-    @ApiModelProperty(value = "deleted (deleted set to true , not delete set to false)")
-    private Boolean deleted;
 
     public Long getId() {
         return id;
@@ -163,6 +159,14 @@ public class FileDTO implements Serializable {
 
     public void setTypeFile(String typeFile) {
         this.typeFile = typeFile;
+    }
+
+    public String getSearchField() {
+        return searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -221,14 +225,6 @@ public class FileDTO implements Serializable {
         this.comment = comment;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -260,6 +256,7 @@ public class FileDTO implements Serializable {
             ", nameVideo='" + getNameVideo() + "'" +
             ", extension='" + getExtension() + "'" +
             ", typeFile='" + getTypeFile() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
@@ -267,7 +264,6 @@ public class FileDTO implements Serializable {
             ", modifiedBy='" + getModifiedBy() + "'" +
             ", dataSize=" + getDataSize() +
             ", comment='" + getComment() + "'" +
-            ", deleted='" + getDeleted() + "'" +
             "}";
     }
 }

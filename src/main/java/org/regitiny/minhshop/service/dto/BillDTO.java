@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 
 /**
@@ -58,6 +59,9 @@ public class BillDTO implements Serializable {
     @ApiModelProperty(value = "addressCode")
     private String addressCode;
 
+    @Size(max = 65535)
+    private String product;
+
     /**
      * comment
      */
@@ -66,39 +70,47 @@ public class BillDTO implements Serializable {
     private String comment;
 
     /**
+     * searchField
+     */
+    @ApiModelProperty(value = "searchField")
+    @Lob
+    private String searchField;
+
+    /**
      * role
      */
-    @NotNull
-    @ApiModelProperty(value = "role", required = true)
+    @ApiModelProperty(value = "role")
     private String role;
 
     /**
      * createdDate
      */
-    @NotNull
-    @ApiModelProperty(value = "createdDate", required = true)
+    @ApiModelProperty(value = "createdDate")
     private Instant createdDate;
 
     /**
      * modifiedDate
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedDate", required = true)
+    @ApiModelProperty(value = "modifiedDate")
     private Instant modifiedDate;
 
     /**
      * createdBy
      */
-    @NotNull
-    @ApiModelProperty(value = "createdBy", required = true)
+    @ApiModelProperty(value = "createdBy")
     private String createdBy;
 
     /**
      * modifiedBy
      */
-    @NotNull
-    @ApiModelProperty(value = "modifiedBy", required = true)
+    @ApiModelProperty(value = "modifiedBy")
     private String modifiedBy;
+
+    /**
+     * dataSize
+     */
+    @ApiModelProperty(value = "dataSize")
+    private Long dataSize;
 
     private UserOtherInfoDTO userOtherInfo;
 
@@ -158,12 +170,28 @@ public class BillDTO implements Serializable {
         this.addressCode = addressCode;
     }
 
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
     public String getComment() {
         return comment;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getSearchField() {
+        return searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public String getRole() {
@@ -206,6 +234,14 @@ public class BillDTO implements Serializable {
         this.modifiedBy = modifiedBy;
     }
 
+    public Long getDataSize() {
+        return dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
+    }
+
     public UserOtherInfoDTO getUserOtherInfo() {
         return userOtherInfo;
     }
@@ -246,12 +282,15 @@ public class BillDTO implements Serializable {
             ", email='" + getEmail() + "'" +
             ", addressDetails='" + getAddressDetails() + "'" +
             ", addressCode='" + getAddressCode() + "'" +
+            ", product='" + getProduct() + "'" +
             ", comment='" + getComment() + "'" +
+            ", searchField='" + getSearchField() + "'" +
             ", role='" + getRole() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", modifiedDate='" + getModifiedDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", modifiedBy='" + getModifiedBy() + "'" +
+            ", dataSize=" + getDataSize() +
             ", userOtherInfo=" + getUserOtherInfo() +
             "}";
     }

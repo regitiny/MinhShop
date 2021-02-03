@@ -81,11 +81,14 @@ class UserOtherInfoGatlingTest extends Simulation {
                 , "addressDetails":"SAMPLE_TEXT"
                 , "dateOfBirth":"2020-01-01T00:00:00.000Z"
                 , "otherInfo":"SAMPLE_TEXT"
+                , "searchField":null
                 , "role":"SAMPLE_TEXT"
                 , "createdDate":"2020-01-01T00:00:00.000Z"
                 , "modifiedDate":"2020-01-01T00:00:00.000Z"
                 , "createdBy":"SAMPLE_TEXT"
                 , "modifiedBy":"SAMPLE_TEXT"
+                , "dataSize":null
+                , "comment":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_userOtherInfo_url"))).exitHereIfFailed

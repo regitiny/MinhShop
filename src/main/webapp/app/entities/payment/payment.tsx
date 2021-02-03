@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -180,6 +180,9 @@ export const Payment = (props: IPaymentProps) => {
                   <th className="hand" onClick={sort('status')}>
                     <Translate contentKey="minhShopApp.payment.status">Status</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.payment.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.payment.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -194,6 +197,12 @@ export const Payment = (props: IPaymentProps) => {
                   </th>
                   <th className="hand" onClick={sort('modifiedBy')}>
                     <Translate contentKey="minhShopApp.payment.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('dataSize')}>
+                    <Translate contentKey="minhShopApp.payment.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('comment')}>
+                    <Translate contentKey="minhShopApp.payment.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="minhShopApp.payment.billId">Bill Id</Translate> <FontAwesomeIcon icon="sort" />
@@ -211,6 +220,7 @@ export const Payment = (props: IPaymentProps) => {
                     </td>
                     <td>{payment.uuid}</td>
                     <td>{payment.status}</td>
+                    <td>{payment.searchField}</td>
                     <td>{payment.role}</td>
                     <td>{payment.createdDate ? <TextFormat type="date" value={payment.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>
@@ -218,6 +228,8 @@ export const Payment = (props: IPaymentProps) => {
                     </td>
                     <td>{payment.createdBy}</td>
                     <td>{payment.modifiedBy}</td>
+                    <td>{payment.dataSize}</td>
+                    <td>{payment.comment}</td>
                     <td>{payment.billId ? <Link to={`bill/${payment.billId.id}`}>{payment.billId.billId}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">

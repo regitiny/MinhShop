@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -181,6 +181,9 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                     <Translate contentKey="minhShopApp.typePostFilter.typeFilterName">Type Filter Name</Translate>{' '}
                     <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.typePostFilter.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -197,6 +200,12 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                   <th className="hand" onClick={sort('modifiedBy')}>
                     <Translate contentKey="minhShopApp.typePostFilter.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('dataSize')}>
+                    <Translate contentKey="minhShopApp.typePostFilter.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('comment')}>
+                    <Translate contentKey="minhShopApp.typePostFilter.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -210,6 +219,7 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                     </td>
                     <td>{typePostFilter.uuid}</td>
                     <td>{typePostFilter.typeFilterName}</td>
+                    <td>{typePostFilter.searchField}</td>
                     <td>{typePostFilter.role}</td>
                     <td>
                       {typePostFilter.createdDate ? (
@@ -223,6 +233,8 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                     </td>
                     <td>{typePostFilter.createdBy}</td>
                     <td>{typePostFilter.modifiedBy}</td>
+                    <td>{typePostFilter.dataSize}</td>
+                    <td>{typePostFilter.comment}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${typePostFilter.id}`} color="info" size="sm" data-cy="entityDetailsButton">

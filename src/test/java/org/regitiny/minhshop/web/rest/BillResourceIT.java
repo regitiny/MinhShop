@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link BillResource} REST controller.
@@ -60,8 +61,14 @@ class BillResourceIT {
     private static final String DEFAULT_ADDRESS_CODE = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS_CODE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PRODUCT = "AAAAAAAAAA";
+    private static final String UPDATED_PRODUCT = "BBBBBBBBBB";
+
     private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
     private static final String UPDATED_COMMENT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SEARCH_FIELD = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCH_FIELD = "BBBBBBBBBB";
 
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
@@ -77,6 +84,9 @@ class BillResourceIT {
 
     private static final String DEFAULT_MODIFIED_BY = "AAAAAAAAAA";
     private static final String UPDATED_MODIFIED_BY = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_DATA_SIZE = 1L;
+    private static final Long UPDATED_DATA_SIZE = 2L;
 
     @Autowired
     private BillRepository billRepository;
@@ -114,12 +124,15 @@ class BillResourceIT {
             .email(DEFAULT_EMAIL)
             .addressDetails(DEFAULT_ADDRESS_DETAILS)
             .addressCode(DEFAULT_ADDRESS_CODE)
+            .product(DEFAULT_PRODUCT)
             .comment(DEFAULT_COMMENT)
+            .searchField(DEFAULT_SEARCH_FIELD)
             .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
-            .modifiedBy(DEFAULT_MODIFIED_BY);
+            .modifiedBy(DEFAULT_MODIFIED_BY)
+            .dataSize(DEFAULT_DATA_SIZE);
         return bill;
     }
 
@@ -137,12 +150,15 @@ class BillResourceIT {
             .email(UPDATED_EMAIL)
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
+            .product(UPDATED_PRODUCT)
             .comment(UPDATED_COMMENT)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE);
         return bill;
     }
 
@@ -171,12 +187,15 @@ class BillResourceIT {
         assertThat(testBill.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testBill.getAddressDetails()).isEqualTo(DEFAULT_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(DEFAULT_ADDRESS_CODE);
+        assertThat(testBill.getProduct()).isEqualTo(DEFAULT_PRODUCT);
         assertThat(testBill.getComment()).isEqualTo(DEFAULT_COMMENT);
+        assertThat(testBill.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testBill.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testBill.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testBill.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
 
         // Validate the Bill in Elasticsearch
         verify(mockBillSearchRepository, times(1)).save(testBill);
@@ -260,96 +279,6 @@ class BillResourceIT {
 
     @Test
     @Transactional
-    void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = billRepository.findAll().size();
-        // set the field null
-        bill.setRole(null);
-
-        // Create the Bill, which fails.
-        BillDTO billDTO = billMapper.toDto(bill);
-
-        restBillMockMvc
-            .perform(post("/api/bills").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(billDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Bill> billList = billRepository.findAll();
-        assertThat(billList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = billRepository.findAll().size();
-        // set the field null
-        bill.setCreatedDate(null);
-
-        // Create the Bill, which fails.
-        BillDTO billDTO = billMapper.toDto(bill);
-
-        restBillMockMvc
-            .perform(post("/api/bills").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(billDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Bill> billList = billRepository.findAll();
-        assertThat(billList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = billRepository.findAll().size();
-        // set the field null
-        bill.setModifiedDate(null);
-
-        // Create the Bill, which fails.
-        BillDTO billDTO = billMapper.toDto(bill);
-
-        restBillMockMvc
-            .perform(post("/api/bills").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(billDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Bill> billList = billRepository.findAll();
-        assertThat(billList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = billRepository.findAll().size();
-        // set the field null
-        bill.setCreatedBy(null);
-
-        // Create the Bill, which fails.
-        BillDTO billDTO = billMapper.toDto(bill);
-
-        restBillMockMvc
-            .perform(post("/api/bills").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(billDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Bill> billList = billRepository.findAll();
-        assertThat(billList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = billRepository.findAll().size();
-        // set the field null
-        bill.setModifiedBy(null);
-
-        // Create the Bill, which fails.
-        BillDTO billDTO = billMapper.toDto(bill);
-
-        restBillMockMvc
-            .perform(post("/api/bills").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(billDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Bill> billList = billRepository.findAll();
-        assertThat(billList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllBills() throws Exception {
         // Initialize the database
         billRepository.saveAndFlush(bill);
@@ -366,12 +295,15 @@ class BillResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS)))
             .andExpect(jsonPath("$.[*].addressCode").value(hasItem(DEFAULT_ADDRESS_CODE)))
+            .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT)))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)));
+            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
+            .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())));
     }
 
     @Test
@@ -392,12 +324,15 @@ class BillResourceIT {
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.addressDetails").value(DEFAULT_ADDRESS_DETAILS))
             .andExpect(jsonPath("$.addressCode").value(DEFAULT_ADDRESS_CODE))
+            .andExpect(jsonPath("$.product").value(DEFAULT_PRODUCT))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
+            .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
-            .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY));
+            .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY))
+            .andExpect(jsonPath("$.dataSize").value(DEFAULT_DATA_SIZE.intValue()));
     }
 
     @Test
@@ -426,12 +361,15 @@ class BillResourceIT {
             .email(UPDATED_EMAIL)
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
+            .product(UPDATED_PRODUCT)
             .comment(UPDATED_COMMENT)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE);
         BillDTO billDTO = billMapper.toDto(updatedBill);
 
         restBillMockMvc
@@ -448,12 +386,15 @@ class BillResourceIT {
         assertThat(testBill.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testBill.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(UPDATED_ADDRESS_CODE);
+        assertThat(testBill.getProduct()).isEqualTo(UPDATED_PRODUCT);
         assertThat(testBill.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testBill.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testBill.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testBill.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testBill.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
 
         // Validate the Bill in Elasticsearch
         verify(mockBillSearchRepository).save(testBill);
@@ -497,6 +438,7 @@ class BillResourceIT {
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
+            .modifiedDate(UPDATED_MODIFIED_DATE)
             .modifiedBy(UPDATED_MODIFIED_BY);
 
         restBillMockMvc
@@ -517,12 +459,15 @@ class BillResourceIT {
         assertThat(testBill.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testBill.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(UPDATED_ADDRESS_CODE);
+        assertThat(testBill.getProduct()).isEqualTo(DEFAULT_PRODUCT);
         assertThat(testBill.getComment()).isEqualTo(DEFAULT_COMMENT);
+        assertThat(testBill.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testBill.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
-        assertThat(testBill.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
+        assertThat(testBill.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testBill.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testBill.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
     }
 
     @Test
@@ -544,12 +489,15 @@ class BillResourceIT {
             .email(UPDATED_EMAIL)
             .addressDetails(UPDATED_ADDRESS_DETAILS)
             .addressCode(UPDATED_ADDRESS_CODE)
+            .product(UPDATED_PRODUCT)
             .comment(UPDATED_COMMENT)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE);
 
         restBillMockMvc
             .perform(
@@ -569,12 +517,15 @@ class BillResourceIT {
         assertThat(testBill.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testBill.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
         assertThat(testBill.getAddressCode()).isEqualTo(UPDATED_ADDRESS_CODE);
+        assertThat(testBill.getProduct()).isEqualTo(UPDATED_PRODUCT);
         assertThat(testBill.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testBill.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testBill.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testBill.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testBill.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testBill.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testBill.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testBill.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
     }
 
     @Test
@@ -634,11 +585,14 @@ class BillResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS)))
             .andExpect(jsonPath("$.[*].addressCode").value(hasItem(DEFAULT_ADDRESS_CODE)))
+            .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT)))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)));
+            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
+            .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())));
     }
 }

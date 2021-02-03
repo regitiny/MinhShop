@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { IBill } from 'app/shared/model/bill.model';
 import { getEntities as getBills } from 'app/entities/bill/bill.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './payment.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './payment.reducer';
 import { IPayment } from 'app/shared/model/payment.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -22,6 +22,8 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
 
   const { paymentEntity, bills, loading, updating } = props;
 
+  const { searchField } = paymentEntity;
+
   const handleClose = () => {
     props.history.push('/payment');
   };
@@ -33,6 +35,14 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
 
     props.getBills();
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -108,18 +118,19 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="searchFieldLabel" for="payment-searchField">
+                  <Translate contentKey="minhShopApp.payment.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="payment-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.payment.help.searchField" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="roleLabel" for="payment-role">
                   <Translate contentKey="minhShopApp.payment.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="payment-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="payment-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.payment.help.role" />
                 </UncontrolledTooltip>
@@ -136,9 +147,6 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.paymentEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.payment.help.createdDate" />
@@ -156,9 +164,6 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.paymentEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.payment.help.modifiedDate" />
@@ -168,15 +173,7 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                 <Label id="createdByLabel" for="payment-createdBy">
                   <Translate contentKey="minhShopApp.payment.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="payment-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="payment-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.payment.help.createdBy" />
                 </UncontrolledTooltip>
@@ -185,17 +182,35 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
                 <Label id="modifiedByLabel" for="payment-modifiedBy">
                   <Translate contentKey="minhShopApp.payment.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="payment-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="payment-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.payment.help.modifiedBy" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="dataSizeLabel" for="payment-dataSize">
+                  <Translate contentKey="minhShopApp.payment.dataSize">Data Size</Translate>
+                </Label>
+                <AvField id="payment-dataSize" data-cy="dataSize" type="string" className="form-control" name="dataSize" />
+                <UncontrolledTooltip target="dataSizeLabel">
+                  <Translate contentKey="minhShopApp.payment.help.dataSize" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="commentLabel" for="payment-comment">
+                  <Translate contentKey="minhShopApp.payment.comment">Comment</Translate>
+                </Label>
+                <AvField
+                  id="payment-comment"
+                  data-cy="comment"
+                  type="text"
+                  name="comment"
+                  validate={{
+                    maxLength: { value: 2048, errorMessage: translate('entity.validation.maxlength', { max: 2048 }) },
+                  }}
+                />
+                <UncontrolledTooltip target="commentLabel">
+                  <Translate contentKey="minhShopApp.payment.help.comment" />
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -246,6 +261,7 @@ const mapDispatchToProps = {
   getBills,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };

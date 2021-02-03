@@ -20,7 +20,7 @@
       "fieldName": "content",
       "fieldType": "String",
       "javadoc": "content",
-      "fieldValidateRules": ["unique", "required"],
+      "fieldValidateRules": ["unique", "required", "maxlength"],
       "fieldValidateRulesMaxlength": "1000000000"
     },
     {

@@ -1,1 +1,1 @@
-id;uuid;bill_id;phone_number;email;address_details;address_code;comment;role;created_date;modified_date;created_by;modified_by
+id;uuid;bill_id;phone_number;email;address_details;address_code;product;comment;search_field;role;created_date;modified_date;created_by;modified_by;data_size

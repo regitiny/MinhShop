@@ -70,7 +70,8 @@ public class SimplePost implements Serializable {
      * imageUrl
      */
     @NotNull
-    @Column(name = "image_url", nullable = false)
+    @Size(max = 2048)
+    @Column(name = "image_url", length = 2048, nullable = false)
     private String imageUrl;
 
     /**

@@ -9,11 +9,14 @@ export default class TypePostUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#type-post-uuid'));
   typeNameInput: ElementFinder = element(by.css('input#type-post-typeName'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#type-post-searchField'));
   roleInput: ElementFinder = element(by.css('input#type-post-role'));
   createdDateInput: ElementFinder = element(by.css('input#type-post-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#type-post-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#type-post-createdBy'));
   modifiedByInput: ElementFinder = element(by.css('input#type-post-modifiedBy'));
+  dataSizeInput: ElementFinder = element(by.css('input#type-post-dataSize'));
+  commentInput: ElementFinder = element(by.css('input#type-post-comment'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -33,6 +36,14 @@ export default class TypePostUpdatePage {
 
   async getTypeNameInput() {
     return this.typeNameInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -75,6 +86,22 @@ export default class TypePostUpdatePage {
     return this.modifiedByInput.getAttribute('value');
   }
 
+  async setDataSizeInput(dataSize) {
+    await this.dataSizeInput.sendKeys(dataSize);
+  }
+
+  async getDataSizeInput() {
+    return this.dataSizeInput.getAttribute('value');
+  }
+
+  async setCommentInput(comment) {
+    await this.commentInput.sendKeys(comment);
+  }
+
+  async getCommentInput() {
+    return this.commentInput.getAttribute('value');
+  }
+
   async save() {
     await this.saveButton.click();
   }
@@ -95,6 +122,9 @@ export default class TypePostUpdatePage {
     await this.setTypeNameInput('typeName');
     expect(await this.getTypeNameInput()).to.match(/typeName/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
@@ -109,6 +139,12 @@ export default class TypePostUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setModifiedByInput('modifiedBy');
     expect(await this.getModifiedByInput()).to.match(/modifiedBy/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setDataSizeInput('5');
+    expect(await this.getDataSizeInput()).to.eq('5');
+    await waitUntilDisplayed(this.saveButton);
+    await this.setCommentInput('comment');
+    expect(await this.getCommentInput()).to.match(/comment/);
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

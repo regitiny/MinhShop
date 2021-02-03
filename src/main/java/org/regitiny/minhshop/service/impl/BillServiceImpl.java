@@ -83,8 +83,16 @@ public class BillServiceImpl implements BillService {
                         existingBill.setAddressCode(billDTO.getAddressCode());
                     }
 
+                    if (billDTO.getProduct() != null) {
+                        existingBill.setProduct(billDTO.getProduct());
+                    }
+
                     if (billDTO.getComment() != null) {
                         existingBill.setComment(billDTO.getComment());
+                    }
+
+                    if (billDTO.getSearchField() != null) {
+                        existingBill.setSearchField(billDTO.getSearchField());
                     }
 
                     if (billDTO.getRole() != null) {
@@ -105,6 +113,10 @@ public class BillServiceImpl implements BillService {
 
                     if (billDTO.getModifiedBy() != null) {
                         existingBill.setModifiedBy(billDTO.getModifiedBy());
+                    }
+
+                    if (billDTO.getDataSize() != null) {
+                        existingBill.setDataSize(billDTO.getDataSize());
                     }
 
                     return existingBill;

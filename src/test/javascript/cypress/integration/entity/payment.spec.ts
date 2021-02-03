@@ -95,6 +95,11 @@ describe('Payment e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('1080p eco-centric Managed'));
 
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
     cy.get(`[data-cy="role"]`).type('back-end', { force: true }).invoke('val').should('match', new RegExp('back-end'));
 
     cy.get(`[data-cy="createdDate"]`).type('2021-01-30T05:08').invoke('val').should('equal', '2021-01-30T05:08');
@@ -107,6 +112,10 @@ describe('Payment e2e test', () => {
       .type('calculate Strategist', { force: true })
       .invoke('val')
       .should('match', new RegExp('calculate Strategist'));
+
+    cy.get(`[data-cy="dataSize"]`).type('92747').should('have.value', '92747');
+
+    cy.get(`[data-cy="comment"]`).type('Latvia 1080p', { force: true }).invoke('val').should('match', new RegExp('Latvia 1080p'));
 
     cy.setFieldSelectToLastOfEntity('billId');
 

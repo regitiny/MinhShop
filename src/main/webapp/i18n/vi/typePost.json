@@ -21,19 +21,25 @@
       "id": "ID",
       "uuid": "Uuid",
       "typeName": "Type Name",
+      "searchField": "Search Field",
       "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
       "createdBy": "Created By",
       "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
       "help": {
         "uuid": "uuid",
         "typeName": "typeName",
+        "searchField": "searchField",
         "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",
-        "modifiedBy": "modifiedBy"
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
       }
     }
   }

@@ -29,7 +29,7 @@
             <column name="percent_sale" type="${floatType}" remarks="percentSale">
                 <constraints nullable="false" />
             </column>
-            <column name="image_url" type="varchar(255)" remarks="imageUrl">
+            <column name="image_url" type="varchar(2048)" remarks="imageUrl">
                 <constraints nullable="false" />
             </column>
             <column name="scores" type="${floatType}" remarks="scores">

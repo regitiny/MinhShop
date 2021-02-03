@@ -67,6 +67,10 @@ public class TypePostFilterServiceImpl implements TypePostFilterService {
                         existingTypePostFilter.setTypeFilterName(typePostFilterDTO.getTypeFilterName());
                     }
 
+                    if (typePostFilterDTO.getSearchField() != null) {
+                        existingTypePostFilter.setSearchField(typePostFilterDTO.getSearchField());
+                    }
+
                     if (typePostFilterDTO.getRole() != null) {
                         existingTypePostFilter.setRole(typePostFilterDTO.getRole());
                     }
@@ -85,6 +89,14 @@ public class TypePostFilterServiceImpl implements TypePostFilterService {
 
                     if (typePostFilterDTO.getModifiedBy() != null) {
                         existingTypePostFilter.setModifiedBy(typePostFilterDTO.getModifiedBy());
+                    }
+
+                    if (typePostFilterDTO.getDataSize() != null) {
+                        existingTypePostFilter.setDataSize(typePostFilterDTO.getDataSize());
+                    }
+
+                    if (typePostFilterDTO.getComment() != null) {
+                        existingTypePostFilter.setComment(typePostFilterDTO.getComment());
                     }
 
                     return existingTypePostFilter;

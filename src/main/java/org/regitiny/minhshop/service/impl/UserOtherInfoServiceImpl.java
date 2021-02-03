@@ -95,6 +95,10 @@ public class UserOtherInfoServiceImpl implements UserOtherInfoService {
                         existingUserOtherInfo.setOtherInfo(userOtherInfoDTO.getOtherInfo());
                     }
 
+                    if (userOtherInfoDTO.getSearchField() != null) {
+                        existingUserOtherInfo.setSearchField(userOtherInfoDTO.getSearchField());
+                    }
+
                     if (userOtherInfoDTO.getRole() != null) {
                         existingUserOtherInfo.setRole(userOtherInfoDTO.getRole());
                     }
@@ -113,6 +117,14 @@ public class UserOtherInfoServiceImpl implements UserOtherInfoService {
 
                     if (userOtherInfoDTO.getModifiedBy() != null) {
                         existingUserOtherInfo.setModifiedBy(userOtherInfoDTO.getModifiedBy());
+                    }
+
+                    if (userOtherInfoDTO.getDataSize() != null) {
+                        existingUserOtherInfo.setDataSize(userOtherInfoDTO.getDataSize());
+                    }
+
+                    if (userOtherInfoDTO.getComment() != null) {
+                        existingUserOtherInfo.setComment(userOtherInfoDTO.getComment());
                     }
 
                     return existingUserOtherInfo;

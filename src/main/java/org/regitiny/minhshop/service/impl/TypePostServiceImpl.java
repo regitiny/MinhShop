@@ -67,6 +67,10 @@ public class TypePostServiceImpl implements TypePostService {
                         existingTypePost.setTypeName(typePostDTO.getTypeName());
                     }
 
+                    if (typePostDTO.getSearchField() != null) {
+                        existingTypePost.setSearchField(typePostDTO.getSearchField());
+                    }
+
                     if (typePostDTO.getRole() != null) {
                         existingTypePost.setRole(typePostDTO.getRole());
                     }
@@ -85,6 +89,14 @@ public class TypePostServiceImpl implements TypePostService {
 
                     if (typePostDTO.getModifiedBy() != null) {
                         existingTypePost.setModifiedBy(typePostDTO.getModifiedBy());
+                    }
+
+                    if (typePostDTO.getDataSize() != null) {
+                        existingTypePost.setDataSize(typePostDTO.getDataSize());
+                    }
+
+                    if (typePostDTO.getComment() != null) {
+                        existingTypePost.setComment(typePostDTO.getComment());
                     }
 
                     return existingTypePost;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -192,8 +192,14 @@ export const Bill = (props: IBillProps) => {
                   <th className="hand" onClick={sort('addressCode')}>
                     <Translate contentKey="minhShopApp.bill.addressCode">Address Code</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('product')}>
+                    <Translate contentKey="minhShopApp.bill.product">Product</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('comment')}>
                     <Translate contentKey="minhShopApp.bill.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.bill.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.bill.role">Role</Translate> <FontAwesomeIcon icon="sort" />
@@ -209,6 +215,9 @@ export const Bill = (props: IBillProps) => {
                   </th>
                   <th className="hand" onClick={sort('modifiedBy')}>
                     <Translate contentKey="minhShopApp.bill.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('dataSize')}>
+                    <Translate contentKey="minhShopApp.bill.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="minhShopApp.bill.userOtherInfo">User Other Info</Translate> <FontAwesomeIcon icon="sort" />
@@ -230,12 +239,15 @@ export const Bill = (props: IBillProps) => {
                     <td>{bill.email}</td>
                     <td>{bill.addressDetails}</td>
                     <td>{bill.addressCode}</td>
+                    <td>{bill.product}</td>
                     <td>{bill.comment}</td>
+                    <td>{bill.searchField}</td>
                     <td>{bill.role}</td>
                     <td>{bill.createdDate ? <TextFormat type="date" value={bill.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>{bill.modifiedDate ? <TextFormat type="date" value={bill.modifiedDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>{bill.createdBy}</td>
                     <td>{bill.modifiedBy}</td>
+                    <td>{bill.dataSize}</td>
                     <td>
                       {bill.userOtherInfo ? <Link to={`user-other-info/${bill.userOtherInfo.id}`}>{bill.userOtherInfo.id}</Link> : ''}
                     </td>

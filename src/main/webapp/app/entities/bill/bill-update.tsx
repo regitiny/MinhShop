@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -11,7 +11,7 @@ import { IUserOtherInfo } from 'app/shared/model/user-other-info.model';
 import { getEntities as getUserOtherInfos } from 'app/entities/user-other-info/user-other-info.reducer';
 import { IPayment } from 'app/shared/model/payment.model';
 import { getEntities as getPayments } from 'app/entities/payment/payment.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './bill.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './bill.reducer';
 import { IBill } from 'app/shared/model/bill.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -25,6 +25,8 @@ export const BillUpdate = (props: IBillUpdateProps) => {
 
   const { billEntity, userOtherInfos, payments, loading, updating } = props;
 
+  const { searchField } = billEntity;
+
   const handleClose = () => {
     props.history.push('/bill');
   };
@@ -37,6 +39,14 @@ export const BillUpdate = (props: IBillUpdateProps) => {
     props.getUserOtherInfos();
     props.getPayments();
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -168,6 +178,20 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="productLabel" for="bill-product">
+                  <Translate contentKey="minhShopApp.bill.product">Product</Translate>
+                </Label>
+                <AvField
+                  id="bill-product"
+                  data-cy="product"
+                  type="text"
+                  name="product"
+                  validate={{
+                    maxLength: { value: 65535, errorMessage: translate('entity.validation.maxlength', { max: 65535 }) },
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
                 <Label id="commentLabel" for="bill-comment">
                   <Translate contentKey="minhShopApp.bill.comment">Comment</Translate>
                 </Label>
@@ -185,18 +209,19 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="searchFieldLabel" for="bill-searchField">
+                  <Translate contentKey="minhShopApp.bill.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="bill-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.bill.help.searchField" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="roleLabel" for="bill-role">
                   <Translate contentKey="minhShopApp.bill.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="bill-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="bill-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.bill.help.role" />
                 </UncontrolledTooltip>
@@ -213,9 +238,6 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.billEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.bill.help.createdDate" />
@@ -233,9 +255,6 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.billEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.bill.help.modifiedDate" />
@@ -245,15 +264,7 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                 <Label id="createdByLabel" for="bill-createdBy">
                   <Translate contentKey="minhShopApp.bill.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="bill-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="bill-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.bill.help.createdBy" />
                 </UncontrolledTooltip>
@@ -262,17 +273,18 @@ export const BillUpdate = (props: IBillUpdateProps) => {
                 <Label id="modifiedByLabel" for="bill-modifiedBy">
                   <Translate contentKey="minhShopApp.bill.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="bill-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="bill-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.bill.help.modifiedBy" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="dataSizeLabel" for="bill-dataSize">
+                  <Translate contentKey="minhShopApp.bill.dataSize">Data Size</Translate>
+                </Label>
+                <AvField id="bill-dataSize" data-cy="dataSize" type="string" className="form-control" name="dataSize" />
+                <UncontrolledTooltip target="dataSizeLabel">
+                  <Translate contentKey="minhShopApp.bill.help.dataSize" />
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -325,6 +337,7 @@ const mapDispatchToProps = {
   getPayments,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };

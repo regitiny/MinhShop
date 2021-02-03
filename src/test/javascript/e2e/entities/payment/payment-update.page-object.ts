@@ -9,11 +9,14 @@ export default class PaymentUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#payment-uuid'));
   statusInput: ElementFinder = element(by.css('input#payment-status'));
+  searchFieldInput: ElementFinder = element(by.css('textarea#payment-searchField'));
   roleInput: ElementFinder = element(by.css('input#payment-role'));
   createdDateInput: ElementFinder = element(by.css('input#payment-createdDate'));
   modifiedDateInput: ElementFinder = element(by.css('input#payment-modifiedDate'));
   createdByInput: ElementFinder = element(by.css('input#payment-createdBy'));
   modifiedByInput: ElementFinder = element(by.css('input#payment-modifiedBy'));
+  dataSizeInput: ElementFinder = element(by.css('input#payment-dataSize'));
+  commentInput: ElementFinder = element(by.css('input#payment-comment'));
   billIdSelect: ElementFinder = element(by.css('select#payment-billId'));
 
   getPageTitle() {
@@ -34,6 +37,14 @@ export default class PaymentUpdatePage {
 
   async getStatusInput() {
     return this.statusInput.getAttribute('value');
+  }
+
+  async setSearchFieldInput(searchField) {
+    await this.searchFieldInput.sendKeys(searchField);
+  }
+
+  async getSearchFieldInput() {
+    return this.searchFieldInput.getAttribute('value');
   }
 
   async setRoleInput(role) {
@@ -76,6 +87,22 @@ export default class PaymentUpdatePage {
     return this.modifiedByInput.getAttribute('value');
   }
 
+  async setDataSizeInput(dataSize) {
+    await this.dataSizeInput.sendKeys(dataSize);
+  }
+
+  async getDataSizeInput() {
+    return this.dataSizeInput.getAttribute('value');
+  }
+
+  async setCommentInput(comment) {
+    await this.commentInput.sendKeys(comment);
+  }
+
+  async getCommentInput() {
+    return this.commentInput.getAttribute('value');
+  }
+
   async billIdSelectLastOption() {
     await this.billIdSelect.all(by.tagName('option')).last().click();
   }
@@ -112,6 +139,9 @@ export default class PaymentUpdatePage {
     await this.setStatusInput('status');
     expect(await this.getStatusInput()).to.match(/status/);
     await waitUntilDisplayed(this.saveButton);
+    await this.setSearchFieldInput('searchField');
+    expect(await this.getSearchFieldInput()).to.match(/searchField/);
+    await waitUntilDisplayed(this.saveButton);
     await this.setRoleInput('role');
     expect(await this.getRoleInput()).to.match(/role/);
     await waitUntilDisplayed(this.saveButton);
@@ -126,6 +156,12 @@ export default class PaymentUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setModifiedByInput('modifiedBy');
     expect(await this.getModifiedByInput()).to.match(/modifiedBy/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setDataSizeInput('5');
+    expect(await this.getDataSizeInput()).to.eq('5');
+    await waitUntilDisplayed(this.saveButton);
+    await this.setCommentInput('comment');
+    expect(await this.getCommentInput()).to.match(/comment/);
     await this.billIdSelectLastOption();
     await this.save();
     await waitUntilHidden(this.saveButton);

@@ -95,6 +95,11 @@ describe('TypePostFilter e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('Delaware programming payment'));
 
+    cy.get(`[data-cy="searchField"]`)
+      .type('../fake-data/blob/hipster.txt', { force: true })
+      .invoke('val')
+      .should('match', new RegExp('../fake-data/blob/hipster.txt'));
+
     cy.get(`[data-cy="role"]`)
       .type('Function-based Tuna violet', { force: true })
       .invoke('val')
@@ -113,6 +118,10 @@ describe('TypePostFilter e2e test', () => {
       .type('Computers Intelligent', { force: true })
       .invoke('val')
       .should('match', new RegExp('Computers Intelligent'));
+
+    cy.get(`[data-cy="dataSize"]`).type('83678').should('have.value', '83678');
+
+    cy.get(`[data-cy="comment"]`).type('bus Automated', { force: true }).invoke('val').should('match', new RegExp('bus Automated'));
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });

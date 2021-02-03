@@ -1,11 +1,11 @@
-id;uuid;type_filter_name;role;created_date;modified_date;created_by;modified_by
-1;7ec7ef28-1a57-43b6-9442-ce84ffe60345;Granite benchmark;withdrawal local;2021-01-30T05:23:59;2021-01-29T17:03:20;frictionless Car;Tanzania Bedfordshire
-2;a832b54b-c358-40e4-8759-befb3c98d8b6;Cotton Dynamic;Hawaii synergize;2021-01-30T16:14:03;2021-01-30T14:30:45;leading Corners Borders;Buckinghamshire Fresh
-3;3580a10e-2e96-441b-9942-dbe3515228cc;JSON;Club;2021-01-30T11:10:14;2021-01-30T06:06:29;Home optical;Ports
-4;ea09209d-4c18-454f-831c-c1124536562a;syndicate;indexing;2021-01-30T12:17:23;2021-01-30T08:41:49;Ergonomic focus bottom-line;Clothing Malta alliance
-5;d0a334ef-3b23-4f86-96d7-830da148cdb9;Cotton systems asymmetric;Algérie;2021-01-30T01:51:26;2021-01-30T11:41:40;well-modulated reintermediate;Bedfordshire program improvement
-6;52c4cbe5-d0cd-47d0-99b5-acbd207dd755;Shirt;incremental;2021-01-30T03:32:57;2021-01-29T20:49:33;Avon;Beauty
-7;87cf82ba-c46d-4f6a-a31f-54e697d9150c;Intelligent Avon infrastructure;Facilitator;2021-01-29T22:31:01;2021-01-29T21:51:23;Niger Forward Coordinator;value-added Sausages Sleek
-8;47d4b34e-d2b5-41c3-890d-67a084b38522;Argentina;aggregate;2021-01-30T05:03:26;2021-01-29T22:38:31;Proactive Granite;superstructure
-9;1b7ab5cd-4c29-4da5-8296-06a958986fb1;Quality Security Montana;override virtual;2021-01-29T20:08:33;2021-01-30T09:32:45;Interface;generating Colorado
-10;0982dead-144d-4aa9-a2eb-23358227d609;Dalasi Liaison Auto;New;2021-01-30T03:52:50;2021-01-30T13:53:48;withdrawal;Refined global Towels
+id;uuid;type_filter_name;search_field;role;created_date;modified_date;created_by;modified_by;data_size;comment
+1;7ec7ef28-1a57-43b6-9442-ce84ffe60345;Granite benchmark;../fake-data/blob/hipster.txt;withdrawal local;2021-01-30T05:23:59;2021-01-29T17:03:20;frictionless Car;Tanzania Bedfordshire;67175;purple global
+2;c3580e48-759b-4efb-bc98-d8b69168ead8;orange systems;../fake-data/blob/hipster.txt;Engineer;2021-01-30T10:28:51;2021-01-30T05:03:47;Beauty;dot-com Liaison Bike;53331;Barbados
+3;e2e9641b-5942-4dbe-b515-228cc3de4571;violet;../fake-data/blob/hipster.txt;Georgia bypassing;2021-01-30T04:55:28;2021-01-30T00:39:05;Web Connecticut;AGP Awesome;30531;context-sensitive transmit Rustic
+4;6562a068-e3d7-4e25-911c-552427f0bd88;alliance;../fake-data/blob/hipster.txt;Baby white Manager;2021-01-30T13:00:58;2021-01-30T10:46:03;Honduras revolutionize Cộng;deposit Solomon pixel;14042;Lakes Gorgeous
+5;73801937-4fb6-4abd-b27c-d44ce52c4cbe;up indexing;../fake-data/blob/hipster.txt;Rubber;2021-01-30T08:29:23;2021-01-30T01:03:57;bus Fresh frictionless;brand;27720;Granite tan
+6;8408387c-f82b-4ac4-adf6-a231f54e697d;Cheese Intelligent;../fake-data/blob/hipster.txt;Bike Bedfordshire;2021-01-29T16:29:45;2021-01-29T19:15:55;application;payment up;38845;National Bedfordshire Senior
+7;c47d4b34-ed2b-451c-bc90-d67a084b3852;intangible;../fake-data/blob/hipster.txt;maroon sensor;2021-01-30T02:38:33;2021-01-30T10:21:13;Crest Officer;transform Borders integrated;27899;Soap Account Towels
+8;06a95898-6fb1-4dea-ae11-98c7b26d57d4;Interface;../fake-data/blob/hipster.txt;generating Colorado;2021-01-30T15:45:26;2021-01-30T02:19:55;Pizza invoice;secondary;65784;Wooden panel
+9;358227d6-09ba-44ff-a59d-03997810a43b;SMTP;../fake-data/blob/hipster.txt;Florida vertical;2021-01-30T16:12:15;2021-01-30T06:13:00;Licensed orchid;Libya;91941;superstructure deposit
+10;c8071782-481b-4d1e-96f2-651bbab11203;Buckinghamshire Point;../fake-data/blob/hipster.txt;Computers;2021-01-30T06:00:59;2021-01-30T07:09:24;moratorium communities Persevering;backing Phần;21592;Maine

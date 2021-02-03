@@ -21,20 +21,26 @@
       "id": "ID",
       "uuid": "Uuid",
       "typeFilterName": "Type Filter Name",
+      "searchField": "Search Field",
       "role": "Role",
       "createdDate": "Created Date",
       "modifiedDate": "Modified Date",
       "createdBy": "Created By",
       "modifiedBy": "Modified By",
+      "dataSize": "Data Size",
+      "comment": "Comment",
       "simplePost": "Simple Post",
       "help": {
         "uuid": "uuid",
         "typeFilterName": "typeFilterName",
+        "searchField": "searchField",
         "role": "role",
         "createdDate": "createdDate",
         "modifiedDate": "modifiedDate",
         "createdBy": "createdBy",
-        "modifiedBy": "modifiedBy"
+        "modifiedBy": "modifiedBy",
+        "dataSize": "dataSize",
+        "comment": "comment"
       }
     }
   }

@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { ISimplePost } from 'app/shared/model/simple-post.model';
 import { getEntities as getSimplePosts } from 'app/entities/simple-post/simple-post.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './type-post-filter.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './type-post-filter.reducer';
 import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -22,6 +22,8 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
 
   const { typePostFilterEntity, simplePosts, loading, updating } = props;
 
+  const { searchField } = typePostFilterEntity;
+
   const handleClose = () => {
     props.history.push('/type-post-filter');
   };
@@ -33,6 +35,14 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
 
     props.getSimplePosts();
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -116,18 +126,19 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="searchFieldLabel" for="type-post-filter-searchField">
+                  <Translate contentKey="minhShopApp.typePostFilter.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="type-post-filter-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.typePostFilter.help.searchField" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="roleLabel" for="type-post-filter-role">
                   <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="type-post-filter-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="type-post-filter-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.typePostFilter.help.role" />
                 </UncontrolledTooltip>
@@ -144,9 +155,6 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.typePostFilterEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.typePostFilter.help.createdDate" />
@@ -164,9 +172,6 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.typePostFilterEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.typePostFilter.help.modifiedDate" />
@@ -176,15 +181,7 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
                 <Label id="createdByLabel" for="type-post-filter-createdBy">
                   <Translate contentKey="minhShopApp.typePostFilter.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="type-post-filter-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="type-post-filter-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.typePostFilter.help.createdBy" />
                 </UncontrolledTooltip>
@@ -193,17 +190,35 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
                 <Label id="modifiedByLabel" for="type-post-filter-modifiedBy">
                   <Translate contentKey="minhShopApp.typePostFilter.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="type-post-filter-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="type-post-filter-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.typePostFilter.help.modifiedBy" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="dataSizeLabel" for="type-post-filter-dataSize">
+                  <Translate contentKey="minhShopApp.typePostFilter.dataSize">Data Size</Translate>
+                </Label>
+                <AvField id="type-post-filter-dataSize" data-cy="dataSize" type="string" className="form-control" name="dataSize" />
+                <UncontrolledTooltip target="dataSizeLabel">
+                  <Translate contentKey="minhShopApp.typePostFilter.help.dataSize" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
+                <Label id="commentLabel" for="type-post-filter-comment">
+                  <Translate contentKey="minhShopApp.typePostFilter.comment">Comment</Translate>
+                </Label>
+                <AvField
+                  id="type-post-filter-comment"
+                  data-cy="comment"
+                  type="text"
+                  name="comment"
+                  validate={{
+                    maxLength: { value: 2048, errorMessage: translate('entity.validation.maxlength', { max: 2048 }) },
+                  }}
+                />
+                <UncontrolledTooltip target="commentLabel">
+                  <Translate contentKey="minhShopApp.typePostFilter.help.comment" />
                 </UncontrolledTooltip>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/type-post-filter" replace color="info">
@@ -239,6 +254,7 @@ const mapDispatchToProps = {
   getSimplePosts,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };

@@ -198,6 +198,9 @@ export const File = (props: IFileProps) => {
                   <th className="hand" onClick={sort('typeFile')}>
                     <Translate contentKey="minhShopApp.file.typeFile">Type File</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('searchField')}>
+                    <Translate contentKey="minhShopApp.file.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('role')}>
                     <Translate contentKey="minhShopApp.file.role">Role</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -218,9 +221,6 @@ export const File = (props: IFileProps) => {
                   </th>
                   <th className="hand" onClick={sort('comment')}>
                     <Translate contentKey="minhShopApp.file.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('deleted')}>
-                    <Translate contentKey="minhShopApp.file.deleted">Deleted</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
@@ -252,6 +252,7 @@ export const File = (props: IFileProps) => {
                     <td>{file.nameVideo}</td>
                     <td>{file.extension}</td>
                     <td>{file.typeFile}</td>
+                    <td>{file.searchField}</td>
                     <td>{file.role}</td>
                     <td>{file.createdDate ? <TextFormat type="date" value={file.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
                     <td>{file.modifiedDate ? <TextFormat type="date" value={file.modifiedDate} format={APP_DATE_FORMAT} /> : null}</td>
@@ -259,7 +260,6 @@ export const File = (props: IFileProps) => {
                     <td>{file.modifiedBy}</td>
                     <td>{file.dataSize}</td>
                     <td>{file.comment}</td>
-                    <td>{file.deleted ? 'true' : 'false'}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${file.id}`} color="info" size="sm" data-cy="entityDetailsButton">

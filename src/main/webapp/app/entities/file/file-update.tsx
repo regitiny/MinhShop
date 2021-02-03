@@ -19,7 +19,7 @@ export const FileUpdate = (props: IFileUpdateProps) => {
 
   const { fileEntity, loading, updating } = props;
 
-  const { videoData, videoDataContentType } = fileEntity;
+  const { videoData, videoDataContentType, searchField } = fileEntity;
 
   const handleClose = () => {
     props.history.push('/file');
@@ -198,18 +198,19 @@ export const FileUpdate = (props: IFileUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label id="searchFieldLabel" for="file-searchField">
+                  <Translate contentKey="minhShopApp.file.searchField">Search Field</Translate>
+                </Label>
+                <AvInput id="file-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <UncontrolledTooltip target="searchFieldLabel">
+                  <Translate contentKey="minhShopApp.file.help.searchField" />
+                </UncontrolledTooltip>
+              </AvGroup>
+              <AvGroup>
                 <Label id="roleLabel" for="file-role">
                   <Translate contentKey="minhShopApp.file.role">Role</Translate>
                 </Label>
-                <AvField
-                  id="file-role"
-                  data-cy="role"
-                  type="text"
-                  name="role"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="file-role" data-cy="role" type="text" name="role" />
                 <UncontrolledTooltip target="roleLabel">
                   <Translate contentKey="minhShopApp.file.help.role" />
                 </UncontrolledTooltip>
@@ -226,9 +227,6 @@ export const FileUpdate = (props: IFileUpdateProps) => {
                   name="createdDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.fileEntity.createdDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
                   <Translate contentKey="minhShopApp.file.help.createdDate" />
@@ -246,9 +244,6 @@ export const FileUpdate = (props: IFileUpdateProps) => {
                   name="modifiedDate"
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.fileEntity.modifiedDate)}
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
                   <Translate contentKey="minhShopApp.file.help.modifiedDate" />
@@ -258,15 +253,7 @@ export const FileUpdate = (props: IFileUpdateProps) => {
                 <Label id="createdByLabel" for="file-createdBy">
                   <Translate contentKey="minhShopApp.file.createdBy">Created By</Translate>
                 </Label>
-                <AvField
-                  id="file-createdBy"
-                  data-cy="createdBy"
-                  type="text"
-                  name="createdBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="file-createdBy" data-cy="createdBy" type="text" name="createdBy" />
                 <UncontrolledTooltip target="createdByLabel">
                   <Translate contentKey="minhShopApp.file.help.createdBy" />
                 </UncontrolledTooltip>
@@ -275,15 +262,7 @@ export const FileUpdate = (props: IFileUpdateProps) => {
                 <Label id="modifiedByLabel" for="file-modifiedBy">
                   <Translate contentKey="minhShopApp.file.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField
-                  id="file-modifiedBy"
-                  data-cy="modifiedBy"
-                  type="text"
-                  name="modifiedBy"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
+                <AvField id="file-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
                 <UncontrolledTooltip target="modifiedByLabel">
                   <Translate contentKey="minhShopApp.file.help.modifiedBy" />
                 </UncontrolledTooltip>
@@ -312,15 +291,6 @@ export const FileUpdate = (props: IFileUpdateProps) => {
                 />
                 <UncontrolledTooltip target="commentLabel">
                   <Translate contentKey="minhShopApp.file.help.comment" />
-                </UncontrolledTooltip>
-              </AvGroup>
-              <AvGroup check>
-                <Label id="deletedLabel">
-                  <AvInput id="file-deleted" data-cy="deleted" type="checkbox" className="form-check-input" name="deleted" />
-                  <Translate contentKey="minhShopApp.file.deleted">Deleted</Translate>
-                </Label>
-                <UncontrolledTooltip target="deletedLabel">
-                  <Translate contentKey="minhShopApp.file.help.deleted" />
                 </UncontrolledTooltip>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/file" replace color="info">

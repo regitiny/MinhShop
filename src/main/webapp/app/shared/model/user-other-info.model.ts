@@ -12,11 +12,14 @@ export interface IUserOtherInfo {
   addressDetails?: string | null;
   dateOfBirth?: string | null;
   otherInfo?: string | null;
-  role?: string;
-  createdDate?: string;
-  modifiedDate?: string;
-  createdBy?: string;
-  modifiedBy?: string;
+  searchField?: string | null;
+  role?: string | null;
+  createdDate?: string | null;
+  modifiedDate?: string | null;
+  createdBy?: string | null;
+  modifiedBy?: string | null;
+  dataSize?: number | null;
+  comment?: string | null;
   userName?: IUser | null;
 }
 

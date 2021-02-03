@@ -1,11 +1,11 @@
-id;uuid;status;role;created_date;modified_date;created_by;modified_by
-1;529856d2-c843-4912-8217-65ce8d3b0675;copy Wooden;Infrastructure Accountability tan;2021-01-30T08:44:11;2021-01-30T00:06:09;Keyboard;framework
-2;0aab1864-e4a1-4bc6-b7b1-04c837675fe8;compressing Vermont;viral;2021-01-30T09:02:18;2021-01-29T17:45:34;generate Designer transmit;AI
-3;0bb96d26-018d-4379-9d18-bffd808abd8a;incubate Beauty;Pizza Kids;2021-01-29T17:37:27;2021-01-29T19:26:09;scalable Cheese reboot;Bedfordshire Table
-4;9c440bcf-0390-4ca1-b7ba-8bbb95903f6a;Fantastic;invoice e-business program;2021-01-30T02:00:25;2021-01-30T09:56:50;user-centric Salad;Handmade reboot
-5;5a9c21a3-229f-44d3-aaaa-35f4f3bf9881;Technician Electronics;Concrete orchid;2021-01-29T20:05:29;2021-01-29T20:56:24;sensor Division;TCP Berkshire
-6;549b1b21-32be-4fe2-8849-342b9d6c6dbd;indexing utilisation compress;24/365 Rapid Specialist;2021-01-30T08:30:15;2021-01-30T09:47:42;Borders Home;seize withdrawal
-7;605d697f-9895-4e3c-b563-0b5f0acf8cf1;Skyway Clothing invoice;Metal;2021-01-29T18:31:32;2021-01-30T10:17:45;Metrics;Plastic Vision-oriented
-8;015fefd9-a09d-4908-8001-989c24d42987;static;THX;2021-01-30T14:33:59;2021-01-29T22:59:49;Refined;Regional open-source Forward
-9;ed23267b-0fc9-4c4e-8c20-c5087c14a824;EXE brand;Supervisor Wooden Delaware;2021-01-30T11:54:35;2021-01-30T02:21:11;override;Cliff
-10;29c35e76-0d29-4335-8da9-8d939b9022b0;Bacon secondary Electronics;CSS Computer;2021-01-30T03:43:02;2021-01-30T03:29:09;multi-byte;toolset
+id;uuid;status;search_field;role;created_date;modified_date;created_by;modified_by;data_size;comment
+1;529856d2-c843-4912-8217-65ce8d3b0675;copy Wooden;../fake-data/blob/hipster.txt;Infrastructure Accountability tan;2021-01-30T08:44:11;2021-01-30T00:06:09;Keyboard;framework;248;Swedish Berkshire
+2;e4a1bc63-7b10-44c8-b767-5fe8ad448e30;back-end Interactions;../fake-data/blob/hipster.txt;Usability indigo;2021-01-29T22:07:30;2021-01-30T11:02:11;whiteboard feed exploit;Music open-source;58030;SDD capacitor
+3;d808abd8-a759-4408-ba2d-80a9fda4cb0f;optical Regional Bedfordshire;../fake-data/blob/hipster.txt;supply-chains;2021-01-29T21:16:26;2021-01-30T09:17:59;Shoes;Chair Brunei Buckinghamshire;53784;feed methodology silver
+4;a2169daf-f6d8-4b3b-9465-ec2e151b3ceb;Metical;../fake-data/blob/hipster.txt;Handcrafted;2021-01-30T13:10:42;2021-01-30T11:56:13;Response Implemented;deposit Engineer;21572;Orchestrator Bangladesh Technician
+5;02c7133e-83a2-4dc9-b78e-78ad04873549;Soft Concrete circuit;../fake-data/blob/hipster.txt;Gloves Polarised client-driven;2021-01-30T02:27:29;2021-01-29T20:37:27;redundant Dollar;Rue Developer Open-source;33606;Multi-lateral silver
+6;55487ac0-4456-450a-8860-5d697f9895e3;Islands Assimilated rich;../fake-data/blob/hipster.txt;mobile mobile;2021-01-29T20:36:53;2021-01-30T04:57:13;Lead Kids Gorgeous;pixel Future;95916;Granite solution-oriented Producer
+7;15fefd9a-09d9-4084-8019-89c24d429871;hacking;../fake-data/blob/hipster.txt;payment bandwidth XSS;2021-01-29T18:10:08;2021-01-30T06:33:10;open-source Forward Internal;Shirt;70910;Assistant
+8;c4ecc20c-5087-4c14-a824-9d8f675df082;Persevering;../fake-data/blob/hipster.txt;Towels override;2021-01-30T11:19:43;2021-01-30T04:53:28;capacity;pink Knoll hacking;23165;clicks-and-mortar
+9;a98d939b-9022-4b0c-8fad-f4da03f7d392;Borders;../fake-data/blob/hipster.txt;multi-byte;2021-01-30T11:30:32;2021-01-30T08:24:42;Strategist Facilitator Distributed;Account Producer;4604;Handcrafted Applications implement
+10;260a814b-893f-4ae8-8061-b9df639f891e;Enterprise-wide;../fake-data/blob/hipster.txt;protocol;2021-01-30T02:35:39;2021-01-30T06:07:10;Intelligent Idaho;Incredible transmitter grow;2230;portals Research

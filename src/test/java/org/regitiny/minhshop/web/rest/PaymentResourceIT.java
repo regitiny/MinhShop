@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link PaymentResource} REST controller.
@@ -48,6 +49,9 @@ class PaymentResourceIT {
     private static final String DEFAULT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SEARCH_FIELD = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCH_FIELD = "BBBBBBBBBB";
+
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
 
@@ -62,6 +66,12 @@ class PaymentResourceIT {
 
     private static final String DEFAULT_MODIFIED_BY = "AAAAAAAAAA";
     private static final String UPDATED_MODIFIED_BY = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_DATA_SIZE = 1L;
+    private static final Long UPDATED_DATA_SIZE = 2L;
+
+    private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
+    private static final String UPDATED_COMMENT = "BBBBBBBBBB";
 
     @Autowired
     private PaymentRepository paymentRepository;
@@ -95,11 +105,14 @@ class PaymentResourceIT {
         Payment payment = new Payment()
             .uuid(DEFAULT_UUID)
             .status(DEFAULT_STATUS)
+            .searchField(DEFAULT_SEARCH_FIELD)
             .role(DEFAULT_ROLE)
             .createdDate(DEFAULT_CREATED_DATE)
             .modifiedDate(DEFAULT_MODIFIED_DATE)
             .createdBy(DEFAULT_CREATED_BY)
-            .modifiedBy(DEFAULT_MODIFIED_BY);
+            .modifiedBy(DEFAULT_MODIFIED_BY)
+            .dataSize(DEFAULT_DATA_SIZE)
+            .comment(DEFAULT_COMMENT);
         return payment;
     }
 
@@ -113,11 +126,14 @@ class PaymentResourceIT {
         Payment payment = new Payment()
             .uuid(UPDATED_UUID)
             .status(UPDATED_STATUS)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
         return payment;
     }
 
@@ -142,11 +158,14 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testPayment.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
         assertThat(testPayment.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testPayment.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testPayment.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
+        assertThat(testPayment.getComment()).isEqualTo(DEFAULT_COMMENT);
 
         // Validate the Payment in Elasticsearch
         verify(mockPaymentSearchRepository, times(1)).save(testPayment);
@@ -194,96 +213,6 @@ class PaymentResourceIT {
 
     @Test
     @Transactional
-    void checkRoleIsRequired() throws Exception {
-        int databaseSizeBeforeTest = paymentRepository.findAll().size();
-        // set the field null
-        payment.setRole(null);
-
-        // Create the Payment, which fails.
-        PaymentDTO paymentDTO = paymentMapper.toDto(payment);
-
-        restPaymentMockMvc
-            .perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(paymentDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Payment> paymentList = paymentRepository.findAll();
-        assertThat(paymentList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = paymentRepository.findAll().size();
-        // set the field null
-        payment.setCreatedDate(null);
-
-        // Create the Payment, which fails.
-        PaymentDTO paymentDTO = paymentMapper.toDto(payment);
-
-        restPaymentMockMvc
-            .perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(paymentDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Payment> paymentList = paymentRepository.findAll();
-        assertThat(paymentList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = paymentRepository.findAll().size();
-        // set the field null
-        payment.setModifiedDate(null);
-
-        // Create the Payment, which fails.
-        PaymentDTO paymentDTO = paymentMapper.toDto(payment);
-
-        restPaymentMockMvc
-            .perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(paymentDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Payment> paymentList = paymentRepository.findAll();
-        assertThat(paymentList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkCreatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = paymentRepository.findAll().size();
-        // set the field null
-        payment.setCreatedBy(null);
-
-        // Create the Payment, which fails.
-        PaymentDTO paymentDTO = paymentMapper.toDto(payment);
-
-        restPaymentMockMvc
-            .perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(paymentDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Payment> paymentList = paymentRepository.findAll();
-        assertThat(paymentList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkModifiedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = paymentRepository.findAll().size();
-        // set the field null
-        payment.setModifiedBy(null);
-
-        // Create the Payment, which fails.
-        PaymentDTO paymentDTO = paymentMapper.toDto(payment);
-
-        restPaymentMockMvc
-            .perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(paymentDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Payment> paymentList = paymentRepository.findAll();
-        assertThat(paymentList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllPayments() throws Exception {
         // Initialize the database
         paymentRepository.saveAndFlush(payment);
@@ -296,11 +225,14 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)));
+            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
+            .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
     }
 
     @Test
@@ -317,11 +249,14 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.id").value(payment.getId().intValue()))
             .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
+            .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
             .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
-            .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY));
+            .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY))
+            .andExpect(jsonPath("$.dataSize").value(DEFAULT_DATA_SIZE.intValue()))
+            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT));
     }
 
     @Test
@@ -346,11 +281,14 @@ class PaymentResourceIT {
         updatedPayment
             .uuid(UPDATED_UUID)
             .status(UPDATED_STATUS)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
         PaymentDTO paymentDTO = paymentMapper.toDto(updatedPayment);
 
         restPaymentMockMvc
@@ -363,11 +301,14 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testPayment.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testPayment.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testPayment.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testPayment.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
+        assertThat(testPayment.getComment()).isEqualTo(UPDATED_COMMENT);
 
         // Validate the Payment in Elasticsearch
         verify(mockPaymentSearchRepository).save(testPayment);
@@ -406,7 +347,12 @@ class PaymentResourceIT {
         Payment partialUpdatedPayment = new Payment();
         partialUpdatedPayment.setId(payment.getId());
 
-        partialUpdatedPayment.role(UPDATED_ROLE).createdDate(UPDATED_CREATED_DATE).modifiedBy(UPDATED_MODIFIED_BY);
+        partialUpdatedPayment
+            .searchField(UPDATED_SEARCH_FIELD)
+            .role(UPDATED_ROLE)
+            .createdBy(UPDATED_CREATED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
 
         restPaymentMockMvc
             .perform(
@@ -422,11 +368,14 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testPayment.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testPayment.getRole()).isEqualTo(UPDATED_ROLE);
-        assertThat(testPayment.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testPayment.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(DEFAULT_MODIFIED_DATE);
-        assertThat(testPayment.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
-        assertThat(testPayment.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testPayment.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testPayment.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
+        assertThat(testPayment.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
+        assertThat(testPayment.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 
     @Test
@@ -444,11 +393,14 @@ class PaymentResourceIT {
         partialUpdatedPayment
             .uuid(UPDATED_UUID)
             .status(UPDATED_STATUS)
+            .searchField(UPDATED_SEARCH_FIELD)
             .role(UPDATED_ROLE)
             .createdDate(UPDATED_CREATED_DATE)
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
-            .modifiedBy(UPDATED_MODIFIED_BY);
+            .modifiedBy(UPDATED_MODIFIED_BY)
+            .dataSize(UPDATED_DATA_SIZE)
+            .comment(UPDATED_COMMENT);
 
         restPaymentMockMvc
             .perform(
@@ -464,11 +416,14 @@ class PaymentResourceIT {
         Payment testPayment = paymentList.get(paymentList.size() - 1);
         assertThat(testPayment.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testPayment.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testPayment.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
         assertThat(testPayment.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testPayment.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testPayment.getModifiedDate()).isEqualTo(UPDATED_MODIFIED_DATE);
         assertThat(testPayment.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testPayment.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
+        assertThat(testPayment.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
+        assertThat(testPayment.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 
     @Test
@@ -524,10 +479,13 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
             .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
             .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)));
+            .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
+            .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
     }
 }

@@ -12,7 +12,11 @@
 # Full reference is available at:
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
-yuvytung.server.name: catiny.com
+yuvytung:
+  value:
+    number-of-cities: 0 # mặc định là không import và tối đa 63 thành phố
+  server:
+    name: catiny.com
 
 logging:
   level:

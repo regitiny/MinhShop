@@ -193,7 +193,7 @@ jhipster:
     license: unlicensed
     license-url:
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: catiny.com:9092
   consumer:
     key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
     value.deserializer: org.apache.kafka.common.serialization.StringDeserializer

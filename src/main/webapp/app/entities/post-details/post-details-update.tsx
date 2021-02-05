@@ -18,6 +18,7 @@ import { Storage } from 'react-jhipster';
 
 // froala
 import FroalaEditor from 'react-froala-wysiwyg';
+
 // Require Editor CSS files.
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
@@ -163,6 +164,7 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                     imageUpload: true,
                   }}
                 />
+                {/*<FroalaEditorImg/>*/}
                 <UncontrolledTooltip target="contentLabel">
                   <Translate contentKey="minhShopApp.postDetails.help.content" />
                 </UncontrolledTooltip>

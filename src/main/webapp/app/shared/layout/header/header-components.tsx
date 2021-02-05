@@ -33,3 +33,10 @@ export const Home = props => (
     </NavLink>
   </NavItem>
 );
+export const FormInsert = props => (
+  <NavItem>
+    <NavLink tag={Link} to="/form-insert" className="d-flex align-items-center">
+      <span>FormInsert</span>
+    </NavLink>
+  </NavItem>
+);

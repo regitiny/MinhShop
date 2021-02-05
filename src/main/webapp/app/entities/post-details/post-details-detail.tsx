@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './post-details.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 export interface IPostDetailsDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -50,7 +51,8 @@ export const PostDetailsDetail = (props: IPostDetailsDetailProps) => {
               <Translate contentKey="minhShopApp.postDetails.help.content" />
             </UncontrolledTooltip>
           </dt>
-          <dd>{postDetailsEntity.content}</dd>
+          <FroalaEditorView model={postDetailsEntity.content}></FroalaEditorView>
+          {/*<dd>{postDetailsEntity.content}</dd>*/}
           <dt>
             <span id="searchField">
               <Translate contentKey="minhShopApp.postDetails.searchField">Search Field</Translate>

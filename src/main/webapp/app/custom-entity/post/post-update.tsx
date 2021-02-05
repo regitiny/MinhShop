@@ -12,7 +12,7 @@ import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/plugins.pkgd.min.js';
 
-export const FormInsert = props => {
+export const PostUpdate = props => {
   const [contentState, setContentState]: any = useState('');
 
   const [inputValue, setInputValue] = useState({
@@ -26,7 +26,9 @@ export const FormInsert = props => {
     searchField: '',
     role: '',
     typePost: '',
+    postDetailsId: '',
     typePostFilter: '',
+    simpleContent: '',
     content: '',
     comment: '',
   });
@@ -56,7 +58,7 @@ export const FormInsert = props => {
     window.console.log(inputValue);
     axios({
       method: 'post',
-      url: '',
+      url: 'http://localhost/api/post',
       headers: {},
       data: inputValue,
     });
@@ -90,6 +92,10 @@ export const FormInsert = props => {
         <FormGroup>
           <Label for="examplePassword">Score</Label>
           <Input type="string" name="scores" onChange={onHandleChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">Simple Content</Label>
+          <Input type="string" name="simpleContent" onChange={onHandleChange} />
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Other Info</Label>

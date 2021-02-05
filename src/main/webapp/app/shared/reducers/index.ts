@@ -52,6 +52,10 @@ import userOtherInfo, {
 import hanhChinhVN, {
   HanhChinhVNState
 } from 'app/entities/hanh-chinh-vn/hanh-chinh-vn.reducer';
+// prettier-ignore
+import post, {
+  PostState
+} from 'app/entities/post/post.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -75,6 +79,7 @@ export interface IRootState {
   readonly bill: BillState;
   readonly userOtherInfo: UserOtherInfoState;
   readonly hanhChinhVN: HanhChinhVNState;
+  readonly post: PostState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -100,6 +105,7 @@ const rootReducer = combineReducers<IRootState>({
   bill,
   userOtherInfo,
   hanhChinhVN,
+  post,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

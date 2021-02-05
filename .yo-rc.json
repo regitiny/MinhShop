@@ -56,7 +56,8 @@
       "Payment",
       "Bill",
       "UserOtherInfo",
-      "HanhChinhVN"
+      "HanhChinhVN",
+      "Post"
     ],
     "lastLiquibaseTimestamp": 1612023267000
   }

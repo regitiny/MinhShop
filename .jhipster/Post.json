@@ -1,0 +1,107 @@
+{
+  "name": "Post",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "javadoc": "title",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double",
+      "javadoc": "price"
+    },
+    {
+      "fieldName": "salePrice",
+      "fieldType": "Double",
+      "javadoc": "price"
+    },
+    {
+      "fieldName": "percentSale",
+      "fieldType": "Float",
+      "javadoc": "percentSale",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "100"
+    },
+    {
+      "fieldName": "imageUrl",
+      "fieldType": "String",
+      "javadoc": "imageUrl",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "scores",
+      "fieldType": "Float",
+      "javadoc": "scores",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "100"
+    },
+    {
+      "fieldName": "simpleContent",
+      "fieldType": "String",
+      "javadoc": "simple content",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "otherInfo",
+      "fieldType": "String",
+      "javadoc": "otherInfo (Json)",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "postDetailsId",
+      "fieldType": "String",
+      "javadoc": "postDetailsId",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "16",
+      "fieldValidateRulesPattern": "[A-z]+[0-9]+"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "byte[]",
+      "javadoc": "content",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "String",
+      "javadoc": "role"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "createdBy"
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "javadoc": "modifiedBy"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String",
+      "javadoc": "comment",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "2048"
+    }
+  ],
+  "relationships": [],
+  "javadoc": "The Post entity.\\n@author A true hipster",
+  "entityTableName": "post",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210205150201"
+}

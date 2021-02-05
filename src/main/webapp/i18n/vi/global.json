@@ -17,6 +17,7 @@
         "bill": "Bill",
         "userOtherInfo": "User Other Info",
         "hanhChinhVn": "Hanh Chinh VN",
+        "post": "Post",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

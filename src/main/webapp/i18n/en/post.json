@@ -1,0 +1,54 @@
+{
+  "minhShopApp": {
+    "post": {
+      "home": {
+        "title": "Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Post",
+        "createOrEditLabel": "Create or edit a Post",
+        "search": "Search for Post",
+        "notFound": "No Posts found"
+      },
+      "created": "A new Post is created with identifier {{ param }}",
+      "updated": "A Post is updated with identifier {{ param }}",
+      "deleted": "A Post is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Post"
+      },
+      "id": "ID",
+      "title": "Title",
+      "price": "Price",
+      "salePrice": "Sale Price",
+      "percentSale": "Percent Sale",
+      "imageUrl": "Image Url",
+      "scores": "Scores",
+      "simpleContent": "Simple Content",
+      "otherInfo": "Other Info",
+      "postDetailsId": "Post Details Id",
+      "content": "Content",
+      "role": "Role",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "comment": "Comment",
+      "help": {
+        "title": "title",
+        "price": "price",
+        "salePrice": "price",
+        "percentSale": "percentSale",
+        "imageUrl": "imageUrl",
+        "scores": "scores",
+        "simpleContent": "simple content",
+        "otherInfo": "otherInfo (Json)",
+        "postDetailsId": "postDetailsId",
+        "content": "content",
+        "role": "role",
+        "createdBy": "createdBy",
+        "modifiedBy": "modifiedBy",
+        "comment": "comment"
+      }
+    }
+  }
+}

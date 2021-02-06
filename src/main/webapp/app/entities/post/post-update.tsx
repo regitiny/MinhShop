@@ -7,17 +7,33 @@ import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { getEntities as getPostDetails } from 'app/entities/post-details/post-details.reducer';
+import { ITypePost } from 'app/shared/model/type-post.model';
+import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
+import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
+import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
+
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './post.reducer';
 import { IPost } from 'app/shared/model/post.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+
+import FroalaEditor from 'react-froala-wysiwyg';
+
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
+
+import { Storage } from 'react-jhipster';
 
 export interface IPostUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const PostUpdate = (props: IPostUpdateProps) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { postEntity, loading, updating } = props;
+  const { postEntity, loading, updating, postDetails, typePosts, typePostFilters, simplePostEntity } = props;
+
+  window.console.log(postDetails);
 
   const { content } = postEntity;
 
@@ -31,6 +47,9 @@ export const PostUpdate = (props: IPostUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+    props.getPostDetails();
+    props.getTypePosts();
+    props.getTypePostFilters();
   }, []);
 
   const onBlobChange = (isAnImage, name) => event => {
@@ -61,6 +80,15 @@ export const PostUpdate = (props: IPostUpdateProps) => {
       }
     }
   };
+
+  const [contentState, setContentState] = useState('');
+  const handleModelChange = model => setContentState(model);
+  useEffect(() => {
+    if (postEntity.content) setContentState(postEntity.content);
+  }, [postEntity]);
+
+  const token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  const authToken = `Bearer ${token}`;
 
   return (
     <div>
@@ -233,10 +261,85 @@ export const PostUpdate = (props: IPostUpdateProps) => {
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
+                <Label for="simple-post-postDetails">
+                  <Translate contentKey="minhShopApp.simplePost.postDetails">Post Details</Translate>
+                </Label>
+                <AvInput id="simple-post-postDetails" data-cy="postDetails" type="select" className="form-control" name="postDetails.id">
+                  <option value="" key="0" />
+                  {postDetails
+                    ? postDetails.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.postDetailsId}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="simple-post-typePost">
+                  <Translate contentKey="minhShopApp.simplePost.typePost">Type Post</Translate>
+                </Label>
+                <AvInput id="simple-post-typePost" data-cy="typePost" type="select" className="form-control" name="typePost.id">
+                  <option value="" key="0" />
+                  {typePosts
+                    ? typePosts.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.typeName}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="simple-post-typePostFilter">
+                  <Translate contentKey="minhShopApp.simplePost.typePostFilter">Type Post Filter</Translate>
+                </Label>
+                <AvInput
+                  id="simple-post-typePostFilter"
+                  data-cy="typePostFilter"
+                  type="select"
+                  multiple
+                  className="form-control"
+                  name="typePostFilters"
+                  value={!isNew && simplePostEntity.typePostFilters && simplePostEntity.typePostFilters.map(e => e.id)}
+                >
+                  <option value="" key="0" />
+                  {typePostFilters
+                    ? typePostFilters.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.typeFilterName}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              {/*<AvGroup>*/}
+              {/*  <Label id="contentLabel" for="post-content">*/}
+              {/*    <Translate contentKey="minhShopApp.post.content">Content</Translate>*/}
+              {/*  </Label>*/}
+              {/*  <AvInput id="post-content" data-cy="content" type="textarea" name="content" />*/}
+              {/*  <UncontrolledTooltip target="contentLabel">*/}
+              {/*    <Translate contentKey="minhShopApp.post.help.content" />*/}
+              {/*  </UncontrolledTooltip>*/}
+              {/*</AvGroup>*/}
+              <AvGroup>
                 <Label id="contentLabel" for="post-content">
                   <Translate contentKey="minhShopApp.post.content">Content</Translate>
                 </Label>
-                <AvInput id="post-content" data-cy="content" type="textarea" name="content" />
+                <FroalaEditor
+                  model={contentState}
+                  onModelChange={handleModelChange}
+                  config={{
+                    imageUploadURL: '/api/images/upload',
+                    imageUploadParam: 'imageDataFile',
+                    requestHeaders: {
+                      Authorization: authToken,
+                    },
+                    imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+                    imageUploadMethod: 'POST',
+                    imageUpload: true,
+                  }}
+                />
                 <UncontrolledTooltip target="contentLabel">
                   <Translate contentKey="minhShopApp.post.help.content" />
                 </UncontrolledTooltip>
@@ -311,9 +414,17 @@ const mapStateToProps = (storeState: IRootState) => ({
   loading: storeState.post.loading,
   updating: storeState.post.updating,
   updateSuccess: storeState.post.updateSuccess,
+  postDetails: storeState.postDetails.entities,
+  typePosts: storeState.typePost.entities,
+  typePostFilters: storeState.typePostFilter.entities,
+  simplePostEntity: storeState.simplePost.entity,
 });
 
 const mapDispatchToProps = {
+  getPostDetails,
+  getTypePosts,
+  getTypePostFilters,
+
   getEntity,
   updateEntity,
   setBlob,

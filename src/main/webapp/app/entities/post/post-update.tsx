@@ -33,6 +33,8 @@ export const PostUpdate = (props: IPostUpdateProps) => {
 
   const { postEntity, loading, updating, postDetails, typePosts, typePostFilters, simplePostEntity } = props;
 
+  const [postFilters, setPostFilters] = useState([]);
+
   window.console.log(postDetails);
 
   const { content } = postEntity;
@@ -66,11 +68,28 @@ export const PostUpdate = (props: IPostUpdateProps) => {
     }
   }, [props.updateSuccess]);
 
+  const [contentState, setContentState] = useState('');
+  const handleModelChange = model => setContentState(model);
+  useEffect(() => {
+    if (postEntity.content) setContentState(postEntity.content);
+  }, [postEntity]);
+
+  const showPostFilters = (event, value) => {
+    // const vkey=Object.keys(value).map(i=>value[i])
+    const newArray = Object.keys(value).map(i => ({ id: value[i] }));
+    window.console.log(newArray);
+
+    setPostFilters(newArray);
+  };
+
+  window.console.log({ postFilters });
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {
         ...postEntity,
         ...values,
+        ...{ content: contentState },
+        ...{ typePostFilters: postFilters },
       };
 
       if (isNew) {
@@ -81,12 +100,7 @@ export const PostUpdate = (props: IPostUpdateProps) => {
     }
   };
 
-  const [contentState, setContentState] = useState('');
-  const handleModelChange = model => setContentState(model);
-  useEffect(() => {
-    if (postEntity.content) setContentState(postEntity.content);
-  }, [postEntity]);
-
+  window.console.log(typePostFilters);
   const token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${token}`;
 
@@ -302,6 +316,7 @@ export const PostUpdate = (props: IPostUpdateProps) => {
                   className="form-control"
                   name="typePostFilters"
                   value={!isNew && simplePostEntity.typePostFilters && simplePostEntity.typePostFilters.map(e => e.id)}
+                  onChange={showPostFilters}
                 >
                   <option value="" key="0" />
                   {typePostFilters

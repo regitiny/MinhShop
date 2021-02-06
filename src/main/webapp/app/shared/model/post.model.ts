@@ -1,3 +1,7 @@
+import { IPostDetails } from 'app/shared/model/post-details.model';
+import { ITypePost } from 'app/shared/model/type-post.model';
+import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
+
 export interface IPost {
   id?: number;
   title?: string;
@@ -14,6 +18,9 @@ export interface IPost {
   createdBy?: string | null;
   modifiedBy?: string | null;
   comment?: string | null;
+  postDetails?: IPostDetails;
+  typePost?: ITypePost | null;
+  typePostFilters?: [] | null;
 }
 
 export const defaultValue: Readonly<IPost> = {};

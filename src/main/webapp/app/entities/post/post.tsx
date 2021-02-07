@@ -38,6 +38,7 @@ export const Post = (props: IPostProps) => {
   };
 
   const { postList, match, loading } = props;
+
   return (
     <div>
       <h2 id="post-heading" data-cy="PostHeading">
@@ -78,7 +79,7 @@ export const Post = (props: IPostProps) => {
         </Col>
       </Row>
       <div className="table-responsive">
-        {postList && postList.length > 0 ? (
+        {postList && postList.length > 0 && typeof postList === 'object' ? (
           <Table responsive>
             <thead>
               <tr>
@@ -132,7 +133,7 @@ export const Post = (props: IPostProps) => {
             </thead>
             <tbody>
               {postList.map((post, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
+                <tr key={`entity-${i * 101}`} data-cy="entityTable">
                   <td>
                     <Button tag={Link} to={`${match.url}/${post.id}`} color="link" size="sm">
                       {post.id}

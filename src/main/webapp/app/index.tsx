@@ -11,6 +11,7 @@ import { clearAuthentication } from './shared/reducers/authentication';
 import ErrorBoundary from './shared/error/error-boundary';
 import AppComponent from './app';
 import { loadIcons } from './config/icon-loader';
+import { BreadcrumbsProvider } from 'react-breadcrumbs-dynamic';
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
@@ -29,11 +30,13 @@ const render = Component =>
   ReactDOM.render(
     <ErrorBoundary>
       <Provider store={store}>
-        <div>
-          {/* If this slows down the app in dev disable it and enable when required  */}
-          {devTools}
-          <Component />
-        </div>
+        <BreadcrumbsProvider>
+          <div>
+            {/* If this slows down the app in dev disable it and enable when required  */}
+            {devTools}
+            <Component />
+          </div>
+        </BreadcrumbsProvider>
       </Provider>
     </ErrorBoundary>,
     rootEl

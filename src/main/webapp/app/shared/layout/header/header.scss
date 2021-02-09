@@ -1,6 +1,10 @@
 $header-color: #fff;
 $header-color-secondary: #bbb;
 $header-color-hover: darken($header-color, 20%);
+$dropdown-color: white;
+$dropdown-main: #c71c22;
+$dropdown-hover: #dd5600;
+$dropdown-hover-ouline: #c71c22;
 
 /* ==========================================================================
 Developement Ribbon
@@ -73,3 +77,70 @@ Navbar styles
   top: 0px;
   z-index: 1031;
 }
+//test
+#app-header {
+  position: fixed;
+  width: 100%;
+  height: auto;
+  top: 0;
+  z-index: 1999;
+  transition: top 0.3s;
+  .shop-header {
+    position: relative;
+    a {
+      color: #ffffff;
+      font-size: 16px;
+    }
+    .dropdown-menu {
+      padding: 0;
+    }
+    .dropdown-item {
+      color: $dropdown-color !important;
+      background: $dropdown-main;
+    }
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      color: $dropdown-color !important;
+      background-color: $dropdown-hover !important;
+      outline: 2px solid $dropdown-hover-ouline !important;
+    }
+    .dropdown-item.active,
+    .dropdown-item:active {
+      color: $dropdown-color;
+      background: $dropdown-hover;
+    }
+  }
+}
+////test scroll
+//.app-container-header {
+//  position: fixed;
+//  width: 100%;
+//  height: auto;
+//  top: 0;
+//  z-index: 1999;
+//  transition: top 0.3s;
+//  .shop-header {
+//    position: relative;
+//    padding: 0; //test thu hom 23/11
+//    a {
+//      color: #ffffff;
+//      font-size: 16px;
+//    }
+//
+//  }
+//}
+//#app-hidden {
+//  position: fixed;
+//  width: 100%;
+//  height: auto;
+//  top: -81px;
+//  z-index: 999;
+//  transition: top 0.3s;
+//  .shop-header {
+//    position: relative;
+//    a {
+//      color: #ffffff;
+//      font-size: 16px;
+//    }
+//  }
+//}

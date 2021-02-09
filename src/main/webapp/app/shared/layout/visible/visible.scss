@@ -1,0 +1,143 @@
+//visible.tsx
+$main-color: #7f661b;
+.visible {
+  color: white;
+  .visible-container {
+    padding: 0;
+    .visible-list {
+      font-size: 16px;
+      margin: auto 0;
+      background: #c71c22;
+      color: white;
+      height: 100%;
+      font-weight: bold;
+    }
+    .visible-list:after {
+      display: block;
+      content: '';
+      position: absolute;
+      z-index: 10;
+      left: initial;
+      bottom: initial;
+      top: 50%;
+      transform: translate(0, -50%);
+      height: 15px;
+      border-left: 1px dotted #ccc;
+      right: 0;
+    }
+  }
+}
+//visible-component.tsx
+.dropdown-toggle {
+  position: relative;
+}
+.dropdown-toggle:after {
+  margin-left: 1em;
+}
+.dropdown-toggle:before {
+  display: block;
+  content: '';
+  position: absolute;
+  z-index: 10;
+  left: initial;
+  bottom: initial;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 15px;
+  border-left: 1px dotted #ccc;
+  right: 0;
+}
+.visible-search {
+  input {
+    //border: none;
+    margin-right: 1px;
+    padding: 6px 10px;
+  }
+  button {
+    border: none;
+    padding: 6px 10px;
+  }
+}
+input:focus,
+button:hover {
+  outline: 2px solid deepskyblue;
+}
+.search-target {
+  //padding: 0 16px;
+  background: #c71c22;
+  width: 100%;
+  .form-visible {
+    padding: 0;
+    .form-group {
+      margin: 0;
+      padding: 0;
+    }
+    .btn-search {
+      margin: 6px;
+      padding: 0px 6px;
+    }
+    .result-search {
+      display: none;
+      position: absolute;
+      z-index: 999;
+      color: black;
+      background-color: white;
+    }
+  }
+  .input-group {
+    input {
+      border: 1px solid $main-color;
+      border-radius: 5px;
+      background-color: #eeeeee;
+    }
+  }
+}
+a:hover {
+  text-decoration: none;
+}
+.warp-cart {
+  position: relative;
+  .cart {
+    position: relative;
+    display: block;
+    padding-left: 40px;
+    margin: auto 20px;
+    .quantity {
+      position: absolute;
+      border: 2px solid green;
+      border-radius: 50%;
+      top: 15px;
+      left: 20px;
+      color: green;
+      background-color: white;
+      z-index: 10;
+      font-size: 10px;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      align-items: center;
+    }
+    span {
+      font-size: 14px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      line-height: 1.6;
+      margin: auto 0;
+    }
+    span:hover {
+    }
+  }
+  .cart:before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 38px;
+    height: 30px;
+    z-index: 5;
+    background-image: url('./../../../../content/images/icon_cart.png');
+    background-repeat: no-repeat;
+    left: 0;
+    top: 2px;
+  }
+}

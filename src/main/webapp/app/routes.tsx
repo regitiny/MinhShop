@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
@@ -26,6 +27,7 @@ import { NavLink } from 'react-router-dom';
 import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import CrumbItem from 'app/modules/breadcrumb/CrumbItem';
 import Contact from 'app/modules/contact/contact';
+import PageProduct from 'app/page-product';
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -38,9 +40,8 @@ const Admin = Loadable({
 });
 
 const base_path = '/';
-const Routes = () => {
+const Routes = props => {
   const location = useLocation();
-
   React.useEffect(() => {
     sendActivity(location.pathname);
   }, [location]);
@@ -53,18 +54,18 @@ const Routes = () => {
       {/*  finalProps={{active: true}}*/}
       {/*  duplicateProps={{to: 'href'}}*/}
       {/*/>*/}
-      <Breadcrumbs
-        separator={<b> / </b>}
-        item={NavLink}
-        finalItem={'b'} //chọn thẻ tag cho route cuối cùng
-        finalProps={{
-          style: { color: 'red' },
-        }}
-      />
+      {/*<Breadcrumbs*/}
+      {/*  separator={<b> / </b>}*/}
+      {/*  item={NavLink}*/}
+      {/*  finalItem={'b'} //chọn thẻ tag cho route cuối cùng*/}
+      {/*  finalProps={{*/}
+      {/*    style: { color: 'red' },*/}
+      {/*  }}*/}
+      {/*/>*/}
       <Switch>
         {/*<ErrorBoundaryRoute  path="/login" component={Login} />*/}
         {/*<Page  path="/login" component={Login} title="Login"/>*/}
-        <ErrorBoundaryRoute path={`${base_path}/login`} component={Login} />
+        <ErrorBoundaryRoute path={base_path + 'login'} component={Login} />
         <ErrorBoundaryRoute path="/logout" component={Logout} />
         <ErrorBoundaryRoute path="/account/register" component={Register} />
         <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
@@ -76,9 +77,10 @@ const Routes = () => {
         {/*<ErrorBoundaryRoute path="/" exact component={Home} />*/}
         <ErrorBoundaryRoute path={base_path} exact component={Home} />
         {/*<Page path="/" exact component={Home} title="Home"/>*/}
-        <ErrorBoundaryRoute path={base_path + 'introduce'} exact component={Introduce} />
-        <ErrorBoundaryRoute path={base_path + 'contact'} exact component={Contact} />
-        <PrivateRoute path="/" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+        <ErrorBoundaryRoute path={base_path + 'introduce'} component={Introduce} />
+        <ErrorBoundaryRoute path={base_path + 'contact'} component={Contact} />
+        <ErrorBoundaryRoute path={base_path + 'page'} component={PageProduct} />
+        <PrivateRoute path={base_path} component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>
     </div>

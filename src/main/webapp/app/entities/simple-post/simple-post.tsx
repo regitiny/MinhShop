@@ -414,7 +414,6 @@ export const SimplePost = (props: ISimplePostProps) => {
                           />
                         ))
                       : null}
-                    {/*<Input type="button" value={"Laptop chơi game"}/>*/}
                   </div>
                 </div>
               </div>

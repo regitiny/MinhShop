@@ -56,6 +56,11 @@ import hanhChinhVN, {
 import post, {
   PostState
 } from 'app/entities/post/post.reducer';
+import cartShop, { CartState } from 'app/modules/shopcart/reducers/cart.reducers';
+//todo test shopcart
+import orderShop, { OrderState } from 'app/modules/shopcart/reducers/order.reducers';
+//todo test shopcart
+import productShop, { ProductState } from 'app/modules/shopcart/reducers/products.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -80,6 +85,11 @@ export interface IRootState {
   readonly userOtherInfo: UserOtherInfoState;
   readonly hanhChinhVN: HanhChinhVNState;
   readonly post: PostState;
+
+  readonly cartShop: CartState;
+  readonly orderShop: OrderState;
+  readonly productShop: ProductState;
+
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -106,6 +116,10 @@ const rootReducer = combineReducers<IRootState>({
   userOtherInfo,
   hanhChinhVN,
   post,
+  cartShop,
+  orderShop,
+  productShop,
+
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

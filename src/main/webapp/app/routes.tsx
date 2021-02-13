@@ -28,6 +28,8 @@ import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import CrumbItem from 'app/modules/breadcrumb/CrumbItem';
 import Contact from 'app/modules/contact/contact';
 import PageProduct from 'app/page-product';
+import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';
+import CompleteOrder from 'app/modules/checkout-cart/complete-order';
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -80,6 +82,8 @@ const Routes = props => {
         <ErrorBoundaryRoute path={base_path + 'introduce'} component={Introduce} />
         <ErrorBoundaryRoute path={base_path + 'contact'} component={Contact} />
         <ErrorBoundaryRoute path={base_path + 'page'} component={PageProduct} />
+        <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
+        <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
         <PrivateRoute path={base_path} component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>

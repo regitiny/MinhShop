@@ -1,11 +1,11 @@
-import './laptop.scss';
+import './macbook.scss';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Storage } from 'react-jhipster';
 import { Table } from 'reactstrap';
 import Cart from 'app/modules/shopcart/cart';
-export const LaptopDetail = props => {
-  const [laptop, setLaptop] = useState(null);
+export const MacbookDetail = props => {
+  const [macbook, setMacbook] = useState(null);
   const page_path = props.match.url;
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${Token}`;
@@ -18,13 +18,13 @@ export const LaptopDetail = props => {
         Authorization: authToken,
       },
       // data:typeNameFil
-    }).then(res => setLaptop(res.data));
+    }).then(res => setMacbook(res.data));
   }, []);
   window.console.log(props.match.params.id);
   const [count, setCount] = useState(1);
   const showSlides = () => {
     if (count) {
-      const slides = document.getElementsByClassName('image-laptop-detail');
+      const slides = document.getElementsByClassName('image-macbook-detail');
       const dots = document.getElementsByClassName('img-thb');
       for (let i = 0; i < slides.length; i++) {
         const slide: any = slides[i];
@@ -45,26 +45,26 @@ export const LaptopDetail = props => {
   useEffect(() => {
     currentSlide(count);
   });
-  window.console.log(laptop);
+  window.console.log(macbook);
   return (
-    <div className="laptop-detail d-flex justify-content-center ">
-      <div className=" laptop-detail-header d-xl-flex d-lg-flex col-9 ">
-        <div className="image-laptop mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <div className="image-laptop-detail">
+    <div className="macbook-detail d-flex justify-content-center ">
+      <div className=" macbook-detail-header d-xl-flex d-lg-flex col-9 ">
+        <div className="image-macbook mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div className="image-macbook-detail">
             <img
               className="image-cover img-fluid"
               src="https://www.asus.com/media/global/gallery/tcwdsgr2i5oywlyw_setting_fff_1_90_end_500.png"
               alt="product-detail"
             />
           </div>
-          <div className="image-laptop-detail">
+          <div className="image-macbook-detail">
             <img
               className="image-cover img-fluid"
               src="https://www.asus.com/media/global/products/HYBtGIeaoACCt3lM/P_setting_fff_1_90_end_600.png"
               alt="product-detail"
             />
           </div>
-          <div className="image-laptop-detail">
+          <div className="image-macbook-detail">
             <img
               className="image-cover img-fluid"
               src="https://www.asus.com/media/global/gallery/jg7rlmrw0kmdyrrj_setting_fff_1_90_end_500.png"
@@ -171,16 +171,16 @@ export const LaptopDetail = props => {
           <hr />
           <div>
             {/*todo shop-cart*/}
-            {laptop !== undefined && laptop !== null ? (
-              <div className="laptop-detail-price">
+            {macbook !== undefined && macbook !== null ? (
+              <div className="macbook-detail-price">
                 <div>
-                  Giá gốc: <span className="text-primary">{laptop.price.toLocaleString()}đ</span>
+                  Giá gốc: <span className="text-primary">{macbook.price.toLocaleString()}đ</span>
                 </div>
                 <div>
-                  Giá khuyến mãi: <span className="text-danger">{laptop.salePrice.toLocaleString()}đ</span>
+                  Giá khuyến mãi: <span className="text-danger">{macbook.salePrice.toLocaleString()}đ</span>
                 </div>
-                <Cart cartProductDetail={laptop} page_path={page_path} />
-                {/*<Cart productestEntity={laptopDetail}/>*/}
+                <Cart cartProductDetail={macbook} page_path={page_path} />
+                {/*<Cart productestEntity={macbookDetail}/>*/}
               </div>
             ) : (
               '...loading'
@@ -192,41 +192,4 @@ export const LaptopDetail = props => {
     </div>
   );
 };
-export default LaptopDetail;
-
-// const LaptopDetail=(props)=> {
-//   const Token=Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
-//
-//   const [laptops, setLaptops]=useState([]);
-//   const authToken= `Bearer ${Token}`;
-//   const typeNameFil={typeNameFilter:"Laptop chơi Game"}
-//   const base_url =props.match.params.id; // todo đổi lại path trong router thành /:id mới lấy dc giá trị id
-//   const paramUrl={title: props.match.params.title}
-//
-//   window.console.log(paramUrl)
-//   useEffect(()=>{
-//     axios({
-//       url:`api/simple-posts/${base_url}`,
-//       method:'get',
-//       headers: {
-//         Authorization: authToken,
-//       },
-//       // params: paramUrl,
-//       data:null
-//     })
-//       .then(res=>setLaptops(res.data))
-//   },[])
-//   window.console.log(laptops)
-//   return (
-//     <div className="d-flex justify-content-center">
-//       <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
-//         <h1>{props.match.params.id}</h1>
-//         <SlideImage/>
-//         {/*<img src={props.match.params.imageUrl} alt="máy tính"/>*/}
-//       </div>
-//
-//     </div>
-//   );
-// }
-//
-// export default LaptopDetail;
+export default MacbookDetail;

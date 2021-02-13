@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import Laptop from 'app/page-product/laptop';
-import MacBook from 'app/page-product/mabook/macbook';
+import MacBook from 'app/page-product/mabook';
 
 function PageProduct({ match }) {
   // window.console.log(`${match.url}lap-top`)

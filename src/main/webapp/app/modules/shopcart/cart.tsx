@@ -17,6 +17,9 @@ export const Cart = props => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   // const [cartItems, setCartItems]:any = useState([])
+
+  const { page_path } = props;
+  window.console.log(page_path);
   useEffect(() => {
     if (quantity >= 100) {
       setQuantity(100);
@@ -47,8 +50,8 @@ export const Cart = props => {
   const { cartItems, products } = props;
   // const productShops:any=products;
 
-  const { laptop } = props;
-  window.console.log(laptop);
+  const { cartProductDetail } = props;
+  window.console.log(cartProductDetail);
   window.console.log(props);
 
   // window.console.log(productShops.products)
@@ -56,7 +59,7 @@ export const Cart = props => {
   window.console.log(JSON.parse(localStorage.getItem('cartItems')));
   const onAddToCart = () => {
     toggle();
-    props.addToCart(laptop, quantity);
+    props.addToCart(cartProductDetail, quantity);
   };
 
   const onShowTotalProduct = () => {
@@ -113,7 +116,7 @@ export const Cart = props => {
           Giỏ hàng của bạn ({onShowTotalProduct()} sản phẩm)
         </ModalHeader>
         <ModalBody>
-          <CartContent cartItems={cartItems} />
+          <CartContent cartItems={cartItems} page_path={page_path} />
         </ModalBody>
         <ModalFooter>
           <Button color="warning" onClick={toggle}>

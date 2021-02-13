@@ -12,8 +12,9 @@ import { Link } from 'react-router-dom';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 const CartContent = props => {
-  window.console.log(props);
   const { cartItems } = props;
+  const { page_path } = props;
+  window.console.log(page_path);
 
   const onUpdateInCart = (product, quantity) => {
     window.console.log(quantity);
@@ -43,12 +44,12 @@ const CartContent = props => {
           <tr key={index * 107}>
             <td scope="row" className="infor-product">
               <div>
-                <Link to={`/page/lap-top/${item.product.id}`} target="_blank">
+                <Link to={page_path} target="_blank">
                   <img src={item.product.imageUrl} />
                 </Link>
                 <div className="cart-product-content">
                   {/*<div>{item.product.tensanpham}</div>*/}
-                  <Link to={`/page/lap-top/${item.product.id}`} target="_blank">
+                  <Link to={page_path} target="_blank">
                     <FroalaEditorView model={item.product.title} />
                   </Link>
                   <Button color="link" onClick={() => onRemoveFromCart(item.product, item.count)}>
@@ -90,31 +91,7 @@ const CartContent = props => {
             <th>Thành tiền</th>
           </tr>
         </thead>
-        <tbody>
-          {showCartItems()}
-          {/*<tr>*/}
-          {/*  <td scope="row">*/}
-          {/*    <div>*/}
-          {/*      <img src="./../../../content/images/thung_go.png"/>*/}
-          {/*      <div className="cart-product-content">*/}
-          {/*        <div>THÙNG GỖ</div>*/}
-          {/*        <Button color="link"><FontAwesomeIcon icon={faTrashAlt} size="1x"/>Xóa sản phẩm</Button>*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*  </td>*/}
-          {/*  <td>(price, old price, sell)</td>*/}
-          {/*  <td>*/}
-          {/*    <div className="input-group">*/}
-          {/*      <Label id="editorLabel" for="editor-editor">*/}
-          {/*      </Label>*/}
-          {/*      <Button disabled={quantity<=1}color="link"><FontAwesomeIcon icon={faMinus} onClick={()=>updateQuantity(-1)}/></Button>*/}
-          {/*      <Input  className="btn-product-quantity" type="text" name="product-quantity" onChange={onChangeProductQuantity} value={quantity}/>*/}
-          {/*      <Button disabled={quantity>=100}color="link"><FontAwesomeIcon icon={faPlus} onClick={()=>updateQuantity(1)}/></Button>*/}
-          {/*    </div>*/}
-          {/*  </td>*/}
-          {/*  <td>2000000 vnđ</td>*/}
-          {/*</tr>*/}
-        </tbody>
+        <tbody>{showCartItems()}</tbody>
       </Table>
       <div className="total-price">Tổng tiền: {onTotalPrice().toLocaleString()}đ</div>
     </div>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Form, Input, Button, FormGroup, Label, FormFeedback, FormText } from 'reactstrap';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import VerifieOrder from 'app/modules/checkout-cart/verifie-order';
 
 import { Base64 } from 'js-base64';
@@ -21,6 +21,7 @@ const CheckoutCart = props => {
     setCartItems(JSON.parse(cart));
   }, [cart]);
   // const CartItems = JSON.parse(localStorage.getItem("cartItems"));
+  window.console.log(CartItems);
   const totalPrice = () => {
     let total = 0;
     if (CartItems && CartItems.length > 0) {
@@ -72,9 +73,13 @@ const CheckoutCart = props => {
                 return (
                   <div className="product" key={index * 11011}>
                     <div className="image col-4">
-                      <img src={item.product.imageUrl} />
+                      <NavLink to={item.product.url}>
+                        <img src={item.product.imageUrl} />
+                      </NavLink>
                     </div>
-                    <div className="title-product col-4">{item.product.title}</div>
+                    <div className="title-product col-4">
+                      <NavLink to={item.product.url}>{item.product.title}</NavLink>
+                    </div>
                     <div className="price col-4">
                       <div className="tt-price">{Number(item.product.salePrice).toLocaleString()}₫</div>
                       <div className="quantity">x{item.count}</div>
@@ -135,7 +140,7 @@ const CheckoutCart = props => {
     showProvinceName(event);
   };
 
-  window.console.log(testsdiachiList);
+  window.console.log(location.pathname);
   window.console.log(testsTenQuan);
   //todo tao cookie
   const setCookie = (cname, cvalue, exdays) => {
@@ -171,6 +176,7 @@ const CheckoutCart = props => {
                 title: i.product.title,
                 image: i.product.imageUrl,
                 price: i.product.salePrice,
+                url: i.product.url,
               },
               count: i.count,
             })),

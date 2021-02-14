@@ -51,9 +51,9 @@ export const Cart = props => {
   // const productShops:any=products;
 
   const { cartProductDetail } = props;
-  window.console.log(cartProductDetail);
   window.console.log(props);
-
+  cartProductDetail.url = page_path;
+  window.console.log(cartProductDetail);
   // window.console.log(productShops.products)
   window.console.log(cartItems);
   window.console.log(JSON.parse(localStorage.getItem('cartItems')));

@@ -1,7 +1,7 @@
 import './checkout.scss';
 import React, { useState, useEffect } from 'react';
 import { Base64 } from 'js-base64';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
 const CompleteOrder = props => {
   const [cartInformation, setCartInformation]: any = useState('');
@@ -95,9 +95,13 @@ const CompleteOrder = props => {
                   return (
                     <div className="product" key={index * 11011}>
                       <div className="image col-4">
-                        <img src={item.product.image} />
+                        <NavLink to={item.product.url}>
+                          <img src={item.product.image} />
+                        </NavLink>
                       </div>
-                      <div className="title-product col-4">{item.product.title}</div>
+                      <div className="title-product col-4">
+                        <NavLink to={item.product.url}>{item.product.title}</NavLink>
+                      </div>
                       <div className="price col-4">
                         <div className="tt-price">{Number(item.product.price).toLocaleString()}₫</div>
                         <div className="quantity">x{item.count}</div>

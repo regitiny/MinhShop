@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardSubtitle, CardImg, CardBody, CardText,
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
+import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 const Laptop = ({ match }) => {
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');

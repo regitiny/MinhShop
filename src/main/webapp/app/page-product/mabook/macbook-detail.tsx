@@ -51,11 +51,7 @@ export const MacbookDetail = props => {
       <div className=" macbook-detail-header d-xl-flex d-lg-flex col-9 ">
         <div className="image-macbook mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
           <div className="image-macbook-detail">
-            <img
-              className="image-cover img-fluid"
-              src="https://www.asus.com/media/global/gallery/tcwdsgr2i5oywlyw_setting_fff_1_90_end_500.png"
-              alt="product-detail"
-            />
+            <img className="image-cover img-fluid" src={macbook ? macbook.imageUrl : null} alt="macbook-detail" />
           </div>
           <div className="image-macbook-detail">
             <img
@@ -76,8 +72,8 @@ export const MacbookDetail = props => {
               <img
                 className="img-thb image-cover img-fluid cursor"
                 onClick={() => currentSlide(1)}
-                src="https://www.asus.com/media/global/gallery/tcwdsgr2i5oywlyw_setting_fff_1_90_end_500.png"
-                alt="product-detail"
+                src={macbook ? macbook.imageUrl : null}
+                alt="macbook-detail"
               />
             </div>
             <div className="image-thumbnail img-2 px-1 col-4">

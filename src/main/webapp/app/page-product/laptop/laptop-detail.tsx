@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Storage } from 'react-jhipster';
 import { Table } from 'reactstrap';
 import Cart from 'app/modules/shopcart/cart';
+import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+
 export const LaptopDetail = props => {
   const [laptop, setLaptop] = useState(null);
   const page_path = props.match.url;
@@ -47,144 +49,145 @@ export const LaptopDetail = props => {
   });
   window.console.log(laptop);
   return (
-    <div className="laptop-detail d-flex justify-content-center ">
-      <div className=" laptop-detail-header d-xl-flex d-lg-flex col-9 ">
-        <div className="image-laptop mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <div className="image-laptop-detail">
-            <img
-              className="image-cover img-fluid"
-              src="https://www.asus.com/media/global/gallery/tcwdsgr2i5oywlyw_setting_fff_1_90_end_500.png"
-              alt="product-detail"
-            />
-          </div>
-          <div className="image-laptop-detail">
-            <img
-              className="image-cover img-fluid"
-              src="https://www.asus.com/media/global/products/HYBtGIeaoACCt3lM/P_setting_fff_1_90_end_600.png"
-              alt="product-detail"
-            />
-          </div>
-          <div className="image-laptop-detail">
-            <img
-              className="image-cover img-fluid"
-              src="https://www.asus.com/media/global/gallery/jg7rlmrw0kmdyrrj_setting_fff_1_90_end_500.png"
-              alt="product-detail"
-            />
-          </div>
-          <div className="list-image-thumbnail row mt-2">
-            <div className="image-thumbnail img-1 pr-2 col-4 ">
-              <img
-                className="img-thb image-cover img-fluid cursor"
-                onClick={() => currentSlide(1)}
-                src="https://www.asus.com/media/global/gallery/tcwdsgr2i5oywlyw_setting_fff_1_90_end_500.png"
-                alt="product-detail"
-              />
+    <div>
+      <div>
+        <BreadcrumbsItem to={location.pathname}>{laptop ? laptop.title : ''}</BreadcrumbsItem>
+      </div>
+      <div className="laptop-detail d-flex justify-content-center ">
+        <div className=" laptop-detail-header d-xl-flex d-lg-flex col-9 ">
+          <div className="image-laptop mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div className="image-laptop-detail">
+              <img className="image-cover img-fluid" src={laptop ? laptop.imageUrl : null} alt="product-detail" />
             </div>
-            <div className="image-thumbnail img-2 px-1 col-4">
+            <div className="image-laptop-detail">
               <img
-                className="img-thb image-cover img-fluid cursor"
-                onClick={() => currentSlide(2)}
+                className="image-cover img-fluid"
                 src="https://www.asus.com/media/global/products/HYBtGIeaoACCt3lM/P_setting_fff_1_90_end_600.png"
                 alt="product-detail"
               />
             </div>
-            <div className="image-thumbnail img-3 pl-2 col-4">
+            <div className="image-laptop-detail">
               <img
-                className="img-thb image-cover img-fluid cursor"
-                onClick={() => currentSlide(3)}
+                className="image-cover img-fluid"
                 src="https://www.asus.com/media/global/gallery/jg7rlmrw0kmdyrrj_setting_fff_1_90_end_500.png"
                 alt="product-detail"
               />
             </div>
-          </div>
-        </div>
-        <div className="product-description mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <h5>SẢN PHẨM ĐỒ GỖ 1</h5>
-          <hr />
-          <table className="col-12">
-            <tbody>
-              <tr>
-                <th>
-                  <strong>TÊN SẢN PHẨM</strong>
-                </th>
-                <td>Thùng gố đựng rượu 20 lít</td>
-              </tr>
-              <tr>
-                <th rowSpan={2}>
-                  <strong>KÍCH THƯỚC</strong>
-                </th>
-                <td>+ Mặt thùng: 30 cm</td>
-              </tr>
-              <tr>
-                <td>+Thân thùng: 40 cm</td>
-              </tr>
-              <tr>
-                <th>
-                  <strong>PHỤ KIỆN</strong>
-                </th>
-                <td>01 Chân thùng (chưa có vòi triết rượu)</td>
-              </tr>
-              <tr>
-                <th>
-                  <strong>CHẤT LIỆU</strong>
-                </th>
-                <td>Gỗ sồi nhập khẩu</td>
-              </tr>
-              <tr>
-                <th>
-                  <strong>BẢO HÀNH</strong>
-                </th>
-                <td>12 tháng (lỗi nhà sản xuất)</td>
-              </tr>
-              <tr>
-                <th>
-                  <strong>PHỤ KIỆN</strong>
-                </th>
-                <td>01 Chân thùng (chưa có vòi triết rượu)</td>
-              </tr>
-              <tr>
-                <th>
-                  <strong>ĐỊA CHỈ</strong>
-                </th>
-                <td></td>
-              </tr>
-              <tr>
-                <td>- Hà Nội</td>
-                <td>Số 63/96 phố Đại Từ - Hoàng Mai</td>
-              </tr>
-              <tr>
-                <td>- TPHCM</td>
-                <td>Số 250 Lê Văn Khương - P. Thới An - Q.12</td>
-              </tr>
-              <tr>
-                <td> - Xưởng SX</td>
-                <td>Làng nghề Đọi Tam, Duy Tiên, Hà Nam</td>
-              </tr>
-              <tr>
-                <th>
-                  <strong>Hotline</strong>
-                </th>
-                <td>0327.247.999</td>
-              </tr>
-            </tbody>
-          </table>
-          <hr />
-          <div>
-            {/*todo shop-cart*/}
-            {laptop !== undefined && laptop !== null ? (
-              <div className="laptop-detail-price">
-                <div>
-                  Giá gốc: <span className="text-primary">{laptop.price.toLocaleString()}đ</span>
-                </div>
-                <div>
-                  Giá khuyến mãi: <span className="text-danger">{laptop.salePrice.toLocaleString()}đ</span>
-                </div>
-                <Cart cartProductDetail={laptop} page_path={page_path} />
-                {/*<Cart productestEntity={laptopDetail}/>*/}
+            <div className="list-image-thumbnail row mt-2">
+              <div className="image-thumbnail img-1 pr-2 col-4 ">
+                <img
+                  className="img-thb image-cover img-fluid cursor"
+                  onClick={() => currentSlide(1)}
+                  src={laptop ? laptop.imageUrl : null}
+                  alt="product-detail"
+                />
               </div>
-            ) : (
-              '...loading'
-            )}
+              <div className="image-thumbnail img-2 px-1 col-4">
+                <img
+                  className="img-thb image-cover img-fluid cursor"
+                  onClick={() => currentSlide(2)}
+                  src="https://www.asus.com/media/global/products/HYBtGIeaoACCt3lM/P_setting_fff_1_90_end_600.png"
+                  alt="product-detail"
+                />
+              </div>
+              <div className="image-thumbnail img-3 pl-2 col-4">
+                <img
+                  className="img-thb image-cover img-fluid cursor"
+                  onClick={() => currentSlide(3)}
+                  src="https://www.asus.com/media/global/gallery/jg7rlmrw0kmdyrrj_setting_fff_1_90_end_500.png"
+                  alt="product-detail"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="product-description mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <h5>SẢN PHẨM ĐỒ GỖ 1</h5>
+            <hr />
+            <table className="col-12">
+              <tbody>
+                <tr>
+                  <th>
+                    <strong>TÊN SẢN PHẨM</strong>
+                  </th>
+                  <td>Thùng gố đựng rượu 20 lít</td>
+                </tr>
+                <tr>
+                  <th rowSpan={2}>
+                    <strong>KÍCH THƯỚC</strong>
+                  </th>
+                  <td>+ Mặt thùng: 30 cm</td>
+                </tr>
+                <tr>
+                  <td>+Thân thùng: 40 cm</td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>PHỤ KIỆN</strong>
+                  </th>
+                  <td>01 Chân thùng (chưa có vòi triết rượu)</td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>CHẤT LIỆU</strong>
+                  </th>
+                  <td>Gỗ sồi nhập khẩu</td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>BẢO HÀNH</strong>
+                  </th>
+                  <td>12 tháng (lỗi nhà sản xuất)</td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>PHỤ KIỆN</strong>
+                  </th>
+                  <td>01 Chân thùng (chưa có vòi triết rượu)</td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>ĐỊA CHỈ</strong>
+                  </th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>- Hà Nội</td>
+                  <td>Số 63/96 phố Đại Từ - Hoàng Mai</td>
+                </tr>
+                <tr>
+                  <td>- TPHCM</td>
+                  <td>Số 250 Lê Văn Khương - P. Thới An - Q.12</td>
+                </tr>
+                <tr>
+                  <td> - Xưởng SX</td>
+                  <td>Làng nghề Đọi Tam, Duy Tiên, Hà Nam</td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>Hotline</strong>
+                  </th>
+                  <td>0327.247.999</td>
+                </tr>
+              </tbody>
+            </table>
+            <hr />
+            <div>
+              {/*todo shop-cart*/}
+              {laptop !== undefined && laptop !== null ? (
+                <div className="laptop-detail-price">
+                  <div>
+                    Giá gốc: <span className="text-primary">{laptop.price.toLocaleString()}đ</span>
+                  </div>
+                  <div>
+                    Giá khuyến mãi: <span className="text-danger">{laptop.salePrice.toLocaleString()}đ</span>
+                  </div>
+                  <Cart cartProductDetail={laptop} page_path={page_path} />
+                  {/*<Cart productestEntity={laptopDetail}/>*/}
+                </div>
+              ) : (
+                '...loading'
+              )}
+            </div>
           </div>
         </div>
       </div>

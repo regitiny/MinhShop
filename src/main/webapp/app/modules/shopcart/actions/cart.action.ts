@@ -12,7 +12,7 @@ export const addToCart = (product, quantity) => (dispatch, getState) => {
   cartItems.forEach(x => {
     if (x.product.id === product.id) {
       alreadyExist = true;
-      x.count += quantity;
+      x.count += Number(quantity);
       x.product.tensanpham = product.tensanpham; //todo add 25/1
     }
   });

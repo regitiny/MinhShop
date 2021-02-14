@@ -67,7 +67,7 @@ const Routes = props => {
       <Switch>
         {/*<ErrorBoundaryRoute  path="/login" component={Login} />*/}
         {/*<Page  path="/login" component={Login} title="Login"/>*/}
-        <ErrorBoundaryRoute path={base_path + 'login'} component={Login} />
+        <ErrorBoundaryRoute path="/login" component={Login} />
         <ErrorBoundaryRoute path="/logout" component={Logout} />
         <ErrorBoundaryRoute path="/account/register" component={Register} />
         <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
@@ -77,11 +77,11 @@ const Routes = props => {
         <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
         <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
         {/*<ErrorBoundaryRoute path="/" exact component={Home} />*/}
-        <ErrorBoundaryRoute path={base_path} exact component={Home} />
+        <ErrorBoundaryRoute path="/" exact component={Home} />
         {/*<Page path="/" exact component={Home} title="Home"/>*/}
-        <ErrorBoundaryRoute path={base_path + 'introduce'} component={Introduce} />
-        <ErrorBoundaryRoute path={base_path + 'contact'} component={Contact} />
-        <ErrorBoundaryRoute path={base_path + 'page'} component={PageProduct} />
+        <ErrorBoundaryRoute path="/introduce" component={Introduce} />
+        <ErrorBoundaryRoute path="/contact" component={Contact} />
+        <ErrorBoundaryRoute path="/page" component={PageProduct} />
         <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
         <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
         <PrivateRoute path={base_path} component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />

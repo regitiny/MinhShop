@@ -16,6 +16,16 @@ import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
 import { sendActivity } from 'app/config/websocket-middleware';
 import { PostUpdate } from 'app/custom-entity/post/post-update';
+import Page from 'app/modules/do-go-noi-that/config-products/page';
+import Introduce from 'app/modules/introduce/introduce';
+// import {Breadcrumb, NavLink} from "reactstrap";
+import { NavLink } from 'react-router-dom';
+
+//todo test breadcrumb
+
+import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import CrumbItem from 'app/modules/breadcrumb/CrumbItem';
+import Contact from 'app/modules/contact/contact';
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -27,15 +37,34 @@ const Admin = Loadable({
   loading: () => <div>loading ...</div>,
 });
 
+const base_path = '/';
 const Routes = () => {
   const location = useLocation();
+
   React.useEffect(() => {
     sendActivity(location.pathname);
   }, [location]);
   return (
     <div className="view-routes">
+      <BreadcrumbsItem to={base_path}>Trang Chủ</BreadcrumbsItem>
+      {/*<Breadcrumbs*/}
+      {/*  item={CrumbItem}*/}
+      {/*  container={Breadcrumb}*/}
+      {/*  finalProps={{active: true}}*/}
+      {/*  duplicateProps={{to: 'href'}}*/}
+      {/*/>*/}
+      <Breadcrumbs
+        separator={<b> / </b>}
+        item={NavLink}
+        finalItem={'b'} //chọn thẻ tag cho route cuối cùng
+        finalProps={{
+          style: { color: 'red' },
+        }}
+      />
       <Switch>
-        <ErrorBoundaryRoute path="/login" component={Login} />
+        {/*<ErrorBoundaryRoute  path="/login" component={Login} />*/}
+        {/*<Page  path="/login" component={Login} title="Login"/>*/}
+        <ErrorBoundaryRoute path={`${base_path}/login`} component={Login} />
         <ErrorBoundaryRoute path="/logout" component={Logout} />
         <ErrorBoundaryRoute path="/account/register" component={Register} />
         <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
@@ -44,7 +73,11 @@ const Routes = () => {
         <ErrorBoundaryRoute path="/form-insert" exact component={PostUpdate} />
         <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
         <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
-        <ErrorBoundaryRoute path="/" exact component={Home} />
+        {/*<ErrorBoundaryRoute path="/" exact component={Home} />*/}
+        <ErrorBoundaryRoute path={base_path} exact component={Home} />
+        {/*<Page path="/" exact component={Home} title="Home"/>*/}
+        <ErrorBoundaryRoute path={base_path + 'introduce'} exact component={Introduce} />
+        <ErrorBoundaryRoute path={base_path + 'contact'} exact component={Contact} />
         <PrivateRoute path="/" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>

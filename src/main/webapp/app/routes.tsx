@@ -30,6 +30,18 @@ import Contact from 'app/modules/contact/contact';
 import PageProduct from 'app/page-product';
 import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';
 import CompleteOrder from 'app/modules/checkout-cart/complete-order';
+import LaptopDetail from 'app/page-product/laptop/laptop-detail';
+
+const BreadcrumbLayout = props => {
+  const { children } = props;
+  return (
+    <div className="d-flex justify-content-center">
+      <div className="breadcrumb col-9" style={location.pathname === '/' ? { display: 'none' } : { display: 'block' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -56,17 +68,17 @@ const Routes = props => {
       {/*  finalProps={{active: true}}*/}
       {/*  duplicateProps={{to: 'href'}}*/}
       {/*/>*/}
-      {/*<Breadcrumbs*/}
-      {/*  separator={<b> / </b>}*/}
-      {/*  item={NavLink}*/}
-      {/*  finalItem={'b'} //chọn thẻ tag cho route cuối cùng*/}
-      {/*  finalProps={{*/}
-      {/*    style: { color: 'red' },*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <Breadcrumbs
+        separator={<b>/</b>}
+        item={NavLink}
+        finalItem={'b'} //chọn thẻ tag cho route cuối cùng
+        finalProps={{
+          style: { color: 'gray' },
+        }}
+        container={BreadcrumbLayout}
+        // compare={(a,b)=>a.weight-b.weight} removeProps={{weight: true}}
+      />
       <Switch>
-        {/*<ErrorBoundaryRoute  path="/login" component={Login} />*/}
-        {/*<Page  path="/login" component={Login} title="Login"/>*/}
         <ErrorBoundaryRoute path="/login" component={Login} />
         <ErrorBoundaryRoute path="/logout" component={Logout} />
         <ErrorBoundaryRoute path="/account/register" component={Register} />
@@ -76,7 +88,7 @@ const Routes = props => {
         <ErrorBoundaryRoute path="/form-insert" exact component={PostUpdate} />
         <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
         <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
-        {/*<ErrorBoundaryRoute path="/" exact component={Home} />*/}
+        <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
         <ErrorBoundaryRoute path="/" exact component={Home} />
         {/*<Page path="/" exact component={Home} title="Home"/>*/}
         <ErrorBoundaryRoute path="/introduce" component={Introduce} />
@@ -84,7 +96,7 @@ const Routes = props => {
         <ErrorBoundaryRoute path="/page" component={PageProduct} />
         <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
         <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
-        <PrivateRoute path={base_path} component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+        <ErrorBoundaryRoute path={`/:id`} exact component={LaptopDetail} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>
     </div>

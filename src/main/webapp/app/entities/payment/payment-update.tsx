@@ -25,7 +25,7 @@ export const PaymentUpdate = (props: IPaymentUpdateProps) => {
   const { searchField } = paymentEntity;
 
   const handleClose = () => {
-    props.history.push('/payment');
+    props.history.push('/entity/payment');
   };
 
   useEffect(() => {

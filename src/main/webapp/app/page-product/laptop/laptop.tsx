@@ -24,8 +24,6 @@ const Laptop = ({ match }) => {
       // data:typeNameFil
     }).then(res => setLaptops(res.data));
   }, []);
-  const lap = _.find(laptops, { typePost: { typeName: 'Laptop' } });
-  window.console.log(lap);
   return (
     <div className="d-flex justify-content-center">
       <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
@@ -33,11 +31,11 @@ const Laptop = ({ match }) => {
           ? laptops
               .filter(laptop => laptop.typePost.typeName === 'Laptop')
               .map(laptop => {
-                // if (laptop.typePost.typeName === 'Laptop') {
+                // if (laptop.typePost.typeName === 'Laptop') {}
                 return (
                   <div className="col-4" key={laptop.uuid + laptop.id}>
-                    {/*<Link to={`${match.url}/${laptop.id}`}>*/}
-                    <Link to={`${match.url}/${laptop.id}`}>
+                    <Link to={`/${laptop.id}`}>
+                      {/*<Link to={`${match.url}/${laptop.id}`}>*/}
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
                           <div>

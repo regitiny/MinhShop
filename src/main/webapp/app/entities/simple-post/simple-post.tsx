@@ -49,8 +49,13 @@ export const SimplePost = (props: ISimplePostProps) => {
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
+
+  window.console.log(paginationState);
+  window.console.log(props);
   const { simplePostList, typePostFilters, match, loading } = props;
   const [sorting, setSorting] = useState(false);
+
+  window.console.log(simplePostList);
 
   const getAllEntities = () => {
     if (search) {

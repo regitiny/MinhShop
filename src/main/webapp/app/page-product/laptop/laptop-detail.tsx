@@ -47,17 +47,16 @@ export const LaptopDetail = props => {
   useEffect(() => {
     currentSlide(count);
   });
-  window.console.log(laptop);
   return (
     <div>
-      <div>
-        <BreadcrumbsItem to={location.pathname}>{laptop ? laptop.title : ''}</BreadcrumbsItem>
-      </div>
+      {/*<div>*/}
+      <BreadcrumbsItem to={location.pathname}>{laptop ? laptop.title : ''}</BreadcrumbsItem>
+      {/*</div>*/}
       <div className="laptop-detail d-flex justify-content-center ">
         <div className=" laptop-detail-header d-xl-flex d-lg-flex col-9 ">
           <div className="image-laptop mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <div className="image-laptop-detail">
-              <img className="image-cover img-fluid" src={laptop ? laptop.imageUrl : null} alt="product-detail" />
+              {laptop ? <img className="image-cover img-fluid" src={laptop.imageUrl} alt="product-detail" /> : <div></div>}
             </div>
             <div className="image-laptop-detail">
               <img
@@ -75,12 +74,16 @@ export const LaptopDetail = props => {
             </div>
             <div className="list-image-thumbnail row mt-2">
               <div className="image-thumbnail img-1 pr-2 col-4 ">
-                <img
-                  className="img-thb image-cover img-fluid cursor"
-                  onClick={() => currentSlide(1)}
-                  src={laptop ? laptop.imageUrl : null}
-                  alt="product-detail"
-                />
+                {laptop ? (
+                  <img
+                    className="img-thb image-cover img-fluid cursor"
+                    onClick={() => currentSlide(1)}
+                    src={laptop.imageUrl}
+                    alt="product-detail"
+                  />
+                ) : (
+                  <div></div>
+                )}
               </div>
               <div className="image-thumbnail img-2 px-1 col-4">
                 <img
@@ -101,7 +104,7 @@ export const LaptopDetail = props => {
             </div>
           </div>
           <div className="product-description mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-            <h5>SẢN PHẨM ĐỒ GỖ 1</h5>
+            {laptop ? <h5>{laptop.title}</h5> : ''}
             <hr />
             <table className="col-12">
               <tbody>

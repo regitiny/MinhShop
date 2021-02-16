@@ -5,6 +5,7 @@ import Laptop from 'app/page-product/laptop';
 import MacBook from 'app/page-product/mabook';
 import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import Page from 'app/modules/do-go-noi-that/config-products/page';
+import LaptopDetail from 'app/page-product/laptop/laptop-detail';
 // import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 const BreadcrumbLayout = props => {
   const { children } = props;
@@ -19,15 +20,16 @@ function PageProduct({ match }) {
 
   return (
     <div>
-      <Breadcrumbs
-        separator={<b> / </b>}
-        item={NavLink}
-        finalItem={'b'} //chọn thẻ tag cho route cuối cùng
-        finalProps={{
-          style: { color: 'gray' },
-        }}
-        container={BreadcrumbLayout}
-      />
+      {/*<Breadcrumbs*/}
+      {/*  separator={<b>/</b>}*/}
+      {/*  item={NavLink}*/}
+      {/*  finalItem={'b'} //chọn thẻ tag cho route cuối cùng*/}
+      {/*  finalProps={{*/}
+      {/*    style: { color: 'gray' },*/}
+      {/*  }}*/}
+      {/*  container={BreadcrumbLayout}*/}
+      {/*  // compare={(a,b)=>a.weight-b.weight} removeProps={{weight: true}}*/}
+      {/*/>*/}
       {/*<BreadcrumbsItem glyph='cog' to={match.url}>*/}
       {/*  <b>Page</b>*/}
       {/*</BreadcrumbsItem>*/}

@@ -25,7 +25,7 @@ export const TypePostFilterUpdate = (props: ITypePostFilterUpdateProps) => {
   const { searchField } = typePostFilterEntity;
 
   const handleClose = () => {
-    props.history.push('/type-post-filter');
+    props.history.push('/entity/type-post-filter');
   };
 
   useEffect(() => {

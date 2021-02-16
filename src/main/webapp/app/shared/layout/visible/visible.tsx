@@ -4,7 +4,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { withRouter, NavLink } from 'react-router-dom';
-import { VisibleListSearch, WarpCart } from 'app/shared/layout/visible/visible-component';
+import ErrorBoundary from 'app/shared/error/error-boundary';
+import { WarpCart } from 'app/shared/layout/visible/visible-component';
+import VisibleSearch from 'app/shared/layout/visible';
 
 export function useComponentVisible(initialIsVisible) {
   const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible);
@@ -61,6 +63,7 @@ const Visible = props => {
       }
     }
   };
+  // @ts-ignore
   return (
     <div>
       {/*{pathname==="/"?                        //todo add test display visible if pathname==='/'*/}
@@ -108,7 +111,8 @@ const Visible = props => {
             <div className="input-group d-block d-sm-block d-md-none d-lg-none d-xl-none">
               <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
             </div>
-            <VisibleListSearch />
+            {/*<VisibleListSearch />*/}
+            <VisibleSearch />
             <WarpCart />
           </div>
         </div>

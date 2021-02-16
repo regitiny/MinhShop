@@ -63,7 +63,6 @@ const Visible = props => {
       }
     }
   };
-  // @ts-ignore
   return (
     <div>
       {/*{pathname==="/"?                        //todo add test display visible if pathname==='/'*/}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
@@ -16,6 +17,31 @@ import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
 import { sendActivity } from 'app/config/websocket-middleware';
 import { PostUpdate } from 'app/custom-entity/post/post-update';
+import Page from 'app/modules/do-go-noi-that/config-products/page';
+import Introduce from 'app/modules/introduce/introduce';
+// import {Breadcrumb, NavLink} from "reactstrap";
+import { NavLink } from 'react-router-dom';
+
+//todo test breadcrumb
+
+import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import CrumbItem from 'app/modules/breadcrumb/CrumbItem';
+import Contact from 'app/modules/contact/contact';
+import PageProduct from 'app/page-product';
+import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';
+import CompleteOrder from 'app/modules/checkout-cart/complete-order';
+import LaptopDetail from 'app/page-product/laptop/laptop-detail';
+
+const BreadcrumbLayout = props => {
+  const { children } = props;
+  return (
+    <div className="d-flex justify-content-center">
+      <div className="breadcrumb col-9" style={location.pathname === '/' ? { display: 'none' } : { display: 'block' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -27,13 +53,31 @@ const Admin = Loadable({
   loading: () => <div>loading ...</div>,
 });
 
-const Routes = () => {
+const base_path = '/';
+const Routes = props => {
   const location = useLocation();
   React.useEffect(() => {
     sendActivity(location.pathname);
   }, [location]);
   return (
     <div className="view-routes">
+      <BreadcrumbsItem to={base_path}>Trang Chủ</BreadcrumbsItem>
+      {/*<Breadcrumbs*/}
+      {/*  item={CrumbItem}*/}
+      {/*  container={Breadcrumb}*/}
+      {/*  finalProps={{active: true}}*/}
+      {/*  duplicateProps={{to: 'href'}}*/}
+      {/*/>*/}
+      <Breadcrumbs
+        separator={<b>/</b>}
+        item={NavLink}
+        finalItem={'b'} //chọn thẻ tag cho route cuối cùng
+        finalProps={{
+          style: { color: 'gray' },
+        }}
+        container={BreadcrumbLayout}
+        // compare={(a,b)=>a.weight-b.weight} removeProps={{weight: true}}
+      />
       <Switch>
         <ErrorBoundaryRoute path="/login" component={Login} />
         <ErrorBoundaryRoute path="/logout" component={Logout} />
@@ -44,8 +88,15 @@ const Routes = () => {
         <ErrorBoundaryRoute path="/form-insert" exact component={PostUpdate} />
         <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
         <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
+        <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
         <ErrorBoundaryRoute path="/" exact component={Home} />
-        <PrivateRoute path="/" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+        {/*<Page path="/" exact component={Home} title="Home"/>*/}
+        <ErrorBoundaryRoute path="/introduce" component={Introduce} />
+        <ErrorBoundaryRoute path="/contact" component={Contact} />
+        <ErrorBoundaryRoute path="/page" component={PageProduct} />
+        <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
+        <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
+        <ErrorBoundaryRoute path={`/:id`} exact component={LaptopDetail} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>
     </div>

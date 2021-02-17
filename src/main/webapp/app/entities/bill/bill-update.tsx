@@ -28,7 +28,7 @@ export const BillUpdate = (props: IBillUpdateProps) => {
   const { searchField } = billEntity;
 
   const handleClose = () => {
-    props.history.push('/bill');
+    props.history.push('/entity/bill');
   };
 
   useEffect(() => {

@@ -22,7 +22,7 @@ export const TypePostUpdate = (props: ITypePostUpdateProps) => {
   const { searchField } = typePostEntity;
 
   const handleClose = () => {
-    props.history.push('/type-post');
+    props.history.push('/entity/type-post');
   };
 
   useEffect(() => {

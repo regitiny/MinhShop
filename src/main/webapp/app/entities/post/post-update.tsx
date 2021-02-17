@@ -40,7 +40,7 @@ export const PostUpdate = (props: IPostUpdateProps) => {
   const { content } = postEntity;
 
   const handleClose = () => {
-    props.history.push('/post');
+    props.history.push('/entity/post');
   };
 
   useEffect(() => {

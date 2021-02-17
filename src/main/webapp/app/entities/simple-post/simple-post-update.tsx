@@ -31,7 +31,7 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) => {
   const { searchField } = simplePostEntity;
 
   const handleClose = () => {
-    props.history.push('/simple-post');
+    props.history.push('/entity/simple-post');
   };
 
   useEffect(() => {

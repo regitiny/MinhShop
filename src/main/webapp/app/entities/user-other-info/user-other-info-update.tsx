@@ -25,7 +25,7 @@ export const UserOtherInfoUpdate = (props: IUserOtherInfoUpdateProps) => {
   const { searchField } = userOtherInfoEntity;
 
   const handleClose = () => {
-    props.history.push('/user-other-info');
+    props.history.push('/entity/user-other-info');
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 

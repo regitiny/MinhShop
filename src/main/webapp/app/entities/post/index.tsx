@@ -8,16 +8,19 @@ import PostDetail from './post-detail';
 import PostUpdate from './post-update';
 import PostDeleteDialog from './post-delete-dialog';
 
-const Routes = ({ match }) => (
-  <>
-    <Switch>
-      <ErrorBoundaryRoute exact path={`${match.url}/new`} component={PostUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={PostUpdate} />
-      <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={PostDetail} />
-      <ErrorBoundaryRoute path={match.url} component={Post} />
-    </Switch>
-    <ErrorBoundaryRoute exact path={`${match.url}/:id/delete`} component={PostDeleteDialog} />
-  </>
-);
+const Routes = ({ match }) => {
+  window.console.log(match);
+  return (
+    <>
+      <Switch>
+        <ErrorBoundaryRoute exact path={`${match.url}/new`} component={PostUpdate} />
+        <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={PostUpdate} />
+        <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={PostDetail} />
+        <ErrorBoundaryRoute path={match.url} component={Post} />
+      </Switch>
+      <ErrorBoundaryRoute exact path={`${match.url}/:id/delete`} component={PostDeleteDialog} />
+    </>
+  );
+};
 
 export default Routes;

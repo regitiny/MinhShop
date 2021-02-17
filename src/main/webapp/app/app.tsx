@@ -19,6 +19,9 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
+import Banner from 'app/shared/layout/banner/banner';
+import Visible from 'app/shared/layout/visible/visible';
+import { ListProducts } from 'app/shared/layout/group-list-products/list-products';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -29,7 +32,6 @@ export const App = (props: IAppProps) => {
     props.getSession();
     props.getProfile();
   }, []);
-
   const paddingTop = '60px';
   return (
     <Router basename={baseHref}>
@@ -46,6 +48,9 @@ export const App = (props: IAppProps) => {
             isOpenAPIEnabled={props.isOpenAPIEnabled}
           />
         </ErrorBoundary>
+        <Banner />
+        <Visible />
+        <ListProducts />
         <div className="container-fluid view-container px-0" id="app-view-container">
           <Card className="jh-card px-0 px-md-1 px-lg-2">
             <ErrorBoundary>

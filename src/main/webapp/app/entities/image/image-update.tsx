@@ -22,7 +22,7 @@ export const ImageUpdate = (props: IImageUpdateProps) => {
   const { imageData, imageDataContentType, searchField } = imageEntity;
 
   const handleClose = () => {
-    props.history.push('/image');
+    props.history.push('/entity/image');
   };
 
   useEffect(() => {

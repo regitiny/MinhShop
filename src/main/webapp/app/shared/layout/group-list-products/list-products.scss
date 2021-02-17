@@ -1,0 +1,23 @@
+$dropdown-hover: #dd5600;
+.list-group-products {
+  background-color: #eaeaea;
+  .list-products-container {
+    padding: 0;
+    .list-products {
+      padding: 0;
+      ul {
+        a {
+          font-weight: bold;
+          font-size: 16px;
+        }
+        a:hover {
+          background-color: $dropdown-hover !important;
+          color: white !important;
+        }
+      }
+    }
+  }
+}
+.contain-home-head {
+  padding: 0;
+}

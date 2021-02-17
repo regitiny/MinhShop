@@ -150,25 +150,26 @@ import { NavLink as Link, RouteComponentProps } from 'react-router-dom';
 // };
 
 export const WarpCart = props => {
+  const [cartItems, setCartItems] = useState([]);
+  const cart: any = localStorage.getItem('cartItems');
+  useEffect(() => {
+    setCartItems(JSON.parse(cart));
+  }, [cart]);
+  const totalProduct = () => {
+    let total = 0;
+    if (cartItems && cartItems.length > 0) {
+      cartItems.map(item => {
+        total += item.count;
+      });
+    }
+    return total;
+  };
   return (
-    <div className="warp-cart d-none d-sm-none d-md-none d-lg-none d-xl-block d-lg-flex d-xl-flex flex-wrap align-content-center col-3">
-      <a href="#" title="Giỏ hàng" className="cart">
-        <span className="quantity">0</span>
-        <span>Giỏ hàng</span>
-        <span>có 0 sản phẩm</span>
-      </a>
-    </div>
-  );
-};
-
-export const ResultSearch = () => {
-  return (
-    <div className="media border p-3">
-      <img src="./../../../../content/images/do_go_san_pham_1.png" alt="John Doe" className="mr-3 mt-3" width="80px" />
-      <div className="media-body">
-        <h6>THÙNG GỖ SỒI MỘC</h6>
-        <p>2000000đ</p>
-      </div>
+    <div className="warp-cart d-none d-sm-none d-md-none d-lg-none d-xl-block d-lg-flex d-xl-flex flex-wrap align-content-center col-lg-3 col-xl-4 ">
+      <NavLink to="/checkout" tag={Link} className="cart">
+        <span className="quantity">{totalProduct()}</span>
+        <span>Giỏ hàng có {totalProduct()} sản phẩm</span>
+      </NavLink>
     </div>
   );
 };

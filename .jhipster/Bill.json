@@ -90,11 +90,10 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
+      "relationshipType": "many-to-one",
       "otherEntityName": "userOtherInfo",
       "otherEntityRelationshipName": "bill",
-      "relationshipName": "userOtherInfo",
-      "ownerSide": true
+      "relationshipName": "userOtherInfo"
     },
     {
       "relationshipType": "one-to-one",

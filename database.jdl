@@ -330,13 +330,13 @@ relationship OneToOne
     SimplePost{postDetails(postDetailsId) required} to PostDetails{simplePost} with jpaDerivedIdentifier,
     UserOtherInfo{userName(login)} to User{otherInfo},
     Payment{billId(billId)} to Bill{Payment},
-    Bill{userOtherInfo} to UserOtherInfo
+
 }
 
 relationship ManyToOne
 {
     SimplePost{typePost(typeName)} to TypePost
-
+    Bill{userOtherInfo} to UserOtherInfo
 }
 
 relationship ManyToMany

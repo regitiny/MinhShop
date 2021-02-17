@@ -20,7 +20,7 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
   const { hanhChinhVNEntity, loading, updating } = props;
 
   const handleClose = () => {
-    props.history.push('/hanh-chinh-vn');
+    props.history.push('/entity/hanh-chinh-vn');
   };
 
   useEffect(() => {

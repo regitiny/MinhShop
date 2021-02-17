@@ -1,55 +1,57 @@
 import './configProducts.scss';
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 const BreadCrumb = props => {
-  const [title, setTitle] = useState('');
-  const {
-    history,
-    location: { pathname },
-  } = props;
-  const pathnames = pathname.split('/').filter(x => x);
-
-  useEffect(() => {
-    setTitle(document.title);
-  });
-  const Items = [
-    { to: '/', label: 'Home' },
-    { to: './intro', label: 'Intro' },
-    { to: './login', label: 'Login' },
-    { to: './contact', label: 'Contact' },
-  ];
-
-  window.console.log(pathname);
-  window.console.log(title);
+  //   // const [title, setTitle] = useState('');
+  //   // const {
+  //   //   history,
+  //   //   location: { pathname },
+  //   // } = props;
+  //   // const pathnames = pathname.split('/').filter(x => x);
+  //   //
+  //   // useEffect(() => {
+  //   //   setTitle(document.title);
+  //   // });
+  //   const base_path="/"
+  //   const Items = [
+  //     { to: '/', label: 'Home' },
+  //     { to: './intro', label: 'Intro' },
+  //     { to: './login', label: 'Login' },
+  //     { to: './contact', label: 'Contact' },
+  //   ];
+  //
+  //   // window.console.log(pathname);
+  //   window.console.log(history);
+  //   return (
+  //     <div>
+  //       <BreadcrumbsItem to={base_path}>Trang Chủ</BreadcrumbsItem>
+  //     </div>
+  //   );
+  // };
+  const base_path = '/';
   return (
-    <div>
-      <Breadcrumb tag="nav" listTag="div">
-        {/*{pathnames && pathnames.length>0?(<BreadcrumbItem onClick={()=>history.push('/')} tag={Link} to={pathname}>{title}</BreadcrumbItem>):('')}*/}
-        {/*<BreadcrumbItem BreadcrumbItem onClick={()=>history.push('/')} tag={Link} to={pathname}>{title}</BreadcrumbItem>*/}
-        <BreadcrumbItem tag={Link} to="/">
-          Home
-        </BreadcrumbItem>
-      </Breadcrumb>
+    <div className="hello-ngay-moi">
+      {/*<BreadcrumbsItem to={base_path}>Trang Chủ</BreadcrumbsItem>*/}
+      {/*<Breadcrumbs*/}
+      {/*  item={CrumbItem}*/}
+      {/*  container={Breadcrumb}*/}
+      {/*  finalProps={{active: true}}*/}
+      {/*  duplicateProps={{to: 'href'}}*/}
+      {/*/>*/}
+      <Breadcrumbs
+        separator={<b> / </b>}
+        item={NavLink}
+        finalItem={'b'} //chọn thẻ tag cho route cuối cùng
+        finalProps={{
+          style: { color: 'red' },
+        }}
+      />
     </div>
   );
 };
-export default withRouter(BreadCrumb);
 
-// {pathnames.length > 0 ? (
-//   <Link onClick={() => history.push("/")}>Home</Link>
-// ) : (
-//   <Typography> Home </Typography>
-// )}
-// {pathnames.map((name, index) => {
-//   const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-//   const isLast = index === pathnames.length - 1;
-//   return isLast ? (
-//     <Typography key={name}>{name}</Typography>
-//   ) : (
-//     <Link key={name} onClick={() => history.push(routeTo)}>
-//       {name}
-//     </Link>
-//   );
-// })}
+export default withRouter(BreadCrumb);
+//

@@ -15,24 +15,3 @@ export const ErrorBoundaryRoute = ({ component: Component, ...rest }: RouteProps
 };
 
 export default ErrorBoundaryRoute;
-
-// import React,{useEffect} from 'react';
-// import { Route, RouteProps } from 'react-router-dom';
-// import ErrorBoundary from 'app/shared/error/error-boundary';
-//
-// interface ErrorBoundaryRouteProps extends RouteProps //todo add 8/2/2021
-// {
-//   title: string;
-// }
-// export const ErrorBoundaryRoute = (props:ErrorBoundaryRouteProps) => {
-// // export const ErrorBoundaryRoute = ({ component: Component, ...rest}: ErrorBoundaryRouteProps) => {
-//   useEffect(() => {
-//     document.title = "Website name | " + props.title;
-//   });
-//
-//   const { title, ...rest } = props;
-//
-//   return <Route {...rest}  />;
-// };
-//
-// export default ErrorBoundaryRoute;

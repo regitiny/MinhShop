@@ -32,7 +32,6 @@ export const App = (props: IAppProps) => {
     props.getSession();
     props.getProfile();
   }, []);
-
   const paddingTop = '60px';
   return (
     <Router basename={baseHref}>

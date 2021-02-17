@@ -35,7 +35,7 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
   const { content, searchField } = postDetailsEntity;
 
   const handleClose = () => {
-    props.history.push('/post-details');
+    props.history.push('/entity/post-details');
   };
 
   useEffect(() => {

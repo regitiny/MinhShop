@@ -38,9 +38,6 @@ export const Post = (props: IPostProps) => {
   };
 
   const { postList, match, loading } = props;
-  useEffect(() => {
-    document.title = 'POST';
-  }, []);
   window.console.log(location.pathname);
   window.console.log(document.title);
   return (

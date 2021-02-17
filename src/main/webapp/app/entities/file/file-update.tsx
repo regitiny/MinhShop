@@ -22,7 +22,7 @@ export const FileUpdate = (props: IFileUpdateProps) => {
   const { videoData, videoDataContentType, searchField } = fileEntity;
 
   const handleClose = () => {
-    props.history.push('/file');
+    props.history.push('/entity/file');
   };
 
   useEffect(() => {

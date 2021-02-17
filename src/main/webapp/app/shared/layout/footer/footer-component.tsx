@@ -8,7 +8,10 @@ export const ChatZalo = props => {
       <div className="social-button-content">
         <a href="tel:0981481368" className="call-icon" rel="nofollow">
           <FontAwesomeIcon icon={faWhatsapp} size="3x" />
-          <span>Hotline: 098 148 1368</span>
+          <span>
+            Hotline:
+            <br /> 098 148 1368
+          </span>
         </a>
         <a href="sms:0981481368" className="sms">
           <FontAwesomeIcon icon={faWeixin} size="3x" />

@@ -172,4 +172,11 @@ public class HanhChinhVNResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @PostMapping("/hanh-chinh-vns/reindexall")
+    public ResponseEntity<Void> reindexSearchHanhChinhVNS() {
+        log.debug("start reindex all HanhChinhVN");
+        hanhChinhVNService.reindexAll();
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "reindex all HanhChinhVN succeed", "")).build();
+    }
 }

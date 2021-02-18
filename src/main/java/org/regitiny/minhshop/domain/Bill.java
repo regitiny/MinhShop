@@ -124,9 +124,8 @@ public class Bill implements Serializable {
     @Column(name = "data_size")
     private Long dataSize;
 
+    @ManyToOne
     @JsonIgnoreProperties(value = { "userName" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
     private UserOtherInfo userOtherInfo;
 
     @JsonIgnoreProperties(value = { "billId" }, allowSetters = true)

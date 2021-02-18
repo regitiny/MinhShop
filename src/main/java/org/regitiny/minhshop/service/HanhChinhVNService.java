@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
  * Service Interface for managing {@link org.regitiny.minhshop.domain.HanhChinhVN}.
  */
 public interface HanhChinhVNService {
+    void reindexAll();
+
     /**
      * Save a hanhChinhVN.
      *

@@ -2,14 +2,25 @@ package org.regitiny.minhshop.service.impl;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import lombok.extern.log4j.Log4j2;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.regitiny.minhshop.domain.SimplePost;
+import org.regitiny.minhshop.domain.TypePost;
 import org.regitiny.minhshop.repository.PostDetailsRepository;
 import org.regitiny.minhshop.repository.SimplePostRepository;
+import org.regitiny.minhshop.repository.TypePostRepository;
 import org.regitiny.minhshop.repository.search.SimplePostSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.SimplePostService;
 import org.regitiny.minhshop.service.dto.SimplePostDTO;
 import org.regitiny.minhshop.service.mapper.SimplePostMapper;
+import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,11 +31,10 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Service Implementation for managing {@link SimplePost}.
  */
+@Log4j2
 @Service
 @Transactional
 public class SimplePostServiceImpl implements SimplePostService {
-
-    private final Logger log = LoggerFactory.getLogger(SimplePostServiceImpl.class);
 
     private final SimplePostRepository simplePostRepository;
 
@@ -34,21 +44,44 @@ public class SimplePostServiceImpl implements SimplePostService {
 
     private final PostDetailsRepository postDetailsRepository;
 
+    private final TypePostRepository typePostRepository;
+
     public SimplePostServiceImpl(
         SimplePostRepository simplePostRepository,
         SimplePostMapper simplePostMapper,
         SimplePostSearchRepository simplePostSearchRepository,
-        PostDetailsRepository postDetailsRepository
+        PostDetailsRepository postDetailsRepository,
+        TypePostRepository typePostRepository
     ) {
         this.simplePostRepository = simplePostRepository;
         this.simplePostMapper = simplePostMapper;
         this.simplePostSearchRepository = simplePostSearchRepository;
         this.postDetailsRepository = postDetailsRepository;
+        this.typePostRepository = typePostRepository;
     }
 
     @Override
     public SimplePostDTO save(SimplePostDTO simplePostDTO) {
         log.debug("Request to save SimplePost : {}", simplePostDTO);
+
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
+            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
+            null,
+            "notManagement"
+        );
+
+        Instant now = Instant.now();
+        String thisUser = SecurityUtils.getCurrentUserLogin().get();
+        if (simplePostDTO.getId() == null) {
+            simplePostDTO.setCreatedDate(now);
+            simplePostDTO.setCreatedBy(thisUser);
+        }
+        simplePostDTO.setUuid(UUID.randomUUID());
+        simplePostDTO.setRole(AuthoritiesConstants.MANAGEMENT);
+        simplePostDTO.setModifiedDate(now);
+        simplePostDTO.setModifiedBy(thisUser);
+        simplePostDTO.setDataSize((long) simplePostDTO.toString().getBytes().length);
+
         SimplePost simplePost = simplePostMapper.toEntity(simplePostDTO);
         Long postDetailsId = simplePostDTO.getPostDetails().getId();
         postDetailsRepository.findById(postDetailsId).ifPresent(simplePost::postDetails);
@@ -178,5 +211,32 @@ public class SimplePostServiceImpl implements SimplePostService {
     public Page<SimplePostDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of SimplePosts for query {}", query);
         return simplePostSearchRepository.search(queryStringQuery(query), pageable).map(simplePostMapper::toDto);
+    }
+
+    @Override
+    public JSONObject getSimplePostsGroupByTypePost() {
+        JSONObject result = new JSONObject();
+        JSONArray jsonArrayTypePost = new JSONArray();
+        int total = 0;
+        List<TypePost> allTypePosts = typePostRepository.findAllByOrderByCommentDesc();
+        log.debug("allTypePosts size = {}", allTypePosts.size());
+        for (TypePost typePost : allTypePosts) {
+            long typePost_Id = typePost.getId();
+            String typePost_TypeName = typePost.getTypeName();
+
+            List<SimplePost> simplePosts = simplePostRepository.findAllByTypePostId(typePost_Id);
+            if (!simplePosts.isEmpty()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("SimplePosts", simplePostMapper.toDto(simplePosts));
+                jsonObject.put("typePost_Id", typePost_Id);
+                jsonObject.put("typePost_TypeName", typePost_TypeName);
+                jsonArrayTypePost.put(jsonObject);
+                total++;
+            }
+        }
+        result.put("total", total);
+        result.put("SimplePostsGroupByTypePost", jsonArrayTypePost);
+        log.debug(result.toString());
+        return result;
     }
 }

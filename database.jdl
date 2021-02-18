@@ -297,6 +297,12 @@ entity UserOtherInfo
     distCode String
     /** cityCode */
     cityCode String
+    /** wardName */
+    wardName String
+    /** distName */
+    distName String
+    /** cityName */
+    cityName String
     /** addressDetails */
     addressDetails String
     /** dateOfBirth */

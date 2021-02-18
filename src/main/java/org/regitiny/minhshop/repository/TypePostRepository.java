@@ -1,5 +1,6 @@
 package org.regitiny.minhshop.repository;
 
+import java.util.List;
 import org.regitiny.minhshop.domain.TypePost;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TypePostRepository extends JpaRepository<TypePost, Long> {}
+public interface TypePostRepository extends JpaRepository<TypePost, Long> {
+    List<TypePost> findAllByOrderByCommentDesc();
+}

@@ -25,4 +25,6 @@ public interface SimplePostRepository extends JpaRepository<SimplePost, Long> {
 
     @Query("select simplePost from SimplePost simplePost left join fetch simplePost.typePostFilters where simplePost.id =:id")
     Optional<SimplePost> findOneWithEagerRelationships(@Param("id") Long id);
+
+    List<SimplePost> findAllByTypePostId(Long ids);
 }

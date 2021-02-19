@@ -2,17 +2,22 @@ package org.regitiny.minhshop.service.impl;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.regitiny.minhshop.domain.PostDetails;
 import org.regitiny.minhshop.repository.PostDetailsRepository;
 import org.regitiny.minhshop.repository.search.PostDetailsSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.PostDetailsService;
 import org.regitiny.minhshop.service.dto.PostDetailsDTO;
 import org.regitiny.minhshop.service.mapper.PostDetailsMapper;
+import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -48,6 +53,23 @@ public class PostDetailsServiceImpl implements PostDetailsService {
     @Override
     public PostDetailsDTO save(PostDetailsDTO postDetailsDTO) {
         log.debug("Request to save PostDetails : {}", postDetailsDTO);
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
+            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
+            null,
+            "notManagement"
+        );
+
+        Instant now = Instant.now();
+        String thisUser = SecurityUtils.getCurrentUserLogin().get();
+        if (postDetailsDTO.getId() == null) {
+            postDetailsDTO.setCreatedDate(now);
+            postDetailsDTO.setCreatedBy(thisUser);
+        }
+        postDetailsDTO.setUuid(UUID.randomUUID());
+        postDetailsDTO.setRole(AuthoritiesConstants.MANAGEMENT);
+        postDetailsDTO.setModifiedDate(now);
+        postDetailsDTO.setModifiedBy(thisUser);
+        postDetailsDTO.setDataSize((long) postDetailsDTO.toString().getBytes().length);
         PostDetails postDetails = postDetailsMapper.toEntity(postDetailsDTO);
         postDetails = postDetailsRepository.save(postDetails);
         PostDetailsDTO result = postDetailsMapper.toDto(postDetails);
@@ -133,8 +155,9 @@ public class PostDetailsServiceImpl implements PostDetailsService {
     }
 
     /**
-     *  Get all the postDetails where SimplePost is {@code null}.
-     *  @return the list of entities.
+     * Get all the postDetails where SimplePost is {@code null}.
+     *
+     * @return the list of entities.
      */
     @Transactional(readOnly = true)
     public List<PostDetailsDTO> findAllWhereSimplePostIsNull() {

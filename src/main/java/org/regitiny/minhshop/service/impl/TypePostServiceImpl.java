@@ -2,13 +2,18 @@ package org.regitiny.minhshop.service.impl;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 import org.regitiny.minhshop.domain.TypePost;
 import org.regitiny.minhshop.repository.TypePostRepository;
 import org.regitiny.minhshop.repository.search.TypePostSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.TypePostService;
 import org.regitiny.minhshop.service.dto.TypePostDTO;
 import org.regitiny.minhshop.service.mapper.TypePostMapper;
+import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,6 +48,23 @@ public class TypePostServiceImpl implements TypePostService {
 
     @Override
     public TypePostDTO save(TypePostDTO typePostDTO) {
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
+            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
+            null,
+            "notManagement"
+        );
+
+        String thisUser = SecurityUtils.getCurrentUserLogin().get();
+        if (typePostDTO.getId() == null) {
+            typePostDTO.setCreatedDate(Instant.now());
+            typePostDTO.setCreatedBy(thisUser);
+        }
+        typePostDTO.setUuid(UUID.randomUUID());
+        typePostDTO.setRole(AuthoritiesConstants.MANAGEMENT);
+        typePostDTO.setModifiedDate(Instant.now());
+        typePostDTO.setModifiedBy(thisUser);
+        typePostDTO.setDataSize((long) typePostDTO.getTypeName().getBytes().length);
+
         log.debug("Request to save TypePost : {}", typePostDTO);
         TypePost typePost = typePostMapper.toEntity(typePostDTO);
         typePost = typePostRepository.save(typePost);

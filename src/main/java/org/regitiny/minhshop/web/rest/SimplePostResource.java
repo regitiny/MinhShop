@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.json.JSONObject;
 import org.regitiny.minhshop.service.SimplePostService;
 import org.regitiny.minhshop.service.dto.SimplePostDTO;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -184,5 +186,16 @@ public class SimplePostResource {
         Page<SimplePostDTO> page = simplePostService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /simple-posts/by_type-post} : get SimplePosts GroupBy TypePost
+     *
+     * @return SimplePosts GroupBy TypePost
+     */
+    @GetMapping("/simple-posts/by_type-post")
+    public ResponseEntity<String> getSimplePostsGroupByTypePost() {
+        JSONObject resultJsonObject = simplePostService.getSimplePostsGroupByTypePost();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(resultJsonObject.toString());
     }
 }

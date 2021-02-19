@@ -2,6 +2,7 @@ package org.regitiny.minhshop.service.impl;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import java.util.List;
 import java.util.Optional;
 import org.regitiny.minhshop.domain.HanhChinhVN;
 import org.regitiny.minhshop.repository.HanhChinhVNRepository;
@@ -39,6 +40,15 @@ public class HanhChinhVNServiceImpl implements HanhChinhVNService {
         this.hanhChinhVNRepository = hanhChinhVNRepository;
         this.hanhChinhVNMapper = hanhChinhVNMapper;
         this.hanhChinhVNSearchRepository = hanhChinhVNSearchRepository;
+    }
+
+    @Override
+    public void reindexAll() {
+        List<HanhChinhVN> hanhChinhVNs = hanhChinhVNRepository.findAll();
+        log.debug("hanhChinhVN size = {}", hanhChinhVNs.size());
+        hanhChinhVNSearchRepository.deleteAll();
+        hanhChinhVNSearchRepository.saveAll(hanhChinhVNs);
+        log.info("reindexAll HanhChinhVN succeed");
     }
 
     @Override

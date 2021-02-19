@@ -1,42 +1,18 @@
+import './visible.scss';
 import React, { useState, useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import {
-  Button,
-  InputGroup,
-  Col,
-  Row,
-  Table,
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardHeader,
-  DropdownItem,
-  Dropdown,
-  DropdownMenu,
-  DropdownToggle,
-  Progress,
-} from 'reactstrap';
+import { Link, RouteComponentProps, Redirect } from 'react-router-dom';
+import { Button, InputGroup, Col, Row } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Input } from 'reactstrap';
-
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset } from 'app/entities/simple-post/simple-post.reducer';
-import { ISimplePost } from 'app/shared/model/simple-post.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getSearchEntities, getEntities, reset, searchReset } from 'app/entities/simple-post/simple-post.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 
 import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
-import axios from 'axios';
-import { Storage } from 'react-jhipster';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -46,15 +22,18 @@ export const VisibleSearch = (props: ISimplePostProps) => {
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
   const [search, setSearch] = useState('');
+  const [statusGetSuccess, setStatusGetSuccess] = useState(false);
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
 
   window.console.log(paginationState);
   window.console.log(props);
-  const { simplePostList, typePostFilters, match, loading } = props;
+  const { simplePostList, typePostFilters, match, loading, getSuccess } = props;
   const [sorting, setSorting] = useState(false);
-
+  useEffect(() => {
+    setStatusGetSuccess(getSuccess);
+  }, [getSuccess]);
   window.console.log(simplePostList);
 
   const getAllEntities = () => {
@@ -65,9 +44,10 @@ export const VisibleSearch = (props: ISimplePostProps) => {
         paginationState.itemsPerPage,
         `${paginationState.sort},${paginationState.order}`
       );
-    } else {
-      props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     }
+    // else {
+    //   props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
+    // }
   };
   useEffect(() => {
     props.getTypePostFilters();
@@ -78,7 +58,7 @@ export const VisibleSearch = (props: ISimplePostProps) => {
       ...paginationState,
       activePage: 1,
     });
-    props.getEntities();
+    // props.getEntities();
   };
 
   useEffect(() => {
@@ -116,7 +96,7 @@ export const VisibleSearch = (props: ISimplePostProps) => {
       ...paginationState,
       activePage: 1,
     });
-    props.getEntities();
+    // props.getEntities();
   };
 
   const handleSearch = event => setSearch(event.target.value);
@@ -137,38 +117,33 @@ export const VisibleSearch = (props: ISimplePostProps) => {
       setSorting(false);
     }
   }, [sorting, search]);
-
+  window.console.log(getSuccess);
+  useEffect(() => {
+    if (getSuccess === true) {
+      props.searchReset();
+    }
+  }, [getSuccess]);
+  if (getSuccess === true) return <Redirect to="/result-search" />;
   return (
-    <div className=" d-flex justify-content-center">
-      <div className="col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
-        <Row>
-          <Col sm="12" className="p-0">
-            <AvForm onSubmit={startSearching}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={search}
-                    onChange={handleSearch}
-                    placeholder={translate('minhShopApp.simplePost.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
+    <div className=" d-flex justify-content-center col-12 col-sm-11 -col-md-10 col-lg-9 col-xl-8">
+      <div className="col-12">
+        <AvForm onSubmit={startSearching}>
+          <AvGroup className="search-elastic">
+            <InputGroup>
+              <AvInput type="text" name="search" value={search} onChange={handleSearch} placeholder="Nhập tên sản phẩm bạn muốn tìm kiếm" />
+              <Button className="input-group-addon">
+                <FontAwesomeIcon icon="search" />
+              </Button>
+              {/*<Button type="reset" className="input-group-addon" onClick={clear}>*/}
+              {/*  <FontAwesomeIcon icon="trash" />*/}
+              {/*</Button>*/}
+            </InputGroup>
+          </AvGroup>
+        </AvForm>
       </div>
     </div>
   );
 };
-
 const mapStateToProps = (storeState: IRootState) => ({
   simplePostList: storeState.simplePost.entities,
   typePostFilters: storeState.typePostFilter.entities,
@@ -176,6 +151,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   totalItems: storeState.simplePost.totalItems,
   links: storeState.simplePost.links,
   entity: storeState.simplePost.entity,
+  getSuccess: storeState.simplePost.getSuccess,
   updateSuccess: storeState.simplePost.updateSuccess,
 });
 
@@ -184,6 +160,7 @@ const mapDispatchToProps = {
   getEntities,
   reset,
   getTypePostFilters,
+  searchReset,
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

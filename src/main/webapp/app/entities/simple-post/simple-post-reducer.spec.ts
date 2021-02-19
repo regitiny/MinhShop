@@ -39,6 +39,7 @@ describe('Entities reducer tests', () => {
     totalItems: 0,
     updating: false,
     updateSuccess: false,
+    getSuccess: false,
   };
 
   function testInitialState(state) {
@@ -47,6 +48,7 @@ describe('Entities reducer tests', () => {
       errorMessage: null,
       updating: false,
       updateSuccess: false,
+      getSuccess: false,
     });
     expect(isEmpty(state.entities));
     expect(isEmpty(state.entity));
@@ -73,6 +75,7 @@ describe('Entities reducer tests', () => {
           expect(state).toMatchObject({
             errorMessage: null,
             updateSuccess: false,
+            getSuccess: false,
             loading: true,
           });
         }
@@ -123,6 +126,7 @@ describe('Entities reducer tests', () => {
           expect(state).toMatchObject({
             errorMessage: 'error message',
             updateSuccess: false,
+            getSuccess: false,
             updating: false,
           });
         }

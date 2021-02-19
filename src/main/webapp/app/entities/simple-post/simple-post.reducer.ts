@@ -23,6 +23,7 @@ export const ACTION_TYPES = {
   DELETE_SIMPLEPOST: 'simplePost/DELETE_SIMPLEPOST',
   SET_BLOB: 'simplePost/SET_BLOB',
   RESET: 'simplePost/RESET',
+  SEARCH_RESET: 'simplePost/SEARCH_RESET',
 };
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   entity: defaultValue,
   links: { next: 0 },
   updating: false,
+  getSuccess: false, //test thử
   totalItems: 0,
   updateSuccess: false,
 };
@@ -48,6 +50,7 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
       return {
         ...state,
         errorMessage: null,
+        getSuccess: false,
         updateSuccess: false,
         loading: true,
       };
@@ -70,10 +73,24 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
         ...state,
         loading: false,
         updating: false,
+        getSuccess: false,
         updateSuccess: false,
         errorMessage: action.payload,
       };
-    case SUCCESS(ACTION_TYPES.SEARCH_SIMPLEPOSTS):
+
+    case SUCCESS(ACTION_TYPES.SEARCH_SIMPLEPOSTS): {
+      const links = parseHeaderForLinks(action.payload.headers.link);
+
+      return {
+        ...state,
+        loading: false,
+        links,
+        getSuccess: true,
+        entities: loadMoreDataWhenScrolled(state.entities, action.payload.data, links),
+        totalItems: parseInt(action.payload.headers['x-total-count'], 10),
+      };
+    }
+
     case SUCCESS(ACTION_TYPES.FETCH_SIMPLEPOST_LIST): {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
@@ -120,6 +137,11 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
     case ACTION_TYPES.RESET:
       return {
         ...initialState,
+      };
+    case ACTION_TYPES.SEARCH_RESET:
+      return {
+        ...state,
+        getSuccess: false,
       };
     default:
       return state;
@@ -188,4 +210,7 @@ export const setBlob = (name, data, contentType?) => ({
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET,
+});
+export const searchReset = () => ({
+  type: ACTION_TYPES.SEARCH_RESET,
 });

@@ -107,9 +107,9 @@ const Visible = props => {
             </div>
           </div>
           <div className="search-target d-flex flex-wrap align-content-center ">
-            <div className="input-group d-block d-sm-block d-md-none d-lg-none d-xl-none">
-              <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div>
+            {/*<div className="input-group d-block d-sm-block d-md-none d-lg-none d-xl-none">*/}
+            {/*  <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />*/}
+            {/*</div>*/}
             {/*<VisibleListSearch />*/}
             <VisibleSearch />
             <WarpCart />

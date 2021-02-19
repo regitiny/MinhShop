@@ -16,7 +16,6 @@ import { fetchProducts } from 'app/modules/shopcart/actions/product.action';
 export const Cart = props => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
-  // const [cartItems, setCartItems]:any = useState([])
 
   const { page_path } = props;
   window.console.log(page_path);
@@ -51,12 +50,13 @@ export const Cart = props => {
   // const productShops:any=products;
 
   const { cartProductDetail } = props;
+
   window.console.log(props);
   cartProductDetail.url = page_path;
+
   window.console.log(cartProductDetail);
   // window.console.log(productShops.products)
   window.console.log(cartItems);
-  window.console.log(JSON.parse(localStorage.getItem('cartItems')));
   const onAddToCart = () => {
     toggle();
     props.addToCart(cartProductDetail, quantity);

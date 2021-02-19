@@ -31,6 +31,7 @@ import PageProduct from 'app/page-product';
 import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';
 import CompleteOrder from 'app/modules/checkout-cart/complete-order';
 import LaptopDetail from 'app/page-product/laptop/laptop-detail';
+import ResultSearch from 'app/modules/result-search/result-search';
 
 const BreadcrumbLayout = props => {
   const { children } = props;
@@ -95,6 +96,7 @@ const Routes = props => {
         <ErrorBoundaryRoute path="/contact" component={Contact} />
         <ErrorBoundaryRoute path="/page" component={PageProduct} />
         <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
+        <ErrorBoundaryRoute path="/result-search" exact component={ResultSearch} />
         <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
         <ErrorBoundaryRoute path={`/:id`} exact component={LaptopDetail} />
         <ErrorBoundaryRoute component={PageNotFound} />

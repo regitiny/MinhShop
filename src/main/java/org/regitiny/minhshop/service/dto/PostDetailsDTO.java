@@ -90,6 +90,9 @@ public class PostDetailsDTO implements Serializable {
     @ApiModelProperty(value = "comment")
     private String comment;
 
+    @Size(max = 10000)
+    private String otherData;
+
     public Long getId() {
         return id;
     }
@@ -186,6 +189,14 @@ public class PostDetailsDTO implements Serializable {
         this.comment = comment;
     }
 
+    public String getOtherData() {
+        return otherData;
+    }
+
+    public void setOtherData(String otherData) {
+        this.otherData = otherData;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -223,6 +234,7 @@ public class PostDetailsDTO implements Serializable {
             ", modifiedBy='" + getModifiedBy() + "'" +
             ", dataSize=" + getDataSize() +
             ", comment='" + getComment() + "'" +
+            ", otherData='" + getOtherData() + "'" +
             "}";
     }
 }

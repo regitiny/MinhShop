@@ -42,7 +42,7 @@
       "fieldName": "product",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "65535"
+      "fieldValidateRulesMaxlength": "10000"
     },
     {
       "fieldName": "comment",

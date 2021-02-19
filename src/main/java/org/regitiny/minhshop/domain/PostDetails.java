@@ -101,6 +101,10 @@ public class PostDetails implements Serializable {
     @Column(name = "comment", length = 2048)
     private String comment;
 
+    @Size(max = 10000)
+    @Column(name = "other_data", length = 10000)
+    private String otherData;
+
     @JsonIgnoreProperties(value = { "postDetails", "typePost", "typePostFilters" }, allowSetters = true)
     @OneToOne(mappedBy = "postDetails")
     private SimplePost simplePost;
@@ -262,6 +266,19 @@ public class PostDetails implements Serializable {
         this.comment = comment;
     }
 
+    public String getOtherData() {
+        return this.otherData;
+    }
+
+    public PostDetails otherData(String otherData) {
+        this.otherData = otherData;
+        return this;
+    }
+
+    public void setOtherData(String otherData) {
+        this.otherData = otherData;
+    }
+
     public SimplePost getSimplePost() {
         return this.simplePost;
     }
@@ -316,6 +333,7 @@ public class PostDetails implements Serializable {
             ", modifiedBy='" + getModifiedBy() + "'" +
             ", dataSize=" + getDataSize() +
             ", comment='" + getComment() + "'" +
+            ", otherData='" + getOtherData() + "'" +
             "}";
     }
 }

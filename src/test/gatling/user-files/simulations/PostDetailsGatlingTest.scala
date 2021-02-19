@@ -83,6 +83,7 @@ class PostDetailsGatlingTest extends Simulation {
                 , "modifiedBy":"SAMPLE_TEXT"
                 , "dataSize":null
                 , "comment":"SAMPLE_TEXT"
+                , "otherData":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_postDetails_url"))).exitHereIfFailed

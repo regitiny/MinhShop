@@ -122,6 +122,8 @@ describe('PostDetails e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('Rubber Cambridgeshire bypass'));
 
+    cy.get(`[data-cy="otherData"]`).type('Florida Avon', { force: true }).invoke('val').should('match', new RegExp('Florida Avon'));
+
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });
     cy.get(entityCreateSaveButtonSelector).should('not.exist');

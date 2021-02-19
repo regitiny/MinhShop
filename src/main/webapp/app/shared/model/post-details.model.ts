@@ -14,6 +14,7 @@ export interface IPostDetails {
   modifiedBy?: string | null;
   dataSize?: number | null;
   comment?: string | null;
+  otherData?: string | null;
   simplePost?: ISimplePost | null;
 }
 

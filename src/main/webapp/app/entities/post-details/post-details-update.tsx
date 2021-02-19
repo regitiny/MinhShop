@@ -265,6 +265,20 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   <Translate contentKey="minhShopApp.postDetails.help.comment" />
                 </UncontrolledTooltip>
               </AvGroup>
+              <AvGroup>
+                <Label id="otherDataLabel" for="post-details-otherData">
+                  <Translate contentKey="minhShopApp.postDetails.otherData">Other Data</Translate>
+                </Label>
+                <AvField
+                  id="post-details-otherData"
+                  data-cy="otherData"
+                  type="text"
+                  name="otherData"
+                  validate={{
+                    maxLength: { value: 10000, errorMessage: translate('entity.validation.maxlength', { max: 10000 }) },
+                  }}
+                />
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/post-details" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

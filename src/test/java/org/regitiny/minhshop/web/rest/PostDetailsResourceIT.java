@@ -76,6 +76,9 @@ class PostDetailsResourceIT {
     private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
     private static final String UPDATED_COMMENT = "BBBBBBBBBB";
 
+    private static final String DEFAULT_OTHER_DATA = "AAAAAAAAAA";
+    private static final String UPDATED_OTHER_DATA = "BBBBBBBBBB";
+
     @Autowired
     private PostDetailsRepository postDetailsRepository;
 
@@ -116,7 +119,8 @@ class PostDetailsResourceIT {
             .createdBy(DEFAULT_CREATED_BY)
             .modifiedBy(DEFAULT_MODIFIED_BY)
             .dataSize(DEFAULT_DATA_SIZE)
-            .comment(DEFAULT_COMMENT);
+            .comment(DEFAULT_COMMENT)
+            .otherData(DEFAULT_OTHER_DATA);
         return postDetails;
     }
 
@@ -138,7 +142,8 @@ class PostDetailsResourceIT {
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT);
+            .comment(UPDATED_COMMENT)
+            .otherData(UPDATED_OTHER_DATA);
         return postDetails;
     }
 
@@ -174,6 +179,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getModifiedBy()).isEqualTo(DEFAULT_MODIFIED_BY);
         assertThat(testPostDetails.getDataSize()).isEqualTo(DEFAULT_DATA_SIZE);
         assertThat(testPostDetails.getComment()).isEqualTo(DEFAULT_COMMENT);
+        assertThat(testPostDetails.getOtherData()).isEqualTo(DEFAULT_OTHER_DATA);
 
         // Validate the PostDetails in Elasticsearch
         verify(mockPostDetailsSearchRepository, times(1)).save(testPostDetails);
@@ -265,7 +271,8 @@ class PostDetailsResourceIT {
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
             .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
-            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
+            .andExpect(jsonPath("$.[*].otherData").value(hasItem(DEFAULT_OTHER_DATA)));
     }
 
     @Test
@@ -290,7 +297,8 @@ class PostDetailsResourceIT {
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
             .andExpect(jsonPath("$.modifiedBy").value(DEFAULT_MODIFIED_BY))
             .andExpect(jsonPath("$.dataSize").value(DEFAULT_DATA_SIZE.intValue()))
-            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT));
+            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
+            .andExpect(jsonPath("$.otherData").value(DEFAULT_OTHER_DATA));
     }
 
     @Test
@@ -323,7 +331,8 @@ class PostDetailsResourceIT {
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT);
+            .comment(UPDATED_COMMENT)
+            .otherData(UPDATED_OTHER_DATA);
         PostDetailsDTO postDetailsDTO = postDetailsMapper.toDto(updatedPostDetails);
 
         restPostDetailsMockMvc
@@ -347,6 +356,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testPostDetails.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
         assertThat(testPostDetails.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testPostDetails.getOtherData()).isEqualTo(UPDATED_OTHER_DATA);
 
         // Validate the PostDetails in Elasticsearch
         verify(mockPostDetailsSearchRepository).save(testPostDetails);
@@ -392,7 +402,8 @@ class PostDetailsResourceIT {
             .modifiedDate(UPDATED_MODIFIED_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
-            .dataSize(UPDATED_DATA_SIZE);
+            .dataSize(UPDATED_DATA_SIZE)
+            .otherData(UPDATED_OTHER_DATA);
 
         restPostDetailsMockMvc
             .perform(
@@ -417,6 +428,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testPostDetails.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
         assertThat(testPostDetails.getComment()).isEqualTo(DEFAULT_COMMENT);
+        assertThat(testPostDetails.getOtherData()).isEqualTo(UPDATED_OTHER_DATA);
     }
 
     @Test
@@ -442,7 +454,8 @@ class PostDetailsResourceIT {
             .createdBy(UPDATED_CREATED_BY)
             .modifiedBy(UPDATED_MODIFIED_BY)
             .dataSize(UPDATED_DATA_SIZE)
-            .comment(UPDATED_COMMENT);
+            .comment(UPDATED_COMMENT)
+            .otherData(UPDATED_OTHER_DATA);
 
         restPostDetailsMockMvc
             .perform(
@@ -467,6 +480,7 @@ class PostDetailsResourceIT {
         assertThat(testPostDetails.getModifiedBy()).isEqualTo(UPDATED_MODIFIED_BY);
         assertThat(testPostDetails.getDataSize()).isEqualTo(UPDATED_DATA_SIZE);
         assertThat(testPostDetails.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testPostDetails.getOtherData()).isEqualTo(UPDATED_OTHER_DATA);
     }
 
     @Test
@@ -530,6 +544,7 @@ class PostDetailsResourceIT {
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].modifiedBy").value(hasItem(DEFAULT_MODIFIED_BY)))
             .andExpect(jsonPath("$.[*].dataSize").value(hasItem(DEFAULT_DATA_SIZE.intValue())))
-            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
+            .andExpect(jsonPath("$.[*].otherData").value(hasItem(DEFAULT_OTHER_DATA)));
     }
 }

@@ -64,6 +64,12 @@
       "javadoc": "comment",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "otherData",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "10000"
     }
   ],
   "relationships": [

@@ -209,6 +209,9 @@ export const PostDetails = (props: IPostDetailsProps) => {
                   <th className="hand" onClick={sort('comment')}>
                     <Translate contentKey="minhShopApp.postDetails.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('otherData')}>
+                    <Translate contentKey="minhShopApp.postDetails.otherData">Other Data</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -239,6 +242,7 @@ export const PostDetails = (props: IPostDetailsProps) => {
                     <td>{postDetails.modifiedBy}</td>
                     <td>{postDetails.dataSize}</td>
                     <td>{postDetails.comment}</td>
+                    <td>{postDetails.otherData}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${postDetails.id}`} color="info" size="sm" data-cy="entityDetailsButton">

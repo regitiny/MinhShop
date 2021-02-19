@@ -107,6 +107,10 @@ public class PostDetailsServiceImpl implements PostDetailsService {
                         existingPostDetails.setComment(postDetailsDTO.getComment());
                     }
 
+                    if (postDetailsDTO.getOtherData() != null) {
+                        existingPostDetails.setOtherData(postDetailsDTO.getOtherData());
+                    }
+
                     return existingPostDetails;
                 }
             )

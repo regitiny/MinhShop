@@ -133,6 +133,12 @@ export const PostDetailsDetail = (props: IPostDetailsDetailProps) => {
             </UncontrolledTooltip>
           </dt>
           <dd>{postDetailsEntity.comment}</dd>
+          <dt>
+            <span id="otherData">
+              <Translate contentKey="minhShopApp.postDetails.otherData">Other Data</Translate>
+            </span>
+          </dt>
+          <dd>{postDetailsEntity.otherData}</dd>
         </dl>
         <Button tag={Link} to="/post-details" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

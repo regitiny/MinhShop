@@ -30,6 +30,7 @@
       "modifiedBy": "Modified By",
       "dataSize": "Data Size",
       "comment": "Comment",
+      "otherData": "Other Data",
       "simplePost": "Simple Post",
       "help": {
         "uuid": "uuid",

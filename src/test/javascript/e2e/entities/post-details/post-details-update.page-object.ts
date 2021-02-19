@@ -18,6 +18,7 @@ export default class PostDetailsUpdatePage {
   modifiedByInput: ElementFinder = element(by.css('input#post-details-modifiedBy'));
   dataSizeInput: ElementFinder = element(by.css('input#post-details-dataSize'));
   commentInput: ElementFinder = element(by.css('input#post-details-comment'));
+  otherDataInput: ElementFinder = element(by.css('input#post-details-otherData'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -111,6 +112,14 @@ export default class PostDetailsUpdatePage {
     return this.commentInput.getAttribute('value');
   }
 
+  async setOtherDataInput(otherData) {
+    await this.otherDataInput.sendKeys(otherData);
+  }
+
+  async getOtherDataInput() {
+    return this.otherDataInput.getAttribute('value');
+  }
+
   async save() {
     await this.saveButton.click();
   }
@@ -157,6 +166,9 @@ export default class PostDetailsUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setCommentInput('comment');
     expect(await this.getCommentInput()).to.match(/comment/);
+    await waitUntilDisplayed(this.saveButton);
+    await this.setOtherDataInput('otherData');
+    expect(await this.getOtherDataInput()).to.match(/otherData/);
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

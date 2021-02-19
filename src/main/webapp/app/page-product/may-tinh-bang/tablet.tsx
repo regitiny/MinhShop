@@ -7,10 +7,10 @@ import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
-const Laptop = ({ match }) => {
+const Tablet = ({ match }) => {
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
 
-  const [laptops, setLaptops] = useState([]);
+  const [tablets, setTablets] = useState([]);
   const authToken = `Bearer ${Token}`;
 
   useEffect(() => {
@@ -20,30 +20,30 @@ const Laptop = ({ match }) => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 20, page: 0, query: 'typePost.id:1051' },
-    }).then(res => setLaptops(res.data));
+      params: { size: 20, page: 0, query: 'typePost.id:1453' },
+    }).then(res => setTablets(res.data));
   }, []);
-  window.console.log(laptops);
+  window.console.log(tablets);
   return (
     <div className="d-flex justify-content-center">
       <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
-        {laptops && laptops.length > 0
+        {tablets && tablets.length > 0
           ? // ? laptops
-            //     .filter(laptop => laptop.typePost.typeName === 'Laptop')
-            laptops.map(laptop => {
-              // if (laptop.typePost.typeName === 'Laptop') {}
+            //     .filter(tablet => tablet.typePost.typeName === 'tablet')
+            tablets.map(tablet => {
+              // if (tablet.typePost.typeName === 'tablet') {}
               return (
-                <div className="col-4" key={laptop.uuid + laptop.id}>
-                  <Link to={`/${laptop.id}`}>
-                    {/*<Link to={`${match.url}/${laptop.id}`}>*/}
+                <div className="col-4" key={tablet.uuid + tablet.id}>
+                  <Link to={`/${tablet.id}`}>
+                    {/*<Link to={`${match.url}/${tablet.id}`}>*/}
                     <Card className="p-1 p-sm-1 p-lg-0 ">
                       <CardHeader className="px-1 px-md-1 p-lg-2">
                         <div>
-                          <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap" />
+                          <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap" />
                         </div>
                         <div className="float-group">
                           <CardTitle tag="h4" className="float-left">
-                            {laptop.title}
+                            {tablet.title}
                           </CardTitle>
                         </div>
                       </CardHeader>
@@ -51,21 +51,21 @@ const Laptop = ({ match }) => {
                         <CardText className="">
                           <p className="float-left">Giá gốc: </p>
                           <div className="float-left text-secondary ml-1">
-                            <del>{laptop.price}đ</del>
+                            <del>{tablet.price}đ</del>
                           </div>
                           <br />
                         </CardText>
                         <CardText className="">
                           <p className="float-left">Chỉ còn: </p>
                           <div className="float-left text-danger ml-1">
-                            <b>{laptop.salePrice.toLocaleString()}đ</b>
+                            <b>{tablet.salePrice.toLocaleString()}đ</b>
                           </div>
-                          <div className="float-left badge badge-danger text-white ml-2">-{laptop.percentSale}%</div>
+                          <div className="float-left badge badge-danger text-white ml-2">-{tablet.percentSale}%</div>
                           <br />
                         </CardText>
                         <div className="text-center" style={{ width: '200px' }}>
-                          <Progress animated value={laptop.scores}>
-                            {laptop.scores}
+                          <Progress animated value={tablet.scores}>
+                            {tablet.scores}
                           </Progress>
                         </div>
                       </CardBody>
@@ -80,4 +80,4 @@ const Laptop = ({ match }) => {
   );
 };
 
-export default Laptop;
+export default Tablet;

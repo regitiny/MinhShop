@@ -1,11 +1,11 @@
-.product-detail {
+.tablet-detail {
   background: white;
-  .product-detail-header {
+  .tablet-detail-header {
     padding: 0;
-    .image-product {
+    .image-tablet {
       //padding-right: 0;
       position: relative;
-      .image-product-detail {
+      .image-tablet-detail {
         display: none;
         //position: absolute;
       }
@@ -30,7 +30,7 @@ img {
 /* Position the image container (needed to position the left and right arrows) */
 
 /* Hide the images by default */
-.image-product-detail {
+.image-tablet-detail {
   display: none;
 }
 

@@ -7,10 +7,10 @@ import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
-const Laptop = ({ match }) => {
+const GameEquipment = ({ match }) => {
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
 
-  const [laptops, setLaptops] = useState([]);
+  const [gameEquipments, setGameEquipments] = useState([]);
   const authToken = `Bearer ${Token}`;
 
   useEffect(() => {
@@ -20,30 +20,30 @@ const Laptop = ({ match }) => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 20, page: 0, query: 'typePost.id:1051' },
-    }).then(res => setLaptops(res.data));
+      params: { size: 20, page: 0, query: 'typePost.id:1451' },
+    }).then(res => setGameEquipments(res.data));
   }, []);
-  window.console.log(laptops);
+  window.console.log(gameEquipments);
   return (
     <div className="d-flex justify-content-center">
       <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
-        {laptops && laptops.length > 0
+        {gameEquipments && gameEquipments.length > 0
           ? // ? laptops
-            //     .filter(laptop => laptop.typePost.typeName === 'Laptop')
-            laptops.map(laptop => {
-              // if (laptop.typePost.typeName === 'Laptop') {}
+            //     .filter(gameEquipment => gameEquipment.typePost.typeName === 'gameEquipment')
+            gameEquipments.map(gameEquipment => {
+              // if (gameEquipment.typePost.typeName === 'gameEquipment') {}
               return (
-                <div className="col-4" key={laptop.uuid + laptop.id}>
-                  <Link to={`/${laptop.id}`}>
-                    {/*<Link to={`${match.url}/${laptop.id}`}>*/}
+                <div className="col-4" key={gameEquipment.uuid + gameEquipment.id}>
+                  <Link to={`/${gameEquipment.id}`}>
+                    {/*<Link to={`${match.url}/${gameEquipment.id}`}>*/}
                     <Card className="p-1 p-sm-1 p-lg-0 ">
                       <CardHeader className="px-1 px-md-1 p-lg-2">
                         <div>
-                          <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap" />
+                          <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap" />
                         </div>
                         <div className="float-group">
                           <CardTitle tag="h4" className="float-left">
-                            {laptop.title}
+                            {gameEquipment.title}
                           </CardTitle>
                         </div>
                       </CardHeader>
@@ -51,21 +51,21 @@ const Laptop = ({ match }) => {
                         <CardText className="">
                           <p className="float-left">Giá gốc: </p>
                           <div className="float-left text-secondary ml-1">
-                            <del>{laptop.price}đ</del>
+                            <del>{gameEquipment.price}đ</del>
                           </div>
                           <br />
                         </CardText>
                         <CardText className="">
                           <p className="float-left">Chỉ còn: </p>
                           <div className="float-left text-danger ml-1">
-                            <b>{laptop.salePrice.toLocaleString()}đ</b>
+                            <b>{gameEquipment.salePrice.toLocaleString()}đ</b>
                           </div>
-                          <div className="float-left badge badge-danger text-white ml-2">-{laptop.percentSale}%</div>
+                          <div className="float-left badge badge-danger text-white ml-2">-{gameEquipment.percentSale}%</div>
                           <br />
                         </CardText>
                         <div className="text-center" style={{ width: '200px' }}>
-                          <Progress animated value={laptop.scores}>
-                            {laptop.scores}
+                          <Progress animated value={gameEquipment.scores}>
+                            {gameEquipment.scores}
                           </Progress>
                         </div>
                       </CardBody>
@@ -80,4 +80,4 @@ const Laptop = ({ match }) => {
   );
 };
 
-export default Laptop;
+export default GameEquipment;

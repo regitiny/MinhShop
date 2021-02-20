@@ -33,6 +33,7 @@ public interface PostDetailsService {
      * @return the list of entities.
      */
     Page<PostDetailsDTO> findAll(Pageable pageable);
+
     /**
      * Get all the PostDetailsDTO where SimplePost is {@code null}.
      *
@@ -58,8 +59,7 @@ public interface PostDetailsService {
     /**
      * Search for the postDetails corresponding to the query.
      *
-     * @param query the query of the search.
-     *
+     * @param query    the query of the search.
      * @param pageable the pagination information.
      * @return the list of entities.
      */

@@ -1,6 +1,5 @@
 import { FETCH_PRODUCTS } from 'app/modules/shopcart/actions/types';
 import axios from 'axios';
-import { Storage } from 'react-jhipster';
 
 export const fetchProducts = () => async dispatch => {
   // const res = await fetch('api/simple-posts');

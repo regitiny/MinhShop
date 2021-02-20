@@ -1,7 +1,7 @@
 import './checkout.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Base64 } from 'js-base64';
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 const CompleteOrder = props => {
   const [cartInformation, setCartInformation]: any = useState('');

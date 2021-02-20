@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the {@link org.regitiny.minhshop.domain.HanhChinhVN} entity.
@@ -162,18 +162,19 @@ public class HanhChinhVNDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "HanhChinhVNDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", slug='" + getSlug() + "'" +
-            ", type='" + getType() + "'" +
-            ", nameWithType='" + getNameWithType() + "'" +
-            ", code='" + getCode() + "'" +
-            ", parentCode='" + getParentCode() + "'" +
-            ", path='" + getPath() + "'" +
-            ", pathWithType='" + getPathWithType() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "HanhChinhVNDTO{" +
+      "id=" + getId() +
+      ", name='" + getName() + "'" +
+      ", slug='" + getSlug() + "'" +
+      ", type='" + getType() + "'" +
+      ", nameWithType='" + getNameWithType() + "'" +
+      ", code='" + getCode() + "'" +
+      ", parentCode='" + getParentCode() + "'" +
+      ", path='" + getPath() + "'" +
+      ", pathWithType='" + getPathWithType() + "'" +
+      "}";
+  }
 }

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
-import Laptop from 'app/page-product/laptop/laptop';
 import MacBook from 'app/page-product/mabook/macbook';
-import LaptopDetail from 'app/page-product/laptop/laptop-detail';
 import MacbookDetail from 'app/page-product/mabook/macbook-detail';
 
 function Routes({ match }) {

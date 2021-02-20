@@ -1,9 +1,8 @@
 import './checkout.scss';
-import React, { useState, useEffect } from 'react';
-import { AvForm } from 'availity-reactstrap-validation';
-import { Form, Input, Button, FormGroup, Label, FormFeedback, FormText } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 import axios from 'axios';
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import VerifieOrder from 'app/modules/checkout-cart/verifie-order';
 
 import { Base64 } from 'js-base64';

@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { IUserOtherInfo } from 'app/shared/model/user-other-info.model';
 import { IPayment } from 'app/shared/model/payment.model';
 

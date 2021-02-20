@@ -1,6 +1,6 @@
-import { ADD_TO_CART, UPDATE_IN_CART, REMOVE_FROM_CART, DELETE_CART } from './../actions/types';
+import { ADD_TO_CART, DELETE_CART, REMOVE_FROM_CART, UPDATE_IN_CART } from './../actions/types';
 
-import { ICartShop, defaultValue } from 'app/shared/model/cart-shop.model';
+import { defaultValue, ICartShop } from 'app/shared/model/cart-shop.model';
 
 const localState = JSON.parse(localStorage.getItem('cartItems'));
 

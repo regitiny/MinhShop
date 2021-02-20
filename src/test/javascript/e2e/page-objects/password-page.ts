@@ -1,4 +1,4 @@
-import { ElementFinder, browser, $ } from 'protractor';
+import { $, browser, ElementFinder } from 'protractor';
 
 import BasePage from './base-component';
 

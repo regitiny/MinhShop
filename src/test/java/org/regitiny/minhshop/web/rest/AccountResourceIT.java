@@ -2,11 +2,15 @@ package org.regitiny.minhshop.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.regitiny.minhshop.web.rest.AccountResourceIT.TEST_USER_LOGIN;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.regitiny.minhshop.IntegrationTest;
@@ -18,7 +22,6 @@ import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.service.UserService;
 import org.regitiny.minhshop.service.dto.AdminUserDTO;
 import org.regitiny.minhshop.service.dto.PasswordChangeDTO;
-import org.regitiny.minhshop.service.dto.UserDTO;
 import org.regitiny.minhshop.web.rest.vm.KeyAndPasswordVM;
 import org.regitiny.minhshop.web.rest.vm.ManagedUserVM;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -13,54 +13,33 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
-import postDetails, {
-  PostDetailsState
-} from 'app/entities/post-details/post-details.reducer';
+import postDetails, {PostDetailsState} from 'app/entities/post-details/post-details.reducer';
 // prettier-ignore
-import simplePost, {
-  SimplePostState
-} from 'app/entities/simple-post/simple-post.reducer';
+import simplePost, {SimplePostState} from 'app/entities/simple-post/simple-post.reducer';
 // prettier-ignore
-import typePost, {
-  TypePostState
-} from 'app/entities/type-post/type-post.reducer';
+import typePost, {TypePostState} from 'app/entities/type-post/type-post.reducer';
 // prettier-ignore
-import typePostFilter, {
-  TypePostFilterState
-} from 'app/entities/type-post-filter/type-post-filter.reducer';
+import typePostFilter, {TypePostFilterState} from 'app/entities/type-post-filter/type-post-filter.reducer';
 // prettier-ignore
-import image, {
-  ImageState
-} from 'app/entities/image/image.reducer';
+import image, {ImageState} from 'app/entities/image/image.reducer';
 // prettier-ignore
-import file, {
-  FileState
-} from 'app/entities/file/file.reducer';
+import file, {FileState} from 'app/entities/file/file.reducer';
 // prettier-ignore
-import payment, {
-  PaymentState
-} from 'app/entities/payment/payment.reducer';
+import payment, {PaymentState} from 'app/entities/payment/payment.reducer';
 // prettier-ignore
-import bill, {
-  BillState
-} from 'app/entities/bill/bill.reducer';
+import bill, {BillState} from 'app/entities/bill/bill.reducer';
 // prettier-ignore
-import userOtherInfo, {
-  UserOtherInfoState
-} from 'app/entities/user-other-info/user-other-info.reducer';
+import userOtherInfo, {UserOtherInfoState} from 'app/entities/user-other-info/user-other-info.reducer';
 // prettier-ignore
-import hanhChinhVN, {
-  HanhChinhVNState
-} from 'app/entities/hanh-chinh-vn/hanh-chinh-vn.reducer';
+import hanhChinhVN, {HanhChinhVNState} from 'app/entities/hanh-chinh-vn/hanh-chinh-vn.reducer';
 // prettier-ignore
-import post, {
-  PostState
-} from 'app/entities/post/post.reducer';
+import post, {PostState} from 'app/entities/post/post.reducer';
 import cartShop, { CartState } from 'app/modules/shopcart/reducers/cart.reducers';
 //todo test shopcart
 import orderShop, { OrderState } from 'app/modules/shopcart/reducers/order.reducers';
 //todo test shopcart
 import productShop, { ProductState } from 'app/modules/shopcart/reducers/products.reducer';
+
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

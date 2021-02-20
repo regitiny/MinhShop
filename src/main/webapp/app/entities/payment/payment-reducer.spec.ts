@@ -11,13 +11,13 @@ import reducer, {
   createEntity,
   deleteEntity,
   getEntities,
-  getSearchEntities,
   getEntity,
-  updateEntity,
+  getSearchEntities,
   reset,
+  updateEntity,
 } from './payment.reducer';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IPayment, defaultValue } from 'app/shared/model/payment.model';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import { defaultValue, IPayment } from 'app/shared/model/payment.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {

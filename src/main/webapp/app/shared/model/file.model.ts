@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export interface IFile {
   id?: number;
   uuid?: string;

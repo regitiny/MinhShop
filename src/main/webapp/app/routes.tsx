@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch, useLocation } from 'react-router-dom';
-import { withRouter } from 'react-router';
+// import {Breadcrumb, NavLink} from "reactstrap";
+import { NavLink, Switch, useLocation } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
@@ -17,15 +17,10 @@ import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
 import { sendActivity } from 'app/config/websocket-middleware';
 import { PostUpdate } from 'app/custom-entity/post/post-update';
-import Page from 'app/modules/do-go-noi-that/config-products/page';
 import Introduce from 'app/modules/introduce/introduce';
-// import {Breadcrumb, NavLink} from "reactstrap";
-import { NavLink } from 'react-router-dom';
 
 //todo test breadcrumb
-
 import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
-import CrumbItem from 'app/modules/breadcrumb/CrumbItem';
 import Contact from 'app/modules/contact/contact';
 import PageProduct from 'app/page-product';
 import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';

@@ -2,10 +2,9 @@ package org.regitiny.minhshop.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The HanhChinhVN entity.\n@author a true jhipster
@@ -95,17 +94,21 @@ public class HanhChinhVN implements Serializable {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public HanhChinhVN name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSlug() {
         return this.slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public HanhChinhVN slug(String slug) {
@@ -113,12 +116,12 @@ public class HanhChinhVN implements Serializable {
         return this;
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     public String getType() {
         return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public HanhChinhVN type(String type) {
@@ -126,12 +129,12 @@ public class HanhChinhVN implements Serializable {
         return this;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getNameWithType() {
         return this.nameWithType;
+    }
+
+    public void setNameWithType(String nameWithType) {
+        this.nameWithType = nameWithType;
     }
 
     public HanhChinhVN nameWithType(String nameWithType) {
@@ -139,12 +142,12 @@ public class HanhChinhVN implements Serializable {
         return this;
     }
 
-    public void setNameWithType(String nameWithType) {
-        this.nameWithType = nameWithType;
-    }
-
     public String getCode() {
         return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public HanhChinhVN code(String code) {
@@ -152,12 +155,12 @@ public class HanhChinhVN implements Serializable {
         return this;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getParentCode() {
         return this.parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 
     public HanhChinhVN parentCode(String parentCode) {
@@ -165,12 +168,12 @@ public class HanhChinhVN implements Serializable {
         return this;
     }
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
-    }
-
     public String getPath() {
         return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public HanhChinhVN path(String path) {
@@ -178,21 +181,17 @@ public class HanhChinhVN implements Serializable {
         return this;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     public String getPathWithType() {
         return this.pathWithType;
+    }
+
+    public void setPathWithType(String pathWithType) {
+        this.pathWithType = pathWithType;
     }
 
     public HanhChinhVN pathWithType(String pathWithType) {
         this.pathWithType = pathWithType;
         return this;
-    }
-
-    public void setPathWithType(String pathWithType) {
-        this.pathWithType = pathWithType;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -215,18 +214,19 @@ public class HanhChinhVN implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "HanhChinhVN{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", slug='" + getSlug() + "'" +
-            ", type='" + getType() + "'" +
-            ", nameWithType='" + getNameWithType() + "'" +
-            ", code='" + getCode() + "'" +
-            ", parentCode='" + getParentCode() + "'" +
-            ", path='" + getPath() + "'" +
-            ", pathWithType='" + getPathWithType() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "HanhChinhVN{" +
+      "id=" + getId() +
+      ", name='" + getName() + "'" +
+      ", slug='" + getSlug() + "'" +
+      ", type='" + getType() + "'" +
+      ", nameWithType='" + getNameWithType() + "'" +
+      ", code='" + getCode() + "'" +
+      ", parentCode='" + getParentCode() + "'" +
+      ", path='" + getPath() + "'" +
+      ", pathWithType='" + getPathWithType() + "'" +
+      "}";
+  }
 }

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import React from 'react';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 
 export const SearchProduct = props => {
   return (

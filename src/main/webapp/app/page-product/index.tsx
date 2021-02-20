@@ -1,11 +1,8 @@
 import React from 'react';
-import { Switch, NavLink } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import Laptop from 'app/page-product/laptop';
 import MacBook from 'app/page-product/mabook';
-import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
-import Page from 'app/modules/do-go-noi-that/config-products/page';
-import LaptopDetail from 'app/page-product/laptop/laptop-detail';
 // import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 const BreadcrumbLayout = props => {
   const { children } = props;
@@ -15,6 +12,7 @@ const BreadcrumbLayout = props => {
     </div>
   );
 };
+
 function PageProduct({ match }) {
   // window.console.log(`${match.url}lap-top`)
 

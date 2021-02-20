@@ -1,14 +1,13 @@
 import './shop-cart.scss';
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Label, Input } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import React, { useEffect, useState } from 'react';
+import { Button, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { AvField, AvForm, AvGroup } from 'availity-reactstrap-validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import CartContent from 'app/modules/shopcart/cart-content';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { IRootState } from 'app/shared/reducers';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addToCart, updateInCart } from 'app/modules/shopcart/actions/cart.action';
 import { fetchProducts } from 'app/modules/shopcart/actions/product.action';
 

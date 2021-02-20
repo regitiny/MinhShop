@@ -69,14 +69,14 @@
 
 import './header.scss';
 
-import React, { useState, useEffect } from 'react';
-import { Translate, Storage } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse, NavItem } from 'reactstrap';
+import React, { useState } from 'react';
+import { Storage, Translate } from 'react-jhipster';
+import { Collapse, Nav, Navbar, NavbarToggler, NavItem } from 'reactstrap';
 
 import LoadingBar from 'react-redux-loading-bar';
 
-import { Home, Brand, Contact, Introduction } from './header-components';
-import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
+import { Brand, Contact, Home, Introduction } from './header-components';
+import { AccountMenu, AdminMenu, EntitiesMenu, LocaleMenu } from '../menus';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;

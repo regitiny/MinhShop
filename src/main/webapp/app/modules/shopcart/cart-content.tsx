@@ -1,11 +1,9 @@
 import './shop-cart.scss';
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Label, Input } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import React from 'react';
+import { Button, Label, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 // import { updateInCart} from "app/products/shopcart/actions/cart.action";
-import { IRootState } from 'app/shared/reducers';
 import { connect } from 'react-redux';
 import { removeFromCart, updateInCart } from 'app/modules/shopcart/actions/cart.action';
 import { Link } from 'react-router-dom';

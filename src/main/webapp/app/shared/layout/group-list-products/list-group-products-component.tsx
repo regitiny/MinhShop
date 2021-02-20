@@ -1,7 +1,8 @@
 import './list-products.scss';
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+
 export const ListGroupProducts = props => {
   return (
     <div className="list-products col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block">

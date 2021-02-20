@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudSearchAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
 
-import { IPost, defaultValue } from 'app/shared/model/post.model';
+import { defaultValue, IPost } from 'app/shared/model/post.model';
 
 export const ACTION_TYPES = {
   SEARCH_POSTS: 'post/SEARCH_POSTS',

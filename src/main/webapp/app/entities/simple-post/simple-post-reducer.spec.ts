@@ -11,13 +11,13 @@ import reducer, {
   createEntity,
   deleteEntity,
   getEntities,
-  getSearchEntities,
   getEntity,
-  updateEntity,
+  getSearchEntities,
   reset,
+  updateEntity,
 } from './simple-post.reducer';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { ISimplePost, defaultValue } from 'app/shared/model/simple-post.model';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import { defaultValue, ISimplePost } from 'app/shared/model/simple-post.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {

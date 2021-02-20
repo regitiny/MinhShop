@@ -35,7 +35,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link SimplePostResource} REST controller.
@@ -127,7 +126,7 @@ class SimplePostResourceIT {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -165,7 +164,7 @@ class SimplePostResourceIT {
 
     /**
      * Create an updated entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */

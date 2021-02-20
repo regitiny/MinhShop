@@ -7,7 +7,8 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Lob;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A DTO for the {@link org.regitiny.minhshop.domain.Image} entity.
@@ -247,23 +248,24 @@ public class ImageDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "ImageDTO{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", imageData='" + getImageData() + "'" +
-            ", nameImage='" + getNameImage() + "'" +
-            ", extension='" + getExtension() + "'" +
-            ", typeFile='" + getTypeFile() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "ImageDTO{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", imageData='" + getImageData() + "'" +
+      ", nameImage='" + getNameImage() + "'" +
+      ", extension='" + getExtension() + "'" +
+      ", typeFile='" + getTypeFile() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

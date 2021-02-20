@@ -2,12 +2,14 @@ package org.regitiny.minhshop.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import javax.persistence.EntityManager;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,7 +22,6 @@ import org.regitiny.minhshop.repository.UserRepository;
 import org.regitiny.minhshop.repository.search.UserSearchRepository;
 import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.service.dto.AdminUserDTO;
-import org.regitiny.minhshop.service.dto.UserDTO;
 import org.regitiny.minhshop.service.mapper.UserMapper;
 import org.regitiny.minhshop.web.rest.vm.ManagedUserVM;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,15 +88,9 @@ class UserResourceIT {
 
     private User user;
 
-    @BeforeEach
-    public void setup() {
-        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
-        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
-    }
-
     /**
      * Create a User.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which has a required relationship to the User entity.
      */
@@ -120,6 +115,12 @@ class UserResourceIT {
         user.setLogin(DEFAULT_LOGIN);
         user.setEmail(DEFAULT_EMAIL);
         return user;
+    }
+
+    @BeforeEach
+    public void setup() {
+        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
+        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
     }
 
     @BeforeEach

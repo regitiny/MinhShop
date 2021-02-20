@@ -1,12 +1,10 @@
 import './banner.scss';
 
 import React from 'react';
-import { Translate } from 'react-jhipster';
-import { Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faTruck, faCartArrowDown, faAward, faThumbsUp, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+import { faAward, faCartArrowDown, faHandHoldingUsd, faThumbsUp, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 export const Banner = props => {
   return (

@@ -1,12 +1,13 @@
-import { element, by, ElementFinder, ElementArrayFinder } from 'protractor';
+import { by, element, ElementArrayFinder, ElementFinder } from 'protractor';
 
-import { waitUntilAnyDisplayed, waitUntilDisplayed, click, waitUntilHidden, isVisible } from '../../util/utils';
+import { click, isVisible, waitUntilAnyDisplayed, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
 
 import NavBarPage from './../../page-objects/navbar-page';
 
 import TypePostFilterUpdatePage from './type-post-filter-update.page-object';
 
 const expect = chai.expect;
+
 export class TypePostFilterDeleteDialog {
   deleteModal = element(by.className('modal'));
   private dialogTitle: ElementFinder = element(by.id('minhShopApp.typePostFilter.delete.question'));

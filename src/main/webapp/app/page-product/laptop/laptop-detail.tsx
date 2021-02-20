@@ -2,7 +2,6 @@ import './laptop.scss';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Storage } from 'react-jhipster';
-import { Table } from 'reactstrap';
 import Cart from 'app/modules/shopcart/cart';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 

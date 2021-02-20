@@ -33,6 +33,7 @@ public interface BillService {
      * @return the list of entities.
      */
     Page<BillDTO> findAll(Pageable pageable);
+
     /**
      * Get all the BillDTO where Payment is {@code null}.
      *
@@ -58,8 +59,7 @@ public interface BillService {
     /**
      * Search for the bill corresponding to the query.
      *
-     * @param query the query of the search.
-     *
+     * @param query    the query of the search.
      * @param pageable the pagination information.
      * @return the list of entities.
      */

@@ -5,11 +5,12 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The PostDetails entity.\n@author A true hipster
@@ -127,17 +128,21 @@ public class PostDetails implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public PostDetails uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getPostDetailsId() {
         return this.postDetailsId;
+    }
+
+    public void setPostDetailsId(String postDetailsId) {
+        this.postDetailsId = postDetailsId;
     }
 
     public PostDetails postDetailsId(String postDetailsId) {
@@ -145,12 +150,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setPostDetailsId(String postDetailsId) {
-        this.postDetailsId = postDetailsId;
-    }
-
     public String getContent() {
         return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public PostDetails content(String content) {
@@ -158,12 +163,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public PostDetails searchField(String searchField) {
@@ -171,12 +176,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public PostDetails role(String role) {
@@ -184,12 +189,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public PostDetails createdDate(Instant createdDate) {
@@ -197,12 +202,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public PostDetails modifiedDate(Instant modifiedDate) {
@@ -210,12 +215,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public PostDetails createdBy(String createdBy) {
@@ -223,12 +228,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public PostDetails modifiedBy(String modifiedBy) {
@@ -236,12 +241,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public PostDetails dataSize(Long dataSize) {
@@ -249,12 +254,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public PostDetails comment(String comment) {
@@ -262,12 +267,12 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getOtherData() {
         return this.otherData;
+    }
+
+    public void setOtherData(String otherData) {
+        this.otherData = otherData;
     }
 
     public PostDetails otherData(String otherData) {
@@ -275,17 +280,8 @@ public class PostDetails implements Serializable {
         return this;
     }
 
-    public void setOtherData(String otherData) {
-        this.otherData = otherData;
-    }
-
     public SimplePost getSimplePost() {
         return this.simplePost;
-    }
-
-    public PostDetails simplePost(SimplePost simplePost) {
-        this.setSimplePost(simplePost);
-        return this;
     }
 
     public void setSimplePost(SimplePost simplePost) {
@@ -296,6 +292,11 @@ public class PostDetails implements Serializable {
             simplePost.setPostDetails(this);
         }
         this.simplePost = simplePost;
+    }
+
+    public PostDetails simplePost(SimplePost simplePost) {
+        this.setSimplePost(simplePost);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -318,22 +319,23 @@ public class PostDetails implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "PostDetails{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", postDetailsId='" + getPostDetailsId() + "'" +
-            ", content='" + getContent() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            ", otherData='" + getOtherData() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "PostDetails{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", postDetailsId='" + getPostDetailsId() + "'" +
+      ", content='" + getContent() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      ", otherData='" + getOtherData() + "'" +
+      "}";
+  }
 }

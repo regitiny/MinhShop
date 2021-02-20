@@ -1,14 +1,14 @@
 import './visible.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps, Redirect } from 'react-router-dom';
-import { Button, InputGroup, Col, Row } from 'reactstrap';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { Button, InputGroup } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { getSortState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset, searchReset } from 'app/entities/simple-post/simple-post.reducer';
+import { getEntities, getSearchEntities, reset, searchReset } from 'app/entities/simple-post/simple-post.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 

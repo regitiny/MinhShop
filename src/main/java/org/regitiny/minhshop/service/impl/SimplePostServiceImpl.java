@@ -1,6 +1,6 @@
 package org.regitiny.minhshop.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,8 +21,6 @@ import org.regitiny.minhshop.service.SimplePostService;
 import org.regitiny.minhshop.service.dto.SimplePostDTO;
 import org.regitiny.minhshop.service.mapper.SimplePostMapper;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

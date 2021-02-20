@@ -5,7 +5,9 @@
       "fieldName": "title",
       "fieldType": "String",
       "javadoc": "title",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "price",
@@ -21,7 +23,10 @@
       "fieldName": "percentSale",
       "fieldType": "Float",
       "javadoc": "percentSale",
-      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRules": [
+        "min",
+        "max"
+      ],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
     },
@@ -29,14 +34,20 @@
       "fieldName": "imageUrl",
       "fieldType": "String",
       "javadoc": "imageUrl",
-      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "scores",
       "fieldType": "Float",
       "javadoc": "scores",
-      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRules": [
+        "min",
+        "max"
+      ],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
     },
@@ -44,21 +55,31 @@
       "fieldName": "simpleContent",
       "fieldType": "String",
       "javadoc": "simple content",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "otherInfo",
       "fieldType": "String",
       "javadoc": "otherInfo (Json)",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "postDetailsId",
       "fieldType": "String",
       "javadoc": "postDetailsId",
-      "fieldValidateRules": ["required", "unique", "minlength", "maxlength", "pattern"],
+      "fieldValidateRules": [
+        "required",
+        "unique",
+        "minlength",
+        "maxlength",
+        "pattern"
+      ],
       "fieldValidateRulesMinlength": "3",
       "fieldValidateRulesMaxlength": "16",
       "fieldValidateRulesPattern": "[A-z]+[0-9]+"
@@ -88,7 +109,9 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     }
   ],

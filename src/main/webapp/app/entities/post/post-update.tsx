@@ -1,30 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
+import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { setFileData, Storage, translate, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getEntities as getPostDetails } from 'app/entities/post-details/post-details.reducer';
-import { ITypePost } from 'app/shared/model/type-post.model';
 import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
-import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
 import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
 
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './post.reducer';
-import { IPost } from 'app/shared/model/post.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import { createEntity, getEntity, reset, setBlob, updateEntity } from './post.reducer';
 
 import FroalaEditor from 'react-froala-wysiwyg';
 
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/plugins.pkgd.min.js';
-
-import { Storage } from 'react-jhipster';
 
 export interface IPostUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

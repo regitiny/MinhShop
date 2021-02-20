@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Storage, Translate } from 'react-jhipster';
-import { Card, CardHeader, CardTitle, CardSubtitle, CardImg, CardBody, CardText, Progress, Button } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, NavLink } from 'react-router-dom';
-import _ from 'lodash';
-import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import { Storage } from 'react-jhipster';
+import { Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Progress } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const Laptop = ({ match }) => {
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');

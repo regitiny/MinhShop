@@ -73,10 +73,15 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       getEntityHeading(entityName: string): Cypress.Chainable;
+
       getEntityCreateUpdateHeading(entityName: string): Cypress.Chainable;
+
       getEntityDetailsHeading(entityInstanceName: string): Cypress.Chainable;
+
       getEntityDeleteDialogHeading(entityInstanceName: string): Cypress.Chainable;
+
       setFieldImageAsBytesOfEntity(fieldName: string, fileName: string, mimeType: string): Cypress.Chainable;
+
       setFieldSelectToLastOfEntity(fieldName: string): Cypress.Chainable;
     }
   }

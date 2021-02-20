@@ -5,11 +5,12 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The BillDetails entity.\n@author a true jhipster
@@ -150,17 +151,21 @@ public class Bill implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public Bill uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getBillId() {
         return this.billId;
+    }
+
+    public void setBillId(String billId) {
+        this.billId = billId;
     }
 
     public Bill billId(String billId) {
@@ -168,12 +173,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setBillId(String billId) {
-        this.billId = billId;
-    }
-
     public String getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Bill phoneNumber(String phoneNumber) {
@@ -181,12 +186,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Bill email(String email) {
@@ -194,12 +199,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getAddressDetails() {
         return this.addressDetails;
+    }
+
+    public void setAddressDetails(String addressDetails) {
+        this.addressDetails = addressDetails;
     }
 
     public Bill addressDetails(String addressDetails) {
@@ -207,12 +212,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setAddressDetails(String addressDetails) {
-        this.addressDetails = addressDetails;
-    }
-
     public String getAddressCode() {
         return this.addressCode;
+    }
+
+    public void setAddressCode(String addressCode) {
+        this.addressCode = addressCode;
     }
 
     public Bill addressCode(String addressCode) {
@@ -220,12 +225,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setAddressCode(String addressCode) {
-        this.addressCode = addressCode;
-    }
-
     public String getProduct() {
         return this.product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public Bill product(String product) {
@@ -233,12 +238,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Bill comment(String comment) {
@@ -246,12 +251,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public Bill searchField(String searchField) {
@@ -259,12 +264,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Bill role(String role) {
@@ -272,12 +277,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Bill createdDate(Instant createdDate) {
@@ -285,12 +290,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public Bill modifiedDate(Instant modifiedDate) {
@@ -298,12 +303,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Bill createdBy(String createdBy) {
@@ -311,12 +316,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public Bill modifiedBy(String modifiedBy) {
@@ -324,12 +329,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public Bill dataSize(Long dataSize) {
@@ -337,12 +342,12 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public UserOtherInfo getUserOtherInfo() {
         return this.userOtherInfo;
+    }
+
+    public void setUserOtherInfo(UserOtherInfo userOtherInfo) {
+        this.userOtherInfo = userOtherInfo;
     }
 
     public Bill userOtherInfo(UserOtherInfo userOtherInfo) {
@@ -350,17 +355,8 @@ public class Bill implements Serializable {
         return this;
     }
 
-    public void setUserOtherInfo(UserOtherInfo userOtherInfo) {
-        this.userOtherInfo = userOtherInfo;
-    }
-
     public Payment getPayment() {
         return this.payment;
-    }
-
-    public Bill payment(Payment payment) {
-        this.setPayment(payment);
-        return this;
     }
 
     public void setPayment(Payment payment) {
@@ -371,6 +367,11 @@ public class Bill implements Serializable {
             payment.setBillId(this);
         }
         this.payment = payment;
+    }
+
+    public Bill payment(Payment payment) {
+        this.setPayment(payment);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -393,25 +394,26 @@ public class Bill implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "Bill{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", billId='" + getBillId() + "'" +
-            ", phoneNumber='" + getPhoneNumber() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", addressDetails='" + getAddressDetails() + "'" +
-            ", addressCode='" + getAddressCode() + "'" +
-            ", product='" + getProduct() + "'" +
-            ", comment='" + getComment() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "Bill{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", billId='" + getBillId() + "'" +
+      ", phoneNumber='" + getPhoneNumber() + "'" +
+      ", email='" + getEmail() + "'" +
+      ", addressDetails='" + getAddressDetails() + "'" +
+      ", addressCode='" + getAddressCode() + "'" +
+      ", product='" + getProduct() + "'" +
+      ", comment='" + getComment() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      "}";
+  }
 }

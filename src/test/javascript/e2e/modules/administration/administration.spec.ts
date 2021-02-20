@@ -1,4 +1,4 @@
-import { element, by, browser } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 import NavBarPage from '../../page-objects/navbar-page';
 import SignInPage from '../../page-objects/signin-page';

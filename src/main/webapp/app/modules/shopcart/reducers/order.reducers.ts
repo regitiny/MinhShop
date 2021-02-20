@@ -1,4 +1,5 @@
-import { CREAT_ORDER, CLEAR_ORDER, FETCH_ORDER } from './../actions/types';
+import { CLEAR_ORDER, CREAT_ORDER, FETCH_ORDER } from './../actions/types';
+
 const initialState = {};
 export type OrderState = Readonly<typeof initialState>;
 

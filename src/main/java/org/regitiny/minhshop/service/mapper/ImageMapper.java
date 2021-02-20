@@ -1,7 +1,7 @@
 package org.regitiny.minhshop.service.mapper;
 
-import org.mapstruct.*;
-import org.regitiny.minhshop.domain.*;
+import org.mapstruct.Mapper;
+import org.regitiny.minhshop.domain.Image;
 import org.regitiny.minhshop.service.dto.ImageDTO;
 
 /**

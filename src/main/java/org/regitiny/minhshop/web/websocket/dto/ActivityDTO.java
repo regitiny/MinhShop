@@ -58,14 +58,15 @@ public class ActivityDTO {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "ActivityDTO{" +
-            "sessionId='" + sessionId + '\'' +
-            ", userLogin='" + userLogin + '\'' +
-            ", ipAddress='" + ipAddress + '\'' +
-            ", page='" + page + '\'' +
-            ", time='" + time + '\'' +
-            '}';
-    }
+  @Override
+  public String toString()
+  {
+    return "ActivityDTO{" +
+      "sessionId='" + sessionId + '\'' +
+      ", userLogin='" + userLogin + '\'' +
+      ", ipAddress='" + ipAddress + '\'' +
+      ", page='" + page + '\'' +
+      ", time='" + time + '\'' +
+      '}';
+  }
 }

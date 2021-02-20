@@ -120,14 +120,15 @@ public class DateTimeWrapper implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "TimeZoneTest{" +
-            "id=" + id +
-            ", instant=" + instant +
-            ", localDateTime=" + localDateTime +
-            ", offsetDateTime=" + offsetDateTime +
-            ", zonedDateTime=" + zonedDateTime +
-            '}';
-    }
+  @Override
+  public String toString()
+  {
+    return "TimeZoneTest{" +
+      "id=" + id +
+      ", instant=" + instant +
+      ", localDateTime=" + localDateTime +
+      ", offsetDateTime=" + offsetDateTime +
+      ", zonedDateTime=" + zonedDateTime +
+      '}';
+  }
 }

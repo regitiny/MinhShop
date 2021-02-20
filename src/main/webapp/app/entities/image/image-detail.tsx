@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, openFile, byteSize, TextFormat } from 'react-jhipster';
+import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { byteSize, openFile, TextFormat, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './image.reducer';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT } from 'app/config/constants';
 
 export interface IImageDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, Col, InputGroup, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { getSortState, TextFormat, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset } from './user-other-info.reducer';
-import { IUserOtherInfo } from 'app/shared/model/user-other-info.model';
+import { getEntities, getSearchEntities, reset } from './user-other-info.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';

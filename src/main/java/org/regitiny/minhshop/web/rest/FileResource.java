@@ -1,12 +1,9 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.regitiny.minhshop.service.FileService;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,14 +29,12 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class FileResource {
 
-    private final Logger log = LoggerFactory.getLogger(FileResource.class);
-
     private static final String ENTITY_NAME = "file";
+    private final Logger log = LoggerFactory.getLogger(FileResource.class);
+    private final FileService fileService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final FileService fileService;
 
     public FileResource(FileService fileService) {
         this.fileService = fileService;
@@ -160,7 +154,7 @@ public class FileResource {
      * {@code SEARCH  /_search/files?query=:query} : search for the file corresponding
      * to the query.
      *
-     * @param query the query of the file search.
+     * @param query    the query of the file search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

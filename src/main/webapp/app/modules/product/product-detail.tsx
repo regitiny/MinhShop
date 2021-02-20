@@ -1,7 +1,7 @@
 import './product-detail.scss';
 import React, { useEffect, useState } from 'react';
-import { Table } from 'reactstrap';
 import { ProductDetailContent } from './product-detail-content';
+
 export const ProductDetail = () => {
   const [count, setCount] = useState(1);
   const showSlides = () => {

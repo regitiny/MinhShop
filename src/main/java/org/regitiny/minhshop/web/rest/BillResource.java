@@ -1,12 +1,9 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.regitiny.minhshop.service.BillService;
@@ -33,14 +30,12 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class BillResource {
 
-    private final Logger log = LoggerFactory.getLogger(BillResource.class);
-
     private static final String ENTITY_NAME = "bill";
+    private final Logger log = LoggerFactory.getLogger(BillResource.class);
+    private final BillService billService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final BillService billService;
 
     public BillResource(BillService billService) {
         this.billService = billService;
@@ -117,7 +112,7 @@ public class BillResource {
      * {@code GET  /bills} : get all the bills.
      *
      * @param pageable the pagination information.
-     * @param filter the filter of the request.
+     * @param filter   the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bills in body.
      */
     @GetMapping("/bills")
@@ -165,7 +160,7 @@ public class BillResource {
      * {@code SEARCH  /_search/bills?query=:query} : search for the bill corresponding
      * to the query.
      *
-     * @param query the query of the bill search.
+     * @param query    the query of the bill search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './type-post.reducer';
+import { deleteEntity, getEntity } from './type-post.reducer';
 
 export interface ITypePostDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

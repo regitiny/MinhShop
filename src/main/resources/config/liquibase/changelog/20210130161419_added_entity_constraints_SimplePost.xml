@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
-    <!--
-        Added the constraints for entity SimplePost.
-    -->
-    <changeSet id="20210130161419-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="id"
-                                 baseTableName="simple_post"
-                                 constraintName="fk_simple_post__post_details_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="post_details"/>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+  <!--
+      Added the constraints for entity SimplePost.
+  -->
+  <changeSet id="20210130161419-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="type_post_id"
-                                 baseTableName="simple_post"
-                                 constraintName="fk_simple_post__type_post_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="type_post"/>
+    <addForeignKeyConstraint baseColumnNames="id"
+                             baseTableName="simple_post"
+                             constraintName="fk_simple_post__post_details_id"
+                             referencedColumnNames="id"
+                             referencedTableName="post_details"/>
 
-        <addForeignKeyConstraint baseColumnNames="simple_post_id"
-                                 baseTableName="rel_simple_post__type_post_filter"
-                                 constraintName="fk_rel_simple_post__type_post_filter__simple_post_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="simple_post"/>
+    <addForeignKeyConstraint baseColumnNames="type_post_id"
+                             baseTableName="simple_post"
+                             constraintName="fk_simple_post__type_post_id"
+                             referencedColumnNames="id"
+                             referencedTableName="type_post"/>
 
-        <addForeignKeyConstraint baseColumnNames="type_post_filter_id"
-                                 baseTableName="rel_simple_post__type_post_filter"
-                                 constraintName="fk_rel_simple_post__type_post_filter__type_post_filter_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="type_post_filter"/>
-        
-    </changeSet>
+    <addForeignKeyConstraint baseColumnNames="simple_post_id"
+                             baseTableName="rel_simple_post__type_post_filter"
+                             constraintName="fk_rel_simple_post__type_post_filter__simple_post_id"
+                             referencedColumnNames="id"
+                             referencedTableName="simple_post"/>
+
+    <addForeignKeyConstraint baseColumnNames="type_post_filter_id"
+                             baseTableName="rel_simple_post__type_post_filter"
+                             constraintName="fk_rel_simple_post__type_post_filter__type_post_filter_id"
+                             referencedColumnNames="id"
+                             referencedTableName="type_post_filter"/>
+
+  </changeSet>
 </databaseChangeLog>

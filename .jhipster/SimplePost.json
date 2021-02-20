@@ -5,13 +5,18 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "uuid",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "title",
       "fieldType": "String",
       "javadoc": "title",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "price",
@@ -27,7 +32,10 @@
       "fieldName": "percentSale",
       "fieldType": "Float",
       "javadoc": "percentSale",
-      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRules": [
+        "min",
+        "max"
+      ],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
     },
@@ -35,14 +43,20 @@
       "fieldName": "imageUrl",
       "fieldType": "String",
       "javadoc": "imageUrl",
-      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "scores",
       "fieldType": "Float",
       "javadoc": "scores",
-      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRules": [
+        "min",
+        "max"
+      ],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "100"
     },
@@ -96,7 +110,9 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     }
   ],

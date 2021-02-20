@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
+import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { setFileData, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
-import { IPostDetails } from 'app/shared/model/post-details.model';
 import { getEntities as getPostDetails } from 'app/entities/post-details/post-details.reducer';
-import { ITypePost } from 'app/shared/model/type-post.model';
 import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
-import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
 import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './simple-post.reducer';
-import { ISimplePost } from 'app/shared/model/simple-post.model';
+import { createEntity, getEntity, reset, setBlob, updateEntity } from './simple-post.reducer';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 

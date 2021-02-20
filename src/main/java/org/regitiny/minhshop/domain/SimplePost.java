@@ -7,11 +7,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The Post entity.\n@author A true hipster
@@ -178,17 +180,21 @@ public class SimplePost implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public SimplePost uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getTitle() {
         return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public SimplePost title(String title) {
@@ -196,12 +202,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Double getPrice() {
         return this.price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public SimplePost price(Double price) {
@@ -209,12 +215,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public Double getSalePrice() {
         return this.salePrice;
+    }
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
     }
 
     public SimplePost salePrice(Double salePrice) {
@@ -222,12 +228,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
-
     public Float getPercentSale() {
         return this.percentSale;
+    }
+
+    public void setPercentSale(Float percentSale) {
+        this.percentSale = percentSale;
     }
 
     public SimplePost percentSale(Float percentSale) {
@@ -235,12 +241,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setPercentSale(Float percentSale) {
-        this.percentSale = percentSale;
-    }
-
     public String getImageUrl() {
         return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public SimplePost imageUrl(String imageUrl) {
@@ -248,12 +254,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public Float getScores() {
         return this.scores;
+    }
+
+    public void setScores(Float scores) {
+        this.scores = scores;
     }
 
     public SimplePost scores(Float scores) {
@@ -261,12 +267,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setScores(Float scores) {
-        this.scores = scores;
-    }
-
     public String getSimpleContent() {
         return this.simpleContent;
+    }
+
+    public void setSimpleContent(String simpleContent) {
+        this.simpleContent = simpleContent;
     }
 
     public SimplePost simpleContent(String simpleContent) {
@@ -274,12 +280,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setSimpleContent(String simpleContent) {
-        this.simpleContent = simpleContent;
-    }
-
     public String getOtherInfo() {
         return this.otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
     }
 
     public SimplePost otherInfo(String otherInfo) {
@@ -287,12 +293,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setOtherInfo(String otherInfo) {
-        this.otherInfo = otherInfo;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public SimplePost searchField(String searchField) {
@@ -300,12 +306,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public SimplePost role(String role) {
@@ -313,12 +319,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public SimplePost createdDate(Instant createdDate) {
@@ -326,12 +332,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public SimplePost modifiedDate(Instant modifiedDate) {
@@ -339,12 +345,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public SimplePost createdBy(String createdBy) {
@@ -352,12 +358,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public SimplePost modifiedBy(String modifiedBy) {
@@ -365,12 +371,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public SimplePost dataSize(Long dataSize) {
@@ -378,12 +384,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public SimplePost comment(String comment) {
@@ -391,12 +397,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public PostDetails getPostDetails() {
         return this.postDetails;
+    }
+
+    public void setPostDetails(PostDetails postDetails) {
+        this.postDetails = postDetails;
     }
 
     public SimplePost postDetails(PostDetails postDetails) {
@@ -404,12 +410,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setPostDetails(PostDetails postDetails) {
-        this.postDetails = postDetails;
-    }
-
     public TypePost getTypePost() {
         return this.typePost;
+    }
+
+    public void setTypePost(TypePost typePost) {
+        this.typePost = typePost;
     }
 
     public SimplePost typePost(TypePost typePost) {
@@ -417,12 +423,12 @@ public class SimplePost implements Serializable {
         return this;
     }
 
-    public void setTypePost(TypePost typePost) {
-        this.typePost = typePost;
-    }
-
     public Set<TypePostFilter> getTypePostFilters() {
         return this.typePostFilters;
+    }
+
+    public void setTypePostFilters(Set<TypePostFilter> typePostFilters) {
+        this.typePostFilters = typePostFilters;
     }
 
     public SimplePost typePostFilters(Set<TypePostFilter> typePostFilters) {
@@ -440,10 +446,6 @@ public class SimplePost implements Serializable {
         this.typePostFilters.remove(typePostFilter);
         typePostFilter.getSimplePosts().remove(this);
         return this;
-    }
-
-    public void setTypePostFilters(Set<TypePostFilter> typePostFilters) {
-        this.typePostFilters = typePostFilters;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -466,27 +468,28 @@ public class SimplePost implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "SimplePost{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", price=" + getPrice() +
-            ", salePrice=" + getSalePrice() +
-            ", percentSale=" + getPercentSale() +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", scores=" + getScores() +
-            ", simpleContent='" + getSimpleContent() + "'" +
-            ", otherInfo='" + getOtherInfo() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "SimplePost{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", title='" + getTitle() + "'" +
+      ", price=" + getPrice() +
+      ", salePrice=" + getSalePrice() +
+      ", percentSale=" + getPercentSale() +
+      ", imageUrl='" + getImageUrl() + "'" +
+      ", scores=" + getScores() +
+      ", simpleContent='" + getSimpleContent() + "'" +
+      ", otherInfo='" + getOtherInfo() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

@@ -5,13 +5,19 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "uuid",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "typeName",
       "fieldType": "String",
       "javadoc": "typeName",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "searchField",
@@ -53,7 +59,9 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     }
   ],

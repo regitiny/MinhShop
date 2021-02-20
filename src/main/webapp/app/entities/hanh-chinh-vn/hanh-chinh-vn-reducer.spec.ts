@@ -11,13 +11,13 @@ import reducer, {
   createEntity,
   deleteEntity,
   getEntities,
-  getSearchEntities,
   getEntity,
-  updateEntity,
+  getSearchEntities,
   reset,
+  updateEntity,
 } from './hanh-chinh-vn.reducer';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IHanhChinhVN, defaultValue } from 'app/shared/model/hanh-chinh-vn.model';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import { defaultValue, IHanhChinhVN } from 'app/shared/model/hanh-chinh-vn.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {

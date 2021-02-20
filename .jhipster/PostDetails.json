@@ -5,13 +5,22 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "uuid",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "postDetailsId",
       "fieldType": "String",
       "javadoc": "postDetailsId",
-      "fieldValidateRules": ["required", "unique", "minlength", "maxlength", "pattern"],
+      "fieldValidateRules": [
+        "required",
+        "unique",
+        "minlength",
+        "maxlength",
+        "pattern"
+      ],
       "fieldValidateRulesMinlength": "3",
       "fieldValidateRulesMaxlength": "16",
       "fieldValidateRulesPattern": "[A-z]+[0-9]+"
@@ -62,13 +71,17 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "otherData",
       "fieldType": "String",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "10000"
     }
   ],

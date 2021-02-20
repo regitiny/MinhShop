@@ -25,6 +25,7 @@ Developement Ribbon
   z-index: 99999;
   pointer-events: none;
   opacity: 0.75;
+
   a {
     color: #fff;
     display: block;
@@ -51,10 +52,12 @@ Navbar styles
   &:hover {
     text-decoration: none;
   }
+
   .brand-icon {
     height: 35px;
     width: auto;
     display: inline-block;
+
     img {
       height: 45px;
     }
@@ -64,6 +67,7 @@ Navbar styles
 .brand-title {
   font-size: 24px;
   color: $header-color;
+
   &:hover {
     color: $header-color-hover;
     text-decoration: none;
@@ -77,6 +81,7 @@ Navbar styles
   top: 0px;
   z-index: 1031;
 }
+
 //test
 #app-header {
   position: fixed;
@@ -85,25 +90,31 @@ Navbar styles
   top: 0;
   z-index: 1999;
   transition: top 0.3s;
+
   .shop-header {
     position: relative;
+
     a {
       color: #ffffff;
       font-size: 16px;
     }
+
     .dropdown-menu {
       padding: 0;
     }
+
     .dropdown-item {
       color: $dropdown-color !important;
       background: $dropdown-main;
     }
+
     .dropdown-item:hover,
     .dropdown-item:focus {
       color: $dropdown-color !important;
       background-color: $dropdown-hover !important;
       outline: 2px solid $dropdown-hover-ouline !important;
     }
+
     .dropdown-item.active,
     .dropdown-item:active {
       color: $dropdown-color;
@@ -111,6 +122,7 @@ Navbar styles
     }
   }
 }
+
 ////test scroll
 //.app-container-header {
 //  position: fixed;

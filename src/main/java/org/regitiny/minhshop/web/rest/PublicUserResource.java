@@ -1,9 +1,10 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
-import java.util.*;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.regitiny.minhshop.repository.search.UserSearchRepository;
@@ -17,7 +18,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
 
@@ -64,6 +68,7 @@ public class PublicUserResource {
 
     /**
      * Gets a list of all roles.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/authorities")

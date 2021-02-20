@@ -2,8 +2,8 @@ import './macbook.scss';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Storage } from 'react-jhipster';
-import { Table } from 'reactstrap';
 import Cart from 'app/modules/shopcart/cart';
+
 export const MacbookDetail = props => {
   const [macbook, setMacbook] = useState(null);
   const page_path = props.match.url;

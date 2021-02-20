@@ -1,42 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import {
   Button,
-  InputGroup,
-  Col,
-  Row,
-  Table,
   Card,
-  CardImg,
-  CardText,
   CardBody,
-  CardTitle,
-  CardSubtitle,
   CardHeader,
-  DropdownItem,
+  CardImg,
+  CardSubtitle,
+  CardText,
+  CardTitle,
+  Col,
   Dropdown,
+  DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Input,
+  InputGroup,
   Progress,
+  Row,
 } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { getSortState, Storage, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Input } from 'reactstrap';
-
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset } from './simple-post.reducer';
-import { ISimplePost } from 'app/shared/model/simple-post.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getEntities, getSearchEntities, reset } from './simple-post.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 
 import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
 import axios from 'axios';
-import { Storage } from 'react-jhipster';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 

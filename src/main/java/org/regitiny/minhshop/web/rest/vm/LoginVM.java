@@ -43,11 +43,12 @@ public class LoginVM {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "LoginVM{" +
-            "username='" + username + '\'' +
-            ", rememberMe=" + rememberMe +
-            '}';
-    }
+  @Override
+  public String toString()
+  {
+    return "LoginVM{" +
+      "username='" + username + '\'' +
+      ", rememberMe=" + rememberMe +
+      '}';
+  }
 }

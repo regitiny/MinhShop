@@ -1,16 +1,17 @@
 # MinhShop
 
-This application was generated using JHipster 7.0.0-beta.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.0-beta.1](https://www.jhipster.tech/documentation-archive/v7.0.0-beta.1).
+This application was generated using JHipster 7.0.0-beta.1, you can find documentation and help
+at [https://www.jhipster.tech/documentation-archive/v7.0.0-beta.1](https://www.jhipster.tech/documentation-archive/v7.0.0-beta.1).
 
 ## Development
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+1. [Node.js][]: We use Node to run a development web server and build the project. Depending on your system, you can install Node either from source
+   or as a pre-packaged bundle.
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+After installing Node, you should be able to run the following command to install development tools. You will only need to run this command when
+dependencies change in [package.json](package.json).
 
 ```
 npm install
@@ -18,8 +19,7 @@ npm install
 
 We use npm scripts and [Webpack][] as our build system.
 
-If you are using redis as a cache, you will have to launch a cache server.
-To start your cache server, run:
+If you are using redis as a cache, you will have to launch a cache server. To start your cache server, run:
 
 ```
 docker-compose -f src/main/docker/redis.yml up -d
@@ -35,20 +35,20 @@ spring:
 
 See [here](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-none) for details.
 
-**WARNING**: If you using second level hibernate cache and disabling the spring cache, you have to disable the second level hibernate cache as well since they are using
-the same CacheManager.
+**WARNING**: If you using second level hibernate cache and disabling the spring cache, you have to disable the second level hibernate cache as well
+since they are using the same CacheManager.
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+Run the following commands in two separate terminals to create a blissful development experience where your browser auto-refreshes when files change
+on your hard drive.
 
 ```
 ./gradlew -x webapp
 npm start
 ```
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by specifying a newer version
+in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies. Add the `help` flag on any command to see how
+you can use it. For example, `npm help update`.
 
 The `npm run` command will list all of the scripts available to run for this project.
 
@@ -68,7 +68,8 @@ The service worker initialization code is commented out by default. To enable it
 </script>
 ```
 
-Note: [Workbox](https://developers.google.com/web/tools/workbox/) powers JHipster's service worker. It dynamically generates the `service-worker.js` file.
+Note: [Workbox](https://developers.google.com/web/tools/workbox/) powers JHipster's service worker. It dynamically generates the `service-worker.js`
+file.
 
 ### Managing dependencies
 
@@ -91,7 +92,8 @@ For further instructions on how to develop with JHipster, have a look at [Using 
 
 ### Doing API-First development using openapi-generator
 
-[OpenAPI-Generator]() is configured for this application. You can generate API code from the `src/main/resources/swagger/api.yml` definition file by running:
+[OpenAPI-Generator]() is configured for this application. You can generate API code from the `src/main/resources/swagger/api.yml` definition file by
+running:
 
 ```bash
 ./gradlew openApiGenerate
@@ -99,7 +101,9 @@ For further instructions on how to develop with JHipster, have a look at [Using 
 
 Then implements the generated delegate classes with `@Service` classes.
 
-To edit the `api.yml` definition file, you can use a tool such as [Swagger-Editor](). Start a local instance of the swagger-editor using docker by running: `docker-compose -f src/main/docker/swagger-editor.yml up -d`. The editor will then be reachable at [http://localhost:7742](http://localhost:7742).
+To edit the `api.yml` definition file, you can use a tool such as [Swagger-Editor](). Start a local instance of the swagger-editor using docker by
+running: `docker-compose -f src/main/docker/swagger-editor.yml up -d`. The editor will then be reachable
+at [http://localhost:7742](http://localhost:7742).
 
 Refer to [Doing API-First development][] for more details.
 
@@ -113,8 +117,8 @@ To build the final jar and optimize the MinhShop application for production, run
 ./gradlew -Pprod clean bootJar
 ```
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
+This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files. To ensure
+everything worked, run:
 
 ```
 java -jar build/libs/*.jar
@@ -148,7 +152,8 @@ Unit tests are run by [Jest][]. They're located in [src/test/javascript/](src/te
 npm test
 ```
 
-UI end-to-end tests are powered by [Protractor][], which is built on top of WebDriverJS. They're located in [src/test/javascript/e2e](src/test/javascript/e2e)
+UI end-to-end tests are powered by [Protractor][], which is built on top of WebDriverJS. They're located
+in [src/test/javascript/e2e](src/test/javascript/e2e)
 and can be run by starting Spring Boot in one terminal (`./gradlew bootRun`) and running the tests (`npm run e2e`) in a second one.
 
 ### Other tests
@@ -167,9 +172,11 @@ Sonar is used to analyse code quality. You can start a local Sonar server (acces
 docker-compose -f src/main/docker/sonar.yml up -d
 ```
 
-Note: we have turned off authentication in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out SonarQube, for real use cases turn it back on.
+Note: we have turned off authentication in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out
+SonarQube, for real use cases turn it back on.
 
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the gradle plugin.
+You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the
+gradle plugin.
 
 Then, run a Sonar analysis:
 
@@ -181,7 +188,8 @@ For more information, refer to the [Code quality page][].
 
 ## Using Docker to simplify development (optional)
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in
+the [src/main/docker](src/main/docker) folder to launch required third party services.
 
 For example, to start a mariadb database in a docker container, run:
 
@@ -195,8 +203,8 @@ To stop it and remove the container, run:
 docker-compose -f src/main/docker/mariadb.yml down
 ```
 
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
+You can also fully dockerize your application and all the services that it depends on. To achieve this, first build a docker image of your app by
+running:
 
 ```
 ./gradlew bootJar -Pprod jibDockerBuild
@@ -208,11 +216,13 @@ Then run:
 docker-compose -f src/main/docker/app.yml up -d
 ```
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose
+sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
 ## Continuous Integration (optional)
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of
+Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
 [jhipster 7.0.0-beta.1 archive]: https://www.jhipster.tech/documentation-archive/v7.0.0-beta.1

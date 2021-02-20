@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { ISimplePost } from 'app/shared/model/simple-post.model';
 
 export interface ITypePostFilter {

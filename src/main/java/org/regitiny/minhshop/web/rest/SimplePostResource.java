@@ -1,13 +1,10 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.json.JSONObject;
@@ -20,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,14 +32,12 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class SimplePostResource {
 
-    private final Logger log = LoggerFactory.getLogger(SimplePostResource.class);
-
     private static final String ENTITY_NAME = "simplePost";
+    private final Logger log = LoggerFactory.getLogger(SimplePostResource.class);
+    private final SimplePostService simplePostService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final SimplePostService simplePostService;
 
     public SimplePostResource(SimplePostService simplePostService) {
         this.simplePostService = simplePostService;
@@ -123,7 +117,7 @@ public class SimplePostResource {
     /**
      * {@code GET  /simple-posts} : get all the simplePosts.
      *
-     * @param pageable the pagination information.
+     * @param pageable  the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of simplePosts in body.
      */
@@ -176,7 +170,7 @@ public class SimplePostResource {
      * {@code SEARCH  /_search/simple-posts?query=:query} : search for the simplePost corresponding
      * to the query.
      *
-     * @param query the query of the simplePost search.
+     * @param query    the query of the simplePost search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

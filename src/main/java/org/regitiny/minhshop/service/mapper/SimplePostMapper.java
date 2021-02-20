@@ -1,8 +1,8 @@
 package org.regitiny.minhshop.service.mapper;
 
-import java.util.Set;
-import org.mapstruct.*;
-import org.regitiny.minhshop.domain.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.regitiny.minhshop.domain.SimplePost;
 import org.regitiny.minhshop.service.dto.SimplePostDTO;
 
 /**

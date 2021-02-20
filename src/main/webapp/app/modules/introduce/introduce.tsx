@@ -1,6 +1,5 @@
 import React from 'react';
-import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
-import { Breadcrumb, NavLink } from 'reactstrap';
+import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 const base_path = '/';
 

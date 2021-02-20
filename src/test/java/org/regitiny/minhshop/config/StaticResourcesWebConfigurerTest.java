@@ -2,7 +2,8 @@ package org.regitiny.minhshop.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.regitiny.minhshop.config.StaticResourcesWebConfiguration.*;
+import static org.regitiny.minhshop.config.StaticResourcesWebConfiguration.RESOURCE_LOCATIONS;
+import static org.regitiny.minhshop.config.StaticResourcesWebConfiguration.RESOURCE_PATHS;
 
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;

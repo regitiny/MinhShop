@@ -1,8 +1,8 @@
 import React from 'react';
 import { IRootState } from 'app/shared/reducers';
 import { connect } from 'react-redux';
-import { Card, CardHeader, CardTitle, CardSubtitle, CardImg, CardBody, CardText, Progress, Button } from 'reactstrap';
-import { Link, NavLink } from 'react-router-dom';
+import { Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Progress } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const ResultSearch = props => {
   const { simplePostList } = props;

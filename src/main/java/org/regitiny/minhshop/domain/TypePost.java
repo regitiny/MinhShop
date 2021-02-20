@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The TypePost entity.\n@author a true jhipster
@@ -109,17 +109,21 @@ public class TypePost implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public TypePost uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getTypeName() {
         return this.typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public TypePost typeName(String typeName) {
@@ -127,12 +131,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public TypePost searchField(String searchField) {
@@ -140,12 +144,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public TypePost role(String role) {
@@ -153,12 +157,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public TypePost createdDate(Instant createdDate) {
@@ -166,12 +170,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public TypePost modifiedDate(Instant modifiedDate) {
@@ -179,12 +183,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public TypePost createdBy(String createdBy) {
@@ -192,12 +196,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public TypePost modifiedBy(String modifiedBy) {
@@ -205,12 +209,12 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public TypePost dataSize(Long dataSize) {
@@ -218,21 +222,17 @@ public class TypePost implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public TypePost comment(String comment) {
         this.comment = comment;
         return this;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -255,20 +255,21 @@ public class TypePost implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "TypePost{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", typeName='" + getTypeName() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "TypePost{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", typeName='" + getTypeName() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

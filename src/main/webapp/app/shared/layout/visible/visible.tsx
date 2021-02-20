@@ -1,10 +1,9 @@
 import './visible.scss';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
-import { withRouter, NavLink } from 'react-router-dom';
-import ErrorBoundary from 'app/shared/error/error-boundary';
+import { NavLink, withRouter } from 'react-router-dom';
 import { WarpCart } from 'app/shared/layout/visible/visible-component';
 import VisibleSearch from 'app/shared/layout/visible';
 

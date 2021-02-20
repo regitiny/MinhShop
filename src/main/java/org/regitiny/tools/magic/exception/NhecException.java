@@ -1,7 +1,6 @@
 package org.regitiny.tools.magic.exception;
 
 import lombok.extern.log4j.Log4j2;
-import org.regitiny.minhshop.web.rest.errors.ErrorConstants;
 import org.zalando.problem.AbstractThrowableProblem;
 
 @Log4j2

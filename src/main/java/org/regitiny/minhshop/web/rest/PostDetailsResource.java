@@ -1,12 +1,9 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.regitiny.minhshop.service.PostDetailsService;
@@ -33,14 +30,12 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class PostDetailsResource {
 
-    private final Logger log = LoggerFactory.getLogger(PostDetailsResource.class);
-
     private static final String ENTITY_NAME = "postDetails";
+    private final Logger log = LoggerFactory.getLogger(PostDetailsResource.class);
+    private final PostDetailsService postDetailsService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final PostDetailsService postDetailsService;
 
     public PostDetailsResource(PostDetailsService postDetailsService) {
         this.postDetailsService = postDetailsService;
@@ -118,7 +113,7 @@ public class PostDetailsResource {
      * {@code GET  /post-details} : get all the postDetails.
      *
      * @param pageable the pagination information.
-     * @param filter the filter of the request.
+     * @param filter   the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of postDetails in body.
      */
     @GetMapping("/post-details")
@@ -166,7 +161,7 @@ public class PostDetailsResource {
      * {@code SEARCH  /_search/post-details?query=:query} : search for the postDetails corresponding
      * to the query.
      *
-     * @param query the query of the postDetails search.
+     * @param query    the query of the postDetails search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

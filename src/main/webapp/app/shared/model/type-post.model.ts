@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export interface ITypePost {
   id?: number;
   uuid?: string;

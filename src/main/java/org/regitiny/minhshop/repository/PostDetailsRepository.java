@@ -1,7 +1,7 @@
 package org.regitiny.minhshop.repository;
 
 import org.regitiny.minhshop.domain.PostDetails;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**

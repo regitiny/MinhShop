@@ -18,7 +18,6 @@ import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.regitiny.minhshop.IntegrationTest;
 import org.regitiny.minhshop.domain.UserOtherInfo;
@@ -34,7 +33,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link UserOtherInfoResource} REST controller.
@@ -120,7 +118,7 @@ class UserOtherInfoResourceIT {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -148,7 +146,7 @@ class UserOtherInfoResourceIT {
 
     /**
      * Create an updated entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */

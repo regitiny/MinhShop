@@ -1,14 +1,9 @@
 import './home.scss';
 
-import React, { useEffect } from 'react';
-import { NavLink } from 'reactstrap';
+import React from 'react';
+import { Badge, Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, NavLink } from 'reactstrap';
 import { NavLink as Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Badge } from 'reactstrap';
-
-import { IRootState } from 'app/shared/reducers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';

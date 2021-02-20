@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export interface IImage {
   id?: number;
   uuid?: string;

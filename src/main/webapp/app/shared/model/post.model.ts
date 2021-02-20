@@ -1,6 +1,5 @@
 import { IPostDetails } from 'app/shared/model/post-details.model';
 import { ITypePost } from 'app/shared/model/type-post.model';
-import { ITypePostFilter } from 'app/shared/model/type-post-filter.model';
 
 export interface IPost {
   id?: number;

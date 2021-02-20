@@ -5,11 +5,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The UserOtherInfo entity.\n@author a true jhipster
@@ -157,17 +158,21 @@ public class UserOtherInfo implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public UserOtherInfo uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public UserOtherInfo phoneNumber(String phoneNumber) {
@@ -175,12 +180,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public UserOtherInfo email(String email) {
@@ -188,12 +193,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getWardCode() {
         return this.wardCode;
+    }
+
+    public void setWardCode(String wardCode) {
+        this.wardCode = wardCode;
     }
 
     public UserOtherInfo wardCode(String wardCode) {
@@ -201,12 +206,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setWardCode(String wardCode) {
-        this.wardCode = wardCode;
-    }
-
     public String getDistCode() {
         return this.distCode;
+    }
+
+    public void setDistCode(String distCode) {
+        this.distCode = distCode;
     }
 
     public UserOtherInfo distCode(String distCode) {
@@ -214,12 +219,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setDistCode(String distCode) {
-        this.distCode = distCode;
-    }
-
     public String getCityCode() {
         return this.cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
     }
 
     public UserOtherInfo cityCode(String cityCode) {
@@ -227,12 +232,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setCityCode(String cityCode) {
-        this.cityCode = cityCode;
-    }
-
     public String getAddressDetails() {
         return this.addressDetails;
+    }
+
+    public void setAddressDetails(String addressDetails) {
+        this.addressDetails = addressDetails;
     }
 
     public UserOtherInfo addressDetails(String addressDetails) {
@@ -240,12 +245,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setAddressDetails(String addressDetails) {
-        this.addressDetails = addressDetails;
-    }
-
     public LocalDate getDateOfBirth() {
         return this.dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public UserOtherInfo dateOfBirth(LocalDate dateOfBirth) {
@@ -253,12 +258,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getOtherInfo() {
         return this.otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
     }
 
     public UserOtherInfo otherInfo(String otherInfo) {
@@ -266,12 +271,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setOtherInfo(String otherInfo) {
-        this.otherInfo = otherInfo;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public UserOtherInfo searchField(String searchField) {
@@ -279,12 +284,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public UserOtherInfo role(String role) {
@@ -292,12 +297,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public UserOtherInfo createdDate(Instant createdDate) {
@@ -305,12 +310,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public UserOtherInfo modifiedDate(Instant modifiedDate) {
@@ -318,12 +323,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public UserOtherInfo createdBy(String createdBy) {
@@ -331,12 +336,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public UserOtherInfo modifiedBy(String modifiedBy) {
@@ -344,12 +349,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public UserOtherInfo dataSize(Long dataSize) {
@@ -357,12 +362,12 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public UserOtherInfo comment(String comment) {
@@ -370,21 +375,17 @@ public class UserOtherInfo implements Serializable {
         return this;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public User getUserName() {
         return this.userName;
+    }
+
+    public void setUserName(User user) {
+        this.userName = user;
     }
 
     public UserOtherInfo userName(User user) {
         this.setUserName(user);
         return this;
-    }
-
-    public void setUserName(User user) {
-        this.userName = user;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -407,27 +408,28 @@ public class UserOtherInfo implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "UserOtherInfo{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", phoneNumber='" + getPhoneNumber() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", wardCode='" + getWardCode() + "'" +
-            ", distCode='" + getDistCode() + "'" +
-            ", cityCode='" + getCityCode() + "'" +
-            ", addressDetails='" + getAddressDetails() + "'" +
-            ", dateOfBirth='" + getDateOfBirth() + "'" +
-            ", otherInfo='" + getOtherInfo() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "UserOtherInfo{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", phoneNumber='" + getPhoneNumber() + "'" +
+      ", email='" + getEmail() + "'" +
+      ", wardCode='" + getWardCode() + "'" +
+      ", distCode='" + getDistCode() + "'" +
+      ", cityCode='" + getCityCode() + "'" +
+      ", addressDetails='" + getAddressDetails() + "'" +
+      ", dateOfBirth='" + getDateOfBirth() + "'" +
+      ", otherInfo='" + getOtherInfo() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

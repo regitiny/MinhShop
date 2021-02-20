@@ -3,16 +3,20 @@
     max-width: 200px;
     height: auto;
   }
+
   .ifo {
     margin: 0;
   }
+
   p {
     margin: 0;
+
     span {
       line-height: 1.6;
     }
   }
 }
+
 //footer-component
 .social-button {
   display: inline-grid;
@@ -23,14 +27,17 @@
   text-align: center;
   z-index: 1000;
 }
+
 .social-button-content {
   display: inline-grid;
 }
+
 .social-button a {
   padding: 8px 0;
   cursor: pointer;
   position: relative;
 }
+
 .social-button i {
   width: 40px;
   height: 40px;
@@ -43,9 +50,11 @@
   position: relative;
   z-index: 999;
 }
+
 .social-button span {
   display: none;
 }
+
 .alo-circle {
   animation-iteration-count: infinite;
   animation-duration: 1s;
@@ -65,6 +74,7 @@
   border-color: #0089b9;
   opacity: 0.5;
 }
+
 .alo-circle-fill {
   animation-iteration-count: infinite;
   animation-duration: 1s;
@@ -87,12 +97,14 @@
   background-color: rgba(0, 175, 242, 0.5);
   opacity: 0.75;
 }
+
 .call-icon:hover > span,
 .mes:hover > span,
 .sms:hover > span,
 .zalo:hover > span {
   display: block;
 }
+
 .social-button a span {
   border-radius: 2px;
   text-align: center;
@@ -112,6 +124,7 @@
   -o-animation: headerAnimation 0.7s 1;
   animation: headerAnimation 0.7s 1;
 }
+
 @-webkit-keyframes headerAnimation {
   0% {
     margin-top: -70px;
@@ -120,6 +133,7 @@
     margin-top: 0;
   }
 }
+
 @keyframes headerAnimation {
   0% {
     margin-top: -70px;
@@ -128,6 +142,7 @@
     margin-top: 0;
   }
 }
+
 .social-button a span:before {
   content: '';
   width: 0;
@@ -139,16 +154,20 @@
   left: 0;
   top: 10px;
 }
+
 .chat-zalo {
   position: fixed;
+
   img {
     width: 4em;
     height: 4em;
   }
 }
+
 .chat-hidden {
   display: none;
   position: fixed;
+
   img {
     width: 4em;
     height: 4em;

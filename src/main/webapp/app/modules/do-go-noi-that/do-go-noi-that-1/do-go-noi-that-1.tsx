@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'reactstrap';
+import { Badge, Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, NavLink } from 'reactstrap';
 import { NavLink as Link } from 'react-router-dom';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Badge } from 'reactstrap';
-
-import { IRootState } from 'app/shared/reducers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 

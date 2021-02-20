@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, UncontrolledTooltip, Row, Col } from 'reactstrap';
-import { Translate, byteSize, TextFormat } from 'react-jhipster';
+import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { TextFormat, Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';

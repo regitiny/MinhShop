@@ -1,7 +1,10 @@
 package org.regitiny.minhshop.service.mapper;
 
-import org.mapstruct.*;
-import org.regitiny.minhshop.domain.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.regitiny.minhshop.domain.Bill;
 import org.regitiny.minhshop.service.dto.BillDTO;
 
 /**

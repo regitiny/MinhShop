@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The File entity.\n@author yuvytung
@@ -134,17 +134,21 @@ public class File implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public File uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public byte[] getVideoData() {
         return this.videoData;
+    }
+
+    public void setVideoData(byte[] videoData) {
+        this.videoData = videoData;
     }
 
     public File videoData(byte[] videoData) {
@@ -152,12 +156,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setVideoData(byte[] videoData) {
-        this.videoData = videoData;
-    }
-
     public String getVideoDataContentType() {
         return this.videoDataContentType;
+    }
+
+    public void setVideoDataContentType(String videoDataContentType) {
+        this.videoDataContentType = videoDataContentType;
     }
 
     public File videoDataContentType(String videoDataContentType) {
@@ -165,12 +169,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setVideoDataContentType(String videoDataContentType) {
-        this.videoDataContentType = videoDataContentType;
-    }
-
     public String getNameVideo() {
         return this.nameVideo;
+    }
+
+    public void setNameVideo(String nameVideo) {
+        this.nameVideo = nameVideo;
     }
 
     public File nameVideo(String nameVideo) {
@@ -178,12 +182,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setNameVideo(String nameVideo) {
-        this.nameVideo = nameVideo;
-    }
-
     public String getExtension() {
         return this.extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     public File extension(String extension) {
@@ -191,12 +195,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
-
     public String getTypeFile() {
         return this.typeFile;
+    }
+
+    public void setTypeFile(String typeFile) {
+        this.typeFile = typeFile;
     }
 
     public File typeFile(String typeFile) {
@@ -204,12 +208,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setTypeFile(String typeFile) {
-        this.typeFile = typeFile;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public File searchField(String searchField) {
@@ -217,12 +221,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public File role(String role) {
@@ -230,12 +234,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public File createdDate(Instant createdDate) {
@@ -243,12 +247,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public File modifiedDate(Instant modifiedDate) {
@@ -256,12 +260,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public File createdBy(String createdBy) {
@@ -269,12 +273,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public File modifiedBy(String modifiedBy) {
@@ -282,12 +286,12 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public File dataSize(Long dataSize) {
@@ -295,21 +299,17 @@ public class File implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public File comment(String comment) {
         this.comment = comment;
         return this;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -332,24 +332,25 @@ public class File implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "File{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", videoData='" + getVideoData() + "'" +
-            ", videoDataContentType='" + getVideoDataContentType() + "'" +
-            ", nameVideo='" + getNameVideo() + "'" +
-            ", extension='" + getExtension() + "'" +
-            ", typeFile='" + getTypeFile() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "File{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", videoData='" + getVideoData() + "'" +
+      ", videoDataContentType='" + getVideoDataContentType() + "'" +
+      ", nameVideo='" + getNameVideo() + "'" +
+      ", extension='" + getExtension() + "'" +
+      ", typeFile='" + getTypeFile() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

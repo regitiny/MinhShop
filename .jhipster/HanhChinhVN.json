@@ -5,37 +5,49 @@
       "fieldName": "name",
       "fieldType": "String",
       "javadoc": "name Example(\"Ninh Kiều\")",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "slug",
       "fieldType": "String",
       "javadoc": "slug Example(\"ninh-kieu\")",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "type",
       "fieldType": "String",
       "javadoc": "type Example(\"quan\")",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "nameWithType",
       "fieldType": "String",
       "javadoc": "nameWithType Example(\"Quận Ninh Kiều\")",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "code",
       "fieldType": "String",
       "javadoc": "code Example(\"916\")",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "parentCode",
       "fieldType": "String",
       "javadoc": "parentCode Example(\"92\") , equal to 0 is the city",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "path",

@@ -23,7 +23,7 @@ const Routes = ({ match }) => {
     <div>
       <Switch>
         {/* prettier-ignore */}
-        <ErrorBoundaryRoute path={`${match.url}/post-details`} component={PostDetails} />
+        <ErrorBoundaryRoute path={`${match.url}/post-details`} component={PostDetails}/>
         <ErrorBoundaryRoute path={`${match.url}/simple-post`} component={SimplePost} />
         <ErrorBoundaryRoute path={`${match.url}/type-post`} component={TypePost} />
         <ErrorBoundaryRoute path={`${match.url}/type-post-filter`} component={TypePostFilter} />

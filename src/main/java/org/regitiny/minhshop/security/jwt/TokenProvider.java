@@ -5,7 +5,9 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +23,8 @@ import tech.jhipster.config.JHipsterProperties;
 @Component
 public class TokenProvider {
 
-    private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
-
     private static final String AUTHORITIES_KEY = "auth";
-
+    private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
     private final Key key;
 
     private final JwtParser jwtParser;

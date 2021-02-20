@@ -5,34 +5,44 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "the uuid equivalent id (primary key)",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "imageData",
       "fieldType": "byte[]",
       "javadoc": "imageData is data of image in binary form",
       "fieldTypeBlobContent": "image",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "nameImage",
       "fieldType": "String",
       "javadoc": "name of image (Default is uuid + extension)",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "1024"
     },
     {
       "fieldName": "extension",
       "fieldType": "String",
       "javadoc": "extension of image (Example .jpg .png ... )",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "16"
     },
     {
       "fieldName": "typeFile",
       "fieldType": "String",
       "javadoc": "typeFile",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "32"
     },
     {
@@ -75,7 +85,9 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     }
   ],

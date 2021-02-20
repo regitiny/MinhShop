@@ -16,7 +16,6 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.regitiny.minhshop.config.Constants;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * A user.
@@ -218,17 +217,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "User{" +
+      "login='" + login + '\'' +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", email='" + email + '\'' +
+      ", imageUrl='" + imageUrl + '\'' +
+      ", activated='" + activated + '\'' +
+      ", langKey='" + langKey + '\'' +
+      ", activationKey='" + activationKey + '\'' +
+      "}";
+  }
 }

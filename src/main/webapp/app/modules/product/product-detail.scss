@@ -1,20 +1,26 @@
 .product-detail {
   background: white;
+
   .product-detail-header {
     padding: 0;
+
     .image-product {
       //padding-right: 0;
       position: relative;
+
       .image-product-detail {
         display: none;
         //position: absolute;
       }
+
       .list-image-thumbnail {
         margin: 0;
+
         .image-thumbnail {
           padding: 0;
         }
       }
+
       .active,
       .img-thb:hover {
         outline: 1px solid #0089b9;
@@ -63,4 +69,5 @@ td {
   margin: 0;
   color: black;
 }
+
 /* Add a transparency effect for thumnbail images */

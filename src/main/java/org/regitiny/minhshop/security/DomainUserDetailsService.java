@@ -1,6 +1,7 @@
 package org.regitiny.minhshop.security;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.regitiny.minhshop.domain.User;

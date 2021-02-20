@@ -35,11 +35,10 @@ import tech.jhipster.web.util.ResponseUtil;
 public class ImageResource {
 
     private static final String ENTITY_NAME = "image";
+    private final ImageService imageService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final ImageService imageService;
 
     public ImageResource(ImageService imageService) {
         this.imageService = imageService;
@@ -195,7 +194,7 @@ public class ImageResource {
      * {@code SEARCH  /_search/images?query=:query} : search for the image corresponding
      * to the query.
      *
-     * @param query the query of the image search.
+     * @param query    the query of the image search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

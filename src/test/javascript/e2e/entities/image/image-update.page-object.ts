@@ -1,5 +1,5 @@
-import { element, by, ElementFinder, protractor } from 'protractor';
-import { waitUntilDisplayed, waitUntilHidden, isVisible } from '../../util/utils';
+import { by, element, ElementFinder, protractor } from 'protractor';
+import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
 
 import path from 'path';
 

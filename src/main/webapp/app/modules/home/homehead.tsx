@@ -1,8 +1,7 @@
 import './home.scss';
 import React, { useState } from 'react';
-import { NavLink } from 'reactstrap';
+import { Carousel, CarouselControl, CarouselIndicators, CarouselItem, NavLink } from 'reactstrap';
 import { NavLink as Link } from 'react-router-dom';
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from 'reactstrap';
 // export const Homehead=(props)=>{
 //
 //   return (

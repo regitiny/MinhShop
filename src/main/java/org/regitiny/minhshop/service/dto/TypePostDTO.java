@@ -7,7 +7,8 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Lob;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A DTO for the {@link org.regitiny.minhshop.domain.TypePost} entity.
@@ -191,20 +192,21 @@ public class TypePostDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "TypePostDTO{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", typeName='" + getTypeName() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "TypePostDTO{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", typeName='" + getTypeName() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

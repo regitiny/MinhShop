@@ -5,34 +5,45 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "the uuid equivalent id (primary key)",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "videoData",
       "fieldType": "byte[]",
       "javadoc": "videoData is data of video in binary form",
       "fieldTypeBlobContent": "any",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "nameVideo",
       "fieldType": "String",
       "javadoc": "name of video (Default is uuid + extension)",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "1024"
     },
     {
       "fieldName": "extension",
       "fieldType": "String",
       "javadoc": "extension of video (Example .mp4 ... )",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "16"
     },
     {
       "fieldName": "typeFile",
       "fieldType": "String",
       "javadoc": "typeFile",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "32"
     },
     {
@@ -75,7 +86,9 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     }
   ],

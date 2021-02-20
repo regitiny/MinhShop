@@ -1,12 +1,9 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.regitiny.minhshop.service.TypePostService;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,14 +29,12 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class TypePostResource {
 
-    private final Logger log = LoggerFactory.getLogger(TypePostResource.class);
-
     private static final String ENTITY_NAME = "typePost";
+    private final Logger log = LoggerFactory.getLogger(TypePostResource.class);
+    private final TypePostService typePostService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final TypePostService typePostService;
 
     public TypePostResource(TypePostService typePostService) {
         this.typePostService = typePostService;
@@ -160,7 +154,7 @@ public class TypePostResource {
      * {@code SEARCH  /_search/type-posts?query=:query} : search for the typePost corresponding
      * to the query.
      *
-     * @param query the query of the typePost search.
+     * @param query    the query of the typePost search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

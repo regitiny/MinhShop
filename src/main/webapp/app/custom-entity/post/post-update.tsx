@@ -1,6 +1,6 @@
 import './form-insert.scss';
-import React, { useState, useEffect } from 'react';
-import { Form, Input, FormGroup, Label, Button } from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 
 import axios from 'axios';
 

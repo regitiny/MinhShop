@@ -2,15 +2,15 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import {
-  navbarSelector,
-  adminMenuSelector,
   accountMenuSelector,
-  registerItemSelector,
+  adminMenuSelector,
+  entityItemSelector,
   loginItemSelector,
   logoutItemSelector,
-  settingsItemSelector,
+  navbarSelector,
   passwordItemSelector,
-  entityItemSelector,
+  registerItemSelector,
+  settingsItemSelector,
 } from './commands';
 
 Cypress.Commands.add('clickOnLoginItem', () => {
@@ -55,11 +55,17 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       clickOnLoginItem(): Cypress.Chainable;
+
       clickOnLogoutItem(): Cypress.Chainable;
+
       clickOnRegisterItem(): Cypress.Chainable;
+
       clickOnSettingsItem(): Cypress.Chainable;
+
       clickOnPasswordItem(): Cypress.Chainable;
+
       clickOnAdminMenuItem(item: string): Cypress.Chainable;
+
       clickOnEntityMenuItem(entityName: string): Cypress.Chainable;
     }
   }

@@ -1,12 +1,10 @@
 import {
-  entityTableSelector,
-  entityDetailsButtonSelector,
-  entityDetailsBackButtonSelector,
   entityCreateButtonSelector,
   entityCreateSaveButtonSelector,
+  entityDetailsBackButtonSelector,
+  entityDetailsButtonSelector,
   entityEditButtonSelector,
-  entityDeleteButtonSelector,
-  entityConfirmDeleteButtonSelector,
+  entityTableSelector,
 } from '../../support/entity';
 
 describe('SimplePost e2e test', () => {

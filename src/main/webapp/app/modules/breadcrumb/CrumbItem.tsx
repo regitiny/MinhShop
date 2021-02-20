@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import { NavLink, Breadcrumb } from 'reactstrap';
-
-import { NavLink as Link } from 'react-router-dom';
+import React from 'react';
+import { Breadcrumb, NavLink } from 'reactstrap';
 
 const base_path = '/';
 const CrumbItem = ({ to, glyph, ...props }) => {

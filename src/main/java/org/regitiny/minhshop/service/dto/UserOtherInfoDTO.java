@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Lob;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * A DTO for the {@link org.regitiny.minhshop.domain.UserOtherInfo} entity.
@@ -301,28 +303,29 @@ public class UserOtherInfoDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "UserOtherInfoDTO{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", phoneNumber='" + getPhoneNumber() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", wardCode='" + getWardCode() + "'" +
-            ", distCode='" + getDistCode() + "'" +
-            ", cityCode='" + getCityCode() + "'" +
-            ", addressDetails='" + getAddressDetails() + "'" +
-            ", dateOfBirth='" + getDateOfBirth() + "'" +
-            ", otherInfo='" + getOtherInfo() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            ", userName=" + getUserName() +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "UserOtherInfoDTO{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", phoneNumber='" + getPhoneNumber() + "'" +
+      ", email='" + getEmail() + "'" +
+      ", wardCode='" + getWardCode() + "'" +
+      ", distCode='" + getDistCode() + "'" +
+      ", cityCode='" + getCityCode() + "'" +
+      ", addressDetails='" + getAddressDetails() + "'" +
+      ", dateOfBirth='" + getDateOfBirth() + "'" +
+      ", otherInfo='" + getOtherInfo() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      ", userName=" + getUserName() +
+      "}";
+  }
 }

@@ -1,12 +1,9 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.regitiny.minhshop.service.UserOtherInfoService;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,14 +29,12 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class UserOtherInfoResource {
 
-    private final Logger log = LoggerFactory.getLogger(UserOtherInfoResource.class);
-
     private static final String ENTITY_NAME = "userOtherInfo";
+    private final Logger log = LoggerFactory.getLogger(UserOtherInfoResource.class);
+    private final UserOtherInfoService userOtherInfoService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final UserOtherInfoService userOtherInfoService;
 
     public UserOtherInfoResource(UserOtherInfoService userOtherInfoService) {
         this.userOtherInfoService = userOtherInfoService;
@@ -163,7 +157,7 @@ public class UserOtherInfoResource {
      * {@code SEARCH  /_search/user-other-infos?query=:query} : search for the userOtherInfo corresponding
      * to the query.
      *
-     * @param query the query of the userOtherInfo search.
+     * @param query    the query of the userOtherInfo search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */

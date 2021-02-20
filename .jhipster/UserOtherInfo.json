@@ -5,13 +5,20 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "uuid",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "phoneNumber",
       "fieldType": "String",
       "javadoc": "phoneNumber",
-      "fieldValidateRules": ["minlength", "maxlength", "pattern"],
+      "fieldValidateRules": [
+        "minlength",
+        "maxlength",
+        "pattern"
+      ],
       "fieldValidateRulesMinlength": "10",
       "fieldValidateRulesMaxlength": "10",
       "fieldValidateRulesPattern": "[0-9]+"
@@ -91,7 +98,9 @@
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     }
   ],

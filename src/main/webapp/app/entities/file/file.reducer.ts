@@ -1,18 +1,18 @@
 import axios from 'axios';
 import {
-  ICrudSearchAction,
-  parseHeaderForLinks,
-  loadMoreDataWhenScrolled,
+  ICrudDeleteAction,
   ICrudGetAction,
   ICrudGetAllAction,
   ICrudPutAction,
-  ICrudDeleteAction,
+  ICrudSearchAction,
+  loadMoreDataWhenScrolled,
+  parseHeaderForLinks,
 } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
 
-import { IFile, defaultValue } from 'app/shared/model/file.model';
+import { defaultValue, IFile } from 'app/shared/model/file.model';
 
 export const ACTION_TYPES = {
   SEARCH_FILES: 'file/SEARCH_FILES',

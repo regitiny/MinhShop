@@ -73,6 +73,7 @@
   .rightRs {
     /*display: none;*/
   }
+
   .resCarousel-inner {
     overflow-x: auto;
   }
@@ -125,6 +126,7 @@ body {
 .item div h1 {
   background: rgba(0, 0, 0, 0.4);
 }
+
 .item img {
   max-width: 100%;
 }

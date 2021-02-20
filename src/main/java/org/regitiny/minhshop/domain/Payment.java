@@ -5,11 +5,11 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * The Payment entity.\n@author A true hipster
@@ -114,17 +114,21 @@ public class Payment implements Serializable {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public Payment uuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getStatus() {
         return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Payment status(String status) {
@@ -132,12 +136,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getSearchField() {
         return this.searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
     }
 
     public Payment searchField(String searchField) {
@@ -145,12 +149,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setSearchField(String searchField) {
-        this.searchField = searchField;
-    }
-
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Payment role(String role) {
@@ -158,12 +162,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Instant getCreatedDate() {
         return this.createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Payment createdDate(Instant createdDate) {
@@ -171,12 +175,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Instant getModifiedDate() {
         return this.modifiedDate;
+    }
+
+    public void setModifiedDate(Instant modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public Payment modifiedDate(Instant modifiedDate) {
@@ -184,12 +188,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setModifiedDate(Instant modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public String getCreatedBy() {
         return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Payment createdBy(String createdBy) {
@@ -197,12 +201,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getModifiedBy() {
         return this.modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public Payment modifiedBy(String modifiedBy) {
@@ -210,12 +214,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 
     public Payment dataSize(Long dataSize) {
@@ -223,12 +227,12 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setDataSize(Long dataSize) {
-        this.dataSize = dataSize;
-    }
-
     public String getComment() {
         return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Payment comment(String comment) {
@@ -236,21 +240,17 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public Bill getBillId() {
         return this.billId;
+    }
+
+    public void setBillId(Bill bill) {
+        this.billId = bill;
     }
 
     public Payment billId(Bill bill) {
         this.setBillId(bill);
         return this;
-    }
-
-    public void setBillId(Bill bill) {
-        this.billId = bill;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -273,20 +273,21 @@ public class Payment implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "Payment{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "Payment{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", status='" + getStatus() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      "}";
+  }
 }

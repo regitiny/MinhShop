@@ -1,6 +1,6 @@
 package org.regitiny.minhshop.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.io.IOException;
 import java.time.Instant;

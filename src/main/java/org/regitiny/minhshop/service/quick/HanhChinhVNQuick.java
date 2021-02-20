@@ -20,12 +20,12 @@ public class HanhChinhVNQuick {
 
     private final HanhChinhVNService hanhChinhVNService;
 
+    @Value("${yuvytung.value.number-of-cities}")
+    private int numberOfCities; //max =63
+
     public HanhChinhVNQuick(HanhChinhVNService hanhChinhVNService) {
         this.hanhChinhVNService = hanhChinhVNService;
     }
-
-    @Value("${yuvytung.value.number-of-cities}")
-    private int numberOfCities; //max =63
 
     @Autowired
     public void importingDataHanhChinhVN() {

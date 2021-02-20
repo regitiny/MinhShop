@@ -1,6 +1,6 @@
 package org.regitiny.minhshop.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -141,8 +141,9 @@ public class BillServiceImpl implements BillService {
     }
 
     /**
-     *  Get all the bills where Payment is {@code null}.
-     *  @return the list of entities.
+     * Get all the bills where Payment is {@code null}.
+     *
+     * @return the list of entities.
      */
     @Transactional(readOnly = true)
     public List<BillDTO> findAllWherePaymentIsNull() {

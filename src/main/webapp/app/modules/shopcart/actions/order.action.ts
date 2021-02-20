@@ -1,4 +1,4 @@
-import { CREAT_ORDER, CLEAR_ORDER, FETCH_ORDER, CLEAR_CART } from 'app/modules/shopcart/actions/types';
+import { CLEAR_CART, CLEAR_ORDER, CREAT_ORDER, FETCH_ORDER } from 'app/modules/shopcart/actions/types';
 
 const createOrder = order => dispatch => {
   // axios.post(apiUrl,{

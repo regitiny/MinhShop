@@ -1,6 +1,6 @@
 package org.regitiny.minhshop.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.util.Optional;
 import org.regitiny.minhshop.domain.File;

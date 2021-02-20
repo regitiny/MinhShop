@@ -1,10 +1,7 @@
 package org.regitiny.minhshop.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -15,17 +12,13 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.regitiny.minhshop.IntegrationTest;
-import org.regitiny.minhshop.config.Constants;
 import org.regitiny.minhshop.domain.User;
 import org.regitiny.minhshop.repository.UserRepository;
 import org.regitiny.minhshop.repository.search.UserSearchRepository;
-import org.regitiny.minhshop.service.dto.AdminUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.data.auditing.DateTimeProvider;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.security.RandomUtil;
 

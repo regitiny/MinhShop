@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
+import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { setFileData, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
-import { IUserOtherInfo } from 'app/shared/model/user-other-info.model';
 import { getEntities as getUserOtherInfos } from 'app/entities/user-other-info/user-other-info.reducer';
-import { IPayment } from 'app/shared/model/payment.model';
 import { getEntities as getPayments } from 'app/entities/payment/payment.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './bill.reducer';
-import { IBill } from 'app/shared/model/bill.model';
+import { createEntity, getEntity, reset, setBlob, updateEntity } from './bill.reducer';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 
 export interface IBillUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

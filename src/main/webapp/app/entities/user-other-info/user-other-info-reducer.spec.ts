@@ -11,13 +11,13 @@ import reducer, {
   createEntity,
   deleteEntity,
   getEntities,
-  getSearchEntities,
   getEntity,
-  updateEntity,
+  getSearchEntities,
   reset,
+  updateEntity,
 } from './user-other-info.reducer';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IUserOtherInfo, defaultValue } from 'app/shared/model/user-other-info.model';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import { defaultValue, IUserOtherInfo } from 'app/shared/model/user-other-info.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {

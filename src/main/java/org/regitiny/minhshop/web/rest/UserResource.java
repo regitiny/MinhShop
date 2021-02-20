@@ -1,13 +1,11 @@
 package org.regitiny.minhshop.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import org.regitiny.minhshop.config.Constants;
@@ -69,15 +67,12 @@ public class UserResource {
     );
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
+    private final UserService userService;
+    private final UserRepository userRepository;
+    private final MailService mailService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final UserService userService;
-
-    private final UserRepository userRepository;
-
-    private final MailService mailService;
 
     public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
         this.userService = userService;
@@ -94,7 +89,7 @@ public class UserResource {
      *
      * @param userDTO the user to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new user, or with status {@code 400 (Bad Request)} if the login or email is already in use.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @throws URISyntaxException       if the Location URI syntax is incorrect.
      * @throws BadRequestAlertException {@code 400 (Bad Request)} if the login or email is already in use.
      */
     @PostMapping("/users")

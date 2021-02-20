@@ -1,26 +1,34 @@
 .shop-modal-content {
 }
+
 #cart-product-quantity {
   width: 70px;
 }
+
 .btn-product-quantity {
   width: 50px !important;
 }
+
 .modal.show {
   .cart-modal {
     transform: translateX(-40%) !important;
+
     .modal-content {
       width: 900px !important;
       max-height: 720px !important;
       overflow-y: auto;
+
       .fr-view p {
         word-break: break-all;
       }
+
       .cart-title-content {
         border-bottom: none;
+
         .modal-title {
           margin-left: 30px;
         }
+
         .modal-title::before {
           content: '';
           position: absolute;
@@ -33,40 +41,51 @@
           background-position: -459px -360px;
         }
       }
+
       .modal-body {
         padding: 0 16px;
         margin-bottom: 10px;
+
         .table {
           border-bottom: 1px solid #353d47;
+
           thead th {
             border-top: 1px solid #353d47;
             border-bottom: 1px solid #353d47;
           }
+
           tbody tr {
             .infor-product {
               max-width: 350px;
+
               a:hover {
                 text-decoration: none;
                 color: #007bff;
               }
+
               div {
                 display: flex;
+
                 img {
                   width: 200px;
                   height: auto;
                 }
+
                 .cart-product-content {
                   display: block;
                   margin: 0 0 0 10px;
+
                   .btn {
                     color: #6f0600;
                     font-size: 14px;
                     padding: 6px 0;
                     text-decoration: none;
+
                     svg {
                       margin-right: 5px;
                     }
                   }
+
                   .btn:hover,
                   btn-link {
                     text-decoration: none;
@@ -77,6 +96,7 @@
             }
           }
         }
+
         .total-price {
           display: flex;
           justify-content: flex-end;
@@ -84,6 +104,7 @@
           font-weight: bold;
         }
       }
+
       .modal-footer {
         border-top: 1px solid #353d47;
         display: flex;
@@ -92,6 +113,7 @@
     }
   }
 }
+
 hr {
   border-width: 1px;
   background-color: #353d47;

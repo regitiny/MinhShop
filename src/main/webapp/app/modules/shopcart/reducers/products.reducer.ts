@@ -1,5 +1,5 @@
 import { FETCH_PRODUCTS } from 'app/modules/shopcart/actions/types';
-import { IProducts, defaultValue } from 'app/shared/model/products';
+import { defaultValue, IProducts } from 'app/shared/model/products';
 
 const initialState = {
   products: [] as ReadonlyArray<IProducts>,

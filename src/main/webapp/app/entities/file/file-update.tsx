@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { setFileData, openFile, byteSize, Translate, translate } from 'react-jhipster';
+import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { byteSize, openFile, setFileData, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './file.reducer';
-import { IFile } from 'app/shared/model/file.model';
+import { createEntity, getEntity, reset, setBlob, updateEntity } from './file.reducer';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 
 export interface IFileUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

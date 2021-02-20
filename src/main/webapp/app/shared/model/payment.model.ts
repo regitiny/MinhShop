@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { IBill } from 'app/shared/model/bill.model';
 
 export interface IPayment {

@@ -1,9 +1,9 @@
 import {
-  userManagementPageHeadingSelector,
-  metricsPageHeadingSelector,
+  configurationPageHeadingSelector,
   healthPageHeadingSelector,
   logsPageHeadingSelector,
-  configurationPageHeadingSelector,
+  metricsPageHeadingSelector,
+  userManagementPageHeadingSelector,
 } from '../../support/commands';
 
 describe('/admin', () => {

@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { setFileData, byteSize, Translate, translate } from 'react-jhipster';
+import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { setFileData, Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
-import { IBill } from 'app/shared/model/bill.model';
 import { getEntities as getBills } from 'app/entities/bill/bill.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './payment.reducer';
-import { IPayment } from 'app/shared/model/payment.model';
+import { createEntity, getEntity, reset, setBlob, updateEntity } from './payment.reducer';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 
 export interface IPaymentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

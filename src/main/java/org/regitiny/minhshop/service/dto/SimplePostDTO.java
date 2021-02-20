@@ -9,7 +9,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Lob;
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A DTO for the {@link org.regitiny.minhshop.domain.SimplePost} entity.
@@ -327,30 +330,31 @@ public class SimplePostDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "SimplePostDTO{" +
-            "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", price=" + getPrice() +
-            ", salePrice=" + getSalePrice() +
-            ", percentSale=" + getPercentSale() +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", scores=" + getScores() +
-            ", simpleContent='" + getSimpleContent() + "'" +
-            ", otherInfo='" + getOtherInfo() + "'" +
-            ", searchField='" + getSearchField() + "'" +
-            ", role='" + getRole() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", modifiedDate='" + getModifiedDate() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", modifiedBy='" + getModifiedBy() + "'" +
-            ", dataSize=" + getDataSize() +
-            ", comment='" + getComment() + "'" +
-            ", postDetails=" + getPostDetails() +
-            ", typePost=" + getTypePost() +
-            ", typePostFilters=" + getTypePostFilters() +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "SimplePostDTO{" +
+      "id=" + getId() +
+      ", uuid='" + getUuid() + "'" +
+      ", title='" + getTitle() + "'" +
+      ", price=" + getPrice() +
+      ", salePrice=" + getSalePrice() +
+      ", percentSale=" + getPercentSale() +
+      ", imageUrl='" + getImageUrl() + "'" +
+      ", scores=" + getScores() +
+      ", simpleContent='" + getSimpleContent() + "'" +
+      ", otherInfo='" + getOtherInfo() + "'" +
+      ", searchField='" + getSearchField() + "'" +
+      ", role='" + getRole() + "'" +
+      ", createdDate='" + getCreatedDate() + "'" +
+      ", modifiedDate='" + getModifiedDate() + "'" +
+      ", createdBy='" + getCreatedBy() + "'" +
+      ", modifiedBy='" + getModifiedBy() + "'" +
+      ", dataSize=" + getDataSize() +
+      ", comment='" + getComment() + "'" +
+      ", postDetails=" + getPostDetails() +
+      ", typePost=" + getTypePost() +
+      ", typePostFilters=" + getTypePostFilters() +
+      "}";
+  }
 }

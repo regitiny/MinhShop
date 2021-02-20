@@ -3,7 +3,10 @@ package org.regitiny.minhshop.service.dto;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import org.regitiny.minhshop.config.Constants;
 import org.regitiny.minhshop.domain.Authority;
 import org.regitiny.minhshop.domain.User;
@@ -173,21 +176,22 @@ public class AdminUserDTO {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "AdminUserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
-    }
+  @Override
+  public String toString()
+  {
+    return "AdminUserDTO{" +
+      "login='" + login + '\'' +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", email='" + email + '\'' +
+      ", imageUrl='" + imageUrl + '\'' +
+      ", activated=" + activated +
+      ", langKey='" + langKey + '\'' +
+      ", createdBy=" + createdBy +
+      ", createdDate=" + createdDate +
+      ", lastModifiedBy='" + lastModifiedBy + '\'' +
+      ", lastModifiedDate=" + lastModifiedDate +
+      ", authorities=" + authorities +
+      "}";
+  }
 }

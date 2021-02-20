@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, UncontrolledTooltip } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './hanh-chinh-vn.reducer';
-import { IHanhChinhVN } from 'app/shared/model/hanh-chinh-vn.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import { createEntity, getEntity, reset, updateEntity } from './hanh-chinh-vn.reducer';
 
 export interface IHanhChinhVNUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

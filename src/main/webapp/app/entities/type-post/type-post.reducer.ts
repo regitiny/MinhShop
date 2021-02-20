@@ -1,18 +1,18 @@
 import axios from 'axios';
 import {
-  ICrudSearchAction,
-  parseHeaderForLinks,
-  loadMoreDataWhenScrolled,
+  ICrudDeleteAction,
   ICrudGetAction,
   ICrudGetAllAction,
   ICrudPutAction,
-  ICrudDeleteAction,
+  ICrudSearchAction,
+  loadMoreDataWhenScrolled,
+  parseHeaderForLinks,
 } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
 
-import { ITypePost, defaultValue } from 'app/shared/model/type-post.model';
+import { defaultValue, ITypePost } from 'app/shared/model/type-post.model';
 
 export const ACTION_TYPES = {
   SEARCH_TYPEPOSTS: 'typePost/SEARCH_TYPEPOSTS',

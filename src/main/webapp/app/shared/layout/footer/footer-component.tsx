@@ -1,7 +1,8 @@
 import './footer.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWhatsapp, faWeixin, faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookSquare, faWeixin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import React from 'react';
+
 export const ChatZalo = props => {
   return (
     <div className="social-button d-none d-sm-block d-md-block d-lg-block d-xl-block">

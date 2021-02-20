@@ -5,20 +5,32 @@
       "fieldName": "uuid",
       "fieldType": "UUID",
       "javadoc": "uuid",
-      "fieldValidateRules": ["required", "unique"]
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
     },
     {
       "fieldName": "billId",
       "fieldType": "String",
       "javadoc": "idShow",
-      "fieldValidateRules": ["required", "unique", "maxlength"],
+      "fieldValidateRules": [
+        "required",
+        "unique",
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "16"
     },
     {
       "fieldName": "phoneNumber",
       "fieldType": "String",
       "javadoc": "phoneNumber",
-      "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
+      "fieldValidateRules": [
+        "required",
+        "minlength",
+        "maxlength",
+        "pattern"
+      ],
       "fieldValidateRulesMinlength": "10",
       "fieldValidateRulesMaxlength": "10",
       "fieldValidateRulesPattern": "[0-9]+"
@@ -41,14 +53,18 @@
     {
       "fieldName": "product",
       "fieldType": "String",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "10000"
     },
     {
       "fieldName": "comment",
       "fieldType": "String",
       "javadoc": "comment",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": [
+        "maxlength"
+      ],
       "fieldValidateRulesMaxlength": "2048"
     },
     {

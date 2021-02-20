@@ -5,25 +5,25 @@
 apply plugin: "org.openapi.generator"
 
 openApiGenerate {
-    generatorName = "spring"
-    inputSpec = "$rootDir/src/main/resources/swagger/api.yml".toString()
-    outputDir = "$buildDir/openapi".toString()
-    apiPackage = "org.regitiny.minhshop.web.api"
-    modelPackage = "org.regitiny.minhshop.web.api.model"
-    apiFilesConstrainedTo = [""]
-    modelFilesConstrainedTo = [""]
-    supportingFilesConstrainedTo = ["ApiUtil.java"]
-    configOptions = [delegatePattern: "true", title: "minh-shop"]
-    validateSpec = true
-    importMappings = [Problem:"org.zalando.problem.Problem"]
+  generatorName = "spring"
+  inputSpec = "$rootDir/src/main/resources/swagger/api.yml".toString()
+  outputDir = "$buildDir/openapi".toString()
+  apiPackage = "org.regitiny.minhshop.web.api"
+  modelPackage = "org.regitiny.minhshop.web.api.model"
+  apiFilesConstrainedTo = [""]
+  modelFilesConstrainedTo = [""]
+  supportingFilesConstrainedTo = ["ApiUtil.java"]
+  configOptions = [delegatePattern: "true", title: "minh-shop"]
+  validateSpec = true
+  importMappings = [Problem: "org.zalando.problem.Problem"]
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir file("${project.buildDir.path}/openapi/src/main/java")
-        }
+  main {
+    java {
+      srcDir file("${project.buildDir.path}/openapi/src/main/java")
     }
+  }
 }
 
 compileJava.dependsOn("openApiGenerate")

@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 import SignInPage from '../../page-objects/signin-page';
 import NavBarPage from '../../page-objects/navbar-page';
@@ -6,11 +6,11 @@ import RegisterPage from '../../page-objects/register-page';
 import PasswordPage from '../../page-objects/password-page';
 import SettingsPage from '../../page-objects/settings-page';
 import {
+  getModifiedDateSortButton,
   getToastByInnerText,
   getUserDeactivatedButtonByLogin,
-  getModifiedDateSortButton,
-  waitUntilDisplayed,
   waitUntilClickable,
+  waitUntilDisplayed,
   waitUntilHidden,
 } from '../../util/utils';
 

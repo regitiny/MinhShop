@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import Laptop from 'app/page-product/laptop/laptop';
-import LaptopDetail from 'app/page-product/laptop/laptop-detail';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 function Routes({ match }) {

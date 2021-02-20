@@ -47,12 +47,6 @@
             <column name="comment" type="varchar(2048)" remarks="comment">
                 <constraints nullable="true" />
             </column>
-            <column name="other_data" type="varchar(10000)">
-                <constraints nullable="true" />
-            </column>
-            <column name="pakidi" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="post_details" columnName="created_date" columnDataType="${datetimeType}"/>

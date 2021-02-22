@@ -8,4 +8,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @CucumberContextConfiguration
 @SpringBootTest(classes = MinhShopApp.class)
 @WebAppConfiguration
-public class CucumberTestContextConfiguration {}
+public class CucumberTestContextConfiguration
+{
+}

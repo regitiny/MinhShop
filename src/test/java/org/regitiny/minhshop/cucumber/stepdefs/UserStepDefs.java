@@ -1,8 +1,5 @@
 package org.regitiny.minhshop.cucumber.stepdefs;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,30 +9,38 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class UserStepDefs extends StepDefs {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-    @Autowired
-    private UserResource userResource;
+public class UserStepDefs extends StepDefs
+{
 
-    private MockMvc restUserMockMvc;
+  @Autowired
+  private UserResource userResource;
 
-    @Before
-    public void setup() {
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
-    }
+  private MockMvc restUserMockMvc;
 
-    @When("I search user {string}")
-    public void i_search_user(String userId) throws Throwable {
-        actions = restUserMockMvc.perform(get("/api/users/" + userId).accept(MediaType.APPLICATION_JSON));
-    }
+  @Before
+  public void setup()
+  {
+    this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
+  }
 
-    @Then("the user is found")
-    public void the_user_is_found() throws Throwable {
-        actions.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
-    }
+  @When("I search user {string}")
+  public void i_search_user(String userId) throws Throwable
+  {
+    actions = restUserMockMvc.perform(get("/api/users/" + userId).accept(MediaType.APPLICATION_JSON));
+  }
 
-    @Then("his last name is {string}")
-    public void his_last_name_is(String lastName) throws Throwable {
-        actions.andExpect(jsonPath("$.lastName").value(lastName));
-    }
+  @Then("the user is found")
+  public void the_user_is_found() throws Throwable
+  {
+    actions.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
+  }
+
+  @Then("his last name is {string}")
+  public void his_last_name_is(String lastName) throws Throwable
+  {
+    actions.andExpect(jsonPath("$.lastName").value(lastName));
+  }
 }

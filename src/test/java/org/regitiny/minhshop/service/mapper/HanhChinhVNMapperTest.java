@@ -2,12 +2,14 @@ package org.regitiny.minhshop.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class HanhChinhVNMapperTest {
+class HanhChinhVNMapperTest
+{
 
-    private HanhChinhVNMapper hanhChinhVNMapper;
+  private HanhChinhVNMapper hanhChinhVNMapper;
 
-    @BeforeEach
-    public void setUp() {
-        hanhChinhVNMapper = new HanhChinhVNMapperImpl();
-    }
+  @BeforeEach
+  public void setUp()
+  {
+    hanhChinhVNMapper = new HanhChinhVNMapperImpl();
+  }
 }

@@ -1,4 +1,4 @@
-import { browser, by, element, ElementArrayFinder, ElementFinder, ExpectedConditions } from 'protractor';
+import {browser, by, element, ElementArrayFinder, ElementFinder, ExpectedConditions} from 'protractor';
 
 const waitUntilDisplayedTimeout = browser.params.waitTimeoutInMillis || 30000;
 const logWaitErrors = browser.params.logWaitErrors || false;
@@ -8,12 +8,14 @@ export const checkSelectorExist = (selector: ElementFinder) => selector !== unde
 /**
  * @returns Function which resolves to boolean
  */
-export const isDisplayed = (selector: ElementFinder) => {
+export const isDisplayed = (selector: ElementFinder) =>
+{
   if (!checkSelectorExist(selector)) return;
   return ExpectedConditions.visibilityOf(selector);
 };
 
-export const isHidden = (selector: ElementFinder) => {
+export const isHidden = (selector: ElementFinder) =>
+{
   if (!checkSelectorExist(selector)) return;
   return ExpectedConditions.invisibilityOf(selector);
 };
@@ -21,7 +23,8 @@ export const isHidden = (selector: ElementFinder) => {
 /**
  * Wait until this page is displayed.
  */
-export const waitUntilDisplayed = async (selector: ElementFinder, classname = '', timeout = waitUntilDisplayedTimeout) => {
+export const waitUntilDisplayed = async (selector: ElementFinder, classname = '', timeout = waitUntilDisplayedTimeout) =>
+{
   if (!checkSelectorExist(selector)) return;
 
   await browser.wait(
@@ -34,7 +37,8 @@ export const waitUntilDisplayed = async (selector: ElementFinder, classname = ''
 /**
  * Wait until element is clickable
  */
-export const waitUntilClickable = async (selector: ElementFinder, classname = '', timeout = waitUntilDisplayedTimeout) => {
+export const waitUntilClickable = async (selector: ElementFinder, classname = '', timeout = waitUntilDisplayedTimeout) =>
+{
   if (!checkSelectorExist(selector)) return;
 
   await browser.wait(
@@ -44,7 +48,8 @@ export const waitUntilClickable = async (selector: ElementFinder, classname = ''
   );
 };
 
-export const waitUntilHidden = async (selector: ElementFinder, classname = '', timeout = waitUntilDisplayedTimeout) => {
+export const waitUntilHidden = async (selector: ElementFinder, classname = '', timeout = waitUntilDisplayedTimeout) =>
+{
   if (!checkSelectorExist(selector)) return;
 
   await browser.wait(
@@ -54,7 +59,8 @@ export const waitUntilHidden = async (selector: ElementFinder, classname = '', t
   );
 };
 
-export const waitForCount = (elementArrayFinder: ElementArrayFinder, expectedCount: number) => () => {
+export const waitForCount = (elementArrayFinder: ElementArrayFinder, expectedCount: number) => () =>
+{
   return elementArrayFinder.count().then(actualCount => expectedCount === actualCount);
 };
 
@@ -62,7 +68,8 @@ export const waitUntilCount = async (
   elementArrayFinder: ElementArrayFinder,
   expectedCount: number,
   timeout = waitUntilDisplayedTimeout
-) => {
+) =>
+{
   await browser.wait(
     waitForCount(elementArrayFinder, expectedCount),
     timeout,
@@ -83,7 +90,8 @@ export const getToastByInnerText = (text: string): ElementFinder =>
  * visible. If no element is visible within threshold time, promise will
  * be rejected.
  */
-export const waitUntilAnyDisplayed = async (selectors: ElementFinder[], timeout = waitUntilDisplayedTimeout): Promise<void> => {
+export const waitUntilAnyDisplayed = async (selectors: ElementFinder[], timeout = waitUntilDisplayedTimeout): Promise<void> =>
+{
   await browser.wait(
     ExpectedConditions.or(...selectors.map(selector => ExpectedConditions.visibilityOf(selector))),
     timeout,
@@ -96,11 +104,16 @@ export const waitUntilAnyDisplayed = async (selectors: ElementFinder[], timeout 
  * isDisplayed() to gracefully handle the scenario when an element is not
  * present in the DOM.
  */
-export const isVisible = async (selector: ElementFinder) => {
-  try {
+export const isVisible = async (selector: ElementFinder) =>
+{
+  try
+  {
     return await selector.isDisplayed();
-  } catch (e) {
-    if (logWaitErrors) {
+  }
+  catch (e)
+  {
+    if (logWaitErrors)
+    {
       console.warn(e.message);
     }
   }
@@ -112,7 +125,8 @@ export const isVisible = async (selector: ElementFinder) => {
  *
  * @param selector
  */
-export const click = async (selector: ElementFinder) => {
+export const click = async (selector: ElementFinder) =>
+{
   await waitUntilClickable(selector);
   await selector.click();
 };
@@ -120,6 +134,7 @@ export const click = async (selector: ElementFinder) => {
 /**
  * Returns a promise that evaluates to the number of rows inside table body.
  */
-export const getRecordsCount = async (table: ElementFinder): Promise<number> => {
+export const getRecordsCount = async (table: ElementFinder): Promise<number> =>
+{
   return await table.all(by.css('tbody tr')).count();
 };

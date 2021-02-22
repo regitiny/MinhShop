@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 /**
  * Spring Data Elasticsearch repository for the {@link SimplePost} entity.
  */
-public interface SimplePostSearchRepository extends ElasticsearchRepository<SimplePost, Long> {
-    Page<SimplePost> findBySearchFieldOrSimpleContentOrPostDetailsContent(String searchField, Pageable pageable);
+public interface SimplePostSearchRepository extends ElasticsearchRepository<SimplePost, Long>
+{
+  Page<SimplePost> findBySearchFieldOrSimpleContentOrPostDetailsContent(String searchField, Pageable pageable);
 }

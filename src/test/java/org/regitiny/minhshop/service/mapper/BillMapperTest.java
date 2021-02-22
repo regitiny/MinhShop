@@ -2,12 +2,14 @@ package org.regitiny.minhshop.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class BillMapperTest {
+class BillMapperTest
+{
 
-    private BillMapper billMapper;
+  private BillMapper billMapper;
 
-    @BeforeEach
-    public void setUp() {
-        billMapper = new BillMapperImpl();
-    }
+  @BeforeEach
+  public void setUp()
+  {
+    billMapper = new BillMapperImpl();
+  }
 }

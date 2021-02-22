@@ -1,14 +1,15 @@
-import { browser } from 'protractor';
+import {browser} from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
 import BillComponentsPage from './bill.page-object';
 import BillUpdatePage from './bill-update.page-object';
-import { getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed } from '../../util/utils';
+import {getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed} from '../../util/utils';
 
 const expect = chai.expect;
 
-describe('Bill e2e test', () => {
+describe('Bill e2e test', () =>
+{
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
   let billComponentsPage: BillComponentsPage;
@@ -16,7 +17,8 @@ describe('Bill e2e test', () => {
   const username = process.env.E2E_USERNAME ?? 'admin';
   const password = process.env.E2E_PASSWORD ?? 'admin';
 
-  before(async () => {
+  before(async () =>
+  {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
@@ -30,19 +32,22 @@ describe('Bill e2e test', () => {
     await waitUntilDisplayed(navBarPage.accountMenu);
   });
 
-  beforeEach(async () => {
+  beforeEach(async () =>
+  {
     await browser.get('/');
     await waitUntilDisplayed(navBarPage.entityMenu);
     billComponentsPage = new BillComponentsPage();
     billComponentsPage = await billComponentsPage.goToPage(navBarPage);
   });
 
-  it('should load Bills', async () => {
+  it('should load Bills', async () =>
+  {
     expect(await billComponentsPage.title.getText()).to.match(/Bills/);
     expect(await billComponentsPage.createButton.isEnabled()).to.be.true;
   });
 
-  it('should create and delete Bills', async () => {
+  it('should create and delete Bills', async () =>
+  {
     const beforeRecordsCount = (await isVisible(billComponentsPage.noRecords)) ? 0 : await getRecordsCount(billComponentsPage.table);
     billUpdatePage = await billComponentsPage.goToCreateBill();
     await billUpdatePage.enterData();
@@ -53,15 +58,19 @@ describe('Bill e2e test', () => {
     expect(await billComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
 
     await billComponentsPage.deleteBill();
-    if (beforeRecordsCount !== 0) {
+    if (beforeRecordsCount !== 0)
+    {
       await waitUntilCount(billComponentsPage.records, beforeRecordsCount);
       expect(await billComponentsPage.records.count()).to.eq(beforeRecordsCount);
-    } else {
+    }
+    else
+    {
       await waitUntilDisplayed(billComponentsPage.noRecords);
     }
   });
 
-  after(async () => {
+  after(async () =>
+  {
     await navBarPage.autoSignOut();
   });
 });

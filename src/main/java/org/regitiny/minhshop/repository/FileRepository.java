@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FileRepository extends JpaRepository<File, Long> {}
+public interface FileRepository extends JpaRepository<File, Long>
+{
+}

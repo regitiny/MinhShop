@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface HanhChinhVNRepository extends JpaRepository<HanhChinhVN, Long> {}
+public interface HanhChinhVNRepository extends JpaRepository<HanhChinhVN, Long>
+{
+}

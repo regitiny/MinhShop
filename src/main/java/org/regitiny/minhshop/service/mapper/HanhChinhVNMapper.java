@@ -8,4 +8,6 @@ import org.regitiny.minhshop.service.dto.HanhChinhVNDTO;
  * Mapper for the entity {@link HanhChinhVN} and its DTO {@link HanhChinhVNDTO}.
  */
 @Mapper(componentModel = "spring", uses = {})
-public interface HanhChinhVNMapper extends EntityMapper<HanhChinhVNDTO, HanhChinhVN> {}
+public interface HanhChinhVNMapper extends EntityMapper<HanhChinhVNDTO, HanhChinhVN>
+{
+}

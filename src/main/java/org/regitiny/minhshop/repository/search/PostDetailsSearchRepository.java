@@ -6,4 +6,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 /**
  * Spring Data Elasticsearch repository for the {@link PostDetails} entity.
  */
-public interface PostDetailsSearchRepository extends ElasticsearchRepository<PostDetails, Long> {}
+public interface PostDetailsSearchRepository extends ElasticsearchRepository<PostDetails, Long>
+{
+}

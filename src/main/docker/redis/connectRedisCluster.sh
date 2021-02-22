@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function log {
+function log() {
   echo "[$(date)]: $*"
 }
 
@@ -12,9 +12,9 @@ redis-cli \
   --cluster-replicas 1 \
   --cluster-yes \
   --cluster create \
-    $(host minhshop-redis|awk '{print $4}'):6379 \
-    $(host minhshop-redis-1|awk '{print $4}'):6379 \
-    $(host minhshop-redis-2|awk '{print $4}'):6379 \
-    $(host minhshop-redis-3|awk '{print $4}'):6379 \
-    $(host minhshop-redis-4|awk '{print $4}'):6379 \
-    $(host minhshop-redis-5|awk '{print $4}'):6379
+  $(host minhshop-redis | awk '{print $4}'):6379 \
+  $(host minhshop-redis-1 | awk '{print $4}'):6379 \
+  $(host minhshop-redis-2 | awk '{print $4}'):6379 \
+  $(host minhshop-redis-3 | awk '{print $4}'):6379 \
+  $(host minhshop-redis-4 | awk '{print $4}'):6379 \
+  $(host minhshop-redis-5 | awk '{print $4}'):6379

@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Configuration;
  * application without starting Elasticsearch.
  */
 @Configuration
-public class UserSearchRepositoryMockConfiguration {
+public class UserSearchRepositoryMockConfiguration
+{
 
-    @MockBean
-    private UserSearchRepository mockUserSearchRepository;
+  @MockBean
+  private UserSearchRepository mockUserSearchRepository;
 }

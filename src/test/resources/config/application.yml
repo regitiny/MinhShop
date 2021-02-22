@@ -13,6 +13,12 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+yuvytung:
+  value:
+    number-of-cities: 0 # mặc định là không import và tối đa 63 thành phố
+  server:
+    name: catiny.com
+
 eureka:
   client:
     enabled: false
@@ -108,7 +114,7 @@ jhipster:
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: "${yuvytung.server.name}:9092"
   consumer:
     key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
     value.deserializer: org.apache.kafka.common.serialization.StringDeserializer

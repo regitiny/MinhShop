@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import {browser, by, element} from 'protractor';
 
 import SignInPage from '../../page-objects/signin-page';
 import NavBarPage from '../../page-objects/navbar-page';
@@ -16,7 +16,8 @@ import {
 
 const expect = chai.expect;
 
-describe('Account', () => {
+describe('Account', () =>
+{
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
   const username = process.env.E2E_USERNAME ?? 'admin';
@@ -30,14 +31,16 @@ describe('Account', () => {
   const settingsPageTitle = 'settings-title';
   const loginPageTitle = 'login-title';
 
-  before(async () => {
+  before(async () =>
+  {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
     await signInPage.waitUntilDisplayed();
   });
 
-  it('should fail to login with bad password', async () => {
+  it('should fail to login with bad password', async () =>
+  {
     // Login page should appear
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -49,7 +52,8 @@ describe('Account', () => {
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
   });
 
-  it('should login with admin account', async () => {
+  it('should login with admin account', async () =>
+  {
     await browser.get('/');
     await signInPage.get();
 
@@ -65,7 +69,8 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should be able to sign up', async () => {
+  it('should be able to sign up', async () =>
+  {
     await waitUntilDisplayed(navBarPage.accountMenu);
 
     registerPage = await navBarPage.getRegisterPage();
@@ -80,7 +85,8 @@ describe('Account', () => {
     expect(await toast.isPresent()).to.be.true;
   });
 
-  it('should load user management', async () => {
+  it('should load user management', async () =>
+  {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -98,7 +104,8 @@ describe('Account', () => {
     expect(await title.isPresent()).to.be.true;
   });
 
-  it('should activate the new registered user', async () => {
+  it('should activate the new registered user', async () =>
+  {
     expect(await element(by.id('user-management-page-heading')).isPresent()).to.be.true;
 
     const modifiedDateSortButton = getModifiedDateSortButton();
@@ -116,7 +123,8 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should not be able to sign up if login already taken', async () => {
+  it('should not be able to sign up if login already taken', async () =>
+  {
     await registerPage.get();
     expect(await registerPage.getTitle()).to.eq(registerPageTitle);
 
@@ -128,7 +136,8 @@ describe('Account', () => {
     expect(await toast.isPresent()).to.be.true;
   });
 
-  it('should not be able to sign up if email already taken', async () => {
+  it('should not be able to sign up if email already taken', async () =>
+  {
     expect(await registerPage.getTitle()).to.eq(registerPageTitle);
 
     await registerPage.username.sendKeys('_jhi');
@@ -140,7 +149,8 @@ describe('Account', () => {
     expect(await toast.isPresent()).to.be.true;
   });
 
-  it('should be able to log in with new registered account', async () => {
+  it('should be able to log in with new registered account', async () =>
+  {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -154,7 +164,8 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should login with admin account', async () => {
+  it('should login with admin account', async () =>
+  {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -166,7 +177,8 @@ describe('Account', () => {
     expect(await signInPage.isHidden()()).to.be.true;
   });
 
-  it('should fail to update password when using incorrect current password', async () => {
+  it('should fail to update password when using incorrect current password', async () =>
+  {
     passwordPage = await navBarPage.getPasswordPage();
     await passwordPage.waitUntilDisplayed();
     expect(await passwordPage.getTitle()).to.eq(passwordPageTitle);
@@ -179,7 +191,8 @@ describe('Account', () => {
     expect(await toast.isPresent()).to.be.true;
   });
 
-  it('should be able to update password', async () => {
+  it('should be able to update password', async () =>
+  {
     await browser.refresh();
     await passwordPage.waitUntilDisplayed();
     expect(await passwordPage.getTitle()).to.eq(passwordPageTitle);
@@ -193,7 +206,8 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should be able to log in with new password', async () => {
+  it('should be able to log in with new password', async () =>
+  {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -217,7 +231,8 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should login with user_test account', async () => {
+  it('should login with user_test account', async () =>
+  {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -229,7 +244,8 @@ describe('Account', () => {
     expect(await signInPage.isHidden()()).to.be.true;
   });
 
-  it('should be able to change user_test settings', async () => {
+  it('should be able to change user_test settings', async () =>
+  {
     await waitUntilDisplayed(navBarPage.accountMenu);
 
     settingsPage = await navBarPage.getSettingsPage();
@@ -248,7 +264,8 @@ describe('Account', () => {
     await navBarPage.autoSignOut();
   });
 
-  it('should login with admin account', async () => {
+  it('should login with admin account', async () =>
+  {
     await signInPage.get();
     expect(await signInPage.getTitle()).to.eq(loginPageTitle);
 
@@ -260,7 +277,8 @@ describe('Account', () => {
     expect(await signInPage.isHidden()()).to.be.true;
   });
 
-  it('should not be able to change admin settings if email already exists', async () => {
+  it('should not be able to change admin settings if email already exists', async () =>
+  {
     await settingsPage.get();
     expect(await settingsPage.getTitle()).to.eq(settingsPageTitle);
 
@@ -274,7 +292,8 @@ describe('Account', () => {
     expect(await toast.isPresent()).to.be.true;
   });
 
-  it('should delete previously created fake user', async () => {
+  it('should delete previously created fake user', async () =>
+  {
     await browser.get('/admin/user-management/user_test/delete');
     const deleteModal = element(by.className('modal'));
     await waitUntilDisplayed(deleteModal);
@@ -286,7 +305,8 @@ describe('Account', () => {
     expect(await deleteModal.isPresent()).to.be.false;
   });
 
-  after(async () => {
+  after(async () =>
+  {
     await navBarPage.autoSignOut();
   });
 });

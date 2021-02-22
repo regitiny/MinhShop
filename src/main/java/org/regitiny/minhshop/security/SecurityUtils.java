@@ -1,7 +1,5 @@
 package org.regitiny.minhshop.security;
 
-import java.util.Optional;
-import java.util.stream.Stream;
 import org.regitiny.tools.magic.exception.NhechException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,78 +7,96 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 /**
  * Utility class for Spring Security.
  */
-public final class SecurityUtils {
+public final class SecurityUtils
+{
 
-    private SecurityUtils() {}
+  private SecurityUtils()
+  {
+  }
 
-    /**
-     * Get the login of the current user.
-     *
-     * @return the login of the current user.
-     */
-    public static Optional<String> getCurrentUserLogin() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));
+  /**
+   * Get the login of the current user.
+   *
+   * @return the login of the current user.
+   */
+  public static Optional<String> getCurrentUserLogin()
+  {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));
+  }
+
+  private static String extractPrincipal(Authentication authentication)
+  {
+    if (authentication == null)
+    {
+      return null;
     }
-
-    private static String extractPrincipal(Authentication authentication) {
-        if (authentication == null) {
-            return null;
-        } else if (authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
-            return springSecurityUser.getUsername();
-        } else if (authentication.getPrincipal() instanceof String) {
-            return (String) authentication.getPrincipal();
-        }
-        return null;
+    else if (authentication.getPrincipal() instanceof UserDetails)
+    {
+      UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+      return springSecurityUser.getUsername();
     }
-
-    /**
-     * Get the JWT of the current user.
-     *
-     * @return the JWT of the current user.
-     */
-    public static Optional<String> getCurrentUserJWT() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return Optional
-            .ofNullable(securityContext.getAuthentication())
-            .filter(authentication -> authentication.getCredentials() instanceof String)
-            .map(authentication -> (String) authentication.getCredentials());
+    else if (authentication.getPrincipal() instanceof String)
+    {
+      return (String) authentication.getPrincipal();
     }
+    return null;
+  }
 
-    /**
-     * Check if a user is authenticated.
-     *
-     * @return true if the user is authenticated, false otherwise.
-     */
-    public static boolean isAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
-    }
+  /**
+   * Get the JWT of the current user.
+   *
+   * @return the JWT of the current user.
+   */
+  public static Optional<String> getCurrentUserJWT()
+  {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return Optional
+      .ofNullable(securityContext.getAuthentication())
+      .filter(authentication -> authentication.getCredentials() instanceof String)
+      .map(authentication -> (String) authentication.getCredentials());
+  }
 
-    /**
-     * If the current user has a specific authority (security role).
-     * <p>
-     * The name of this method comes from the {@code isUserInRole()} method in the Servlet API.
-     *
-     * @param authority the authority to check.
-     * @return true if the current user has the authority, false otherwise.
-     */
-    public static boolean isCurrentUserInRole(String authority) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && getAuthorities(authentication).anyMatch(authority::equals);
-    }
+  /**
+   * Check if a user is authenticated.
+   *
+   * @return true if the user is authenticated, false otherwise.
+   */
+  public static boolean isAuthenticated()
+  {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return authentication != null && getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
+  }
 
-    private static Stream<String> getAuthorities(Authentication authentication) {
-        return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority);
-    }
+  /**
+   * If the current user has a specific authority (security role).
+   * <p>
+   * The name of this method comes from the {@code isUserInRole()} method in the Servlet API.
+   *
+   * @param authority the authority to check.
+   * @return true if the current user has the authority, false otherwise.
+   */
+  public static boolean isCurrentUserInRole(String authority)
+  {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return authentication != null && getAuthorities(authentication).anyMatch(authority::equals);
+  }
 
-    public static void checkAuthenticationAndAuthority(String authority) {
-        if (!isAuthenticated() || !isCurrentUserInRole(authority) || getCurrentUserLogin().isEmpty()) throw new NhechException(
-            "kiểm tra lại xem đã đăng nhập hoặc đc cấp quyền chưa bạn êy"
-        );
-    }
+  private static Stream<String> getAuthorities(Authentication authentication)
+  {
+    return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority);
+  }
+
+  public static void checkAuthenticationAndAuthority(String authority)
+  {
+    if (!isAuthenticated() || !isCurrentUserInRole(authority) || getCurrentUserLogin().isEmpty()) throw new NhechException(
+      "kiểm tra lại xem đã đăng nhập hoặc đc cấp quyền chưa bạn êy"
+    );
+  }
 }

@@ -2,12 +2,14 @@ package org.regitiny.minhshop.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class PaymentMapperTest {
+class PaymentMapperTest
+{
 
-    private PaymentMapper paymentMapper;
+  private PaymentMapper paymentMapper;
 
-    @BeforeEach
-    public void setUp() {
-        paymentMapper = new PaymentMapperImpl();
-    }
+  @BeforeEach
+  public void setUp()
+  {
+    paymentMapper = new PaymentMapperImpl();
+  }
 }

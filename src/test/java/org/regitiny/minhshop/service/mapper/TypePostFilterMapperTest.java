@@ -2,12 +2,14 @@ package org.regitiny.minhshop.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class TypePostFilterMapperTest {
+class TypePostFilterMapperTest
+{
 
-    private TypePostFilterMapper typePostFilterMapper;
+  private TypePostFilterMapper typePostFilterMapper;
 
-    @BeforeEach
-    public void setUp() {
-        typePostFilterMapper = new TypePostFilterMapperImpl();
-    }
+  @BeforeEach
+  public void setUp()
+  {
+    typePostFilterMapper = new TypePostFilterMapperImpl();
+  }
 }

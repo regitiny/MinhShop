@@ -1,14 +1,15 @@
-import { browser } from 'protractor';
+import {browser} from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
 import PostComponentsPage from './post.page-object';
 import PostUpdatePage from './post-update.page-object';
-import { getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed } from '../../util/utils';
+import {getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed} from '../../util/utils';
 
 const expect = chai.expect;
 
-describe('Post e2e test', () => {
+describe('Post e2e test', () =>
+{
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
   let postComponentsPage: PostComponentsPage;
@@ -16,7 +17,8 @@ describe('Post e2e test', () => {
   const username = process.env.E2E_USERNAME ?? 'admin';
   const password = process.env.E2E_PASSWORD ?? 'admin';
 
-  before(async () => {
+  before(async () =>
+  {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
@@ -30,19 +32,22 @@ describe('Post e2e test', () => {
     await waitUntilDisplayed(navBarPage.accountMenu);
   });
 
-  beforeEach(async () => {
+  beforeEach(async () =>
+  {
     await browser.get('/');
     await waitUntilDisplayed(navBarPage.entityMenu);
     postComponentsPage = new PostComponentsPage();
     postComponentsPage = await postComponentsPage.goToPage(navBarPage);
   });
 
-  it('should load Posts', async () => {
+  it('should load Posts', async () =>
+  {
     expect(await postComponentsPage.title.getText()).to.match(/Posts/);
     expect(await postComponentsPage.createButton.isEnabled()).to.be.true;
   });
 
-  it('should create and delete Posts', async () => {
+  it('should create and delete Posts', async () =>
+  {
     const beforeRecordsCount = (await isVisible(postComponentsPage.noRecords)) ? 0 : await getRecordsCount(postComponentsPage.table);
     postUpdatePage = await postComponentsPage.goToCreatePost();
     await postUpdatePage.enterData();
@@ -53,15 +58,19 @@ describe('Post e2e test', () => {
     expect(await postComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
 
     await postComponentsPage.deletePost();
-    if (beforeRecordsCount !== 0) {
+    if (beforeRecordsCount !== 0)
+    {
       await waitUntilCount(postComponentsPage.records, beforeRecordsCount);
       expect(await postComponentsPage.records.count()).to.eq(beforeRecordsCount);
-    } else {
+    }
+    else
+    {
       await waitUntilDisplayed(postComponentsPage.noRecords);
     }
   });
 
-  after(async () => {
+  after(async () =>
+  {
     await navBarPage.autoSignOut();
   });
 });

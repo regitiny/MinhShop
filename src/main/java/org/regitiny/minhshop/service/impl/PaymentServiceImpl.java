@@ -1,8 +1,5 @@
 package org.regitiny.minhshop.service.impl;
 
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-
-import java.util.Optional;
 import org.regitiny.minhshop.domain.Payment;
 import org.regitiny.minhshop.repository.PaymentRepository;
 import org.regitiny.minhshop.repository.search.PaymentSearchRepository;
@@ -10,7 +7,6 @@ import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.PaymentService;
 import org.regitiny.minhshop.service.dto.PaymentDTO;
-import org.regitiny.minhshop.service.dto.PostDetailsDTO;
 import org.regitiny.minhshop.service.mapper.PaymentMapper;
 import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
@@ -20,130 +16,154 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
 /**
  * Service Implementation for managing {@link Payment}.
  */
 @Service
 @Transactional
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl implements PaymentService
+{
 
-    private final Logger log = LoggerFactory.getLogger(PaymentServiceImpl.class);
+  private final Logger log = LoggerFactory.getLogger(PaymentServiceImpl.class);
 
-    private final PaymentRepository paymentRepository;
+  private final PaymentRepository paymentRepository;
 
-    private final PaymentMapper paymentMapper;
+  private final PaymentMapper paymentMapper;
 
-    private final PaymentSearchRepository paymentSearchRepository;
+  private final PaymentSearchRepository paymentSearchRepository;
 
-    public PaymentServiceImpl(
-        PaymentRepository paymentRepository,
-        PaymentMapper paymentMapper,
-        PaymentSearchRepository paymentSearchRepository
-    ) {
-        this.paymentRepository = paymentRepository;
-        this.paymentMapper = paymentMapper;
-        this.paymentSearchRepository = paymentSearchRepository;
-    }
+  public PaymentServiceImpl(
+    PaymentRepository paymentRepository,
+    PaymentMapper paymentMapper,
+    PaymentSearchRepository paymentSearchRepository
+  )
+  {
+    this.paymentRepository = paymentRepository;
+    this.paymentMapper = paymentMapper;
+    this.paymentSearchRepository = paymentSearchRepository;
+  }
 
-    @Override
-    public PaymentDTO save(PaymentDTO paymentDTO) {
-        log.debug("Request to save Payment : {}", paymentDTO);
-        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
-        paymentDTO = (PaymentDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(paymentDTO);
-        Payment payment = paymentMapper.toEntity(paymentDTO);
-        payment = paymentRepository.save(payment);
-        PaymentDTO result = paymentMapper.toDto(payment);
-        paymentSearchRepository.save(payment);
-        return result;
-    }
+  @Override
+  public PaymentDTO save(PaymentDTO paymentDTO)
+  {
+    log.debug("Request to save Payment : {}", paymentDTO);
+    SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+    paymentDTO = (PaymentDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(paymentDTO);
+    Payment payment = paymentMapper.toEntity(paymentDTO);
+    payment = paymentRepository.save(payment);
+    PaymentDTO result = paymentMapper.toDto(payment);
+    paymentSearchRepository.save(payment);
+    return result;
+  }
 
-    @Override
-    public Optional<PaymentDTO> partialUpdate(PaymentDTO paymentDTO) {
-        log.debug("Request to partially update Payment : {}", paymentDTO);
+  @Override
+  public Optional<PaymentDTO> partialUpdate(PaymentDTO paymentDTO)
+  {
+    log.debug("Request to partially update Payment : {}", paymentDTO);
 
-        return paymentRepository
-            .findById(paymentDTO.getId())
-            .map(
-                existingPayment -> {
-                    if (paymentDTO.getUuid() != null) {
-                        existingPayment.setUuid(paymentDTO.getUuid());
-                    }
+    return paymentRepository
+      .findById(paymentDTO.getId())
+      .map(
+        existingPayment ->
+        {
+          if (paymentDTO.getUuid() != null)
+          {
+            existingPayment.setUuid(paymentDTO.getUuid());
+          }
 
-                    if (paymentDTO.getStatus() != null) {
-                        existingPayment.setStatus(paymentDTO.getStatus());
-                    }
+          if (paymentDTO.getStatus() != null)
+          {
+            existingPayment.setStatus(paymentDTO.getStatus());
+          }
 
-                    if (paymentDTO.getSearchField() != null) {
-                        existingPayment.setSearchField(paymentDTO.getSearchField());
-                    }
+          if (paymentDTO.getSearchField() != null)
+          {
+            existingPayment.setSearchField(paymentDTO.getSearchField());
+          }
 
-                    if (paymentDTO.getRole() != null) {
-                        existingPayment.setRole(paymentDTO.getRole());
-                    }
+          if (paymentDTO.getRole() != null)
+          {
+            existingPayment.setRole(paymentDTO.getRole());
+          }
 
-                    if (paymentDTO.getCreatedDate() != null) {
-                        existingPayment.setCreatedDate(paymentDTO.getCreatedDate());
-                    }
+          if (paymentDTO.getCreatedDate() != null)
+          {
+            existingPayment.setCreatedDate(paymentDTO.getCreatedDate());
+          }
 
-                    if (paymentDTO.getModifiedDate() != null) {
-                        existingPayment.setModifiedDate(paymentDTO.getModifiedDate());
-                    }
+          if (paymentDTO.getModifiedDate() != null)
+          {
+            existingPayment.setModifiedDate(paymentDTO.getModifiedDate());
+          }
 
-                    if (paymentDTO.getCreatedBy() != null) {
-                        existingPayment.setCreatedBy(paymentDTO.getCreatedBy());
-                    }
+          if (paymentDTO.getCreatedBy() != null)
+          {
+            existingPayment.setCreatedBy(paymentDTO.getCreatedBy());
+          }
 
-                    if (paymentDTO.getModifiedBy() != null) {
-                        existingPayment.setModifiedBy(paymentDTO.getModifiedBy());
-                    }
+          if (paymentDTO.getModifiedBy() != null)
+          {
+            existingPayment.setModifiedBy(paymentDTO.getModifiedBy());
+          }
 
-                    if (paymentDTO.getDataSize() != null) {
-                        existingPayment.setDataSize(paymentDTO.getDataSize());
-                    }
+          if (paymentDTO.getDataSize() != null)
+          {
+            existingPayment.setDataSize(paymentDTO.getDataSize());
+          }
 
-                    if (paymentDTO.getComment() != null) {
-                        existingPayment.setComment(paymentDTO.getComment());
-                    }
+          if (paymentDTO.getComment() != null)
+          {
+            existingPayment.setComment(paymentDTO.getComment());
+          }
 
-                    return existingPayment;
-                }
-            )
-            .map(paymentRepository::save)
-            .map(
-                savedPayment -> {
-                    paymentSearchRepository.save(savedPayment);
+          return existingPayment;
+        }
+      )
+      .map(paymentRepository::save)
+      .map(
+        savedPayment ->
+        {
+          paymentSearchRepository.save(savedPayment);
 
-                    return savedPayment;
-                }
-            )
-            .map(paymentMapper::toDto);
-    }
+          return savedPayment;
+        }
+      )
+      .map(paymentMapper::toDto);
+  }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Page<PaymentDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Payments");
-        return paymentRepository.findAll(pageable).map(paymentMapper::toDto);
-    }
+  @Override
+  @Transactional(readOnly = true)
+  public Page<PaymentDTO> findAll(Pageable pageable)
+  {
+    log.debug("Request to get all Payments");
+    return paymentRepository.findAll(pageable).map(paymentMapper::toDto);
+  }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<PaymentDTO> findOne(Long id) {
-        log.debug("Request to get Payment : {}", id);
-        return paymentRepository.findById(id).map(paymentMapper::toDto);
-    }
+  @Override
+  @Transactional(readOnly = true)
+  public Optional<PaymentDTO> findOne(Long id)
+  {
+    log.debug("Request to get Payment : {}", id);
+    return paymentRepository.findById(id).map(paymentMapper::toDto);
+  }
 
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Payment : {}", id);
-        paymentRepository.deleteById(id);
-        paymentSearchRepository.deleteById(id);
-    }
+  @Override
+  public void delete(Long id)
+  {
+    log.debug("Request to delete Payment : {}", id);
+    paymentRepository.deleteById(id);
+    paymentSearchRepository.deleteById(id);
+  }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Page<PaymentDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Payments for query {}", query);
-        return paymentSearchRepository.search(queryStringQuery(query), pageable).map(paymentMapper::toDto);
-    }
+  @Override
+  @Transactional(readOnly = true)
+  public Page<PaymentDTO> search(String query, Pageable pageable)
+  {
+    log.debug("Request to search for a page of Payments for query {}", query);
+    return paymentSearchRepository.search(queryStringQuery(query), pageable).map(paymentMapper::toDto);
+  }
 }

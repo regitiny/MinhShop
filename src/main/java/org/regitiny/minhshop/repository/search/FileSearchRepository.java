@@ -6,4 +6,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 /**
  * Spring Data Elasticsearch repository for the {@link File} entity.
  */
-public interface FileSearchRepository extends ElasticsearchRepository<File, Long> {}
+public interface FileSearchRepository extends ElasticsearchRepository<File, Long>
+{
+}

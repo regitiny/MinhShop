@@ -1,14 +1,15 @@
-import { browser } from 'protractor';
+import {browser} from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
 import FileComponentsPage from './file.page-object';
 import FileUpdatePage from './file-update.page-object';
-import { getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed } from '../../util/utils';
+import {getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed} from '../../util/utils';
 
 const expect = chai.expect;
 
-describe('File e2e test', () => {
+describe('File e2e test', () =>
+{
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
   let fileComponentsPage: FileComponentsPage;
@@ -16,7 +17,8 @@ describe('File e2e test', () => {
   const username = process.env.E2E_USERNAME ?? 'admin';
   const password = process.env.E2E_PASSWORD ?? 'admin';
 
-  before(async () => {
+  before(async () =>
+  {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
@@ -30,19 +32,22 @@ describe('File e2e test', () => {
     await waitUntilDisplayed(navBarPage.accountMenu);
   });
 
-  beforeEach(async () => {
+  beforeEach(async () =>
+  {
     await browser.get('/');
     await waitUntilDisplayed(navBarPage.entityMenu);
     fileComponentsPage = new FileComponentsPage();
     fileComponentsPage = await fileComponentsPage.goToPage(navBarPage);
   });
 
-  it('should load Files', async () => {
+  it('should load Files', async () =>
+  {
     expect(await fileComponentsPage.title.getText()).to.match(/Files/);
     expect(await fileComponentsPage.createButton.isEnabled()).to.be.true;
   });
 
-  it('should create and delete Files', async () => {
+  it('should create and delete Files', async () =>
+  {
     const beforeRecordsCount = (await isVisible(fileComponentsPage.noRecords)) ? 0 : await getRecordsCount(fileComponentsPage.table);
     fileUpdatePage = await fileComponentsPage.goToCreateFile();
     await fileUpdatePage.enterData();
@@ -53,15 +58,19 @@ describe('File e2e test', () => {
     expect(await fileComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
 
     await fileComponentsPage.deleteFile();
-    if (beforeRecordsCount !== 0) {
+    if (beforeRecordsCount !== 0)
+    {
       await waitUntilCount(fileComponentsPage.records, beforeRecordsCount);
       expect(await fileComponentsPage.records.count()).to.eq(beforeRecordsCount);
-    } else {
+    }
+    else
+    {
       await waitUntilDisplayed(fileComponentsPage.noRecords);
     }
   });
 
-  after(async () => {
+  after(async () =>
+  {
     await navBarPage.autoSignOut();
   });
 });

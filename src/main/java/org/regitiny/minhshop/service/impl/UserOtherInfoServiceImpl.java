@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.regitiny.minhshop.domain.UserOtherInfo;
 import org.regitiny.minhshop.repository.UserOtherInfoRepository;
 import org.regitiny.minhshop.repository.search.UserOtherInfoSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.UserOtherInfoService;
 import org.regitiny.minhshop.service.dto.UserOtherInfoDTO;
 import org.regitiny.minhshop.service.mapper.UserOtherInfoMapper;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,6 +46,9 @@ public class UserOtherInfoServiceImpl implements UserOtherInfoService {
 
     @Override
     public UserOtherInfoDTO save(UserOtherInfoDTO userOtherInfoDTO) {
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.ADMIN);
+        userOtherInfoDTO = (UserOtherInfoDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(userOtherInfoDTO);
+
         log.debug("Request to save UserOtherInfo : {}", userOtherInfoDTO);
         UserOtherInfo userOtherInfo = userOtherInfoMapper.toEntity(userOtherInfoDTO);
         userOtherInfo = userOtherInfoRepository.save(userOtherInfo);

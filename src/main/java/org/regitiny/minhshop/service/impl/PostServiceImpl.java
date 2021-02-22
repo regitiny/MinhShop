@@ -26,7 +26,8 @@ import org.regitiny.minhshop.service.mapper.SimplePostMapper;
 import org.regitiny.minhshop.web.rest.custom.model.PostModel;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
 import org.regitiny.tools.magic.constant.StringPool;
-import org.regitiny.tools.magic.exception.NhecException;
+import org.regitiny.tools.magic.exception.NhechException;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.regitiny.tools.magic.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,11 +75,7 @@ public class PostServiceImpl implements PostService {
 
     //  @Override
     public void createNewPost(PostModel postModel) {
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
-            "đéo phải quản lý thì làm gì có cái quyền upload bạn ơi",
-            null,
-            "notManagement"
-        );
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
 
         String title = postModel.getTitle();
         Double price = postModel.getPrice();
@@ -101,7 +98,7 @@ public class PostServiceImpl implements PostService {
 
         if (salePrice != null && price != null) percentSale = (float) (salePrice / price);
 
-        PostDetailsDTO postDetailsDTO = new PostDetailsDTO();
+        PostDetailsDTO postDetailsDTO = (PostDetailsDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new PostDetailsDTO());
 
         postDetailsDTO.setUuid(UUID.randomUUID());
         postDetailsDTO.setPostDetailsId(postDetailsId);
@@ -120,7 +117,7 @@ public class PostServiceImpl implements PostService {
 
         log.info(resultPostDetails);
 
-        SimplePostDTO simplePostDTO = new SimplePostDTO();
+        SimplePostDTO simplePostDTO = (SimplePostDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new SimplePostDTO());
 
         simplePostDTO.setUuid(UUID.randomUUID());
         simplePostDTO.setTitle(title);
@@ -192,7 +189,7 @@ public class PostServiceImpl implements PostService {
 
         String searchField = StringPool.BLANK;
 
-        if (salePrice != null && price != null) percentSale = (float) (salePrice / price); else throw new NhecException(
+        if (salePrice != null && price != null) percentSale = (float) (salePrice / price); else throw new NhechException(
             "bạn cần phải xem lại giá bán , giảm giá"
         );
 
@@ -204,7 +201,7 @@ public class PostServiceImpl implements PostService {
         postDetailsDTO.setComment(comment);
 
         Optional<PostDetailsDTO> resultPostDetails = postDetailsService.partialUpdate(postDetailsDTO);
-        if (resultPostDetails.isEmpty()) throw new NhecException();
+        if (resultPostDetails.isEmpty()) throw new NhechException();
 
         simplePostDTO.setTitle(title);
         simplePostDTO.setPrice(price);
@@ -223,7 +220,7 @@ public class PostServiceImpl implements PostService {
         simplePostDTO.setTypePostFilters(typePostFilterDTO);
         simplePostDTO.setPostDetails(resultPostDetails.get());
 
-        if (simplePostService.partialUpdate(simplePostDTO).isEmpty()) throw new NhecException(); else log.info(
+        if (simplePostService.partialUpdate(simplePostDTO).isEmpty()) throw new NhechException(); else log.info(
             "update simplePost and PostDetails succeed."
         );
     }
@@ -260,7 +257,7 @@ public class PostServiceImpl implements PostService {
                             simplePostService.delete(simplePostId);
                             postDetailsService.delete(postDetailsId);
                             log.debug("deleted succeed : simplePostId = {} , posDetailId = {}", simplePostId, postDetailsId);
-                        } else throw new NhecException("not find postDetails");
+                        } else throw new NhechException("not find postDetails");
                     } else simplePostService.delete(simplePostId);
                     return null;
                 }

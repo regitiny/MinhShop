@@ -11,9 +11,11 @@ import org.regitiny.minhshop.repository.search.TypePostFilterSearchRepository;
 import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.TypePostFilterService;
+import org.regitiny.minhshop.service.dto.TypePostDTO;
 import org.regitiny.minhshop.service.dto.TypePostFilterDTO;
 import org.regitiny.minhshop.service.mapper.TypePostFilterMapper;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -48,21 +50,8 @@ public class TypePostFilterServiceImpl implements TypePostFilterService {
 
     @Override
     public TypePostFilterDTO save(TypePostFilterDTO typePostFilterDTO) {
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
-            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
-            null,
-            "notManagement"
-        );
-
-        String thisUser = SecurityUtils.getCurrentUserLogin().get();
-        if (typePostFilterDTO.getId() == null) {
-            typePostFilterDTO.setCreatedDate(Instant.now());
-            typePostFilterDTO.setCreatedBy(thisUser);
-        }
-        typePostFilterDTO.setUuid(UUID.randomUUID());
-        typePostFilterDTO.setRole(AuthoritiesConstants.MANAGEMENT);
-        typePostFilterDTO.setModifiedDate(Instant.now());
-        typePostFilterDTO.setModifiedBy(thisUser);
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+        typePostFilterDTO = (TypePostFilterDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(typePostFilterDTO);
         typePostFilterDTO.setDataSize((long) typePostFilterDTO.getTypeFilterName().getBytes().length);
 
         log.debug("Request to save TypePostFilter : {}", typePostFilterDTO);

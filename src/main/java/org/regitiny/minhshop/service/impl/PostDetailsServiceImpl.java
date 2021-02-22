@@ -18,6 +18,7 @@ import org.regitiny.minhshop.service.PostDetailsService;
 import org.regitiny.minhshop.service.dto.PostDetailsDTO;
 import org.regitiny.minhshop.service.mapper.PostDetailsMapper;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -53,22 +54,8 @@ public class PostDetailsServiceImpl implements PostDetailsService {
     @Override
     public PostDetailsDTO save(PostDetailsDTO postDetailsDTO) {
         log.debug("Request to save PostDetails : {}", postDetailsDTO);
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
-            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
-            null,
-            "notManagement"
-        );
-
-        Instant now = Instant.now();
-        String thisUser = SecurityUtils.getCurrentUserLogin().get();
-        if (postDetailsDTO.getId() == null) {
-            postDetailsDTO.setCreatedDate(now);
-            postDetailsDTO.setCreatedBy(thisUser);
-        }
-        postDetailsDTO.setUuid(UUID.randomUUID());
-        postDetailsDTO.setRole(AuthoritiesConstants.MANAGEMENT);
-        postDetailsDTO.setModifiedDate(now);
-        postDetailsDTO.setModifiedBy(thisUser);
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+        postDetailsDTO = (PostDetailsDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(postDetailsDTO);
         postDetailsDTO.setDataSize((long) postDetailsDTO.toString().getBytes().length);
         PostDetails postDetails = postDetailsMapper.toEntity(postDetailsDTO);
         postDetails = postDetailsRepository.save(postDetails);

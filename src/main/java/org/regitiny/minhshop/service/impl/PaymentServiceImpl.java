@@ -6,9 +6,13 @@ import java.util.Optional;
 import org.regitiny.minhshop.domain.Payment;
 import org.regitiny.minhshop.repository.PaymentRepository;
 import org.regitiny.minhshop.repository.search.PaymentSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.PaymentService;
 import org.regitiny.minhshop.service.dto.PaymentDTO;
+import org.regitiny.minhshop.service.dto.PostDetailsDTO;
 import org.regitiny.minhshop.service.mapper.PaymentMapper;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -44,6 +48,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentDTO save(PaymentDTO paymentDTO) {
         log.debug("Request to save Payment : {}", paymentDTO);
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+        paymentDTO = (PaymentDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(paymentDTO);
         Payment payment = paymentMapper.toEntity(paymentDTO);
         payment = paymentRepository.save(payment);
         PaymentDTO result = paymentMapper.toDto(payment);

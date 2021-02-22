@@ -14,6 +14,7 @@ import org.regitiny.minhshop.service.TypePostService;
 import org.regitiny.minhshop.service.dto.TypePostDTO;
 import org.regitiny.minhshop.service.mapper.TypePostMapper;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -48,21 +49,9 @@ public class TypePostServiceImpl implements TypePostService {
 
     @Override
     public TypePostDTO save(TypePostDTO typePostDTO) {
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
-            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
-            null,
-            "notManagement"
-        );
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+        typePostDTO = (TypePostDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(typePostDTO);
 
-        String thisUser = SecurityUtils.getCurrentUserLogin().get();
-        if (typePostDTO.getId() == null) {
-            typePostDTO.setCreatedDate(Instant.now());
-            typePostDTO.setCreatedBy(thisUser);
-        }
-        typePostDTO.setUuid(UUID.randomUUID());
-        typePostDTO.setRole(AuthoritiesConstants.MANAGEMENT);
-        typePostDTO.setModifiedDate(Instant.now());
-        typePostDTO.setModifiedBy(thisUser);
         typePostDTO.setDataSize((long) typePostDTO.getTypeName().getBytes().length);
 
         log.debug("Request to save TypePost : {}", typePostDTO);

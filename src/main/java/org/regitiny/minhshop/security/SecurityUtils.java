@@ -2,6 +2,7 @@ package org.regitiny.minhshop.security;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.regitiny.tools.magic.exception.NhechException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -75,5 +76,11 @@ public final class SecurityUtils {
 
     private static Stream<String> getAuthorities(Authentication authentication) {
         return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority);
+    }
+
+    public static void checkAuthenticationAndAuthority(String authority) {
+        if (!isAuthenticated() || !isCurrentUserInRole(authority) || getCurrentUserLogin().isEmpty()) throw new NhechException(
+            "kiểm tra lại xem đã đăng nhập hoặc đc cấp quyền chưa bạn êy"
+        );
     }
 }

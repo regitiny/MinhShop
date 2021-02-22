@@ -19,8 +19,10 @@ import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.SimplePostService;
 import org.regitiny.minhshop.service.dto.SimplePostDTO;
+import org.regitiny.minhshop.service.dto.TypePostFilterDTO;
 import org.regitiny.minhshop.service.mapper.SimplePostMapper;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,23 +63,8 @@ public class SimplePostServiceImpl implements SimplePostService {
     @Override
     public SimplePostDTO save(SimplePostDTO simplePostDTO) {
         log.debug("Request to save SimplePost : {}", simplePostDTO);
-
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT)) throw new BadRequestAlertException(
-            "đéo phải quản lý thì làm gì được nghịc vào đây bạn ơi",
-            null,
-            "notManagement"
-        );
-
-        Instant now = Instant.now();
-        String thisUser = SecurityUtils.getCurrentUserLogin().get();
-        if (simplePostDTO.getId() == null) {
-            simplePostDTO.setCreatedDate(now);
-            simplePostDTO.setCreatedBy(thisUser);
-        }
-        simplePostDTO.setUuid(UUID.randomUUID());
-        simplePostDTO.setRole(AuthoritiesConstants.MANAGEMENT);
-        simplePostDTO.setModifiedDate(now);
-        simplePostDTO.setModifiedBy(thisUser);
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+        simplePostDTO = (SimplePostDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(simplePostDTO);
         simplePostDTO.setDataSize((long) simplePostDTO.toString().getBytes().length);
 
         SimplePost simplePost = simplePostMapper.toEntity(simplePostDTO);

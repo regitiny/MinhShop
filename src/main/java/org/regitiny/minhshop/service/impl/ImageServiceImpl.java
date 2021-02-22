@@ -6,15 +6,18 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
-import org.apache.commons.lang.NullArgumentException;
 import org.regitiny.minhshop.domain.Image;
 import org.regitiny.minhshop.repository.ImageRepository;
 import org.regitiny.minhshop.repository.search.ImageSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.ImageService;
 import org.regitiny.minhshop.service.dto.ImageDTO;
+import org.regitiny.minhshop.service.dto.PostDetailsDTO;
 import org.regitiny.minhshop.service.mapper.ImageMapper;
 import org.regitiny.tools.magic.constant.StringPool;
+import org.regitiny.tools.magic.exception.NhechException;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -56,20 +59,13 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDTO upload(MultipartFile imageData) {
-        if (imageData.isEmpty()) throw new NullArgumentException("POST cái đéo gì đấy ,đéo có dữ liệu của ảnh");
+        if (imageData.isEmpty()) throw new NhechException("POST cái đéo gì đấy ,đéo có dữ liệu của ảnh");
+        ImageDTO imageDTO = (ImageDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new ImageDTO());
 
-        ImageDTO imageDTO = new ImageDTO();
-
-        UUID uuid = UUID.randomUUID();
         byte[] imageDataBytes = null;
-        String nameImage = uuid.toString();
+        String nameImage = imageDTO.getUuid().toString();
         String extension = StringPool.BLANK;
         String typeFile = imageData.getContentType();
-        String role = StringPool.BLANK;
-        Instant createdDate = Instant.now();
-        Instant modifiedDate = Instant.now();
-        String createdBy = SecurityUtils.getCurrentUserLogin().get();
-        String modifiedBy = SecurityUtils.getCurrentUserLogin().get();
         long dataSize = imageData.getSize();
         String comment = null;
 
@@ -84,21 +80,15 @@ public class ImageServiceImpl implements ImageService {
         }
         String imageDataContentType = typeFile + dataSize + "byte";
 
-        imageDTO.setUuid(uuid);
         imageDTO.setImageData(imageDataBytes);
         imageDTO.setImageDataContentType(imageDataContentType);
         imageDTO.setNameImage(nameImage);
         imageDTO.setExtension(extension);
         imageDTO.setTypeFile(typeFile);
-        imageDTO.setRole(role);
-        imageDTO.setCreatedDate(createdDate);
-        imageDTO.setModifiedDate(modifiedDate);
-        imageDTO.setCreatedBy(createdBy);
-        imageDTO.setModifiedBy(modifiedBy);
         imageDTO.setDataSize(dataSize);
         imageDTO.setComment(comment);
         if (imageDataBytes != null) return save(imageDTO);
-        throw new NullArgumentException("dữ liệu đéo có thì upload làm sao được ");
+        throw new NhechException("dữ liệu đéo có thì upload làm sao được ");
     }
 
     @Override

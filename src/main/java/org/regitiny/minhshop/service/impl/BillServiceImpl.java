@@ -10,9 +10,13 @@ import java.util.stream.StreamSupport;
 import org.regitiny.minhshop.domain.Bill;
 import org.regitiny.minhshop.repository.BillRepository;
 import org.regitiny.minhshop.repository.search.BillSearchRepository;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.BillService;
 import org.regitiny.minhshop.service.dto.BillDTO;
+import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.regitiny.minhshop.service.mapper.BillMapper;
+import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -44,6 +48,10 @@ public class BillServiceImpl implements BillService {
     @Override
     public BillDTO save(BillDTO billDTO) {
         log.debug("Request to save Bill : {}", billDTO);
+        SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.USER);
+        // EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave role mặc định là management
+        ImageDTO imageDTO = (ImageDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new ImageDTO());
+        billDTO.setRole(AuthoritiesConstants.USER);
         Bill bill = billMapper.toEntity(billDTO);
         bill = billRepository.save(bill);
         BillDTO result = billMapper.toDto(bill);

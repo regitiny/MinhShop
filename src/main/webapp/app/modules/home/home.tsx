@@ -15,83 +15,6 @@ import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import axios from 'axios';
 
-// export const TabletView=(props)=>{
-//   useEffect(()=>{
-//     axios({
-//       url: 'api/_search/simple-posts',
-//       method: 'get',
-//       headers: {
-//         Authorization: authToken,
-//       },
-//       params:{size:12,page:0,query: 'typePost.id:1050'}
-//     }).then(res => setTablets(res.data));
-//   },[])
-//   return(
-//     <div>Máy tính bảng</div>
-//   )
-//
-// }
-// export const LaptopView=(props)=>{
-//   useEffect(()=>{
-//     axios({
-//       url: 'api/_search/simple-posts',
-//       method: 'get',
-//       headers: {
-//         Authorization: authToken,
-//       },
-//       params:{size:20,page:0,query: 'typePost.id:1051'}
-//     }).then(res => setLaptops(res.data));
-//   },[])
-//   return(
-//     <div>Máy tính bảng</div>
-//   )
-// }
-// export const ConsoleView=(props)=>{
-//   useEffect(()=>{
-//     axios({
-//       url: 'api/_search/simple-posts',
-//       method: 'get',
-//       headers: {
-//         Authorization: authToken,
-//       },
-//       params:{size:20,page:0,query: 'typePost.id:1053'}
-//     }).then(res => setConsoles(res.data));
-//   },[])
-//   return(
-//     <div>Máy tính bảng</div>
-//   )
-// }
-// export const MacbookView=(props)=>{
-//   useEffect(()=>{
-//     axios({
-//       url: 'api/_search/simple-posts',
-//       method: 'get',
-//       headers: {
-//         Authorization: authToken,
-//       },
-//       params:{size:20,page:0,query: 'typePost.id:1052'}
-//     }).then(res => setMacbooks(res.data));
-//   },[])
-//   return(
-//     <div>Máy tính bảng</div>
-//   )
-// }
-// export const GamingEquipmentView =(props)=>{
-//   useEffect(()=>{
-//     axios({
-//       url: 'api/_search/simple-posts',
-//       method: 'get',
-//       headers: {
-//         Authorization: authToken,
-//       },
-//       params:{size:20,page:0,query: 'typePost.id:1055'}
-//     }).then(res => setGameEquipments(res.data));
-//   },[])
-//   return(
-//     <div>Máy tính bảng</div>
-//   )
-// }
-
 const Home = props => {
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const [tablets, setTablets] = useState([]);
@@ -108,7 +31,7 @@ const Home = props => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 6, page: 0, query: 'typePost.id:1453' },
+      params: { size: 12, page: 0, query: 'typePost.id:1453' },
     }).then(res => setTablets(res.data));
   }, []);
 
@@ -119,7 +42,7 @@ const Home = props => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 6, page: 0, query: 'typePost.id:1051' },
+      params: { size: 12, page: 0, query: 'typePost.id:1051' },
     }).then(res => setLaptops(res.data));
   }, []);
 
@@ -130,7 +53,7 @@ const Home = props => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 6, page: 0, query: 'typePost.id:1452' },
+      params: { size: 12, page: 0, query: 'typePost.id:1452' },
     }).then(res => setConsoles(res.data));
   }, []);
 
@@ -141,7 +64,7 @@ const Home = props => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 6, page: 0, query: 'typePost.id:1052' },
+      params: { size: 12, page: 0, query: 'typePost.id:1052' },
     }).then(res => setMacbooks(res.data));
   }, []);
 
@@ -152,7 +75,7 @@ const Home = props => {
       headers: {
         Authorization: authToken,
       },
-      params: { size: 6, page: 0, query: 'typePost.id:1451' },
+      params: { size: 12, page: 0, query: 'typePost.id:1451' },
     }).then(res => setGameEquipments(res.data));
   }, []);
 
@@ -357,14 +280,14 @@ const Home = props => {
             </div>
           </div>
           <div className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
-            <NavLink to="/do-go-noi-that-1" tag={Link}>
+            <NavLink to="/page/macbook" tag={Link}>
               <Badge color="primary" className="p-3">
                 XEM THÊM NHIỀU SẢN PHẨM
               </Badge>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <h2>THIỊ BỊ CHƠI GAME</h2>
+            <h2>THIẾT BỊ CHƠI GAME</h2>
           </header>
           <hr />
           <div className="section-content d-flex">

@@ -36,7 +36,7 @@ import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-u
 
 // import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
 import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
-import axios from 'axios';
+
 import { Storage } from 'react-jhipster';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -52,7 +52,7 @@ export const SimplePost = (props: ISimplePostProps) => {
   );
 
   window.console.log(paginationState);
-  window.console.log(props);
+  window.console.log(props.location.search);
   const { simplePostList, typePost, match, loading } = props;
   const [sorting, setSorting] = useState(false);
 
@@ -180,6 +180,7 @@ export const SimplePost = (props: ISimplePostProps) => {
     // // .catch(erro=>window.console.log(erro))
     props.getSortTypePostEntities(`typePost.id:${id}`, paginationState.activePage - 1, paginationState.itemsPerPage);
   };
+
   return (
     <div className=" d-flex justify-content-center">
       <div className="col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
@@ -413,7 +414,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                       ? typePost.map((item, i) => (
                           <Input
                             className="btn-success mb-2 color-white"
-                            key={item.id}
+                            key={`key-${item.id}`}
                             type="button"
                             value={item.typeName}
                             onClick={() => onGetFilterSimplePost(item.id)}

@@ -4,27 +4,44 @@ import { Base64 } from 'js-base64';
 import { Redirect, NavLink } from 'react-router-dom';
 
 const CompleteOrder = props => {
-  const [cartInformation, setCartInformation]: any = useState('');
+  const [cartInformation, setCartInformation]: any = useState({});
 
-  function getCookie(name) {
-    const value = '; ' + document.cookie;
-    const parts = value.split('; ' + name + '=');
-
-    if (parts.length === 2) {
-      return parts.pop().split(';').shift();
+  // function getCookie(name) {
+  //   const value = '; ' + document.cookie;
+  //   const parts = value.split('; ' + name + '=');
+  //
+  //   if (parts.length === 2) {
+  //     return parts.pop().split(';').shift();
+  //   }
+  // }
+  window.console.log('hello1', '1');
+  function readCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
+    return null;
+    window.console.log('hello2', '2');
   }
 
+  // const a = getCookie('_cart');
+  const a = readCookie('_cart');
+  const b = a ? Base64.decode(a) : null;
+  const c = decodeURIComponent(b);
+  const d: any = c;
+  const _cartInformation = JSON.parse(d);
+
   useEffect(() => {
-    const a = getCookie('_cart');
-    const b = a ? Base64.decode(a) : null;
-    const c = decodeURIComponent(b);
-    const d: any = c;
-    const _cartInformation = JSON.parse(d);
     setCartInformation(_cartInformation);
   }, []);
-  window.console.log(cartInformation);
+
+  window.console.log('cartInformation', cartInformation);
+
   const Products = cartInformation ? cartInformation.product : null;
+
   const totalProduct = () => {
     let total = 0;
     if (Products && Products.length > 0) {
@@ -34,6 +51,7 @@ const CompleteOrder = props => {
     }
     return total;
   };
+
   if (cartInformation === null || cartInformation === undefined) {
     return <Redirect to="/" />;
   }

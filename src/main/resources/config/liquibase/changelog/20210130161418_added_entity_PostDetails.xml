@@ -24,6 +24,9 @@
       <column name="search_field" type="${clobType}" remarks="searchField">
         <constraints nullable="true"/>
       </column>
+      <column name="other_data" type="varchar(10000)" remarks="otherData">
+        <constraints nullable="true"/>
+      </column>
       <column name="role" type="varchar(255)" remarks="role">
         <constraints nullable="true"/>
       </column>
@@ -49,13 +52,6 @@
     </createTable>
     <dropDefaultValue tableName="post_details" columnName="created_date" columnDataType="${datetimeType}"/>
     <dropDefaultValue tableName="post_details" columnName="modified_date" columnDataType="${datetimeType}"/>
-  </changeSet>
-  <changeSet id="20210130161418-2" author="yuvytung">
-    <addColumn tableName="post_details">
-      <column name="other_data" type="varchar(10000)">
-        <constraints nullable="true"/>
-      </column>
-    </addColumn>
   </changeSet>
 
   <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

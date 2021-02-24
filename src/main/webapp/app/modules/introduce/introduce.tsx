@@ -1,9 +1,10 @@
 import React from 'react';
-import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 
 const base_path = '/';
 
-function Introduce({ children }) {
+function Introduce({children})
+{
   return (
     <div>
       <BreadcrumbsItem glyph="calendar" to="/introduce">

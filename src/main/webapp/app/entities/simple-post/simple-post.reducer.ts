@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, ISimplePost } from 'app/shared/model/simple-post.model';
+import {defaultValue, ISimplePost} from 'app/shared/model/simple-post.model';
 
 export const ACTION_TYPES = {
   SEARCH_SIMPLEPOSTS: 'simplePost/SEARCH_SIMPLEPOSTS',
@@ -33,7 +33,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<ISimplePost>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   getSuccess: false, //test thử
   totalItems: 0,
@@ -44,8 +44,10 @@ export type SimplePostState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: SimplePostState = initialState, action): SimplePostState => {
-  switch (action.type) {
+export default (state: SimplePostState = initialState, action): SimplePostState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_SIMPLEPOSTS):
     case REQUEST(ACTION_TYPES.FETCH_SIMPLEPOST_LIST):
     case REQUEST(ACTION_TYPES.FETCH_SIMPLEPOST):
@@ -83,7 +85,8 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
         updateSuccess: false,
         errorMessage: action.payload,
       };
-    case SUCCESS(ACTION_TYPES.SEARCH_VISIBLE): {
+    case SUCCESS(ACTION_TYPES.SEARCH_VISIBLE):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
       return {
         ...state,
@@ -96,7 +99,8 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
     }
     case SUCCESS(ACTION_TYPES.SORT_SIMPLEPOST):
     case SUCCESS(ACTION_TYPES.SEARCH_SIMPLEPOSTS):
-    case SUCCESS(ACTION_TYPES.FETCH_SIMPLEPOST_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_SIMPLEPOST_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -128,8 +132,9 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -173,7 +178,8 @@ export const getSearchVisibleEntities: ICrudSearchAction<ISimplePost> = (query, 
   payload: axios.get<ISimplePost>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<ISimplePost> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<ISimplePost> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_SIMPLEPOST_LIST,
@@ -181,7 +187,8 @@ export const getEntities: ICrudGetAllAction<ISimplePost> = (page, size, sort) =>
   };
 };
 
-export const getEntity: ICrudGetAction<ISimplePost> = id => {
+export const getEntity: ICrudGetAction<ISimplePost> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_SIMPLEPOST,
@@ -189,7 +196,8 @@ export const getEntity: ICrudGetAction<ISimplePost> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<ISimplePost> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<ISimplePost> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_SIMPLEPOST,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -197,7 +205,8 @@ export const createEntity: ICrudPutAction<ISimplePost> = entity => async dispatc
   return result;
 };
 
-export const updateEntity: ICrudPutAction<ISimplePost> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<ISimplePost> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_SIMPLEPOST,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -205,7 +214,8 @@ export const updateEntity: ICrudPutAction<ISimplePost> = entity => async dispatc
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<ISimplePost> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<ISimplePost> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_SIMPLEPOST,

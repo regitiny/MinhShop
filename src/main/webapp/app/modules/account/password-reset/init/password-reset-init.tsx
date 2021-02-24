@@ -1,24 +1,28 @@
 import React from 'react';
-import { Translate, translate } from 'react-jhipster';
-import { connect } from 'react-redux';
-import { AvField, AvForm } from 'availity-reactstrap-validation';
-import { Alert, Button, Col, Row } from 'reactstrap';
+import {Translate, translate} from 'react-jhipster';
+import {connect} from 'react-redux';
+import {AvField, AvForm} from 'availity-reactstrap-validation';
+import {Alert, Button, Col, Row} from 'reactstrap';
 
-import { handlePasswordResetInit, reset } from '../password-reset.reducer';
+import {handlePasswordResetInit, reset} from '../password-reset.reducer';
 
 export type IPasswordResetInitProps = DispatchProps;
 
-export class PasswordResetInit extends React.Component<IPasswordResetInitProps> {
-  componentWillUnmount() {
+export class PasswordResetInit extends React.Component<IPasswordResetInitProps>
+{
+  componentWillUnmount()
+  {
     this.props.reset();
   }
 
-  handleValidSubmit = (event, values) => {
+  handleValidSubmit = (event, values) =>
+  {
     this.props.handlePasswordResetInit(values.email);
     event.preventDefault();
   };
 
-  render() {
+  render()
+  {
     return (
       <div>
         <Row className="justify-content-center">
@@ -38,9 +42,9 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
                 placeholder={translate('global.form.email.placeholder')}
                 type="email"
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.email.required') },
-                  minLength: { value: 5, errorMessage: translate('global.messages.validate.email.minlength') },
-                  maxLength: { value: 254, errorMessage: translate('global.messages.validate.email.maxlength') },
+                  required: {value: true, errorMessage: translate('global.messages.validate.email.required')},
+                  minLength: {value: 5, errorMessage: translate('global.messages.validate.email.minlength')},
+                  maxLength: {value: 254, errorMessage: translate('global.messages.validate.email.maxlength')},
                 }}
                 data-cy="emailResetPassword"
               />
@@ -55,7 +59,7 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
   }
 }
 
-const mapDispatchToProps = { handlePasswordResetInit, reset };
+const mapDispatchToProps = {handlePasswordResetInit, reset};
 
 type DispatchProps = typeof mapDispatchToProps;
 

@@ -1,7 +1,8 @@
-import { IUserOtherInfo } from 'app/shared/model/user-other-info.model';
-import { IPayment } from 'app/shared/model/payment.model';
+import {IUserOtherInfo} from 'app/shared/model/user-other-info.model';
+import {IPayment} from 'app/shared/model/payment.model';
 
-export interface IBill {
+export interface IBill
+{
   id?: number;
   uuid?: string;
   billId?: string;

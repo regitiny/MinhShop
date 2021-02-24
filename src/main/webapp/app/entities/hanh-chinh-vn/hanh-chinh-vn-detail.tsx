@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Row, UncontrolledTooltip} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './hanh-chinh-vn.reducer';
+import {IRootState} from 'app/shared/reducers';
+import {getEntity} from './hanh-chinh-vn.reducer';
 
-export interface IHanhChinhVNDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IHanhChinhVNDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
-  useEffect(() => {
+export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const { hanhChinhVNEntity } = props;
+  const {hanhChinhVNEntity} = props;
   return (
     <Row>
       <Col md="8">
@@ -28,7 +32,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.name">Name</Translate>
             </span>
             <UncontrolledTooltip target="name">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.name" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.name"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.name}</dd>
@@ -37,7 +41,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.slug">Slug</Translate>
             </span>
             <UncontrolledTooltip target="slug">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.slug" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.slug"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.slug}</dd>
@@ -46,7 +50,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.type">Type</Translate>
             </span>
             <UncontrolledTooltip target="type">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.type" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.type"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.type}</dd>
@@ -55,7 +59,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.nameWithType">Name With Type</Translate>
             </span>
             <UncontrolledTooltip target="nameWithType">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.nameWithType" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.nameWithType"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.nameWithType}</dd>
@@ -64,7 +68,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.code">Code</Translate>
             </span>
             <UncontrolledTooltip target="code">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.code" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.code"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.code}</dd>
@@ -73,7 +77,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.parentCode">Parent Code</Translate>
             </span>
             <UncontrolledTooltip target="parentCode">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.parentCode" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.parentCode"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.parentCode}</dd>
@@ -82,7 +86,7 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.path">Path</Translate>
             </span>
             <UncontrolledTooltip target="path">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.path" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.path"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.path}</dd>
@@ -91,20 +95,20 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
               <Translate contentKey="minhShopApp.hanhChinhVN.pathWithType">Path With Type</Translate>
             </span>
             <UncontrolledTooltip target="pathWithType">
-              <Translate contentKey="minhShopApp.hanhChinhVN.help.pathWithType" />
+              <Translate contentKey="minhShopApp.hanhChinhVN.help.pathWithType"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{hanhChinhVNEntity.pathWithType}</dd>
         </dl>
         <Button tag={Link} to="/hanh-chinh-vn" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <FontAwesomeIcon icon="arrow-left"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/hanh-chinh-vn/${hanhChinhVNEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
+          <FontAwesomeIcon icon="pencil-alt"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
@@ -114,11 +118,11 @@ export const HanhChinhVNDetail = (props: IHanhChinhVNDetailProps) => {
   );
 };
 
-const mapStateToProps = ({ hanhChinhVN }: IRootState) => ({
+const mapStateToProps = ({hanhChinhVN}: IRootState) => ({
   hanhChinhVNEntity: hanhChinhVN.entity,
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = {getEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

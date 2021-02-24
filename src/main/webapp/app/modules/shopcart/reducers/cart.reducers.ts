@@ -1,10 +1,10 @@
-import { ADD_TO_CART, DELETE_CART, REMOVE_FROM_CART, UPDATE_IN_CART } from './../actions/types';
+import {ADD_TO_CART, DELETE_CART, REMOVE_FROM_CART, UPDATE_IN_CART} from './../actions/types';
 
-import { defaultValue, ICartShop } from 'app/shared/model/cart-shop.model';
+import {defaultValue, ICartShop} from 'app/shared/model/cart-shop.model';
 
 const localState = JSON.parse(localStorage.getItem('cartItems'));
 
-const dataState = { cartItems: localState };
+const dataState = {cartItems: localState};
 
 const defaultCartState = {
   cartItems: [] as ReadonlyArray<ICartShop>,
@@ -14,8 +14,10 @@ const defaultCartState = {
 const initialState = dataState.cartItems && dataState.cartItems.cartItems !== null ? dataState : defaultCartState;
 export type CartState = Readonly<typeof initialState>;
 // Reducer
-export default (state: CartState = initialState, action): CartState => {
-  switch (action.type) {
+export default (state: CartState = initialState, action): CartState =>
+{
+  switch (action.type)
+  {
     case ADD_TO_CART:
       return {
         cartItems: action.payload.cartItems,

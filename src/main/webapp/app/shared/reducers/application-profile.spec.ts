@@ -1,25 +1,29 @@
-import { REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 
-import profile, { ACTION_TYPES, getProfile } from './application-profile';
+import profile, {ACTION_TYPES, getProfile} from './application-profile';
 
-describe('Profile reducer tests', () => {
+describe('Profile reducer tests', () =>
+{
   const initialState = {
     ribbonEnv: '',
     inProduction: true,
     isOpenAPIEnabled: false,
   };
-  describe('Common tests', () => {
-    it('should return the initial state', () => {
+  describe('Common tests', () =>
+  {
+    it('should return the initial state', () =>
+    {
       const toTest = profile(undefined, {});
       expect(toTest).toEqual(initialState);
     });
 
-    it('should return the right payload in prod', () => {
+    it('should return the right payload in prod', () =>
+    {
       const payload = {
         data: {
           'display-ribbon-on-profiles': 'awesome ribbon stuff',
@@ -27,14 +31,15 @@ describe('Profile reducer tests', () => {
         },
       };
 
-      expect(profile(undefined, { type: SUCCESS(ACTION_TYPES.GET_PROFILE), payload })).toEqual({
+      expect(profile(undefined, {type: SUCCESS(ACTION_TYPES.GET_PROFILE), payload})).toEqual({
         ribbonEnv: 'awesome ribbon stuff',
         inProduction: true,
         isOpenAPIEnabled: false,
       });
     });
 
-    it('should return the right payload in dev with OpenAPI enabled', () => {
+    it('should return the right payload in dev with OpenAPI enabled', () =>
+    {
       const payload = {
         data: {
           'display-ribbon-on-profiles': 'awesome ribbon stuff',
@@ -42,7 +47,7 @@ describe('Profile reducer tests', () => {
         },
       };
 
-      expect(profile(undefined, { type: SUCCESS(ACTION_TYPES.GET_PROFILE), payload })).toEqual({
+      expect(profile(undefined, {type: SUCCESS(ACTION_TYPES.GET_PROFILE), payload})).toEqual({
         ribbonEnv: 'awesome ribbon stuff',
         inProduction: false,
         isOpenAPIEnabled: true,
@@ -50,17 +55,20 @@ describe('Profile reducer tests', () => {
     });
   });
 
-  describe('Actions', () => {
+  describe('Actions', () =>
+  {
     let store;
 
-    const resolvedObject = { value: 'whatever' };
-    beforeEach(() => {
+    const resolvedObject = {value: 'whatever'};
+    beforeEach(() =>
+    {
       const mockStore = configureStore([thunk, promiseMiddleware]);
       store = mockStore({});
       axios.get = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches GET_SESSION_PENDING and GET_SESSION_FULFILLED actions', async () => {
+    it('dispatches GET_SESSION_PENDING and GET_SESSION_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.GET_PROFILE),

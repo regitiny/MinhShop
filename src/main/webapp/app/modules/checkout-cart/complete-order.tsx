@@ -1,9 +1,10 @@
 import './checkout.scss';
-import React, { useEffect, useState } from 'react';
-import { Base64 } from 'js-base64';
-import { NavLink, Redirect } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Base64} from 'js-base64';
+import {NavLink, Redirect} from 'react-router-dom';
 
-const CompleteOrder = props => {
+const CompleteOrder = props =>
+{
   const [cartInformation, setCartInformation]: any = useState({});
 
   // function getCookie(name) {
@@ -15,10 +16,13 @@ const CompleteOrder = props => {
   //   }
   // }
   window.console.log('hello1', '1');
-  function readCookie(name) {
+
+  function readCookie(name)
+  {
     const nameEQ = name + '=';
     const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++)
+    {
       let c = ca[i];
       while (c.charAt(0) === ' ') c = c.substring(1, c.length);
       if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
@@ -34,7 +38,8 @@ const CompleteOrder = props => {
   const d: any = c;
   const _cartInformation = JSON.parse(d);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     setCartInformation(_cartInformation);
   }, []);
 
@@ -42,18 +47,22 @@ const CompleteOrder = props => {
 
   const Products = cartInformation ? cartInformation.product : null;
 
-  const totalProduct = () => {
+  const totalProduct = () =>
+  {
     let total = 0;
-    if (Products && Products.length > 0) {
-      Products.map(item => {
+    if (Products && Products.length > 0)
+    {
+      Products.map(item =>
+      {
         total += item.count;
       });
     }
     return total;
   };
 
-  if (cartInformation === null || cartInformation === undefined) {
-    return <Redirect to="/" />;
+  if (cartInformation === null || cartInformation === undefined)
+  {
+    return <Redirect to="/"/>;
   }
 
   return (
@@ -109,12 +118,13 @@ const CompleteOrder = props => {
           <div className="infor-content">
             <div className="content-product">
               {Products && Products.length > 0 ? (
-                Products.map((item, index) => {
+                Products.map((item, index) =>
+                {
                   return (
                     <div className="product" key={index * 11011}>
                       <div className="image col-4">
                         <NavLink to={item.product.url}>
-                          <img src={item.product.image} />
+                          <img src={item.product.image}/>
                         </NavLink>
                       </div>
                       <div className="title-product col-4">

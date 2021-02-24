@@ -1,7 +1,7 @@
 import './visible.scss';
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'reactstrap';
-import { NavLink as Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {NavLink} from 'reactstrap';
+import {NavLink as Link} from 'react-router-dom';
 
 {
   /*export const VisibleListSearch = (props) => {*/
@@ -149,16 +149,21 @@ import { NavLink as Link } from 'react-router-dom';
 //   );
 // };
 
-export const WarpCart = props => {
+export const WarpCart = props =>
+{
   const [cartItems, setCartItems] = useState([]);
   const cart: any = localStorage.getItem('cartItems');
-  useEffect(() => {
+  useEffect(() =>
+  {
     setCartItems(JSON.parse(cart));
   }, [cart]);
-  const totalProduct = () => {
+  const totalProduct = () =>
+  {
     let total = 0;
-    if (cartItems && cartItems.length > 0) {
-      cartItems.map(item => {
+    if (cartItems && cartItems.length > 0)
+    {
+      cartItems.map(item =>
+      {
         total += item.count;
       });
     }

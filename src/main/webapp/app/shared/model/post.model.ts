@@ -1,7 +1,8 @@
-import { IPostDetails } from 'app/shared/model/post-details.model';
-import { ITypePost } from 'app/shared/model/type-post.model';
+import {IPostDetails} from 'app/shared/model/post-details.model';
+import {ITypePost} from 'app/shared/model/type-post.model';
 
-export interface IPost {
+export interface IPost
+{
   id?: number;
   title?: string;
   price?: number | null;

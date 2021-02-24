@@ -1,47 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import {
   Button,
-  InputGroup,
-  Col,
-  Row,
-  Table,
   Card,
-  CardImg,
-  CardText,
   CardBody,
-  CardTitle,
-  CardSubtitle,
   CardHeader,
-  DropdownItem,
+  CardImg,
+  CardSubtitle,
+  CardText,
+  CardTitle,
+  Col,
   Dropdown,
+  DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Input,
+  InputGroup,
   Progress,
+  Row,
 } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {getSortState, Storage, Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { Input } from 'reactstrap';
-
-import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getSortTypePostEntities, getEntities, reset } from './simple-post.reducer';
-import { ISimplePost } from 'app/shared/model/simple-post.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities, getSearchEntities, getSortTypePostEntities, reset} from './simple-post.reducer';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
 
 // import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
-import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
+import {getEntities as getTypePosts} from 'app/entities/type-post/type-post.reducer';
 
-import { Storage } from 'react-jhipster';
+export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
 
-export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
-
-export const SimplePost = (props: ISimplePostProps) => {
+export const SimplePost = (props: ISimplePostProps) =>
+{
   //cái danh sách sắp xếp
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -53,27 +50,33 @@ export const SimplePost = (props: ISimplePostProps) => {
 
   window.console.log(paginationState);
   window.console.log(props.location.search);
-  const { simplePostList, typePost, match, loading } = props;
+  const {simplePostList, typePost, match, loading} = props;
   const [sorting, setSorting] = useState(false);
 
   window.console.log(simplePostList);
 
-  const getAllEntities = () => {
-    if (search) {
+  const getAllEntities = () =>
+  {
+    if (search)
+    {
       props.getSearchEntities(
         search,
         paginationState.activePage - 1,
         paginationState.itemsPerPage,
         `${paginationState.sort},${paginationState.order}`
       );
-    } else {
+    }
+    else
+    {
       props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     }
   };
-  useEffect(() => {
+  useEffect(() =>
+  {
     props.getTypePosts();
   }, []);
-  const resetAll = () => {
+  const resetAll = () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -82,20 +85,24 @@ export const SimplePost = (props: ISimplePostProps) => {
     props.getEntities();
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     resetAll();
   }, []);
 
   //sử dụng để đưa giá trị mặc định của sort về ''
-  useEffect(() => {
+  useEffect(() =>
+  {
     setPaginationState({
       ...paginationState,
       sort: '',
     });
   }, []);
 
-  const startSearching = () => {
-    if (search) {
+  const startSearching = () =>
+  {
+    if (search)
+    {
       props.reset();
       setPaginationState({
         ...paginationState,
@@ -110,7 +117,8 @@ export const SimplePost = (props: ISimplePostProps) => {
     }
   };
 
-  const clear = () => {
+  const clear = () =>
+  {
     props.reset();
     setSearch('');
     setPaginationState({
@@ -122,18 +130,23 @@ export const SimplePost = (props: ISimplePostProps) => {
 
   const handleSearch = event => setSearch(event.target.value);
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       resetAll();
     }
   }, [props.updateSuccess]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     getAllEntities();
   }, [paginationState.activePage]);
 
-  const handleLoadMore = () => {
-    if ((window as any).pageYOffset > 0) {
+  const handleLoadMore = () =>
+  {
+    if ((window as any).pageYOffset > 0)
+    {
       setPaginationState({
         ...paginationState,
         activePage: paginationState.activePage + 1,
@@ -141,14 +154,17 @@ export const SimplePost = (props: ISimplePostProps) => {
     }
   };
 
-  useEffect(() => {
-    if (sorting) {
+  useEffect(() =>
+  {
+    if (sorting)
+    {
       getAllEntities();
       setSorting(false);
     }
   }, [sorting, search]);
 
-  const sort = p => () => {
+  const sort = p => () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -159,7 +175,8 @@ export const SimplePost = (props: ISimplePostProps) => {
     setSorting(true);
   };
 
-  const handleSyncList = () => {
+  const handleSyncList = () =>
+  {
     resetAll();
   };
 
@@ -167,7 +184,8 @@ export const SimplePost = (props: ISimplePostProps) => {
   const authToken = `Bearer ${token}`;
   window.console.log(typePost);
   window.console.log(authToken);
-  const onGetFilterSimplePost = id => {
+  const onGetFilterSimplePost = id =>
+  {
     // axios({
     //   url: 'api/_search/simple-posts',
     //   method: 'get',
@@ -188,11 +206,11 @@ export const SimplePost = (props: ISimplePostProps) => {
           <Translate contentKey="minhShopApp.simplePost.home.title">Simple Posts</Translate>
           <div className="d-flex justify-content-end">
             <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
-              <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+              <FontAwesomeIcon icon="sync" spin={loading}/>{' '}
               <Translate contentKey="minhShopApp.simplePost.home.refreshListLabel">Refresh List</Translate>
             </Button>
             <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-              <FontAwesomeIcon icon="plus" />
+              <FontAwesomeIcon icon="plus"/>
               &nbsp;
               <Translate contentKey="minhShopApp.simplePost.home.createLabel">Create new Simple Post</Translate>
             </Link>
@@ -211,10 +229,10 @@ export const SimplePost = (props: ISimplePostProps) => {
                     placeholder={translate('minhShopApp.simplePost.home.search')}
                   />
                   <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
+                    <FontAwesomeIcon icon="search"/>
                   </Button>
                   <Button type="reset" className="input-group-addon" onClick={clear}>
-                    <FontAwesomeIcon icon="trash" />
+                    <FontAwesomeIcon icon="trash"/>
                   </Button>
                 </InputGroup>
               </AvGroup>
@@ -236,65 +254,65 @@ export const SimplePost = (props: ISimplePostProps) => {
                   <DropdownToggle caret>Sắp xếp theo</DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem className="hand" onClick={sort('id')}>
-                      <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('uuid')}>
-                      <Translate contentKey="minhShopApp.simplePost.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('title')}>
-                      <Translate contentKey="minhShopApp.simplePost.title">Title</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.title">Title</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('price')}>
-                      <Translate contentKey="minhShopApp.simplePost.price">Price</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.price">Price</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('salePrice')}>
-                      <Translate contentKey="minhShopApp.simplePost.salePrice">Sale Price</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.salePrice">Sale Price</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('percentSale')}>
-                      <Translate contentKey="minhShopApp.simplePost.percentSale">Percent Sale</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.percentSale">Percent Sale</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('imageUrl')}>
-                      <Translate contentKey="minhShopApp.simplePost.imageUrl">Image Url</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.imageUrl">Image Url</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('scores')}>
-                      <Translate contentKey="minhShopApp.simplePost.scores">Scores</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.scores">Scores</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('simpleContent')}>
                       <Translate contentKey="minhShopApp.simplePost.simpleContent">Simple Content</Translate>{' '}
-                      <FontAwesomeIcon icon="sort" />
+                      <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('otherInfo')}>
-                      <Translate contentKey="minhShopApp.simplePost.otherInfo">Other Info</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.otherInfo">Other Info</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('role')}>
-                      <Translate contentKey="minhShopApp.simplePost.role">Role</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.role">Role</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('createdDate')}>
-                      <Translate contentKey="minhShopApp.simplePost.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('modifiedDate')}>
-                      <Translate contentKey="minhShopApp.simplePost.modifiedDate">Modified Date</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.modifiedDate">Modified Date</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('createdBy')}>
-                      <Translate contentKey="minhShopApp.simplePost.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('modifiedBy')}>
-                      <Translate contentKey="minhShopApp.simplePost.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('dataSize')}>
-                      <Translate contentKey="minhShopApp.simplePost.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem className="hand" onClick={sort('comment')}>
-                      <Translate contentKey="minhShopApp.simplePost.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.comment">Comment</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem>
-                      <Translate contentKey="minhShopApp.simplePost.postDetails">Post Details</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.postDetails">Post Details</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <DropdownItem>
-                      <Translate contentKey="minhShopApp.simplePost.typePost">Type Post</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.typePost">Type Post</Translate> <FontAwesomeIcon icon="sort"/>
                     </DropdownItem>
                     <th className="hand" onClick={sort('searchField')}>
-                      <Translate contentKey="minhShopApp.simplePost.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
+                      <Translate contentKey="minhShopApp.simplePost.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort"/>
                     </th>
                   </DropdownMenu>
                 </Dropdown>
@@ -324,7 +342,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                                 </CardSubtitle>
                               </div>
                               <div>
-                                <CardImg top width="100%" src={simplePost.imageUrl} alt="Card image cap" />
+                                <CardImg top width="100%" src={simplePost.imageUrl} alt="Card image cap"/>
                               </div>
                             </CardHeader>
                             <CardBody>
@@ -333,7 +351,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                                 <div className="float-left text-secondary">
                                   <del>{simplePost.price}đ</del>
                                 </div>
-                                <br />
+                                <br/>
                               </CardText>
                               <CardText className="">
                                 <p className="float-left">Chỉ còn: </p>
@@ -341,9 +359,9 @@ export const SimplePost = (props: ISimplePostProps) => {
                                   <b>{simplePost.salePrice}đ</b>
                                 </div>
                                 <div className="float-left badge badge-danger text-white">-{simplePost.percentSale}%</div>
-                                <br />
+                                <br/>
                               </CardText>
-                              <div className="text-center" style={{ width: '200px' }}>
+                              <div className="text-center" style={{width: '200px'}}>
                                 <Progress animated value={simplePost.scores}>
                                   {simplePost.scores}
                                 </Progress>
@@ -367,7 +385,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                                     size="sm"
                                     data-cy="entityDetailsButton"
                                   >
-                                    <FontAwesomeIcon icon="eye" />{' '}
+                                    <FontAwesomeIcon icon="eye"/>{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.view">View</Translate>
                                     </span>
@@ -379,7 +397,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                                     size="sm"
                                     data-cy="entityEditButton"
                                   >
-                                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                    <FontAwesomeIcon icon="pencil-alt"/>{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.edit">Edit</Translate>
                                     </span>
@@ -391,7 +409,7 @@ export const SimplePost = (props: ISimplePostProps) => {
                                     size="sm"
                                     data-cy="entityDeleteButton"
                                   >
-                                    <FontAwesomeIcon icon="trash" />{' '}
+                                    <FontAwesomeIcon icon="trash"/>{' '}
                                     <span className="d-none d-md-inline">
                                       <Translate contentKey="entity.action.delete">Delete</Translate>
                                     </span>
@@ -409,17 +427,17 @@ export const SimplePost = (props: ISimplePostProps) => {
                     <div className="d-flex justify-content-center">
                       <h5>Chọn danh mục</h5>
                     </div>
-                    <Input className="btn-primary mb-2 color-white" type="button" value="XEM TẤT CẢ" onClick={clear} />
+                    <Input className="btn-primary mb-2 color-white" type="button" value="XEM TẤT CẢ" onClick={clear}/>
                     {typePost && typePost.length > 0
                       ? typePost.map((item, i) => (
-                          <Input
-                            className="btn-success mb-2 color-white"
-                            key={`key-${item.id}`}
-                            type="button"
-                            value={item.typeName}
-                            onClick={() => onGetFilterSimplePost(item.id)}
-                          />
-                        ))
+                        <Input
+                          className="btn-success mb-2 color-white"
+                          key={`key-${item.id}`}
+                          type="button"
+                          value={item.typeName}
+                          onClick={() => onGetFilterSimplePost(item.id)}
+                        />
+                      ))
                       : null}
                   </div>
                 </div>

@@ -1,9 +1,10 @@
 import './checkout.scss';
 import React from 'react';
-import { Progress } from 'reactstrap';
+import {Progress} from 'reactstrap';
 
-const VerifieOrder = props => {
-  const { statusApi } = props;
+const VerifieOrder = props =>
+{
+  const {statusApi} = props;
   return (
     <div className="progress-multi">
       <Progress multi>

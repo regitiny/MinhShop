@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import { parseHeaderForLinks } from 'react-jhipster';
+import {parseHeaderForLinks} from 'react-jhipster';
 
 import reducer, {
   ACTION_TYPES,
@@ -16,14 +16,19 @@ import reducer, {
   reset,
   updateEntity,
 } from './hanh-chinh-vn.reducer';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
-import { defaultValue, IHanhChinhVN } from 'app/shared/model/hanh-chinh-vn.model';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
+import {defaultValue, IHanhChinhVN} from 'app/shared/model/hanh-chinh-vn.model';
 
-describe('Entities reducer tests', () => {
-  function isEmpty(element): boolean {
-    if (element instanceof Array) {
+describe('Entities reducer tests', () =>
+{
+  function isEmpty(element): boolean
+  {
+    if (element instanceof Array)
+    {
       return element.length === 0;
-    } else {
+    }
+    else
+    {
       return Object.keys(element).length === 0;
     }
   }
@@ -41,7 +46,8 @@ describe('Entities reducer tests', () => {
     updateSuccess: false,
   };
 
-  function testInitialState(state) {
+  function testInitialState(state)
+  {
     expect(state).toMatchObject({
       loading: false,
       errorMessage: null,
@@ -52,24 +58,31 @@ describe('Entities reducer tests', () => {
     expect(isEmpty(state.entity));
   }
 
-  function testMultipleTypes(types, payload, testFunction) {
-    types.forEach(e => {
-      testFunction(reducer(undefined, { type: e, payload }));
+  function testMultipleTypes(types, payload, testFunction)
+  {
+    types.forEach(e =>
+    {
+      testFunction(reducer(undefined, {type: e, payload}));
     });
   }
 
-  describe('Common', () => {
-    it('should return the initial state', () => {
+  describe('Common', () =>
+  {
+    it('should return the initial state', () =>
+    {
       testInitialState(reducer(undefined, {}));
     });
   });
 
-  describe('Requests', () => {
-    it('should set state to loading', () => {
+  describe('Requests', () =>
+  {
+    it('should set state to loading', () =>
+    {
       testMultipleTypes(
         [REQUEST(ACTION_TYPES.FETCH_HANHCHINHVN_LIST), REQUEST(ACTION_TYPES.SEARCH_HANHCHINHVNS), REQUEST(ACTION_TYPES.FETCH_HANHCHINHVN)],
         {},
-        state => {
+        state =>
+        {
           expect(state).toMatchObject({
             errorMessage: null,
             updateSuccess: false,
@@ -79,11 +92,13 @@ describe('Entities reducer tests', () => {
       );
     });
 
-    it('should set state to updating', () => {
+    it('should set state to updating', () =>
+    {
       testMultipleTypes(
         [REQUEST(ACTION_TYPES.CREATE_HANHCHINHVN), REQUEST(ACTION_TYPES.UPDATE_HANHCHINHVN), REQUEST(ACTION_TYPES.DELETE_HANHCHINHVN)],
         {},
-        state => {
+        state =>
+        {
           expect(state).toMatchObject({
             errorMessage: null,
             updateSuccess: false,
@@ -93,10 +108,11 @@ describe('Entities reducer tests', () => {
       );
     });
 
-    it('should reset the state', () => {
+    it('should reset the state', () =>
+    {
       expect(
         reducer(
-          { ...initialState, loading: true },
+          {...initialState, loading: true},
           {
             type: ACTION_TYPES.RESET,
           }
@@ -107,8 +123,10 @@ describe('Entities reducer tests', () => {
     });
   });
 
-  describe('Failures', () => {
-    it('should set a message in errorMessage', () => {
+  describe('Failures', () =>
+  {
+    it('should set a message in errorMessage', () =>
+    {
       testMultipleTypes(
         [
           FAILURE(ACTION_TYPES.FETCH_HANHCHINHVN_LIST),
@@ -119,7 +137,8 @@ describe('Entities reducer tests', () => {
           FAILURE(ACTION_TYPES.DELETE_HANHCHINHVN),
         ],
         'error message',
-        state => {
+        state =>
+        {
           expect(state).toMatchObject({
             errorMessage: 'error message',
             updateSuccess: false,
@@ -130,9 +149,11 @@ describe('Entities reducer tests', () => {
     });
   });
 
-  describe('Successes', () => {
-    it('should fetch all entities', () => {
-      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }], headers: { 'x-total-count': 123, link: ';' } };
+  describe('Successes', () =>
+  {
+    it('should fetch all entities', () =>
+    {
+      const payload = {data: [{1: 'fake1'}, {2: 'fake2'}], headers: {'x-total-count': 123, link: ';'}};
       const links = parseHeaderForLinks(payload.headers.link);
       expect(
         reducer(undefined, {
@@ -147,8 +168,9 @@ describe('Entities reducer tests', () => {
         entities: payload.data,
       });
     });
-    it('should search all entities', () => {
-      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }], headers: { 'x-total-count': 123, link: ';' } };
+    it('should search all entities', () =>
+    {
+      const payload = {data: [{1: 'fake1'}, {2: 'fake2'}], headers: {'x-total-count': 123, link: ';'}};
       const links = parseHeaderForLinks(payload.headers.link);
       expect(
         reducer(undefined, {
@@ -164,8 +186,9 @@ describe('Entities reducer tests', () => {
       });
     });
 
-    it('should fetch a single entity', () => {
-      const payload = { data: { 1: 'fake1' } };
+    it('should fetch a single entity', () =>
+    {
+      const payload = {data: {1: 'fake1'}};
       expect(
         reducer(undefined, {
           type: SUCCESS(ACTION_TYPES.FETCH_HANHCHINHVN),
@@ -178,8 +201,9 @@ describe('Entities reducer tests', () => {
       });
     });
 
-    it('should create/update entity', () => {
-      const payload = { data: 'fake payload' };
+    it('should create/update entity', () =>
+    {
+      const payload = {data: 'fake payload'};
       expect(
         reducer(undefined, {
           type: SUCCESS(ACTION_TYPES.CREATE_HANHCHINHVN),
@@ -193,7 +217,8 @@ describe('Entities reducer tests', () => {
       });
     });
 
-    it('should delete entity', () => {
+    it('should delete entity', () =>
+    {
       const payload = 'fake payload';
       const toTest = reducer(undefined, {
         type: SUCCESS(ACTION_TYPES.DELETE_HANHCHINHVN),
@@ -206,11 +231,13 @@ describe('Entities reducer tests', () => {
     });
   });
 
-  describe('Actions', () => {
+  describe('Actions', () =>
+  {
     let store;
 
-    const resolvedObject = { value: 'whatever' };
-    beforeEach(() => {
+    const resolvedObject = {value: 'whatever'};
+    beforeEach(() =>
+    {
       const mockStore = configureStore([thunk, promiseMiddleware]);
       store = mockStore({});
       axios.get = sinon.stub().returns(Promise.resolve(resolvedObject));
@@ -219,7 +246,8 @@ describe('Entities reducer tests', () => {
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_HANHCHINHVN_LIST actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_HANHCHINHVN_LIST actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_HANHCHINHVN_LIST),
@@ -231,7 +259,8 @@ describe('Entities reducer tests', () => {
       ];
       await store.dispatch(getEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches ACTION_TYPES.SEARCH_HANHCHINHVNS actions', async () => {
+    it('dispatches ACTION_TYPES.SEARCH_HANHCHINHVNS actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.SEARCH_HANHCHINHVNS),
@@ -244,7 +273,8 @@ describe('Entities reducer tests', () => {
       await store.dispatch(getSearchEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.FETCH_HANHCHINHVN actions', async () => {
+    it('dispatches ACTION_TYPES.FETCH_HANHCHINHVN actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_HANHCHINHVN),
@@ -257,7 +287,8 @@ describe('Entities reducer tests', () => {
       await store.dispatch(getEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.CREATE_HANHCHINHVN actions', async () => {
+    it('dispatches ACTION_TYPES.CREATE_HANHCHINHVN actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.CREATE_HANHCHINHVN),
@@ -267,10 +298,11 @@ describe('Entities reducer tests', () => {
           payload: resolvedObject,
         },
       ];
-      await store.dispatch(createEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
+      await store.dispatch(createEntity({id: 1})).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.UPDATE_HANHCHINHVN actions', async () => {
+    it('dispatches ACTION_TYPES.UPDATE_HANHCHINHVN actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.UPDATE_HANHCHINHVN),
@@ -280,10 +312,11 @@ describe('Entities reducer tests', () => {
           payload: resolvedObject,
         },
       ];
-      await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
+      await store.dispatch(updateEntity({id: 1})).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.DELETE_HANHCHINHVN actions', async () => {
+    it('dispatches ACTION_TYPES.DELETE_HANHCHINHVN actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.DELETE_HANHCHINHVN),
@@ -296,7 +329,8 @@ describe('Entities reducer tests', () => {
       await store.dispatch(deleteEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
-    it('dispatches ACTION_TYPES.RESET actions', async () => {
+    it('dispatches ACTION_TYPES.RESET actions', async () =>
+    {
       const expectedActions = [
         {
           type: ACTION_TYPES.RESET,

@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, IUserOtherInfo } from 'app/shared/model/user-other-info.model';
+import {defaultValue, IUserOtherInfo} from 'app/shared/model/user-other-info.model';
 
 export const ACTION_TYPES = {
   SEARCH_USEROTHERINFOS: 'userOtherInfo/SEARCH_USEROTHERINFOS',
@@ -30,7 +30,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IUserOtherInfo>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   totalItems: 0,
   updateSuccess: false,
@@ -40,8 +40,10 @@ export type UserOtherInfoState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: UserOtherInfoState = initialState, action): UserOtherInfoState => {
-  switch (action.type) {
+export default (state: UserOtherInfoState = initialState, action): UserOtherInfoState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_USEROTHERINFOS):
     case REQUEST(ACTION_TYPES.FETCH_USEROTHERINFO_LIST):
     case REQUEST(ACTION_TYPES.FETCH_USEROTHERINFO):
@@ -74,7 +76,8 @@ export default (state: UserOtherInfoState = initialState, action): UserOtherInfo
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.SEARCH_USEROTHERINFOS):
-    case SUCCESS(ACTION_TYPES.FETCH_USEROTHERINFO_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_USEROTHERINFO_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -106,8 +109,9 @@ export default (state: UserOtherInfoState = initialState, action): UserOtherInfo
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -136,7 +140,8 @@ export const getSearchEntities: ICrudSearchAction<IUserOtherInfo> = (query, page
   payload: axios.get<IUserOtherInfo>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<IUserOtherInfo> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<IUserOtherInfo> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_USEROTHERINFO_LIST,
@@ -144,7 +149,8 @@ export const getEntities: ICrudGetAllAction<IUserOtherInfo> = (page, size, sort)
   };
 };
 
-export const getEntity: ICrudGetAction<IUserOtherInfo> = id => {
+export const getEntity: ICrudGetAction<IUserOtherInfo> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_USEROTHERINFO,
@@ -152,7 +158,8 @@ export const getEntity: ICrudGetAction<IUserOtherInfo> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IUserOtherInfo> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<IUserOtherInfo> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_USEROTHERINFO,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -160,7 +167,8 @@ export const createEntity: ICrudPutAction<IUserOtherInfo> = entity => async disp
   return result;
 };
 
-export const updateEntity: ICrudPutAction<IUserOtherInfo> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<IUserOtherInfo> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_USEROTHERINFO,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -168,7 +176,8 @@ export const updateEntity: ICrudPutAction<IUserOtherInfo> = entity => async disp
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IUserOtherInfo> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IUserOtherInfo> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_USEROTHERINFO,

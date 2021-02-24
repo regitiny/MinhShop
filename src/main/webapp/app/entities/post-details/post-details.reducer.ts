@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, IPostDetails } from 'app/shared/model/post-details.model';
+import {defaultValue, IPostDetails} from 'app/shared/model/post-details.model';
 
 export const ACTION_TYPES = {
   SEARCH_POSTDETAILS: 'postDetails/SEARCH_POSTDETAILS',
@@ -30,7 +30,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IPostDetails>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   totalItems: 0,
   updateSuccess: false,
@@ -40,8 +40,10 @@ export type PostDetailsState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: PostDetailsState = initialState, action): PostDetailsState => {
-  switch (action.type) {
+export default (state: PostDetailsState = initialState, action): PostDetailsState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_POSTDETAILS):
     case REQUEST(ACTION_TYPES.FETCH_POSTDETAILS_LIST):
     case REQUEST(ACTION_TYPES.FETCH_POSTDETAILS):
@@ -74,7 +76,8 @@ export default (state: PostDetailsState = initialState, action): PostDetailsStat
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.SEARCH_POSTDETAILS):
-    case SUCCESS(ACTION_TYPES.FETCH_POSTDETAILS_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_POSTDETAILS_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -106,8 +109,9 @@ export default (state: PostDetailsState = initialState, action): PostDetailsStat
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -136,7 +140,8 @@ export const getSearchEntities: ICrudSearchAction<IPostDetails> = (query, page, 
   payload: axios.get<IPostDetails>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<IPostDetails> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<IPostDetails> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_POSTDETAILS_LIST,
@@ -144,7 +149,8 @@ export const getEntities: ICrudGetAllAction<IPostDetails> = (page, size, sort) =
   };
 };
 
-export const getEntity: ICrudGetAction<IPostDetails> = id => {
+export const getEntity: ICrudGetAction<IPostDetails> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_POSTDETAILS,
@@ -152,7 +158,8 @@ export const getEntity: ICrudGetAction<IPostDetails> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IPostDetails> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<IPostDetails> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_POSTDETAILS,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -160,7 +167,8 @@ export const createEntity: ICrudPutAction<IPostDetails> = entity => async dispat
   return result;
 };
 
-export const updateEntity: ICrudPutAction<IPostDetails> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<IPostDetails> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_POSTDETAILS,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -168,7 +176,8 @@ export const updateEntity: ICrudPutAction<IPostDetails> = entity => async dispat
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IPostDetails> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IPostDetails> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_POSTDETAILS,

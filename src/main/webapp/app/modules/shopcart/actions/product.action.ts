@@ -1,7 +1,8 @@
-import { FETCH_PRODUCTS } from 'app/modules/shopcart/actions/types';
+import {FETCH_PRODUCTS} from 'app/modules/shopcart/actions/types';
 import axios from 'axios';
 
-export const fetchProducts = () => async dispatch => {
+export const fetchProducts = () => async dispatch =>
+{
   // const res = await fetch('api/simple-posts');
   // const data = await res.json();
   // window.console.log('fetch thanh cong');

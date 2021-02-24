@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudSearchAction } from 'react-jhipster';
+import {ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudSearchAction} from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, IPost } from 'app/shared/model/post.model';
+import {defaultValue, IPost} from 'app/shared/model/post.model';
 
 export const ACTION_TYPES = {
   SEARCH_POSTS: 'post/SEARCH_POSTS',
@@ -30,8 +30,10 @@ export type PostState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: PostState = initialState, action): PostState => {
-  switch (action.type) {
+export default (state: PostState = initialState, action): PostState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_POSTS):
     case REQUEST(ACTION_TYPES.FETCH_POST_LIST):
     case REQUEST(ACTION_TYPES.FETCH_POST):
@@ -91,8 +93,9 @@ export default (state: PostState = initialState, action): PostState => {
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -126,7 +129,8 @@ export const getEntities: ICrudGetAllAction<IPost> = (page, size, sort) => ({
   payload: axios.get<IPost>(`${apiUrl}?cacheBuster=${new Date().getTime()}`),
 });
 
-export const getEntity: ICrudGetAction<IPost> = id => {
+export const getEntity: ICrudGetAction<IPost> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_POST,
@@ -134,7 +138,8 @@ export const getEntity: ICrudGetAction<IPost> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IPost> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<IPost> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_POST,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -143,7 +148,8 @@ export const createEntity: ICrudPutAction<IPost> = entity => async dispatch => {
   return result;
 };
 
-export const updateEntity: ICrudPutAction<IPost> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<IPost> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_POST,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -151,7 +157,8 @@ export const updateEntity: ICrudPutAction<IPost> = entity => async dispatch => {
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IPost> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IPost> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_POST,

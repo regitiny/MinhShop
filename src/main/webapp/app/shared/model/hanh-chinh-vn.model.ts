@@ -1,4 +1,5 @@
-export interface IHanhChinhVN {
+export interface IHanhChinhVN
+{
   id?: number;
   name?: string;
   slug?: string;

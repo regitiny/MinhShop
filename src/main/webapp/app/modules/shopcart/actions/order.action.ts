@@ -1,6 +1,7 @@
-import { CLEAR_CART, CLEAR_ORDER, CREAT_ORDER, FETCH_ORDER } from 'app/modules/shopcart/actions/types';
+import {CLEAR_CART, CLEAR_ORDER, CREAT_ORDER, FETCH_ORDER} from 'app/modules/shopcart/actions/types';
 
-const createOrder = order => dispatch => {
+const createOrder = order => dispatch =>
+{
   // axios.post(apiUrl,{
   //   data: order
   // })
@@ -13,10 +14,11 @@ const createOrder = order => dispatch => {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
     },
-    body: JSON.stringify({ order }),
+    body: JSON.stringify({order}),
   })
     .then(response => response.json())
-    .then(data => {
+    .then(data =>
+    {
       dispatch({
         type: CREAT_ORDER,
         payload: data,
@@ -27,15 +29,18 @@ const createOrder = order => dispatch => {
       });
     });
 };
-export const clearOrder = () => dispatch => {
+export const clearOrder = () => dispatch =>
+{
   dispatch({
     type: CLEAR_ORDER,
   });
 };
-export const fetchOrder = () => dispatch => {
+export const fetchOrder = () => dispatch =>
+{
   fetch('api/orders')
     .then(res => res.json())
-    .then(data => {
+    .then(data =>
+    {
       dispatch({
         type: FETCH_ORDER,
         payload: data,

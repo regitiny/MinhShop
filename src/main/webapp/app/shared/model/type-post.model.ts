@@ -1,4 +1,5 @@
-export interface ITypePost {
+export interface ITypePost
+{
   id?: number;
   uuid?: string;
   typeName?: string;

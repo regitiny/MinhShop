@@ -1,53 +1,61 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { deleteEntity, getEntity } from './file.reducer';
+import {IRootState} from 'app/shared/reducers';
+import {deleteEntity, getEntity} from './file.reducer';
 
-export interface IFileDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IFileDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const FileDeleteDialog = (props: IFileDeleteDialogProps) => {
-  useEffect(() => {
+export const FileDeleteDialog = (props: IFileDeleteDialogProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const handleClose = () => {
+  const handleClose = () =>
+  {
     props.history.push('/file');
   };
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       handleClose();
     }
   }, [props.updateSuccess]);
 
-  const confirmDelete = () => {
+  const confirmDelete = () =>
+  {
     props.deleteEntity(props.fileEntity.id);
   };
 
-  const { fileEntity } = props;
+  const {fileEntity} = props;
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose} data-cy="fileDeleteDialogHeading">
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody id="minhShopApp.file.delete.question">
-        <Translate contentKey="minhShopApp.file.delete.question" interpolate={{ id: fileEntity.id }}>
+        <Translate contentKey="minhShopApp.file.delete.question" interpolate={{id: fileEntity.id}}>
           Are you sure you want to delete this File?
         </Translate>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
-          <FontAwesomeIcon icon="ban" />
+          <FontAwesomeIcon icon="ban"/>
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
         <Button id="jhi-confirm-delete-file" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
-          <FontAwesomeIcon icon="trash" />
+          <FontAwesomeIcon icon="trash"/>
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
         </Button>
@@ -56,12 +64,12 @@ export const FileDeleteDialog = (props: IFileDeleteDialogProps) => {
   );
 };
 
-const mapStateToProps = ({ file }: IRootState) => ({
+const mapStateToProps = ({file}: IRootState) => ({
   fileEntity: file.entity,
   updateSuccess: file.updateSuccess,
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = {getEntity, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

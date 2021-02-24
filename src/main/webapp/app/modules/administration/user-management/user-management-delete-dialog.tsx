@@ -1,31 +1,37 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { deleteUser, getUser } from './user-management.reducer';
-import { IRootState } from 'app/shared/reducers';
+import {deleteUser, getUser} from './user-management.reducer';
+import {IRootState} from 'app/shared/reducers';
 
-export interface IUserManagementDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
+export interface IUserManagementDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }>
+{
+}
 
-export const UserManagementDeleteDialog = (props: IUserManagementDeleteDialogProps) => {
-  useEffect(() => {
+export const UserManagementDeleteDialog = (props: IUserManagementDeleteDialogProps) =>
+{
+  useEffect(() =>
+  {
     props.getUser(props.match.params.login);
   }, []);
 
-  const handleClose = event => {
+  const handleClose = event =>
+  {
     event.stopPropagation();
     props.history.push('/admin/user-management');
   };
 
-  const confirmDelete = event => {
+  const confirmDelete = event =>
+  {
     props.deleteUser(props.user.login);
     handleClose(event);
   };
 
-  const { user } = props;
+  const {user} = props;
 
   return (
     <Modal isOpen toggle={handleClose}>
@@ -33,18 +39,18 @@ export const UserManagementDeleteDialog = (props: IUserManagementDeleteDialogPro
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody>
-        <Translate contentKey="userManagement.delete.question" interpolate={{ login: user.login }}>
+        <Translate contentKey="userManagement.delete.question" interpolate={{login: user.login}}>
           Are you sure you want to delete this User?
         </Translate>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
-          <FontAwesomeIcon icon="ban" />
+          <FontAwesomeIcon icon="ban"/>
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
         <Button color="danger" onClick={confirmDelete}>
-          <FontAwesomeIcon icon="trash" />
+          <FontAwesomeIcon icon="trash"/>
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
         </Button>
@@ -57,7 +63,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   user: storeState.userManagement.user,
 });
 
-const mapDispatchToProps = { getUser, deleteUser };
+const mapDispatchToProps = {getUser, deleteUser};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

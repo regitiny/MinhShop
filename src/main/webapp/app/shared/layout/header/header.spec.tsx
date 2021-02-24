@@ -1,15 +1,16 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import {render} from '@testing-library/react';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import {createMemoryHistory} from 'history';
 
 import sinon from 'sinon';
 
 import initStore from 'app/config/store';
 import Header from './header';
 
-describe('Header', () => {
+describe('Header', () =>
+{
   let mountedWrapper;
 
   const localeSpy = sinon.spy();
@@ -39,11 +40,13 @@ describe('Header', () => {
     isAuthenticated: false,
   };
 
-  const wrapper = (props = devProps) => {
-    if (!mountedWrapper) {
+  const wrapper = (props = devProps) =>
+  {
+    if (!mountedWrapper)
+    {
       const store = initStore();
       const history = createMemoryHistory();
-      const { container } = render(
+      const {container} = render(
         <Provider store={store}>
           <Router history={history}>
             <Header {...props} />
@@ -55,12 +58,14 @@ describe('Header', () => {
     return mountedWrapper;
   };
 
-  beforeEach(() => {
+  beforeEach(() =>
+  {
     mountedWrapper = undefined;
   });
 
   // All tests will go here
-  it('Renders a Header component in dev profile with LoadingBar, Navbar, Nav and dev ribbon.', () => {
+  it('Renders a Header component in dev profile with LoadingBar, Navbar, Nav and dev ribbon.', () =>
+  {
     const html = wrapper();
 
     // Find Navbar component
@@ -75,7 +80,8 @@ describe('Header', () => {
     expect(html).toContain('ribbon');
   });
 
-  it('Renders a Header component in prod profile with LoadingBar, Navbar, Nav.', () => {
+  it('Renders a Header component in prod profile with LoadingBar, Navbar, Nav.', () =>
+  {
     const html = wrapper(prodProps);
 
     // Find Navbar component
@@ -90,7 +96,8 @@ describe('Header', () => {
     expect(html).not.toContain('ribbon');
   });
 
-  it('Renders a Header component in prod profile with logged in User', () => {
+  it('Renders a Header component in prod profile with logged in User', () =>
+  {
     const html = wrapper(userProps);
 
     // Find Navbar component
@@ -103,7 +110,8 @@ describe('Header', () => {
     expect(html).toContain('account-menu');
   });
 
-  it('Renders a Header component in prod profile with no logged in User', () => {
+  it('Renders a Header component in prod profile with no logged in User', () =>
+  {
     const html = wrapper(guestProps);
 
     // Find Navbar component

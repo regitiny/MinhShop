@@ -1,9 +1,11 @@
 import React from 'react';
-import { Translate } from 'react-jhipster';
-import { Alert } from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {Alert} from 'reactstrap';
 
-class PageNotFound extends React.Component {
-  render() {
+class PageNotFound extends React.Component
+{
+  render()
+  {
     return (
       <div>
         <Alert color="danger">

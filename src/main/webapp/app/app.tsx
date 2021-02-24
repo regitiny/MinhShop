@@ -2,41 +2,45 @@ import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
 import 'app/config/dayjs.ts';
 
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Card } from 'reactstrap';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import { hot } from 'react-hot-loader';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Card} from 'reactstrap';
+import {BrowserRouter as Router} from 'react-router-dom';
+import {toast, ToastContainer} from 'react-toastify';
+import {hot} from 'react-hot-loader';
 
-import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
-import { getProfile } from 'app/shared/reducers/application-profile';
-import { setLocale } from 'app/shared/reducers/locale';
+import {IRootState} from 'app/shared/reducers';
+import {getSession} from 'app/shared/reducers/authentication';
+import {getProfile} from 'app/shared/reducers/application-profile';
+import {setLocale} from 'app/shared/reducers/locale';
 import Header from 'app/shared/layout/header/header';
 import Footer from 'app/shared/layout/footer/footer';
-import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import {hasAnyAuthority} from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
-import { AUTHORITIES } from 'app/config/constants';
+import {AUTHORITIES} from 'app/config/constants';
 import AppRoutes from 'app/routes';
 import Banner from 'app/shared/layout/banner/banner';
 import Visible from 'app/shared/layout/visible/visible';
-import { ListProducts } from 'app/shared/layout/group-list-products/list-products';
+import {ListProducts} from 'app/shared/layout/group-list-products/list-products';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
-export interface IAppProps extends StateProps, DispatchProps {}
+export interface IAppProps extends StateProps, DispatchProps
+{
+}
 
-export const App = (props: IAppProps) => {
-  useEffect(() => {
+export const App = (props: IAppProps) =>
+{
+  useEffect(() =>
+  {
     props.getSession();
     props.getProfile();
   }, []);
   const paddingTop = '60px';
   return (
     <Router basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
-        <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
+      <div className="app-container" style={{paddingTop}}>
+        <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast"/>
         <ErrorBoundary>
           <Header
             isAuthenticated={props.isAuthenticated}
@@ -48,23 +52,23 @@ export const App = (props: IAppProps) => {
             isOpenAPIEnabled={props.isOpenAPIEnabled}
           />
         </ErrorBoundary>
-        <Banner />
-        <Visible />
-        <ListProducts />
+        <Banner/>
+        <Visible/>
+        <ListProducts/>
         <div className="container-fluid view-container px-0" id="app-view-container">
           <Card className="jh-card px-0 px-md-1 px-lg-2">
             <ErrorBoundary>
-              <AppRoutes />
+              <AppRoutes/>
             </ErrorBoundary>
           </Card>
-          <Footer />
+          <Footer/>
         </div>
       </div>
     </Router>
   );
 };
 
-const mapStateToProps = ({ authentication, applicationProfile, locale }: IRootState) => ({
+const mapStateToProps = ({authentication, applicationProfile, locale}: IRootState) => ({
   currentLocale: locale.currentLocale,
   isAuthenticated: authentication.isAuthenticated,
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
@@ -73,7 +77,7 @@ const mapStateToProps = ({ authentication, applicationProfile, locale }: IRootSt
   isOpenAPIEnabled: applicationProfile.isOpenAPIEnabled,
 });
 
-const mapDispatchToProps = { setLocale, getSession, getProfile };
+const mapDispatchToProps = {setLocale, getSession, getProfile};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

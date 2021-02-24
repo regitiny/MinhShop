@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, IFile } from 'app/shared/model/file.model';
+import {defaultValue, IFile} from 'app/shared/model/file.model';
 
 export const ACTION_TYPES = {
   SEARCH_FILES: 'file/SEARCH_FILES',
@@ -30,7 +30,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IFile>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   totalItems: 0,
   updateSuccess: false,
@@ -40,8 +40,10 @@ export type FileState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: FileState = initialState, action): FileState => {
-  switch (action.type) {
+export default (state: FileState = initialState, action): FileState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_FILES):
     case REQUEST(ACTION_TYPES.FETCH_FILE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_FILE):
@@ -74,7 +76,8 @@ export default (state: FileState = initialState, action): FileState => {
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.SEARCH_FILES):
-    case SUCCESS(ACTION_TYPES.FETCH_FILE_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_FILE_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -106,8 +109,9 @@ export default (state: FileState = initialState, action): FileState => {
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -136,7 +140,8 @@ export const getSearchEntities: ICrudSearchAction<IFile> = (query, page, size, s
   payload: axios.get<IFile>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<IFile> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<IFile> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_FILE_LIST,
@@ -144,7 +149,8 @@ export const getEntities: ICrudGetAllAction<IFile> = (page, size, sort) => {
   };
 };
 
-export const getEntity: ICrudGetAction<IFile> = id => {
+export const getEntity: ICrudGetAction<IFile> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_FILE,
@@ -152,7 +158,8 @@ export const getEntity: ICrudGetAction<IFile> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IFile> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<IFile> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_FILE,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -160,7 +167,8 @@ export const createEntity: ICrudPutAction<IFile> = entity => async dispatch => {
   return result;
 };
 
-export const updateEntity: ICrudPutAction<IFile> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<IFile> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_FILE,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -168,7 +176,8 @@ export const updateEntity: ICrudPutAction<IFile> = entity => async dispatch => {
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IFile> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IFile> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_FILE,

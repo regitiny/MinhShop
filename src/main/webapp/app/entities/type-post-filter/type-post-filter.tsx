@@ -1,41 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, InputGroup, Row, Table } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { getSortState, TextFormat, Translate, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, InputGroup, Row, Table} from 'reactstrap';
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {getSortState, TextFormat, Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntities, getSearchEntities, reset } from './type-post-filter.reducer';
-import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities, getSearchEntities, reset} from './type-post-filter.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
 
-export interface ITypePostFilterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ITypePostFilterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
 
-export const TypePostFilter = (props: ITypePostFilterProps) => {
+export const TypePostFilter = (props: ITypePostFilterProps) =>
+{
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
   const [sorting, setSorting] = useState(false);
 
-  const getAllEntities = () => {
-    if (search) {
+  const getAllEntities = () =>
+  {
+    if (search)
+    {
       props.getSearchEntities(
         search,
         paginationState.activePage - 1,
         paginationState.itemsPerPage,
         `${paginationState.sort},${paginationState.order}`
       );
-    } else {
+    }
+    else
+    {
       props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     }
   };
 
-  const resetAll = () => {
+  const resetAll = () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -44,12 +52,15 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
     props.getEntities();
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     resetAll();
   }, []);
 
-  const startSearching = () => {
-    if (search) {
+  const startSearching = () =>
+  {
+    if (search)
+    {
       props.reset();
       setPaginationState({
         ...paginationState,
@@ -64,7 +75,8 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
     }
   };
 
-  const clear = () => {
+  const clear = () =>
+  {
     props.reset();
     setSearch('');
     setPaginationState({
@@ -76,18 +88,23 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
 
   const handleSearch = event => setSearch(event.target.value);
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       resetAll();
     }
   }, [props.updateSuccess]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     getAllEntities();
   }, [paginationState.activePage]);
 
-  const handleLoadMore = () => {
-    if ((window as any).pageYOffset > 0) {
+  const handleLoadMore = () =>
+  {
+    if ((window as any).pageYOffset > 0)
+    {
       setPaginationState({
         ...paginationState,
         activePage: paginationState.activePage + 1,
@@ -95,14 +112,17 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
     }
   };
 
-  useEffect(() => {
-    if (sorting) {
+  useEffect(() =>
+  {
+    if (sorting)
+    {
       getAllEntities();
       setSorting(false);
     }
   }, [sorting, search]);
 
-  const sort = p => () => {
+  const sort = p => () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -113,22 +133,23 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
     setSorting(true);
   };
 
-  const handleSyncList = () => {
+  const handleSyncList = () =>
+  {
     resetAll();
   };
 
-  const { typePostFilterList, match, loading } = props;
+  const {typePostFilterList, match, loading} = props;
   return (
     <div>
       <h2 id="type-post-filter-heading" data-cy="TypePostFilterHeading">
         <Translate contentKey="minhShopApp.typePostFilter.home.title">Type Post Filters</Translate>
         <div className="d-flex justify-content-end">
           <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+            <FontAwesomeIcon icon="sync" spin={loading}/>{' '}
             <Translate contentKey="minhShopApp.typePostFilter.home.refreshListLabel">Refresh List</Translate>
           </Button>
           <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
+            <FontAwesomeIcon icon="plus"/>
             &nbsp;
             <Translate contentKey="minhShopApp.typePostFilter.home.createLabel">Create new Type Post Filter</Translate>
           </Link>
@@ -147,10 +168,10 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
                   placeholder={translate('minhShopApp.typePostFilter.home.search')}
                 />
                 <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
+                  <FontAwesomeIcon icon="search"/>
                 </Button>
                 <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
+                  <FontAwesomeIcon icon="trash"/>
                 </Button>
               </InputGroup>
             </AvGroup>
@@ -169,107 +190,107 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
           {typePostFilterList && typePostFilterList.length > 0 ? (
             <Table responsive>
               <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
-                    <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('uuid')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('typeFilterName')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.typeFilterName">Type Filter Name</Translate>{' '}
-                    <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('searchField')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('role')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('createdDate')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('modifiedDate')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.modifiedDate">Modified Date</Translate>{' '}
-                    <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('createdBy')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('modifiedBy')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('dataSize')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('comment')}>
-                    <Translate contentKey="minhShopApp.typePostFilter.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
+              <tr>
+                <th className="hand" onClick={sort('id')}>
+                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('uuid')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('typeFilterName')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.typeFilterName">Type Filter Name</Translate>{' '}
+                  <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('searchField')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('role')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.role">Role</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('createdDate')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('modifiedDate')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.modifiedDate">Modified Date</Translate>{' '}
+                  <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('createdBy')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('modifiedBy')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('dataSize')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('comment')}>
+                  <Translate contentKey="minhShopApp.typePostFilter.comment">Comment</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th/>
+              </tr>
               </thead>
               <tbody>
-                {typePostFilterList.map((typePostFilter, i) => (
-                  <tr key={`entity-${i}`} data-cy="entityTable">
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${typePostFilter.id}`} color="link" size="sm">
-                        {typePostFilter.id}
+              {typePostFilterList.map((typePostFilter, i) => (
+                <tr key={`entity-${i}`} data-cy="entityTable">
+                  <td>
+                    <Button tag={Link} to={`${match.url}/${typePostFilter.id}`} color="link" size="sm">
+                      {typePostFilter.id}
+                    </Button>
+                  </td>
+                  <td>{typePostFilter.uuid}</td>
+                  <td>{typePostFilter.typeFilterName}</td>
+                  <td>{typePostFilter.searchField}</td>
+                  <td>{typePostFilter.role}</td>
+                  <td>
+                    {typePostFilter.createdDate ? (
+                      <TextFormat type="date" value={typePostFilter.createdDate} format={APP_DATE_FORMAT}/>
+                    ) : null}
+                  </td>
+                  <td>
+                    {typePostFilter.modifiedDate ? (
+                      <TextFormat type="date" value={typePostFilter.modifiedDate} format={APP_DATE_FORMAT}/>
+                    ) : null}
+                  </td>
+                  <td>{typePostFilter.createdBy}</td>
+                  <td>{typePostFilter.modifiedBy}</td>
+                  <td>{typePostFilter.dataSize}</td>
+                  <td>{typePostFilter.comment}</td>
+                  <td className="text-right">
+                    <div className="btn-group flex-btn-group-container">
+                      <Button tag={Link} to={`${match.url}/${typePostFilter.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                        <FontAwesomeIcon icon="eye"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.view">View</Translate>
+                        </span>
                       </Button>
-                    </td>
-                    <td>{typePostFilter.uuid}</td>
-                    <td>{typePostFilter.typeFilterName}</td>
-                    <td>{typePostFilter.searchField}</td>
-                    <td>{typePostFilter.role}</td>
-                    <td>
-                      {typePostFilter.createdDate ? (
-                        <TextFormat type="date" value={typePostFilter.createdDate} format={APP_DATE_FORMAT} />
-                      ) : null}
-                    </td>
-                    <td>
-                      {typePostFilter.modifiedDate ? (
-                        <TextFormat type="date" value={typePostFilter.modifiedDate} format={APP_DATE_FORMAT} />
-                      ) : null}
-                    </td>
-                    <td>{typePostFilter.createdBy}</td>
-                    <td>{typePostFilter.modifiedBy}</td>
-                    <td>{typePostFilter.dataSize}</td>
-                    <td>{typePostFilter.comment}</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${typePostFilter.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button
-                          tag={Link}
-                          to={`${match.url}/${typePostFilter.id}/edit`}
-                          color="primary"
-                          size="sm"
-                          data-cy="entityEditButton"
-                        >
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button
-                          tag={Link}
-                          to={`${match.url}/${typePostFilter.id}/delete`}
-                          color="danger"
-                          size="sm"
-                          data-cy="entityDeleteButton"
-                        >
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      <Button
+                        tag={Link}
+                        to={`${match.url}/${typePostFilter.id}/edit`}
+                        color="primary"
+                        size="sm"
+                        data-cy="entityEditButton"
+                      >
+                        <FontAwesomeIcon icon="pencil-alt"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.edit">Edit</Translate>
+                        </span>
+                      </Button>
+                      <Button
+                        tag={Link}
+                        to={`${match.url}/${typePostFilter.id}/delete`}
+                        color="danger"
+                        size="sm"
+                        data-cy="entityDeleteButton"
+                      >
+                        <FontAwesomeIcon icon="trash"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.delete">Delete</Translate>
+                        </span>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
               </tbody>
             </Table>
           ) : (
@@ -285,7 +306,7 @@ export const TypePostFilter = (props: ITypePostFilterProps) => {
   );
 };
 
-const mapStateToProps = ({ typePostFilter }: IRootState) => ({
+const mapStateToProps = ({typePostFilter}: IRootState) => ({
   typePostFilterList: typePostFilter.entities,
   loading: typePostFilter.loading,
   totalItems: typePostFilter.totalItems,

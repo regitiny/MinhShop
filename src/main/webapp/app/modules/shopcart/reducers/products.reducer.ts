@@ -1,5 +1,5 @@
-import { FETCH_PRODUCTS } from 'app/modules/shopcart/actions/types';
-import { defaultValue, IProducts } from 'app/shared/model/products';
+import {FETCH_PRODUCTS} from 'app/modules/shopcart/actions/types';
+import {defaultValue, IProducts} from 'app/shared/model/products';
 
 const initialState = {
   products: [] as ReadonlyArray<IProducts>,
@@ -8,8 +8,10 @@ const initialState = {
 export type ProductState = Readonly<typeof initialState>;
 
 // Reducer
-export default (state: ProductState = initialState, action): ProductState => {
-  switch (action.type) {
+export default (state: ProductState = initialState, action): ProductState =>
+{
+  switch (action.type)
+  {
     case FETCH_PRODUCTS:
       return {
         ...state,

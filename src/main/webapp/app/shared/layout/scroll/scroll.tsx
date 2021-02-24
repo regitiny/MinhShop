@@ -1,20 +1,26 @@
 import './scroll.scss';
 import React from 'react';
-import { Button } from 'reactstrap';
+import {Button} from 'reactstrap';
 
-export const ScrollTop = props => {
+export const ScrollTop = props =>
+{
   // const mybutton = document.getElementById("scroll-btn");
 
-  const scrollFunction = () => {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+  const scrollFunction = () =>
+  {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200)
+    {
       document.getElementById('scroll-btn').style.display = 'block';
-    } else {
+    }
+    else
+    {
       document.getElementById('scroll-btn').style.display = 'none';
     }
   };
   window.onscroll = () => scrollFunction();
 
-  const topFuction = () => {
+  const topFuction = () =>
+  {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   };

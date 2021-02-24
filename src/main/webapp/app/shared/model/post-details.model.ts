@@ -1,6 +1,7 @@
-import { ISimplePost } from 'app/shared/model/simple-post.model';
+import {ISimplePost} from 'app/shared/model/simple-post.model';
 
-export interface IPostDetails {
+export interface IPostDetails
+{
   id?: number;
   uuid?: string;
   postDetailsId?: string;

@@ -4,7 +4,7 @@ import axios from 'axios';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 import administration, {
   ACTION_TYPES,
   changeLogLevel,
@@ -16,18 +16,24 @@ import administration, {
   systemThreadDump,
 } from './administration.reducer';
 
-describe('Administration reducer tests', () => {
+describe('Administration reducer tests', () =>
+{
   const username = process.env.E2E_USERNAME ?? 'admin';
 
-  function isEmpty(element): boolean {
-    if (element instanceof Array) {
+  function isEmpty(element): boolean
+  {
+    if (element instanceof Array)
+    {
       return element.length === 0;
-    } else {
+    }
+    else
+    {
       return Object.keys(element).length === 0;
     }
   }
 
-  function testInitialState(state) {
+  function testInitialState(state)
+  {
     expect(state).toMatchObject({
       loading: false,
       errorMessage: null,
@@ -38,20 +44,26 @@ describe('Administration reducer tests', () => {
     expect(isEmpty(state.tracker.activities));
   }
 
-  function testMultipleTypes(types, payload, testFunction) {
-    types.forEach(e => {
-      testFunction(administration(undefined, { type: e, payload }));
+  function testMultipleTypes(types, payload, testFunction)
+  {
+    types.forEach(e =>
+    {
+      testFunction(administration(undefined, {type: e, payload}));
     });
   }
 
-  describe('Common', () => {
-    it('should return the initial state', () => {
+  describe('Common', () =>
+  {
+    it('should return the initial state', () =>
+    {
       testInitialState(administration(undefined, {}));
     });
   });
 
-  describe('Requests', () => {
-    it('should set state to loading', () => {
+  describe('Requests', () =>
+  {
+    it('should set state to loading', () =>
+    {
       testMultipleTypes(
         [
           REQUEST(ACTION_TYPES.FETCH_LOGS),
@@ -62,7 +74,8 @@ describe('Administration reducer tests', () => {
           REQUEST(ACTION_TYPES.FETCH_ENV),
         ],
         {},
-        state => {
+        state =>
+        {
           expect(state).toMatchObject({
             errorMessage: null,
             loading: true,
@@ -72,8 +85,10 @@ describe('Administration reducer tests', () => {
     });
   });
 
-  describe('Failures', () => {
-    it('should set state to failed and put an error message in errorMessage', () => {
+  describe('Failures', () =>
+  {
+    it('should set state to failed and put an error message in errorMessage', () =>
+    {
       testMultipleTypes(
         [
           FAILURE(ACTION_TYPES.FETCH_LOGS),
@@ -84,7 +99,8 @@ describe('Administration reducer tests', () => {
           FAILURE(ACTION_TYPES.FETCH_ENV),
         ],
         'something happened',
-        state => {
+        state =>
+        {
           expect(state).toMatchObject({
             loading: false,
             errorMessage: 'something happened',
@@ -94,8 +110,10 @@ describe('Administration reducer tests', () => {
     });
   });
 
-  describe('Success', () => {
-    it('should update state according to a successful fetch logs request', () => {
+  describe('Success', () =>
+  {
+    it('should update state according to a successful fetch logs request', () =>
+    {
       const payload = {
         data: {
           loggers: {
@@ -105,7 +123,7 @@ describe('Administration reducer tests', () => {
           },
         },
       };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_LOGS), payload });
+      const toTest = administration(undefined, {type: SUCCESS(ACTION_TYPES.FETCH_LOGS), payload});
 
       expect(toTest).toMatchObject({
         loading: false,
@@ -113,9 +131,10 @@ describe('Administration reducer tests', () => {
       });
     });
 
-    it('should update state according to a successful fetch health request', () => {
-      const payload = { data: { status: 'UP' } };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_HEALTH), payload });
+    it('should update state according to a successful fetch health request', () =>
+    {
+      const payload = {data: {status: 'UP'}};
+      const toTest = administration(undefined, {type: SUCCESS(ACTION_TYPES.FETCH_HEALTH), payload});
 
       expect(toTest).toMatchObject({
         loading: false,
@@ -123,9 +142,10 @@ describe('Administration reducer tests', () => {
       });
     });
 
-    it('should update state according to a successful fetch metrics request', () => {
-      const payload = { data: { version: '3.1.3', gauges: {} } };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_METRICS), payload });
+    it('should update state according to a successful fetch metrics request', () =>
+    {
+      const payload = {data: {version: '3.1.3', gauges: {}}};
+      const toTest = administration(undefined, {type: SUCCESS(ACTION_TYPES.FETCH_METRICS), payload});
 
       expect(toTest).toMatchObject({
         loading: false,
@@ -133,9 +153,10 @@ describe('Administration reducer tests', () => {
       });
     });
 
-    it('should update state according to a successful fetch thread dump request', () => {
-      const payload = { data: [{ threadName: 'hz.gateway.cached.thread-6', threadId: 9266 }] };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_THREAD_DUMP), payload });
+    it('should update state according to a successful fetch thread dump request', () =>
+    {
+      const payload = {data: [{threadName: 'hz.gateway.cached.thread-6', threadId: 9266}]};
+      const toTest = administration(undefined, {type: SUCCESS(ACTION_TYPES.FETCH_THREAD_DUMP), payload});
 
       expect(toTest).toMatchObject({
         loading: false,
@@ -143,9 +164,10 @@ describe('Administration reducer tests', () => {
       });
     });
 
-    it('should update state according to a successful fetch configurations request', () => {
-      const payload = { data: { contexts: { jhipster: { beans: {} } } } };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_CONFIGURATIONS), payload });
+    it('should update state according to a successful fetch configurations request', () =>
+    {
+      const payload = {data: {contexts: {jhipster: {beans: {}}}}};
+      const toTest = administration(undefined, {type: SUCCESS(ACTION_TYPES.FETCH_CONFIGURATIONS), payload});
 
       expect(toTest).toMatchObject({
         loading: false,
@@ -156,9 +178,10 @@ describe('Administration reducer tests', () => {
       });
     });
 
-    it('should update state according to a successful fetch env request', () => {
-      const payload = { data: { activeProfiles: ['api-docs', 'dev'] } };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_ENV), payload });
+    it('should update state according to a successful fetch env request', () =>
+    {
+      const payload = {data: {activeProfiles: ['api-docs', 'dev']}};
+      const toTest = administration(undefined, {type: SUCCESS(ACTION_TYPES.FETCH_ENV), payload});
 
       expect(toTest).toMatchObject({
         loading: false,
@@ -169,49 +192,56 @@ describe('Administration reducer tests', () => {
       });
     });
   });
-  describe('Websocket Message Handling', () => {
-    it('should update state according to a successful websocket message receipt', () => {
-      const payload = { id: 1, userLogin: username, page: 'home', sessionId: 'abc123' };
-      const toTest = administration(undefined, { type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload });
+  describe('Websocket Message Handling', () =>
+  {
+    it('should update state according to a successful websocket message receipt', () =>
+    {
+      const payload = {id: 1, userLogin: username, page: 'home', sessionId: 'abc123'};
+      const toTest = administration(undefined, {type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload});
 
       expect(toTest).toMatchObject({
-        tracker: { activities: [payload] },
+        tracker: {activities: [payload]},
       });
     });
 
-    it('should update state according to a successful websocket message receipt - only one activity per session', () => {
-      const firstPayload = { id: 1, userLogin: username, page: 'home', sessionId: 'abc123' };
-      const secondPayload = { id: 1, userLogin: username, page: 'user-management', sessionId: 'abc123' };
-      const firstState = administration(undefined, { type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: firstPayload });
-      const secondState = administration(firstState, { type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: secondPayload });
+    it('should update state according to a successful websocket message receipt - only one activity per session', () =>
+    {
+      const firstPayload = {id: 1, userLogin: username, page: 'home', sessionId: 'abc123'};
+      const secondPayload = {id: 1, userLogin: username, page: 'user-management', sessionId: 'abc123'};
+      const firstState = administration(undefined, {type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: firstPayload});
+      const secondState = administration(firstState, {type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: secondPayload});
 
       expect(secondState).toMatchObject({
-        tracker: { activities: [secondPayload] },
+        tracker: {activities: [secondPayload]},
       });
     });
 
-    it('should update state according to a successful websocket message receipt - remove logged out sessions', () => {
-      const firstPayload = { id: 1, userLogin: username, page: 'home', sessionId: 'abc123' };
-      const secondPayload = { id: 1, userLogin: username, page: 'logout', sessionId: 'abc123' };
-      const firstState = administration(undefined, { type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: firstPayload });
-      const secondState = administration(firstState, { type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: secondPayload });
+    it('should update state according to a successful websocket message receipt - remove logged out sessions', () =>
+    {
+      const firstPayload = {id: 1, userLogin: username, page: 'home', sessionId: 'abc123'};
+      const secondPayload = {id: 1, userLogin: username, page: 'logout', sessionId: 'abc123'};
+      const firstState = administration(undefined, {type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: firstPayload});
+      const secondState = administration(firstState, {type: ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE, payload: secondPayload});
 
       expect(secondState).toMatchObject({
-        tracker: { activities: [] },
+        tracker: {activities: []},
       });
     });
   });
-  describe('Actions', () => {
+  describe('Actions', () =>
+  {
     let store;
 
-    const resolvedObject = { value: 'whatever' };
-    beforeEach(() => {
+    const resolvedObject = {value: 'whatever'};
+    beforeEach(() =>
+    {
       const mockStore = configureStore([thunk, promiseMiddleware]);
       store = mockStore({});
       axios.get = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.post = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
-    it('dispatches FETCH_HEALTH_PENDING and FETCH_HEALTH_FULFILLED actions', async () => {
+    it('dispatches FETCH_HEALTH_PENDING and FETCH_HEALTH_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_HEALTH),
@@ -223,7 +253,8 @@ describe('Administration reducer tests', () => {
       ];
       await store.dispatch(systemHealth()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches FETCH_METRICS_PENDING and FETCH_METRICS_FULFILLED actions', async () => {
+    it('dispatches FETCH_METRICS_PENDING and FETCH_METRICS_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_METRICS),
@@ -235,7 +266,8 @@ describe('Administration reducer tests', () => {
       ];
       await store.dispatch(systemMetrics()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches FETCH_THREAD_DUMP_PENDING and FETCH_THREAD_DUMP_FULFILLED actions', async () => {
+    it('dispatches FETCH_THREAD_DUMP_PENDING and FETCH_THREAD_DUMP_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_THREAD_DUMP),
@@ -247,7 +279,8 @@ describe('Administration reducer tests', () => {
       ];
       await store.dispatch(systemThreadDump()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches FETCH_LOGS_PENDING and FETCH_LOGS_FULFILLED actions', async () => {
+    it('dispatches FETCH_LOGS_PENDING and FETCH_LOGS_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_LOGS),
@@ -259,7 +292,8 @@ describe('Administration reducer tests', () => {
       ];
       await store.dispatch(getLoggers()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches FETCH_LOGS_CHANGE_LEVEL_PENDING and FETCH_LOGS_CHANGE_LEVEL_FULFILLED actions', async () => {
+    it('dispatches FETCH_LOGS_CHANGE_LEVEL_PENDING and FETCH_LOGS_CHANGE_LEVEL_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL),
@@ -278,7 +312,8 @@ describe('Administration reducer tests', () => {
       ];
       await store.dispatch(changeLogLevel('ROOT', 'DEBUG')).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches FETCH_CONFIGURATIONS_PENDING and FETCH_CONFIGURATIONS_FULFILLED actions', async () => {
+    it('dispatches FETCH_CONFIGURATIONS_PENDING and FETCH_CONFIGURATIONS_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_CONFIGURATIONS),
@@ -290,7 +325,8 @@ describe('Administration reducer tests', () => {
       ];
       await store.dispatch(getConfigurations()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches FETCH_ENV_PENDING and FETCH_ENV_FULFILLED actions', async () => {
+    it('dispatches FETCH_ENV_PENDING and FETCH_ENV_FULFILLED actions', async () =>
+    {
       const expectedActions = [
         {
           type: REQUEST(ACTION_TYPES.FETCH_ENV),

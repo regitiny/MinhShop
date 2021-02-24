@@ -1,5 +1,5 @@
 import pick from 'lodash/pick';
-import { IPaginationBaseState } from 'react-jhipster';
+import {IPaginationBaseState} from 'react-jhipster';
 
 /**
  * Removes fields with an 'id' field that equals ''.
@@ -8,7 +8,8 @@ import { IPaginationBaseState } from 'react-jhipster';
  *
  * @param entity Object to clean.
  */
-export const cleanEntity = entity => {
+export const cleanEntity = entity =>
+{
   const keysToKeep = Object.keys(entity).filter(k => !(entity[k] instanceof Object) || (entity[k]['id'] !== '' && entity[k]['id'] !== -1));
 
   return pick(entity, keysToKeep);
@@ -21,13 +22,15 @@ export const cleanEntity = entity => {
  * @returns The list of objects with mapped ids.
  */
 export const mapIdList = (idList: ReadonlyArray<any>) =>
-  idList.filter((entityId: any) => entityId !== '').map((entityId: any) => ({ id: entityId }));
+  idList.filter((entityId: any) => entityId !== '').map((entityId: any) => ({id: entityId}));
 
-export const overridePaginationStateWithQueryParams = (paginationBaseState: IPaginationBaseState, locationSearch: string) => {
+export const overridePaginationStateWithQueryParams = (paginationBaseState: IPaginationBaseState, locationSearch: string) =>
+{
   const params = new URLSearchParams(locationSearch);
   const page = params.get('page');
   const sort = params.get('sort');
-  if (page && sort) {
+  if (page && sort)
+  {
     const sortSplit = sort.split(',');
     paginationBaseState.activePage = +page;
     paginationBaseState.sort = sortSplit[0];

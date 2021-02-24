@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { TextFormat, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Row, UncontrolledTooltip} from 'reactstrap';
+import {TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './payment.reducer';
-import { APP_DATE_FORMAT } from 'app/config/constants';
+import {IRootState} from 'app/shared/reducers';
+import {getEntity} from './payment.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
 
-export interface IPaymentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IPaymentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const PaymentDetail = (props: IPaymentDetailProps) => {
-  useEffect(() => {
+export const PaymentDetail = (props: IPaymentDetailProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const { paymentEntity } = props;
+  const {paymentEntity} = props;
   return (
     <Row>
       <Col md="8">
@@ -29,7 +33,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.uuid">Uuid</Translate>
             </span>
             <UncontrolledTooltip target="uuid">
-              <Translate contentKey="minhShopApp.payment.help.uuid" />
+              <Translate contentKey="minhShopApp.payment.help.uuid"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.uuid}</dd>
@@ -38,7 +42,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.status">Status</Translate>
             </span>
             <UncontrolledTooltip target="status">
-              <Translate contentKey="minhShopApp.payment.help.status" />
+              <Translate contentKey="minhShopApp.payment.help.status"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.status}</dd>
@@ -47,7 +51,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.searchField">Search Field</Translate>
             </span>
             <UncontrolledTooltip target="searchField">
-              <Translate contentKey="minhShopApp.payment.help.searchField" />
+              <Translate contentKey="minhShopApp.payment.help.searchField"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.searchField}</dd>
@@ -56,7 +60,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.role">Role</Translate>
             </span>
             <UncontrolledTooltip target="role">
-              <Translate contentKey="minhShopApp.payment.help.role" />
+              <Translate contentKey="minhShopApp.payment.help.role"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.role}</dd>
@@ -65,29 +69,29 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.createdDate">Created Date</Translate>
             </span>
             <UncontrolledTooltip target="createdDate">
-              <Translate contentKey="minhShopApp.payment.help.createdDate" />
+              <Translate contentKey="minhShopApp.payment.help.createdDate"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
-            {paymentEntity.createdDate ? <TextFormat value={paymentEntity.createdDate} type="date" format={APP_DATE_FORMAT} /> : null}
+            {paymentEntity.createdDate ? <TextFormat value={paymentEntity.createdDate} type="date" format={APP_DATE_FORMAT}/> : null}
           </dd>
           <dt>
             <span id="modifiedDate">
               <Translate contentKey="minhShopApp.payment.modifiedDate">Modified Date</Translate>
             </span>
             <UncontrolledTooltip target="modifiedDate">
-              <Translate contentKey="minhShopApp.payment.help.modifiedDate" />
+              <Translate contentKey="minhShopApp.payment.help.modifiedDate"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
-            {paymentEntity.modifiedDate ? <TextFormat value={paymentEntity.modifiedDate} type="date" format={APP_DATE_FORMAT} /> : null}
+            {paymentEntity.modifiedDate ? <TextFormat value={paymentEntity.modifiedDate} type="date" format={APP_DATE_FORMAT}/> : null}
           </dd>
           <dt>
             <span id="createdBy">
               <Translate contentKey="minhShopApp.payment.createdBy">Created By</Translate>
             </span>
             <UncontrolledTooltip target="createdBy">
-              <Translate contentKey="minhShopApp.payment.help.createdBy" />
+              <Translate contentKey="minhShopApp.payment.help.createdBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.createdBy}</dd>
@@ -96,7 +100,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.modifiedBy">Modified By</Translate>
             </span>
             <UncontrolledTooltip target="modifiedBy">
-              <Translate contentKey="minhShopApp.payment.help.modifiedBy" />
+              <Translate contentKey="minhShopApp.payment.help.modifiedBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.modifiedBy}</dd>
@@ -105,7 +109,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.dataSize">Data Size</Translate>
             </span>
             <UncontrolledTooltip target="dataSize">
-              <Translate contentKey="minhShopApp.payment.help.dataSize" />
+              <Translate contentKey="minhShopApp.payment.help.dataSize"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.dataSize}</dd>
@@ -114,7 +118,7 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
               <Translate contentKey="minhShopApp.payment.comment">Comment</Translate>
             </span>
             <UncontrolledTooltip target="comment">
-              <Translate contentKey="minhShopApp.payment.help.comment" />
+              <Translate contentKey="minhShopApp.payment.help.comment"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{paymentEntity.comment}</dd>
@@ -124,14 +128,14 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
           <dd>{paymentEntity.billId ? paymentEntity.billId.billId : ''}</dd>
         </dl>
         <Button tag={Link} to="/payment" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <FontAwesomeIcon icon="arrow-left"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/payment/${paymentEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
+          <FontAwesomeIcon icon="pencil-alt"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
@@ -141,11 +145,11 @@ export const PaymentDetail = (props: IPaymentDetailProps) => {
   );
 };
 
-const mapStateToProps = ({ payment }: IRootState) => ({
+const mapStateToProps = ({payment}: IRootState) => ({
   paymentEntity: payment.entity,
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = {getEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

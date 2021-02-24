@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, ITypePostFilter } from 'app/shared/model/type-post-filter.model';
+import {defaultValue, ITypePostFilter} from 'app/shared/model/type-post-filter.model';
 
 export const ACTION_TYPES = {
   SEARCH_TYPEPOSTFILTERS: 'typePostFilter/SEARCH_TYPEPOSTFILTERS',
@@ -30,7 +30,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<ITypePostFilter>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   totalItems: 0,
   updateSuccess: false,
@@ -40,8 +40,10 @@ export type TypePostFilterState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: TypePostFilterState = initialState, action): TypePostFilterState => {
-  switch (action.type) {
+export default (state: TypePostFilterState = initialState, action): TypePostFilterState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_TYPEPOSTFILTERS):
     case REQUEST(ACTION_TYPES.FETCH_TYPEPOSTFILTER_LIST):
     case REQUEST(ACTION_TYPES.FETCH_TYPEPOSTFILTER):
@@ -74,7 +76,8 @@ export default (state: TypePostFilterState = initialState, action): TypePostFilt
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.SEARCH_TYPEPOSTFILTERS):
-    case SUCCESS(ACTION_TYPES.FETCH_TYPEPOSTFILTER_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_TYPEPOSTFILTER_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -106,8 +109,9 @@ export default (state: TypePostFilterState = initialState, action): TypePostFilt
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -136,7 +140,8 @@ export const getSearchEntities: ICrudSearchAction<ITypePostFilter> = (query, pag
   payload: axios.get<ITypePostFilter>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<ITypePostFilter> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<ITypePostFilter> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_TYPEPOSTFILTER_LIST,
@@ -144,7 +149,8 @@ export const getEntities: ICrudGetAllAction<ITypePostFilter> = (page, size, sort
   };
 };
 
-export const getEntity: ICrudGetAction<ITypePostFilter> = id => {
+export const getEntity: ICrudGetAction<ITypePostFilter> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_TYPEPOSTFILTER,
@@ -152,7 +158,8 @@ export const getEntity: ICrudGetAction<ITypePostFilter> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<ITypePostFilter> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<ITypePostFilter> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_TYPEPOSTFILTER,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -160,7 +167,8 @@ export const createEntity: ICrudPutAction<ITypePostFilter> = entity => async dis
   return result;
 };
 
-export const updateEntity: ICrudPutAction<ITypePostFilter> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<ITypePostFilter> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_TYPEPOSTFILTER,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -168,7 +176,8 @@ export const updateEntity: ICrudPutAction<ITypePostFilter> = entity => async dis
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<ITypePostFilter> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<ITypePostFilter> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_TYPEPOSTFILTER,

@@ -1,40 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, InputGroup, Row, Table } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { getSortState, translate, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, InputGroup, Row, Table} from 'reactstrap';
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {getSortState, translate, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntities, getSearchEntities, reset } from './hanh-chinh-vn.reducer';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities, getSearchEntities, reset} from './hanh-chinh-vn.reducer';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
 
-export interface IHanhChinhVNProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IHanhChinhVNProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
 
-export const HanhChinhVN = (props: IHanhChinhVNProps) => {
+export const HanhChinhVN = (props: IHanhChinhVNProps) =>
+{
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
   const [sorting, setSorting] = useState(false);
 
-  const getAllEntities = () => {
-    if (search) {
+  const getAllEntities = () =>
+  {
+    if (search)
+    {
       props.getSearchEntities(
         search,
         paginationState.activePage - 1,
         paginationState.itemsPerPage,
         `${paginationState.sort},${paginationState.order}`
       );
-    } else {
+    }
+    else
+    {
       props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     }
   };
 
-  const resetAll = () => {
+  const resetAll = () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -43,12 +51,15 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
     props.getEntities();
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     resetAll();
   }, []);
 
-  const startSearching = () => {
-    if (search) {
+  const startSearching = () =>
+  {
+    if (search)
+    {
       props.reset();
       setPaginationState({
         ...paginationState,
@@ -63,7 +74,8 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
     }
   };
 
-  const clear = () => {
+  const clear = () =>
+  {
     props.reset();
     setSearch('');
     setPaginationState({
@@ -75,18 +87,23 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
 
   const handleSearch = event => setSearch(event.target.value);
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       resetAll();
     }
   }, [props.updateSuccess]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     getAllEntities();
   }, [paginationState.activePage]);
 
-  const handleLoadMore = () => {
-    if ((window as any).pageYOffset > 0) {
+  const handleLoadMore = () =>
+  {
+    if ((window as any).pageYOffset > 0)
+    {
       setPaginationState({
         ...paginationState,
         activePage: paginationState.activePage + 1,
@@ -94,14 +111,17 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
     }
   };
 
-  useEffect(() => {
-    if (sorting) {
+  useEffect(() =>
+  {
+    if (sorting)
+    {
       getAllEntities();
       setSorting(false);
     }
   }, [sorting, search]);
 
-  const sort = p => () => {
+  const sort = p => () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -112,22 +132,23 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
     setSorting(true);
   };
 
-  const handleSyncList = () => {
+  const handleSyncList = () =>
+  {
     resetAll();
   };
 
-  const { hanhChinhVNList, match, loading } = props;
+  const {hanhChinhVNList, match, loading} = props;
   return (
     <div>
       <h2 id="hanh-chinh-vn-heading" data-cy="HanhChinhVNHeading">
         <Translate contentKey="minhShopApp.hanhChinhVN.home.title">Hanh Chinh VNS</Translate>
         <div className="d-flex justify-content-end">
           <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+            <FontAwesomeIcon icon="sync" spin={loading}/>{' '}
             <Translate contentKey="minhShopApp.hanhChinhVN.home.refreshListLabel">Refresh List</Translate>
           </Button>
           <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
+            <FontAwesomeIcon icon="plus"/>
             &nbsp;
             <Translate contentKey="minhShopApp.hanhChinhVN.home.createLabel">Create new Hanh Chinh VN</Translate>
           </Link>
@@ -146,10 +167,10 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
                   placeholder={translate('minhShopApp.hanhChinhVN.home.search')}
                 />
                 <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
+                  <FontAwesomeIcon icon="search"/>
                 </Button>
                 <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
+                  <FontAwesomeIcon icon="trash"/>
                 </Button>
               </InputGroup>
             </AvGroup>
@@ -168,83 +189,83 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
           {hanhChinhVNList && hanhChinhVNList.length > 0 ? (
             <Table responsive>
               <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
-                    <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('name')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('slug')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.slug">Slug</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('type')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.type">Type</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('nameWithType')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.nameWithType">Name With Type</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('code')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.code">Code</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('parentCode')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.parentCode">Parent Code</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('path')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.path">Path</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('pathWithType')}>
-                    <Translate contentKey="minhShopApp.hanhChinhVN.pathWithType">Path With Type</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
+              <tr>
+                <th className="hand" onClick={sort('id')}>
+                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('name')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.name">Name</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('slug')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.slug">Slug</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('type')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.type">Type</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('nameWithType')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.nameWithType">Name With Type</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('code')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.code">Code</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('parentCode')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.parentCode">Parent Code</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('path')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.path">Path</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('pathWithType')}>
+                  <Translate contentKey="minhShopApp.hanhChinhVN.pathWithType">Path With Type</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th/>
+              </tr>
               </thead>
               <tbody>
-                {hanhChinhVNList.map((hanhChinhVN, i) => (
-                  <tr key={`entity-${i}`} data-cy="entityTable">
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${hanhChinhVN.id}`} color="link" size="sm">
-                        {hanhChinhVN.id}
+              {hanhChinhVNList.map((hanhChinhVN, i) => (
+                <tr key={`entity-${i}`} data-cy="entityTable">
+                  <td>
+                    <Button tag={Link} to={`${match.url}/${hanhChinhVN.id}`} color="link" size="sm">
+                      {hanhChinhVN.id}
+                    </Button>
+                  </td>
+                  <td>{hanhChinhVN.name}</td>
+                  <td>{hanhChinhVN.slug}</td>
+                  <td>{hanhChinhVN.type}</td>
+                  <td>{hanhChinhVN.nameWithType}</td>
+                  <td>{hanhChinhVN.code}</td>
+                  <td>{hanhChinhVN.parentCode}</td>
+                  <td>{hanhChinhVN.path}</td>
+                  <td>{hanhChinhVN.pathWithType}</td>
+                  <td className="text-right">
+                    <div className="btn-group flex-btn-group-container">
+                      <Button tag={Link} to={`${match.url}/${hanhChinhVN.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                        <FontAwesomeIcon icon="eye"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.view">View</Translate>
+                        </span>
                       </Button>
-                    </td>
-                    <td>{hanhChinhVN.name}</td>
-                    <td>{hanhChinhVN.slug}</td>
-                    <td>{hanhChinhVN.type}</td>
-                    <td>{hanhChinhVN.nameWithType}</td>
-                    <td>{hanhChinhVN.code}</td>
-                    <td>{hanhChinhVN.parentCode}</td>
-                    <td>{hanhChinhVN.path}</td>
-                    <td>{hanhChinhVN.pathWithType}</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${hanhChinhVN.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${hanhChinhVN.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button
-                          tag={Link}
-                          to={`${match.url}/${hanhChinhVN.id}/delete`}
-                          color="danger"
-                          size="sm"
-                          data-cy="entityDeleteButton"
-                        >
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      <Button tag={Link} to={`${match.url}/${hanhChinhVN.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                        <FontAwesomeIcon icon="pencil-alt"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.edit">Edit</Translate>
+                        </span>
+                      </Button>
+                      <Button
+                        tag={Link}
+                        to={`${match.url}/${hanhChinhVN.id}/delete`}
+                        color="danger"
+                        size="sm"
+                        data-cy="entityDeleteButton"
+                      >
+                        <FontAwesomeIcon icon="trash"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.delete">Delete</Translate>
+                        </span>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
               </tbody>
             </Table>
           ) : (
@@ -260,7 +281,7 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) => {
   );
 };
 
-const mapStateToProps = ({ hanhChinhVN }: IRootState) => ({
+const mapStateToProps = ({hanhChinhVN}: IRootState) => ({
   hanhChinhVNList: hanhChinhVN.entities,
   loading: hanhChinhVN.loading,
   totalItems: hanhChinhVN.totalItems,

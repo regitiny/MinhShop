@@ -1,32 +1,38 @@
 import React from 'react';
 
-interface IErrorBoundaryProps {
+interface IErrorBoundaryProps
+{
   readonly children: JSX.Element | JSX.Element[];
 }
 
-interface IErrorBoundaryState {
+interface IErrorBoundaryState
+{
   readonly error: any;
   readonly errorInfo: any;
 }
 
-class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState> {
-  readonly state: IErrorBoundaryState = { error: undefined, errorInfo: undefined };
+class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState>
+{
+  readonly state: IErrorBoundaryState = {error: undefined, errorInfo: undefined};
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error, errorInfo)
+  {
     this.setState({
       error,
       errorInfo,
     });
   }
 
-  render() {
-    const { error, errorInfo } = this.state;
-    if (errorInfo) {
+  render()
+  {
+    const {error, errorInfo} = this.state;
+    if (errorInfo)
+    {
       const errorDetails =
         process.env.NODE_ENV === 'development' ? (
           <details className="preserve-space">
             {error && error.toString()}
-            <br />
+            <br/>
             {errorInfo.componentStack}
           </details>
         ) : undefined;

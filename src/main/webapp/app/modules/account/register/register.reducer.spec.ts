@@ -3,12 +3,13 @@ import axios from 'axios';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
-import { TranslatorContext } from 'react-jhipster';
+import {TranslatorContext} from 'react-jhipster';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
-import register, { ACTION_TYPES, handleRegister, reset } from './register.reducer';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
+import register, {ACTION_TYPES, handleRegister, reset} from './register.reducer';
 
-describe('Creating account tests', () => {
+describe('Creating account tests', () =>
+{
   const initialState = {
     loading: false,
     registrationSuccess: false,
@@ -16,32 +17,37 @@ describe('Creating account tests', () => {
     errorMessage: null,
   };
 
-  beforeAll(() => {
+  beforeAll(() =>
+  {
     TranslatorContext.registerTranslations('vi', {});
   });
 
-  it('should return the initial state', () => {
+  it('should return the initial state', () =>
+  {
     expect(register(undefined, {})).toEqual({
       ...initialState,
     });
   });
 
-  it('should detect a request', () => {
-    expect(register(undefined, { type: REQUEST(ACTION_TYPES.CREATE_ACCOUNT) })).toEqual({
+  it('should detect a request', () =>
+  {
+    expect(register(undefined, {type: REQUEST(ACTION_TYPES.CREATE_ACCOUNT)})).toEqual({
       ...initialState,
       loading: true,
     });
   });
 
-  it('should handle RESET', () => {
+  it('should handle RESET', () =>
+  {
     expect(
-      register({ loading: true, registrationSuccess: true, registrationFailure: true, errorMessage: '' }, { type: ACTION_TYPES.RESET })
+      register({loading: true, registrationSuccess: true, registrationFailure: true, errorMessage: ''}, {type: ACTION_TYPES.RESET})
     ).toEqual({
       ...initialState,
     });
   });
 
-  it('should handle CREATE_ACCOUNT success', () => {
+  it('should handle CREATE_ACCOUNT success', () =>
+  {
     expect(
       register(undefined, {
         type: SUCCESS(ACTION_TYPES.CREATE_ACCOUNT),
@@ -53,8 +59,9 @@ describe('Creating account tests', () => {
     });
   });
 
-  it('should handle CREATE_ACCOUNT failure', () => {
-    const payload = { response: { data: { errorKey: 'fake error' } } };
+  it('should handle CREATE_ACCOUNT failure', () =>
+  {
+    const payload = {response: {data: {errorKey: 'fake error'}}};
     expect(
       register(undefined, {
         type: FAILURE(ACTION_TYPES.CREATE_ACCOUNT),
@@ -67,17 +74,20 @@ describe('Creating account tests', () => {
     });
   });
 
-  describe('Actions', () => {
+  describe('Actions', () =>
+  {
     let store;
 
-    const resolvedObject = { value: 'whatever' };
-    beforeEach(() => {
+    const resolvedObject = {value: 'whatever'};
+    beforeEach(() =>
+    {
       const mockStore = configureStore([thunk, promiseMiddleware]);
       store = mockStore({});
       axios.post = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches CREATE_ACCOUNT_PENDING and CREATE_ACCOUNT_FULFILLED actions', async () => {
+    it('dispatches CREATE_ACCOUNT_PENDING and CREATE_ACCOUNT_FULFILLED actions', async () =>
+    {
       const meta = {
         successMessage: 'translation-not-found[register.messages.success]',
       };
@@ -95,7 +105,8 @@ describe('Creating account tests', () => {
       ];
       await store.dispatch(handleRegister('', '', '')).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches ACTION_TYPES.RESET actions', async () => {
+    it('dispatches ACTION_TYPES.RESET actions', async () =>
+    {
       const expectedActions = [
         {
           type: ACTION_TYPES.RESET,

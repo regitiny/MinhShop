@@ -1,25 +1,31 @@
-import React, { useEffect } from 'react';
-import { Button, Col, Row } from 'reactstrap';
-import { connect } from 'react-redux';
-import { Translate, translate } from 'react-jhipster';
-import { AvField, AvForm } from 'availity-reactstrap-validation';
+import React, {useEffect} from 'react';
+import {Button, Col, Row} from 'reactstrap';
+import {connect} from 'react-redux';
+import {Translate, translate} from 'react-jhipster';
+import {AvField, AvForm} from 'availity-reactstrap-validation';
 
-import { languages, locales } from 'app/config/translation';
-import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
-import { reset, saveAccountSettings } from './settings.reducer';
+import {languages, locales} from 'app/config/translation';
+import {IRootState} from 'app/shared/reducers';
+import {getSession} from 'app/shared/reducers/authentication';
+import {reset, saveAccountSettings} from './settings.reducer';
 
-export interface IUserSettingsProps extends StateProps, DispatchProps {}
+export interface IUserSettingsProps extends StateProps, DispatchProps
+{
+}
 
-export const SettingsPage = (props: IUserSettingsProps) => {
-  useEffect(() => {
+export const SettingsPage = (props: IUserSettingsProps) =>
+{
+  useEffect(() =>
+  {
     props.getSession();
-    return () => {
+    return () =>
+    {
       props.reset();
     };
   }, []);
 
-  const handleValidSubmit = (event, values) => {
+  const handleValidSubmit = (event, values) =>
+  {
     const account = {
       ...props.account,
       ...values,
@@ -34,7 +40,7 @@ export const SettingsPage = (props: IUserSettingsProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="settings-title">
-            <Translate contentKey="settings.title" interpolate={{ username: props.account.login }}>
+            <Translate contentKey="settings.title" interpolate={{username: props.account.login}}>
               User settings for {props.account.login}
             </Translate>
           </h2>
@@ -47,9 +53,9 @@ export const SettingsPage = (props: IUserSettingsProps) => {
               id="firstName"
               placeholder={translate('settings.form.firstname.placeholder')}
               validate={{
-                required: { value: true, errorMessage: translate('settings.messages.validate.firstname.required') },
-                minLength: { value: 1, errorMessage: translate('settings.messages.validate.firstname.minlength') },
-                maxLength: { value: 50, errorMessage: translate('settings.messages.validate.firstname.maxlength') },
+                required: {value: true, errorMessage: translate('settings.messages.validate.firstname.required')},
+                minLength: {value: 1, errorMessage: translate('settings.messages.validate.firstname.minlength')},
+                maxLength: {value: 50, errorMessage: translate('settings.messages.validate.firstname.maxlength')},
               }}
               value={props.account.firstName}
               data-cy="firstname"
@@ -62,9 +68,9 @@ export const SettingsPage = (props: IUserSettingsProps) => {
               id="lastName"
               placeholder={translate('settings.form.lastname.placeholder')}
               validate={{
-                required: { value: true, errorMessage: translate('settings.messages.validate.lastname.required') },
-                minLength: { value: 1, errorMessage: translate('settings.messages.validate.lastname.minlength') },
-                maxLength: { value: 50, errorMessage: translate('settings.messages.validate.lastname.maxlength') },
+                required: {value: true, errorMessage: translate('settings.messages.validate.lastname.required')},
+                minLength: {value: 1, errorMessage: translate('settings.messages.validate.lastname.minlength')},
+                maxLength: {value: 50, errorMessage: translate('settings.messages.validate.lastname.maxlength')},
               }}
               value={props.account.lastName}
               data-cy="lastname"
@@ -76,9 +82,9 @@ export const SettingsPage = (props: IUserSettingsProps) => {
               placeholder={translate('global.form.email.placeholder')}
               type="email"
               validate={{
-                required: { value: true, errorMessage: translate('global.messages.validate.email.required') },
-                minLength: { value: 5, errorMessage: translate('global.messages.validate.email.minlength') },
-                maxLength: { value: 254, errorMessage: translate('global.messages.validate.email.maxlength') },
+                required: {value: true, errorMessage: translate('global.messages.validate.email.required')},
+                minLength: {value: 5, errorMessage: translate('global.messages.validate.email.minlength')},
+                maxLength: {value: 254, errorMessage: translate('global.messages.validate.email.maxlength')},
               }}
               value={props.account.email}
               data-cy="email"
@@ -109,12 +115,12 @@ export const SettingsPage = (props: IUserSettingsProps) => {
   );
 };
 
-const mapStateToProps = ({ authentication }: IRootState) => ({
+const mapStateToProps = ({authentication}: IRootState) => ({
   account: authentication.account,
   isAuthenticated: authentication.isAuthenticated,
 });
 
-const mapDispatchToProps = { getSession, saveAccountSettings, reset };
+const mapDispatchToProps = {getSession, saveAccountSettings, reset};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

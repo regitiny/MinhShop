@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { byteSize, openFile, TextFormat, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Row, UncontrolledTooltip} from 'reactstrap';
+import {byteSize, openFile, TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './file.reducer';
-import { APP_DATE_FORMAT } from 'app/config/constants';
+import {IRootState} from 'app/shared/reducers';
+import {getEntity} from './file.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
 
-export interface IFileDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IFileDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const FileDetail = (props: IFileDetailProps) => {
-  useEffect(() => {
+export const FileDetail = (props: IFileDetailProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const { fileEntity } = props;
+  const {fileEntity} = props;
   return (
     <Row>
       <Col md="8">
@@ -29,7 +33,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.uuid">Uuid</Translate>
             </span>
             <UncontrolledTooltip target="uuid">
-              <Translate contentKey="minhShopApp.file.help.uuid" />
+              <Translate contentKey="minhShopApp.file.help.uuid"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.uuid}</dd>
@@ -38,7 +42,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.videoData">Video Data</Translate>
             </span>
             <UncontrolledTooltip target="videoData">
-              <Translate contentKey="minhShopApp.file.help.videoData" />
+              <Translate contentKey="minhShopApp.file.help.videoData"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
@@ -60,7 +64,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.nameVideo">Name Video</Translate>
             </span>
             <UncontrolledTooltip target="nameVideo">
-              <Translate contentKey="minhShopApp.file.help.nameVideo" />
+              <Translate contentKey="minhShopApp.file.help.nameVideo"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.nameVideo}</dd>
@@ -69,7 +73,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.extension">Extension</Translate>
             </span>
             <UncontrolledTooltip target="extension">
-              <Translate contentKey="minhShopApp.file.help.extension" />
+              <Translate contentKey="minhShopApp.file.help.extension"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.extension}</dd>
@@ -78,7 +82,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.typeFile">Type File</Translate>
             </span>
             <UncontrolledTooltip target="typeFile">
-              <Translate contentKey="minhShopApp.file.help.typeFile" />
+              <Translate contentKey="minhShopApp.file.help.typeFile"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.typeFile}</dd>
@@ -87,7 +91,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.searchField">Search Field</Translate>
             </span>
             <UncontrolledTooltip target="searchField">
-              <Translate contentKey="minhShopApp.file.help.searchField" />
+              <Translate contentKey="minhShopApp.file.help.searchField"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.searchField}</dd>
@@ -96,7 +100,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.role">Role</Translate>
             </span>
             <UncontrolledTooltip target="role">
-              <Translate contentKey="minhShopApp.file.help.role" />
+              <Translate contentKey="minhShopApp.file.help.role"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.role}</dd>
@@ -105,25 +109,25 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.createdDate">Created Date</Translate>
             </span>
             <UncontrolledTooltip target="createdDate">
-              <Translate contentKey="minhShopApp.file.help.createdDate" />
+              <Translate contentKey="minhShopApp.file.help.createdDate"/>
             </UncontrolledTooltip>
           </dt>
-          <dd>{fileEntity.createdDate ? <TextFormat value={fileEntity.createdDate} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
+          <dd>{fileEntity.createdDate ? <TextFormat value={fileEntity.createdDate} type="date" format={APP_DATE_FORMAT}/> : null}</dd>
           <dt>
             <span id="modifiedDate">
               <Translate contentKey="minhShopApp.file.modifiedDate">Modified Date</Translate>
             </span>
             <UncontrolledTooltip target="modifiedDate">
-              <Translate contentKey="minhShopApp.file.help.modifiedDate" />
+              <Translate contentKey="minhShopApp.file.help.modifiedDate"/>
             </UncontrolledTooltip>
           </dt>
-          <dd>{fileEntity.modifiedDate ? <TextFormat value={fileEntity.modifiedDate} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
+          <dd>{fileEntity.modifiedDate ? <TextFormat value={fileEntity.modifiedDate} type="date" format={APP_DATE_FORMAT}/> : null}</dd>
           <dt>
             <span id="createdBy">
               <Translate contentKey="minhShopApp.file.createdBy">Created By</Translate>
             </span>
             <UncontrolledTooltip target="createdBy">
-              <Translate contentKey="minhShopApp.file.help.createdBy" />
+              <Translate contentKey="minhShopApp.file.help.createdBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.createdBy}</dd>
@@ -132,7 +136,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.modifiedBy">Modified By</Translate>
             </span>
             <UncontrolledTooltip target="modifiedBy">
-              <Translate contentKey="minhShopApp.file.help.modifiedBy" />
+              <Translate contentKey="minhShopApp.file.help.modifiedBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.modifiedBy}</dd>
@@ -141,7 +145,7 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.dataSize">Data Size</Translate>
             </span>
             <UncontrolledTooltip target="dataSize">
-              <Translate contentKey="minhShopApp.file.help.dataSize" />
+              <Translate contentKey="minhShopApp.file.help.dataSize"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.dataSize}</dd>
@@ -150,20 +154,20 @@ export const FileDetail = (props: IFileDetailProps) => {
               <Translate contentKey="minhShopApp.file.comment">Comment</Translate>
             </span>
             <UncontrolledTooltip target="comment">
-              <Translate contentKey="minhShopApp.file.help.comment" />
+              <Translate contentKey="minhShopApp.file.help.comment"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{fileEntity.comment}</dd>
         </dl>
         <Button tag={Link} to="/file" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <FontAwesomeIcon icon="arrow-left"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/file/${fileEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
+          <FontAwesomeIcon icon="pencil-alt"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
@@ -173,11 +177,11 @@ export const FileDetail = (props: IFileDetailProps) => {
   );
 };
 
-const mapStateToProps = ({ file }: IRootState) => ({
+const mapStateToProps = ({file}: IRootState) => ({
   fileEntity: file.entity,
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = {getEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

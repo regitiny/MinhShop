@@ -1,47 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
-import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row, UncontrolledTooltip} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
 
-import { createEntity, getEntity, reset, updateEntity } from './hanh-chinh-vn.reducer';
+import {createEntity, getEntity, reset, updateEntity} from './hanh-chinh-vn.reducer';
 
-export interface IHanhChinhVNUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IHanhChinhVNUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
+export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) =>
+{
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { hanhChinhVNEntity, loading, updating } = props;
+  const {hanhChinhVNEntity, loading, updating} = props;
 
-  const handleClose = () => {
+  const handleClose = () =>
+  {
     props.history.push('/entity/hanh-chinh-vn');
   };
 
-  useEffect(() => {
-    if (!isNew) {
+  useEffect(() =>
+  {
+    if (!isNew)
+    {
       props.getEntity(props.match.params.id);
     }
   }, []);
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       handleClose();
     }
   }, [props.updateSuccess]);
 
-  const saveEntity = (event, errors, values) => {
-    if (errors.length === 0) {
+  const saveEntity = (event, errors, values) =>
+  {
+    if (errors.length === 0)
+    {
       const entity = {
         ...hanhChinhVNEntity,
         ...values,
       };
 
-      if (isNew) {
+      if (isNew)
+      {
         props.createEntity(entity);
-      } else {
+      }
+      else
+      {
         props.updateEntity(entity);
       }
     }
@@ -67,7 +80,7 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   <Label for="hanh-chinh-vn-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="hanh-chinh-vn-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="hanh-chinh-vn-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -80,11 +93,11 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   type="text"
                   name="name"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="nameLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.name" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.name"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -97,11 +110,11 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   type="text"
                   name="slug"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="slugLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.slug" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.slug"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -114,11 +127,11 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   type="text"
                   name="type"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="typeLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.type" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.type"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -131,11 +144,11 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   type="text"
                   name="nameWithType"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="nameWithTypeLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.nameWithType" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.nameWithType"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -148,11 +161,11 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   type="text"
                   name="code"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="codeLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.code" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.code"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -165,33 +178,33 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
                   type="text"
                   name="parentCode"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="parentCodeLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.parentCode" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.parentCode"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="pathLabel" for="hanh-chinh-vn-path">
                   <Translate contentKey="minhShopApp.hanhChinhVN.path">Path</Translate>
                 </Label>
-                <AvField id="hanh-chinh-vn-path" data-cy="path" type="text" name="path" />
+                <AvField id="hanh-chinh-vn-path" data-cy="path" type="text" name="path"/>
                 <UncontrolledTooltip target="pathLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.path" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.path"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="pathWithTypeLabel" for="hanh-chinh-vn-pathWithType">
                   <Translate contentKey="minhShopApp.hanhChinhVN.pathWithType">Path With Type</Translate>
                 </Label>
-                <AvField id="hanh-chinh-vn-pathWithType" data-cy="pathWithType" type="text" name="pathWithType" />
+                <AvField id="hanh-chinh-vn-pathWithType" data-cy="pathWithType" type="text" name="pathWithType"/>
                 <UncontrolledTooltip target="pathWithTypeLabel">
-                  <Translate contentKey="minhShopApp.hanhChinhVN.help.pathWithType" />
+                  <Translate contentKey="minhShopApp.hanhChinhVN.help.pathWithType"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/hanh-chinh-vn" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -199,7 +212,7 @@ export const HanhChinhVNUpdate = (props: IHanhChinhVNUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

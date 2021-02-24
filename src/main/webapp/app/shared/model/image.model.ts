@@ -1,4 +1,5 @@
-export interface IImage {
+export interface IImage
+{
   id?: number;
   uuid?: string;
   imageDataContentType?: string;

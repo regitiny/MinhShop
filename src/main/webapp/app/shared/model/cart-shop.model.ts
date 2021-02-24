@@ -1,4 +1,5 @@
-export interface ICartShop {
+export interface ICartShop
+{
   product?: string;
   count?: string;
 }

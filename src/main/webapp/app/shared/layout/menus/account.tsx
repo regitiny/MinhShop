@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem from 'app/shared/layout/menus/menu-item';
-import { Translate, translate } from 'react-jhipster';
-import { NavDropdown } from './menu-components';
+import {Translate, translate} from 'react-jhipster';
+import {NavDropdown} from './menu-components';
 
 const accountMenuItemsAuthenticated = (
   <>
@@ -28,7 +28,7 @@ const accountMenuItems = (
   </>
 );
 
-export const AccountMenu = ({ isAuthenticated = false }) => (
+export const AccountMenu = ({isAuthenticated = false}) => (
   <NavDropdown icon="user" name={translate('global.menu.account.main')} id="account-menu" data-cy="accountMenu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>

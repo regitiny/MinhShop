@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Label, Row, UncontrolledTooltip } from 'reactstrap';
-import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { setFileData, Storage, translate, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
-import { getEntities as getSimplePosts } from 'app/entities/simple-post/simple-post.reducer';
-import { createEntity, getEntity, reset, setBlob, updateEntity } from './post-details.reducer';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row, UncontrolledTooltip} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {setFileData, Storage, translate, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities as getSimplePosts} from 'app/entities/simple-post/simple-post.reducer';
+import {createEntity, getEntity, reset, setBlob, updateEntity} from './post-details.reducer';
+import {convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime} from 'app/shared/util/date-utils';
 
 // froala
 import FroalaEditor from 'react-froala-wysiwyg';
@@ -18,63 +18,79 @@ import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/plugins.pkgd.min.js';
 
-export interface IPostDetailsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IPostDetailsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
+export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
+{
   const [simplePostId, setSimplePostId] = useState('0');
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { postDetailsEntity, simplePosts, loading, updating } = props;
+  const {postDetailsEntity, simplePosts, loading, updating} = props;
 
-  const { content, searchField } = postDetailsEntity;
+  const {content, searchField} = postDetailsEntity;
 
-  const handleClose = () => {
+  const handleClose = () =>
+  {
     props.history.push('/entity/post-details');
   };
 
-  useEffect(() => {
-    if (!isNew) {
+  useEffect(() =>
+  {
+    if (!isNew)
+    {
       props.getEntity(props.match.params.id);
     }
 
     props.getSimplePosts();
   }, []);
 
-  const onBlobChange = (isAnImage, name) => event => {
+  const onBlobChange = (isAnImage, name) => event =>
+  {
     setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
   };
 
-  const clearBlob = name => () => {
+  const clearBlob = name => () =>
+  {
     props.setBlob(name, undefined, undefined);
   };
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       handleClose();
     }
   }, [props.updateSuccess]);
 
-  const saveEntity = (event, errors, values) => {
+  const saveEntity = (event, errors, values) =>
+  {
     values.createdDate = convertDateTimeToServer(values.createdDate);
     values.modifiedDate = convertDateTimeToServer(values.modifiedDate);
 
-    if (errors.length === 0) {
+    if (errors.length === 0)
+    {
       const entity = {
         ...postDetailsEntity,
         ...values,
-        ...{ content: contentState },
+        ...{content: contentState},
       };
 
-      if (isNew) {
+      if (isNew)
+      {
         props.createEntity(entity);
-      } else {
+      }
+      else
+      {
         props.updateEntity(entity);
       }
     }
   };
   const [contentState, setContentState] = useState('');
   const handleModelChange = model => setContentState(model);
-  useEffect(() => {
+  useEffect(() =>
+  {
     if (postDetailsEntity.content) setContentState(postDetailsEntity.content);
   }, [postDetailsEntity]);
 
@@ -100,7 +116,7 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   <Label for="post-details-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="post-details-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="post-details-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -113,11 +129,11 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   type="text"
                   name="uuid"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
                   }}
                 />
                 <UncontrolledTooltip target="uuidLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.uuid" />
+                  <Translate contentKey="minhShopApp.postDetails.help.uuid"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -130,14 +146,14 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   type="text"
                   name="postDetailsId"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    minLength: { value: 3, errorMessage: translate('entity.validation.minlength', { min: 3 }) },
-                    maxLength: { value: 16, errorMessage: translate('entity.validation.maxlength', { max: 16 }) },
-                    pattern: { value: '[A-z]+[0-9]+', errorMessage: translate('entity.validation.pattern', { pattern: '[A-z]+[0-9]+' }) },
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    minLength: {value: 3, errorMessage: translate('entity.validation.minlength', {min: 3})},
+                    maxLength: {value: 16, errorMessage: translate('entity.validation.maxlength', {max: 16})},
+                    pattern: {value: '[A-z]+[0-9]+', errorMessage: translate('entity.validation.pattern', {pattern: '[A-z]+[0-9]+'})},
                   }}
                 />
                 <UncontrolledTooltip target="postDetailsIdLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.postDetailsId" />
+                  <Translate contentKey="minhShopApp.postDetails.help.postDetailsId"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -160,25 +176,25 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                 />
                 {/*<FroalaEditorImg/>*/}
                 <UncontrolledTooltip target="contentLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.content" />
+                  <Translate contentKey="minhShopApp.postDetails.help.content"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="searchFieldLabel" for="post-details-searchField">
                   <Translate contentKey="minhShopApp.postDetails.searchField">Search Field</Translate>
                 </Label>
-                <AvInput id="post-details-searchField" data-cy="searchField" type="textarea" name="searchField" />
+                <AvInput id="post-details-searchField" data-cy="searchField" type="textarea" name="searchField"/>
                 <UncontrolledTooltip target="searchFieldLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.searchField" />
+                  <Translate contentKey="minhShopApp.postDetails.help.searchField"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="roleLabel" for="post-details-role">
                   <Translate contentKey="minhShopApp.postDetails.role">Role</Translate>
                 </Label>
-                <AvField id="post-details-role" data-cy="role" type="text" name="role" />
+                <AvField id="post-details-role" data-cy="role" type="text" name="role"/>
                 <UncontrolledTooltip target="roleLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.role" />
+                  <Translate contentKey="minhShopApp.postDetails.help.role"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -195,7 +211,7 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.postDetailsEntity.createdDate)}
                 />
                 <UncontrolledTooltip target="createdDateLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.createdDate" />
+                  <Translate contentKey="minhShopApp.postDetails.help.createdDate"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -212,34 +228,34 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.postDetailsEntity.modifiedDate)}
                 />
                 <UncontrolledTooltip target="modifiedDateLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.modifiedDate" />
+                  <Translate contentKey="minhShopApp.postDetails.help.modifiedDate"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="createdByLabel" for="post-details-createdBy">
                   <Translate contentKey="minhShopApp.postDetails.createdBy">Created By</Translate>
                 </Label>
-                <AvField id="post-details-createdBy" data-cy="createdBy" type="text" name="createdBy" />
+                <AvField id="post-details-createdBy" data-cy="createdBy" type="text" name="createdBy"/>
                 <UncontrolledTooltip target="createdByLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.createdBy" />
+                  <Translate contentKey="minhShopApp.postDetails.help.createdBy"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="modifiedByLabel" for="post-details-modifiedBy">
                   <Translate contentKey="minhShopApp.postDetails.modifiedBy">Modified By</Translate>
                 </Label>
-                <AvField id="post-details-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy" />
+                <AvField id="post-details-modifiedBy" data-cy="modifiedBy" type="text" name="modifiedBy"/>
                 <UncontrolledTooltip target="modifiedByLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.modifiedBy" />
+                  <Translate contentKey="minhShopApp.postDetails.help.modifiedBy"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
                 <Label id="dataSizeLabel" for="post-details-dataSize">
                   <Translate contentKey="minhShopApp.postDetails.dataSize">Data Size</Translate>
                 </Label>
-                <AvField id="post-details-dataSize" data-cy="dataSize" type="string" className="form-control" name="dataSize" />
+                <AvField id="post-details-dataSize" data-cy="dataSize" type="string" className="form-control" name="dataSize"/>
                 <UncontrolledTooltip target="dataSizeLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.dataSize" />
+                  <Translate contentKey="minhShopApp.postDetails.help.dataSize"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -252,11 +268,11 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   type="text"
                   name="comment"
                   validate={{
-                    maxLength: { value: 2048, errorMessage: translate('entity.validation.maxlength', { max: 2048 }) },
+                    maxLength: {value: 2048, errorMessage: translate('entity.validation.maxlength', {max: 2048})},
                   }}
                 />
                 <UncontrolledTooltip target="commentLabel">
-                  <Translate contentKey="minhShopApp.postDetails.help.comment" />
+                  <Translate contentKey="minhShopApp.postDetails.help.comment"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
@@ -269,12 +285,12 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
                   type="text"
                   name="otherData"
                   validate={{
-                    maxLength: { value: 10000, errorMessage: translate('entity.validation.maxlength', { max: 10000 }) },
+                    maxLength: {value: 10000, errorMessage: translate('entity.validation.maxlength', {max: 10000})},
                   }}
                 />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/post-details" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -282,7 +298,7 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

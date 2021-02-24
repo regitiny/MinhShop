@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, IHanhChinhVN } from 'app/shared/model/hanh-chinh-vn.model';
+import {defaultValue, IHanhChinhVN} from 'app/shared/model/hanh-chinh-vn.model';
 
 export const ACTION_TYPES = {
   SEARCH_HANHCHINHVNS: 'hanhChinhVN/SEARCH_HANHCHINHVNS',
@@ -29,7 +29,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IHanhChinhVN>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   totalItems: 0,
   updateSuccess: false,
@@ -39,8 +39,10 @@ export type HanhChinhVNState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: HanhChinhVNState = initialState, action): HanhChinhVNState => {
-  switch (action.type) {
+export default (state: HanhChinhVNState = initialState, action): HanhChinhVNState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_HANHCHINHVNS):
     case REQUEST(ACTION_TYPES.FETCH_HANHCHINHVN_LIST):
     case REQUEST(ACTION_TYPES.FETCH_HANHCHINHVN):
@@ -73,7 +75,8 @@ export default (state: HanhChinhVNState = initialState, action): HanhChinhVNStat
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.SEARCH_HANHCHINHVNS):
-    case SUCCESS(ACTION_TYPES.FETCH_HANHCHINHVN_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_HANHCHINHVN_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -124,7 +127,8 @@ export const getSearchEntities: ICrudSearchAction<IHanhChinhVN> = (query, page, 
   payload: axios.get<IHanhChinhVN>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<IHanhChinhVN> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<IHanhChinhVN> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_HANHCHINHVN_LIST,
@@ -132,7 +136,8 @@ export const getEntities: ICrudGetAllAction<IHanhChinhVN> = (page, size, sort) =
   };
 };
 
-export const getEntity: ICrudGetAction<IHanhChinhVN> = id => {
+export const getEntity: ICrudGetAction<IHanhChinhVN> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_HANHCHINHVN,
@@ -140,7 +145,8 @@ export const getEntity: ICrudGetAction<IHanhChinhVN> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IHanhChinhVN> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<IHanhChinhVN> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_HANHCHINHVN,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -148,7 +154,8 @@ export const createEntity: ICrudPutAction<IHanhChinhVN> = entity => async dispat
   return result;
 };
 
-export const updateEntity: ICrudPutAction<IHanhChinhVN> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<IHanhChinhVN> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_HANHCHINHVN,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -156,7 +163,8 @@ export const updateEntity: ICrudPutAction<IHanhChinhVN> = entity => async dispat
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IHanhChinhVN> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IHanhChinhVN> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_HANHCHINHVN,

@@ -1,18 +1,19 @@
 import './banner.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Link} from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { faAward, faCartArrowDown, faHandHoldingUsd, faThumbsUp, faTruck } from '@fortawesome/free-solid-svg-icons';
+import {faAward, faCartArrowDown, faHandHoldingUsd, faThumbsUp, faTruck} from '@fortawesome/free-solid-svg-icons';
 
-export const Banner = props => {
+export const Banner = props =>
+{
   return (
     <div className=" banner d-flex justify-content-center">
       <div className="container-center col-9 d-flex">
         <div className="logo mr-auto">
           <Link to="/">
-            <img className="img-fluid" src="content/images/logo-shop.png" alt="logo" />
+            <img className="img-fluid" src="content/images/logo-shop.png" alt="logo"/>
           </Link>
         </div>
         <div className="warp-cart d-block d-sm-none d-md-none d-lg-none d-xl-none d-flex d-sm-flex d-md-flex  flex-wrap align-content-center">
@@ -23,7 +24,7 @@ export const Banner = props => {
         <div className="commitment d-none d-sm-none d-md-none d-lg-none d-xl-block d-xl-flex">
           <div className="commitment-item d-flex flex-wrap align-content-center justify-content-between mr-3">
             <div className="icon mr-2">
-              <FontAwesomeIcon icon={faCartArrowDown} size="2x" color="red" />
+              <FontAwesomeIcon icon={faCartArrowDown} size="2x" color="red"/>
             </div>
             <div className="commit-text">
               <div className="commit-title">
@@ -34,7 +35,7 @@ export const Banner = props => {
           </div>
           <div className="commitment-item d-flex flex-wrap align-content-center justify-content-between mr-3">
             <div className="icon mr-2">
-              <FontAwesomeIcon icon={faTruck} size="2x" color="red" />
+              <FontAwesomeIcon icon={faTruck} size="2x" color="red"/>
             </div>
             <div className="commit-text">
               <div className="commit-title">
@@ -45,7 +46,7 @@ export const Banner = props => {
           </div>
           <div className="commitment-item d-flex flex-wrap align-content-center justify-content-between mr-3">
             <div className="icon mr-2">
-              <FontAwesomeIcon icon={faAward} size="2x" color="red" />
+              <FontAwesomeIcon icon={faAward} size="2x" color="red"/>
             </div>
             <div className="commit-text">
               <div className="commit-title">
@@ -56,7 +57,7 @@ export const Banner = props => {
           </div>
           <div className="commitment-item d-flex flex-wrap align-content-center justify-content-between mr-3">
             <div className="icon mr-2">
-              <FontAwesomeIcon icon={faThumbsUp} size="2x" color="red" />
+              <FontAwesomeIcon icon={faThumbsUp} size="2x" color="red"/>
             </div>
             <div className="commit-text">
               <div className="commit-title">
@@ -67,7 +68,7 @@ export const Banner = props => {
           </div>
           <div className="commitment-item d-flex flex-wrap align-content-center justify-content-between">
             <div className="icon mr-2">
-              <FontAwesomeIcon icon={faHandHoldingUsd} size="2x" color="red" />
+              <FontAwesomeIcon icon={faHandHoldingUsd} size="2x" color="red"/>
             </div>
             <div className="commit-text">
               <div className="commit-title">

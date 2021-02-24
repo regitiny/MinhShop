@@ -1,24 +1,28 @@
 import React from 'react';
-import { Translate, translate } from 'react-jhipster';
-import { Alert, Button, Col, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
-import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Link } from 'react-router-dom';
+import {Translate, translate} from 'react-jhipster';
+import {Alert, Button, Col, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Link} from 'react-router-dom';
 
-export interface ILoginModalProps {
+export interface ILoginModalProps
+{
   showModal: boolean;
   loginError: boolean;
   handleLogin: (username: string, password: string, rememberMe: boolean) => void;
   handleClose: () => void;
 }
 
-class LoginModal extends React.Component<ILoginModalProps> {
-  handleSubmit = (event, errors, { username, password, rememberMe }) => {
-    const { handleLogin } = this.props;
+class LoginModal extends React.Component<ILoginModalProps>
+{
+  handleSubmit = (event, errors, {username, password, rememberMe}) =>
+  {
+    const {handleLogin} = this.props;
     handleLogin(username, password, rememberMe);
   };
 
-  render() {
-    const { loginError, handleClose } = this.props;
+  render()
+  {
+    const {loginError, handleClose} = this.props;
 
     return (
       <Modal isOpen={this.props.showModal} toggle={handleClose} backdrop="static" id="login-page" autoFocus={false}>
@@ -58,7 +62,7 @@ class LoginModal extends React.Component<ILoginModalProps> {
                 />
                 <AvGroup check inline>
                   <Label className="form-check-label">
-                    <AvInput type="checkbox" name="rememberMe" /> <Translate contentKey="login.form.rememberme">Remember me</Translate>
+                    <AvInput type="checkbox" name="rememberMe"/> <Translate contentKey="login.form.rememberme">Remember me</Translate>
                   </Label>
                 </AvGroup>
               </Col>

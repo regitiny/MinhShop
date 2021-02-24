@@ -1,6 +1,7 @@
-import { IUser } from 'app/shared/model/user.model';
+import {IUser} from 'app/shared/model/user.model';
 
-export interface IUserOtherInfo {
+export interface IUserOtherInfo
+{
   id?: number;
   uuid?: string;
   phoneNumber?: string | null;

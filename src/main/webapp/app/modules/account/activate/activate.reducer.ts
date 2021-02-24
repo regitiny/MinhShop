@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
 export const ACTION_TYPES = {
   ACTIVATE_ACCOUNT: 'activate/ACTIVATE_ACCOUNT',
@@ -15,8 +15,10 @@ const initialState = {
 export type ActivateState = Readonly<typeof initialState>;
 
 // Reducer
-export default (state: ActivateState = initialState, action): ActivateState => {
-  switch (action.type) {
+export default (state: ActivateState = initialState, action): ActivateState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.ACTIVATE_ACCOUNT):
       return {
         ...state,

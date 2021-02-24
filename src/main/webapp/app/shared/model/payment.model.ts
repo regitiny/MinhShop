@@ -1,6 +1,7 @@
-import { IBill } from 'app/shared/model/bill.model';
+import {IBill} from 'app/shared/model/bill.model';
 
-export interface IPayment {
+export interface IPayment
+{
   id?: number;
   uuid?: string;
   status?: string | null;

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Breadcrumb } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {Breadcrumb} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 const base_path = '/';
 
-const CrumbIconItem = ({ to, glyph, children, ...props }) => (
+const CrumbIconItem = ({to, glyph, children, ...props}) => (
   <Link to={to}>
     <Breadcrumb.Item {...props}>
       <span> {children}</span>

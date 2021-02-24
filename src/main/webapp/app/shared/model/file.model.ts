@@ -1,4 +1,5 @@
-export interface IFile {
+export interface IFile
+{
   id?: number;
   uuid?: string;
   videoDataContentType?: string;

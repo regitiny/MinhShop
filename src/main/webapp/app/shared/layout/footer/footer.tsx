@@ -1,12 +1,13 @@
 import './footer.scss';
 
 import React from 'react';
-import { NavLink } from 'reactstrap';
-import { NavLink as Link } from 'react-router-dom';
+import {NavLink} from 'reactstrap';
+import {NavLink as Link} from 'react-router-dom';
 import ChatZalo from './footer-component';
-import { ScrollTop } from 'app/shared/layout/scroll/scroll';
+import {ScrollTop} from 'app/shared/layout/scroll/scroll';
 
-const Footer = props => {
+const Footer = props =>
+{
   return (
     <div>
       <div className="d-flex justify-content-center">
@@ -15,7 +16,7 @@ const Footer = props => {
             <div className="col-lg-4 ">
               <div className="mb-2">
                 <NavLink to="/" tag={Link} className="d-flex justify-content-center">
-                  <img className="img-footer img-fluid" width="100%" src="content/images/logo-shop.png" alt="Card image cap" />
+                  <img className="img-footer img-fluid" width="100%" src="content/images/logo-shop.png" alt="Card image cap"/>
                 </NavLink>
                 <div>
                   <span>
@@ -84,7 +85,7 @@ const Footer = props => {
                 width="100%"
                 height="100%"
                 frameBorder="0"
-                style={{ border: 0 }}
+                style={{border: 0}}
                 allowFullScreen
                 aria-hidden="false"
               ></iframe>
@@ -93,10 +94,10 @@ const Footer = props => {
         </div>
       </div>
       <div className="chat-zalo">
-        <ChatZalo />
+        <ChatZalo/>
       </div>
       <div className="scroll-top">
-        <ScrollTop />
+        <ScrollTop/>
       </div>
     </div>
   );

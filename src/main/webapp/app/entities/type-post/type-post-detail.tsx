@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { TextFormat, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Row, UncontrolledTooltip} from 'reactstrap';
+import {TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './type-post.reducer';
-import { APP_DATE_FORMAT } from 'app/config/constants';
+import {IRootState} from 'app/shared/reducers';
+import {getEntity} from './type-post.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
 
-export interface ITypePostDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface ITypePostDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const TypePostDetail = (props: ITypePostDetailProps) => {
-  useEffect(() => {
+export const TypePostDetail = (props: ITypePostDetailProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const { typePostEntity } = props;
+  const {typePostEntity} = props;
   return (
     <Row>
       <Col md="8">
@@ -29,7 +33,7 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.uuid">Uuid</Translate>
             </span>
             <UncontrolledTooltip target="uuid">
-              <Translate contentKey="minhShopApp.typePost.help.uuid" />
+              <Translate contentKey="minhShopApp.typePost.help.uuid"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.uuid}</dd>
@@ -38,7 +42,7 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.typeName">Type Name</Translate>
             </span>
             <UncontrolledTooltip target="typeName">
-              <Translate contentKey="minhShopApp.typePost.help.typeName" />
+              <Translate contentKey="minhShopApp.typePost.help.typeName"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.typeName}</dd>
@@ -47,7 +51,7 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.searchField">Search Field</Translate>
             </span>
             <UncontrolledTooltip target="searchField">
-              <Translate contentKey="minhShopApp.typePost.help.searchField" />
+              <Translate contentKey="minhShopApp.typePost.help.searchField"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.searchField}</dd>
@@ -56,7 +60,7 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.role">Role</Translate>
             </span>
             <UncontrolledTooltip target="role">
-              <Translate contentKey="minhShopApp.typePost.help.role" />
+              <Translate contentKey="minhShopApp.typePost.help.role"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.role}</dd>
@@ -65,29 +69,29 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.createdDate">Created Date</Translate>
             </span>
             <UncontrolledTooltip target="createdDate">
-              <Translate contentKey="minhShopApp.typePost.help.createdDate" />
+              <Translate contentKey="minhShopApp.typePost.help.createdDate"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
-            {typePostEntity.createdDate ? <TextFormat value={typePostEntity.createdDate} type="date" format={APP_DATE_FORMAT} /> : null}
+            {typePostEntity.createdDate ? <TextFormat value={typePostEntity.createdDate} type="date" format={APP_DATE_FORMAT}/> : null}
           </dd>
           <dt>
             <span id="modifiedDate">
               <Translate contentKey="minhShopApp.typePost.modifiedDate">Modified Date</Translate>
             </span>
             <UncontrolledTooltip target="modifiedDate">
-              <Translate contentKey="minhShopApp.typePost.help.modifiedDate" />
+              <Translate contentKey="minhShopApp.typePost.help.modifiedDate"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
-            {typePostEntity.modifiedDate ? <TextFormat value={typePostEntity.modifiedDate} type="date" format={APP_DATE_FORMAT} /> : null}
+            {typePostEntity.modifiedDate ? <TextFormat value={typePostEntity.modifiedDate} type="date" format={APP_DATE_FORMAT}/> : null}
           </dd>
           <dt>
             <span id="createdBy">
               <Translate contentKey="minhShopApp.typePost.createdBy">Created By</Translate>
             </span>
             <UncontrolledTooltip target="createdBy">
-              <Translate contentKey="minhShopApp.typePost.help.createdBy" />
+              <Translate contentKey="minhShopApp.typePost.help.createdBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.createdBy}</dd>
@@ -96,7 +100,7 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.modifiedBy">Modified By</Translate>
             </span>
             <UncontrolledTooltip target="modifiedBy">
-              <Translate contentKey="minhShopApp.typePost.help.modifiedBy" />
+              <Translate contentKey="minhShopApp.typePost.help.modifiedBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.modifiedBy}</dd>
@@ -105,7 +109,7 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.dataSize">Data Size</Translate>
             </span>
             <UncontrolledTooltip target="dataSize">
-              <Translate contentKey="minhShopApp.typePost.help.dataSize" />
+              <Translate contentKey="minhShopApp.typePost.help.dataSize"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.dataSize}</dd>
@@ -114,20 +118,20 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
               <Translate contentKey="minhShopApp.typePost.comment">Comment</Translate>
             </span>
             <UncontrolledTooltip target="comment">
-              <Translate contentKey="minhShopApp.typePost.help.comment" />
+              <Translate contentKey="minhShopApp.typePost.help.comment"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{typePostEntity.comment}</dd>
         </dl>
         <Button tag={Link} to="/type-post" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <FontAwesomeIcon icon="arrow-left"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/type-post/${typePostEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
+          <FontAwesomeIcon icon="pencil-alt"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
@@ -137,11 +141,11 @@ export const TypePostDetail = (props: ITypePostDetailProps) => {
   );
 };
 
-const mapStateToProps = ({ typePost }: IRootState) => ({
+const mapStateToProps = ({typePost}: IRootState) => ({
   typePostEntity: typePost.entity,
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = {getEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

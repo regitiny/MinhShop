@@ -1,16 +1,19 @@
 import './password-strength-bar.scss';
 
 import React from 'react';
-import { Translate } from 'react-jhipster';
+import {Translate} from 'react-jhipster';
 
-export interface IPasswordStrengthBarProps {
+export interface IPasswordStrengthBarProps
+{
   password: string;
 }
 
-export const PasswordStrengthBar = ({ password }: IPasswordStrengthBarProps) => {
+export const PasswordStrengthBar = ({password}: IPasswordStrengthBarProps) =>
+{
   const colors = ['#F00', '#F90', '#FF0', '#9F0', '#0F0'];
 
-  const measureStrength = (p: string): number => {
+  const measureStrength = (p: string): number =>
+  {
     let force = 0;
     const regex = /[$-/:-?{-~!"^_`[\]]/g;
     const flags = {
@@ -36,26 +39,38 @@ export const PasswordStrengthBar = ({ password }: IPasswordStrengthBarProps) => 
     return force;
   };
 
-  const getColor = (s: number): any => {
+  const getColor = (s: number): any =>
+  {
     let idx = 0;
-    if (s <= 10) {
+    if (s <= 10)
+    {
       idx = 0;
-    } else if (s <= 20) {
+    }
+    else if (s <= 20)
+    {
       idx = 1;
-    } else if (s <= 30) {
+    }
+    else if (s <= 30)
+    {
       idx = 2;
-    } else if (s <= 40) {
+    }
+    else if (s <= 40)
+    {
       idx = 3;
-    } else {
+    }
+    else
+    {
       idx = 4;
     }
-    return { idx: idx + 1, col: colors[idx] };
+    return {idx: idx + 1, col: colors[idx]};
   };
 
-  const getPoints = force => {
+  const getPoints = force =>
+  {
     const pts = [] as any[];
-    for (let i = 0; i < 5; i++) {
-      pts.push(<li key={i} className="point" style={i < force.idx ? { backgroundColor: force.col } : { backgroundColor: '#DDD' }} />);
+    for (let i = 0; i < 5; i++)
+    {
+      pts.push(<li key={i} className="point" style={i < force.idx ? {backgroundColor: force.col} : {backgroundColor: '#DDD'}}/>);
     }
     return pts;
   };

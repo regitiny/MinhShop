@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import {ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction} from 'react-jhipster';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
-import { defaultValue, IUser } from 'app/shared/model/user.model';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
+import {defaultValue, IUser} from 'app/shared/model/user.model';
 
 export const ACTION_TYPES = {
   FETCH_ROLES: 'userManagement/FETCH_ROLES',
@@ -29,8 +29,10 @@ const initialState = {
 export type UserManagementState = Readonly<typeof initialState>;
 
 // Reducer
-export default (state: UserManagementState = initialState, action): UserManagementState => {
-  switch (action.type) {
+export default (state: UserManagementState = initialState, action): UserManagementState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.FETCH_ROLES):
       return {
         ...state,
@@ -113,7 +115,8 @@ export default (state: UserManagementState = initialState, action): UserManageme
 const apiUrl = 'api/users';
 const adminUrl = 'api/admin/users';
 // Actions
-export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
+export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_USERS,
@@ -121,7 +124,8 @@ export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
   };
 };
 
-export const getUsersAsAdmin: ICrudGetAllAction<IUser> = (page, size, sort) => {
+export const getUsersAsAdmin: ICrudGetAllAction<IUser> = (page, size, sort) =>
+{
   const requestUrl = `${adminUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_USERS_AS_ADMIN,
@@ -134,7 +138,8 @@ export const getRoles = () => ({
   payload: axios.get(`api/authorities`),
 });
 
-export const getUser: ICrudGetAction<IUser> = id => {
+export const getUser: ICrudGetAction<IUser> = id =>
+{
   const requestUrl = `${adminUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_USER,
@@ -142,7 +147,8 @@ export const getUser: ICrudGetAction<IUser> = id => {
   };
 };
 
-export const createUser: ICrudPutAction<IUser> = user => async dispatch => {
+export const createUser: ICrudPutAction<IUser> = user => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_USER,
     payload: axios.post(adminUrl, user),
@@ -151,7 +157,8 @@ export const createUser: ICrudPutAction<IUser> = user => async dispatch => {
   return result;
 };
 
-export const updateUser: ICrudPutAction<IUser> = user => async dispatch => {
+export const updateUser: ICrudPutAction<IUser> = user => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_USER,
     payload: axios.put(adminUrl, user),
@@ -160,7 +167,8 @@ export const updateUser: ICrudPutAction<IUser> = user => async dispatch => {
   return result;
 };
 
-export const deleteUser: ICrudDeleteAction<IUser> = id => async dispatch => {
+export const deleteUser: ICrudDeleteAction<IUser> = id => async dispatch =>
+{
   const requestUrl = `${adminUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_USER,

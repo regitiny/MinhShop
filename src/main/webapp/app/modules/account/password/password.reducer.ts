@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { translate } from 'react-jhipster';
+import {translate} from 'react-jhipster';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
 export const ACTION_TYPES = {
   UPDATE_PASSWORD: 'account/UPDATE_PASSWORD',
@@ -18,8 +18,10 @@ const initialState = {
 export type PasswordState = Readonly<typeof initialState>;
 
 // Reducer
-export default (state: PasswordState = initialState, action): PasswordState => {
-  switch (action.type) {
+export default (state: PasswordState = initialState, action): PasswordState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.UPDATE_PASSWORD):
       return {
         ...initialState,
@@ -55,7 +57,7 @@ const apiUrl = 'api/account';
 
 export const savePassword = (currentPassword, newPassword) => ({
   type: ACTION_TYPES.UPDATE_PASSWORD,
-  payload: axios.post(`${apiUrl}/change-password`, { currentPassword, newPassword }),
+  payload: axios.post(`${apiUrl}/change-password`, {currentPassword, newPassword}),
   meta: {
     successMessage: translate('password.messages.success'),
     errorMessage: translate('password.messages.error'),

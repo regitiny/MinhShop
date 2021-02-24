@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SUCCESS } from 'app/shared/reducers/action-type.util';
+import {SUCCESS} from 'app/shared/reducers/action-type.util';
 
 export const ACTION_TYPES = {
   GET_PROFILE: 'applicationProfile/GET_PROFILE',
@@ -14,10 +14,13 @@ const initialState = {
 
 export type ApplicationProfileState = Readonly<typeof initialState>;
 
-export default (state: ApplicationProfileState = initialState, action): ApplicationProfileState => {
-  switch (action.type) {
-    case SUCCESS(ACTION_TYPES.GET_PROFILE): {
-      const { data } = action.payload;
+export default (state: ApplicationProfileState = initialState, action): ApplicationProfileState =>
+{
+  switch (action.type)
+  {
+    case SUCCESS(ACTION_TYPES.GET_PROFILE):
+    {
+      const {data} = action.payload;
       return {
         ...state,
         ribbonEnv: data['display-ribbon-on-profiles'],

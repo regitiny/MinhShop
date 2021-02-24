@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Storage, translate } from 'react-jhipster';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
-import { getSession } from 'app/shared/reducers/authentication';
+import {Storage, translate} from 'react-jhipster';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
+import {getSession} from 'app/shared/reducers/authentication';
 
 export const ACTION_TYPES = {
   UPDATE_ACCOUNT: 'account/UPDATE_ACCOUNT',
@@ -18,8 +18,10 @@ const initialState = {
 export type SettingsState = Readonly<typeof initialState>;
 
 // Reducer
-export default (state: SettingsState = initialState, action): SettingsState => {
-  switch (action.type) {
+export default (state: SettingsState = initialState, action): SettingsState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.UPDATE_ACCOUNT):
       return {
         ...state,
@@ -53,7 +55,8 @@ export default (state: SettingsState = initialState, action): SettingsState => {
 // Actions
 const apiUrl = 'api/account';
 
-export const saveAccountSettings: (account: any) => void = account => async dispatch => {
+export const saveAccountSettings: (account: any) => void = account => async dispatch =>
+{
   await dispatch({
     type: ACTION_TYPES.UPDATE_ACCOUNT,
     payload: axios.post(apiUrl, account),
@@ -62,7 +65,8 @@ export const saveAccountSettings: (account: any) => void = account => async disp
     },
   });
 
-  if (Storage.session.get(`locale`)) {
+  if (Storage.session.get(`locale`))
+  {
     Storage.session.remove(`locale`);
   }
 

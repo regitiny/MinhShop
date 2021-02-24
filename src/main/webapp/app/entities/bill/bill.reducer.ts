@@ -9,10 +9,10 @@ import {
   parseHeaderForLinks,
 } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { defaultValue, IBill } from 'app/shared/model/bill.model';
+import {defaultValue, IBill} from 'app/shared/model/bill.model';
 
 export const ACTION_TYPES = {
   SEARCH_BILLS: 'bill/SEARCH_BILLS',
@@ -30,7 +30,7 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IBill>,
   entity: defaultValue,
-  links: { next: 0 },
+  links: {next: 0},
   updating: false,
   totalItems: 0,
   updateSuccess: false,
@@ -40,8 +40,10 @@ export type BillState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: BillState = initialState, action): BillState => {
-  switch (action.type) {
+export default (state: BillState = initialState, action): BillState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.SEARCH_BILLS):
     case REQUEST(ACTION_TYPES.FETCH_BILL_LIST):
     case REQUEST(ACTION_TYPES.FETCH_BILL):
@@ -74,7 +76,8 @@ export default (state: BillState = initialState, action): BillState => {
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.SEARCH_BILLS):
-    case SUCCESS(ACTION_TYPES.FETCH_BILL_LIST): {
+    case SUCCESS(ACTION_TYPES.FETCH_BILL_LIST):
+    {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
       return {
@@ -106,8 +109,9 @@ export default (state: BillState = initialState, action): BillState => {
         updateSuccess: true,
         entity: {},
       };
-    case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+    case ACTION_TYPES.SET_BLOB:
+    {
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {
@@ -136,7 +140,8 @@ export const getSearchEntities: ICrudSearchAction<IBill> = (query, page, size, s
   payload: axios.get<IBill>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 
-export const getEntities: ICrudGetAllAction<IBill> = (page, size, sort) => {
+export const getEntities: ICrudGetAllAction<IBill> = (page, size, sort) =>
+{
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_BILL_LIST,
@@ -144,7 +149,8 @@ export const getEntities: ICrudGetAllAction<IBill> = (page, size, sort) => {
   };
 };
 
-export const getEntity: ICrudGetAction<IBill> = id => {
+export const getEntity: ICrudGetAction<IBill> = id =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_BILL,
@@ -152,7 +158,8 @@ export const getEntity: ICrudGetAction<IBill> = id => {
   };
 };
 
-export const createEntity: ICrudPutAction<IBill> = entity => async dispatch => {
+export const createEntity: ICrudPutAction<IBill> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_BILL,
     payload: axios.post(apiUrl, cleanEntity(entity)),
@@ -160,7 +167,8 @@ export const createEntity: ICrudPutAction<IBill> = entity => async dispatch => {
   return result;
 };
 
-export const updateEntity: ICrudPutAction<IBill> = entity => async dispatch => {
+export const updateEntity: ICrudPutAction<IBill> = entity => async dispatch =>
+{
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_BILL,
     payload: axios.put(apiUrl, cleanEntity(entity)),
@@ -168,7 +176,8 @@ export const updateEntity: ICrudPutAction<IBill> = entity => async dispatch => {
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IBill> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IBill> = id => async dispatch =>
+{
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_BILL,

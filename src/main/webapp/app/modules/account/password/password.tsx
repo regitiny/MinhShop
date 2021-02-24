@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { Translate, translate } from 'react-jhipster';
-import { connect } from 'react-redux';
-import { AvField, AvForm } from 'availity-reactstrap-validation';
-import { Button, Col, Row } from 'reactstrap';
+import React, {useEffect, useState} from 'react';
+import {Translate, translate} from 'react-jhipster';
+import {connect} from 'react-redux';
+import {AvField, AvForm} from 'availity-reactstrap-validation';
+import {Button, Col, Row} from 'reactstrap';
 
-import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
+import {IRootState} from 'app/shared/reducers';
+import {getSession} from 'app/shared/reducers/authentication';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
-import { reset, savePassword } from './password.reducer';
+import {reset, savePassword} from './password.reducer';
 
-export interface IUserPasswordProps extends StateProps, DispatchProps {}
+export interface IUserPasswordProps extends StateProps, DispatchProps
+{
+}
 
-export const PasswordPage = (props: IUserPasswordProps) => {
+export const PasswordPage = (props: IUserPasswordProps) =>
+{
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     props.reset();
     props.getSession();
-    return () => {
+    return () =>
+    {
       props.reset();
     };
   }, []);
 
-  const handleValidSubmit = (event, values) => {
+  const handleValidSubmit = (event, values) =>
+  {
     props.savePassword(values.currentPassword, values.newPassword);
   };
 
@@ -33,7 +39,7 @@ export const PasswordPage = (props: IUserPasswordProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="password-title">
-            <Translate contentKey="password.title" interpolate={{ username: props.account.login }}>
+            <Translate contentKey="password.title" interpolate={{username: props.account.login}}>
               Password for {props.account.login}
             </Translate>
           </h2>
@@ -44,7 +50,7 @@ export const PasswordPage = (props: IUserPasswordProps) => {
               placeholder={translate('global.form.currentpassword.placeholder')}
               type="password"
               validate={{
-                required: { value: true, errorMessage: translate('global.messages.validate.newpassword.required') },
+                required: {value: true, errorMessage: translate('global.messages.validate.newpassword.required')},
               }}
               data-cy="currentPassword"
             />
@@ -54,14 +60,14 @@ export const PasswordPage = (props: IUserPasswordProps) => {
               placeholder={translate('global.form.newpassword.placeholder')}
               type="password"
               validate={{
-                required: { value: true, errorMessage: translate('global.messages.validate.newpassword.required') },
-                minLength: { value: 4, errorMessage: translate('global.messages.validate.newpassword.minlength') },
-                maxLength: { value: 50, errorMessage: translate('global.messages.validate.newpassword.maxlength') },
+                required: {value: true, errorMessage: translate('global.messages.validate.newpassword.required')},
+                minLength: {value: 4, errorMessage: translate('global.messages.validate.newpassword.minlength')},
+                maxLength: {value: 50, errorMessage: translate('global.messages.validate.newpassword.maxlength')},
               }}
               onChange={updatePassword}
               data-cy="newPassword"
             />
-            <PasswordStrengthBar password={password} />
+            <PasswordStrengthBar password={password}/>
             <AvField
               name="confirmPassword"
               label={translate('global.form.confirmpassword.label')}
@@ -97,12 +103,12 @@ export const PasswordPage = (props: IUserPasswordProps) => {
   );
 };
 
-const mapStateToProps = ({ authentication }: IRootState) => ({
+const mapStateToProps = ({authentication}: IRootState) => ({
   account: authentication.account,
   isAuthenticated: authentication.isAuthenticated,
 });
 
-const mapDispatchToProps = { getSession, savePassword, reset };
+const mapDispatchToProps = {getSession, savePassword, reset};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

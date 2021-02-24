@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { TextFormat, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Row, UncontrolledTooltip} from 'reactstrap';
+import {TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './simple-post.reducer';
-import { APP_DATE_FORMAT } from 'app/config/constants';
+import {IRootState} from 'app/shared/reducers';
+import {getEntity} from './simple-post.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
 
-export interface ISimplePostDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface ISimplePostDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const SimplePostDetail = (props: ISimplePostDetailProps) => {
-  useEffect(() => {
+export const SimplePostDetail = (props: ISimplePostDetailProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const { simplePostEntity } = props;
+  const {simplePostEntity} = props;
   return (
     <Row>
       <Col md="8">
@@ -29,7 +33,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.uuid">Uuid</Translate>
             </span>
             <UncontrolledTooltip target="uuid">
-              <Translate contentKey="minhShopApp.simplePost.help.uuid" />
+              <Translate contentKey="minhShopApp.simplePost.help.uuid"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.uuid}</dd>
@@ -38,7 +42,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.title">Title</Translate>
             </span>
             <UncontrolledTooltip target="title">
-              <Translate contentKey="minhShopApp.simplePost.help.title" />
+              <Translate contentKey="minhShopApp.simplePost.help.title"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.title}</dd>
@@ -47,7 +51,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.price">Price</Translate>
             </span>
             <UncontrolledTooltip target="price">
-              <Translate contentKey="minhShopApp.simplePost.help.price" />
+              <Translate contentKey="minhShopApp.simplePost.help.price"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.price}</dd>
@@ -56,7 +60,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.salePrice">Sale Price</Translate>
             </span>
             <UncontrolledTooltip target="salePrice">
-              <Translate contentKey="minhShopApp.simplePost.help.salePrice" />
+              <Translate contentKey="minhShopApp.simplePost.help.salePrice"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.salePrice}</dd>
@@ -65,7 +69,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.percentSale">Percent Sale</Translate>
             </span>
             <UncontrolledTooltip target="percentSale">
-              <Translate contentKey="minhShopApp.simplePost.help.percentSale" />
+              <Translate contentKey="minhShopApp.simplePost.help.percentSale"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.percentSale}</dd>
@@ -74,7 +78,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.imageUrl">Image Url</Translate>
             </span>
             <UncontrolledTooltip target="imageUrl">
-              <Translate contentKey="minhShopApp.simplePost.help.imageUrl" />
+              <Translate contentKey="minhShopApp.simplePost.help.imageUrl"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.imageUrl}</dd>
@@ -83,7 +87,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.scores">Scores</Translate>
             </span>
             <UncontrolledTooltip target="scores">
-              <Translate contentKey="minhShopApp.simplePost.help.scores" />
+              <Translate contentKey="minhShopApp.simplePost.help.scores"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.scores}</dd>
@@ -92,7 +96,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.simpleContent">Simple Content</Translate>
             </span>
             <UncontrolledTooltip target="simpleContent">
-              <Translate contentKey="minhShopApp.simplePost.help.simpleContent" />
+              <Translate contentKey="minhShopApp.simplePost.help.simpleContent"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.simpleContent}</dd>
@@ -101,7 +105,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.otherInfo">Other Info</Translate>
             </span>
             <UncontrolledTooltip target="otherInfo">
-              <Translate contentKey="minhShopApp.simplePost.help.otherInfo" />
+              <Translate contentKey="minhShopApp.simplePost.help.otherInfo"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.otherInfo}</dd>
@@ -110,7 +114,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.searchField">Search Field</Translate>
             </span>
             <UncontrolledTooltip target="searchField">
-              <Translate contentKey="minhShopApp.simplePost.help.searchField" />
+              <Translate contentKey="minhShopApp.simplePost.help.searchField"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.searchField}</dd>
@@ -119,7 +123,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.role">Role</Translate>
             </span>
             <UncontrolledTooltip target="role">
-              <Translate contentKey="minhShopApp.simplePost.help.role" />
+              <Translate contentKey="minhShopApp.simplePost.help.role"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.role}</dd>
@@ -128,23 +132,23 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.createdDate">Created Date</Translate>
             </span>
             <UncontrolledTooltip target="createdDate">
-              <Translate contentKey="minhShopApp.simplePost.help.createdDate" />
+              <Translate contentKey="minhShopApp.simplePost.help.createdDate"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
-            {simplePostEntity.createdDate ? <TextFormat value={simplePostEntity.createdDate} type="date" format={APP_DATE_FORMAT} /> : null}
+            {simplePostEntity.createdDate ? <TextFormat value={simplePostEntity.createdDate} type="date" format={APP_DATE_FORMAT}/> : null}
           </dd>
           <dt>
             <span id="modifiedDate">
               <Translate contentKey="minhShopApp.simplePost.modifiedDate">Modified Date</Translate>
             </span>
             <UncontrolledTooltip target="modifiedDate">
-              <Translate contentKey="minhShopApp.simplePost.help.modifiedDate" />
+              <Translate contentKey="minhShopApp.simplePost.help.modifiedDate"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
             {simplePostEntity.modifiedDate ? (
-              <TextFormat value={simplePostEntity.modifiedDate} type="date" format={APP_DATE_FORMAT} />
+              <TextFormat value={simplePostEntity.modifiedDate} type="date" format={APP_DATE_FORMAT}/>
             ) : null}
           </dd>
           <dt>
@@ -152,7 +156,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.createdBy">Created By</Translate>
             </span>
             <UncontrolledTooltip target="createdBy">
-              <Translate contentKey="minhShopApp.simplePost.help.createdBy" />
+              <Translate contentKey="minhShopApp.simplePost.help.createdBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.createdBy}</dd>
@@ -161,7 +165,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.modifiedBy">Modified By</Translate>
             </span>
             <UncontrolledTooltip target="modifiedBy">
-              <Translate contentKey="minhShopApp.simplePost.help.modifiedBy" />
+              <Translate contentKey="minhShopApp.simplePost.help.modifiedBy"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.modifiedBy}</dd>
@@ -170,7 +174,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.dataSize">Data Size</Translate>
             </span>
             <UncontrolledTooltip target="dataSize">
-              <Translate contentKey="minhShopApp.simplePost.help.dataSize" />
+              <Translate contentKey="minhShopApp.simplePost.help.dataSize"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.dataSize}</dd>
@@ -179,7 +183,7 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
               <Translate contentKey="minhShopApp.simplePost.comment">Comment</Translate>
             </span>
             <UncontrolledTooltip target="comment">
-              <Translate contentKey="minhShopApp.simplePost.help.comment" />
+              <Translate contentKey="minhShopApp.simplePost.help.comment"/>
             </UncontrolledTooltip>
           </dt>
           <dd>{simplePostEntity.comment}</dd>
@@ -197,23 +201,23 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
           <dd>
             {simplePostEntity.typePostFilters
               ? simplePostEntity.typePostFilters.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.typeFilterName}</a>
-                    {simplePostEntity.typePostFilters && i === simplePostEntity.typePostFilters.length - 1 ? '' : ', '}
-                  </span>
-                ))
+                <span key={val.id}>
+                  <a>{val.typeFilterName}</a>
+                  {simplePostEntity.typePostFilters && i === simplePostEntity.typePostFilters.length - 1 ? '' : ', '}
+                </span>
+              ))
               : null}
           </dd>
         </dl>
         <Button tag={Link} to="/simple-post" replace color="info" data-cy="entityDetailsBackButton">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
+          <FontAwesomeIcon icon="arrow-left"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/simple-post/${simplePostEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
+          <FontAwesomeIcon icon="pencil-alt"/>{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
@@ -223,11 +227,11 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) => {
   );
 };
 
-const mapStateToProps = ({ simplePost }: IRootState) => ({
+const mapStateToProps = ({simplePost}: IRootState) => ({
   simplePostEntity: simplePost.entity,
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = {getEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

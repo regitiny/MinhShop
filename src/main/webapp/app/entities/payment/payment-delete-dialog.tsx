@@ -1,53 +1,61 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { deleteEntity, getEntity } from './payment.reducer';
+import {IRootState} from 'app/shared/reducers';
+import {deleteEntity, getEntity} from './payment.reducer';
 
-export interface IPaymentDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IPaymentDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }>
+{
+}
 
-export const PaymentDeleteDialog = (props: IPaymentDeleteDialogProps) => {
-  useEffect(() => {
+export const PaymentDeleteDialog = (props: IPaymentDeleteDialogProps) =>
+{
+  useEffect(() =>
+  {
     props.getEntity(props.match.params.id);
   }, []);
 
-  const handleClose = () => {
+  const handleClose = () =>
+  {
     props.history.push('/payment');
   };
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       handleClose();
     }
   }, [props.updateSuccess]);
 
-  const confirmDelete = () => {
+  const confirmDelete = () =>
+  {
     props.deleteEntity(props.paymentEntity.id);
   };
 
-  const { paymentEntity } = props;
+  const {paymentEntity} = props;
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose} data-cy="paymentDeleteDialogHeading">
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody id="minhShopApp.payment.delete.question">
-        <Translate contentKey="minhShopApp.payment.delete.question" interpolate={{ id: paymentEntity.id }}>
+        <Translate contentKey="minhShopApp.payment.delete.question" interpolate={{id: paymentEntity.id}}>
           Are you sure you want to delete this Payment?
         </Translate>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
-          <FontAwesomeIcon icon="ban" />
+          <FontAwesomeIcon icon="ban"/>
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
         <Button id="jhi-confirm-delete-payment" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
-          <FontAwesomeIcon icon="trash" />
+          <FontAwesomeIcon icon="trash"/>
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
         </Button>
@@ -56,12 +64,12 @@ export const PaymentDeleteDialog = (props: IPaymentDeleteDialogProps) => {
   );
 };
 
-const mapStateToProps = ({ payment }: IRootState) => ({
+const mapStateToProps = ({payment}: IRootState) => ({
   paymentEntity: payment.entity,
   updateSuccess: payment.updateSuccess,
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = {getEntity, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -1,41 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, InputGroup, Row, Table } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { byteSize, getSortState, openFile, TextFormat, Translate, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, InputGroup, Row, Table} from 'reactstrap';
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {byteSize, getSortState, openFile, TextFormat, Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntities, getSearchEntities, reset } from './file.reducer';
-import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities, getSearchEntities, reset} from './file.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
 
-export interface IFileProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IFileProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
 
-export const File = (props: IFileProps) => {
+export const File = (props: IFileProps) =>
+{
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
   const [sorting, setSorting] = useState(false);
 
-  const getAllEntities = () => {
-    if (search) {
+  const getAllEntities = () =>
+  {
+    if (search)
+    {
       props.getSearchEntities(
         search,
         paginationState.activePage - 1,
         paginationState.itemsPerPage,
         `${paginationState.sort},${paginationState.order}`
       );
-    } else {
+    }
+    else
+    {
       props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     }
   };
 
-  const resetAll = () => {
+  const resetAll = () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -44,12 +52,15 @@ export const File = (props: IFileProps) => {
     props.getEntities();
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     resetAll();
   }, []);
 
-  const startSearching = () => {
-    if (search) {
+  const startSearching = () =>
+  {
+    if (search)
+    {
       props.reset();
       setPaginationState({
         ...paginationState,
@@ -64,7 +75,8 @@ export const File = (props: IFileProps) => {
     }
   };
 
-  const clear = () => {
+  const clear = () =>
+  {
     props.reset();
     setSearch('');
     setPaginationState({
@@ -76,18 +88,23 @@ export const File = (props: IFileProps) => {
 
   const handleSearch = event => setSearch(event.target.value);
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       resetAll();
     }
   }, [props.updateSuccess]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     getAllEntities();
   }, [paginationState.activePage]);
 
-  const handleLoadMore = () => {
-    if ((window as any).pageYOffset > 0) {
+  const handleLoadMore = () =>
+  {
+    if ((window as any).pageYOffset > 0)
+    {
       setPaginationState({
         ...paginationState,
         activePage: paginationState.activePage + 1,
@@ -95,14 +112,17 @@ export const File = (props: IFileProps) => {
     }
   };
 
-  useEffect(() => {
-    if (sorting) {
+  useEffect(() =>
+  {
+    if (sorting)
+    {
       getAllEntities();
       setSorting(false);
     }
   }, [sorting, search]);
 
-  const sort = p => () => {
+  const sort = p => () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -113,22 +133,23 @@ export const File = (props: IFileProps) => {
     setSorting(true);
   };
 
-  const handleSyncList = () => {
+  const handleSyncList = () =>
+  {
     resetAll();
   };
 
-  const { fileList, match, loading } = props;
+  const {fileList, match, loading} = props;
   return (
     <div>
       <h2 id="file-heading" data-cy="FileHeading">
         <Translate contentKey="minhShopApp.file.home.title">Files</Translate>
         <div className="d-flex justify-content-end">
           <Button className="mr-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
+            <FontAwesomeIcon icon="sync" spin={loading}/>{' '}
             <Translate contentKey="minhShopApp.file.home.refreshListLabel">Refresh List</Translate>
           </Button>
           <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
+            <FontAwesomeIcon icon="plus"/>
             &nbsp;
             <Translate contentKey="minhShopApp.file.home.createLabel">Create new File</Translate>
           </Link>
@@ -147,10 +168,10 @@ export const File = (props: IFileProps) => {
                   placeholder={translate('minhShopApp.file.home.search')}
                 />
                 <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
+                  <FontAwesomeIcon icon="search"/>
                 </Button>
                 <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
+                  <FontAwesomeIcon icon="trash"/>
                 </Button>
               </InputGroup>
             </AvGroup>
@@ -169,111 +190,111 @@ export const File = (props: IFileProps) => {
           {fileList && fileList.length > 0 ? (
             <Table responsive>
               <thead>
-                <tr>
-                  <th className="hand" onClick={sort('id')}>
-                    <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('uuid')}>
-                    <Translate contentKey="minhShopApp.file.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('videoData')}>
-                    <Translate contentKey="minhShopApp.file.videoData">Video Data</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('nameVideo')}>
-                    <Translate contentKey="minhShopApp.file.nameVideo">Name Video</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('extension')}>
-                    <Translate contentKey="minhShopApp.file.extension">Extension</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('typeFile')}>
-                    <Translate contentKey="minhShopApp.file.typeFile">Type File</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('searchField')}>
-                    <Translate contentKey="minhShopApp.file.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('role')}>
-                    <Translate contentKey="minhShopApp.file.role">Role</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('createdDate')}>
-                    <Translate contentKey="minhShopApp.file.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('modifiedDate')}>
-                    <Translate contentKey="minhShopApp.file.modifiedDate">Modified Date</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('createdBy')}>
-                    <Translate contentKey="minhShopApp.file.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('modifiedBy')}>
-                    <Translate contentKey="minhShopApp.file.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('dataSize')}>
-                    <Translate contentKey="minhShopApp.file.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('comment')}>
-                    <Translate contentKey="minhShopApp.file.comment">Comment</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th />
-                </tr>
+              <tr>
+                <th className="hand" onClick={sort('id')}>
+                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('uuid')}>
+                  <Translate contentKey="minhShopApp.file.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('videoData')}>
+                  <Translate contentKey="minhShopApp.file.videoData">Video Data</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('nameVideo')}>
+                  <Translate contentKey="minhShopApp.file.nameVideo">Name Video</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('extension')}>
+                  <Translate contentKey="minhShopApp.file.extension">Extension</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('typeFile')}>
+                  <Translate contentKey="minhShopApp.file.typeFile">Type File</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('searchField')}>
+                  <Translate contentKey="minhShopApp.file.searchField">Search Field</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('role')}>
+                  <Translate contentKey="minhShopApp.file.role">Role</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('createdDate')}>
+                  <Translate contentKey="minhShopApp.file.createdDate">Created Date</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('modifiedDate')}>
+                  <Translate contentKey="minhShopApp.file.modifiedDate">Modified Date</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('createdBy')}>
+                  <Translate contentKey="minhShopApp.file.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('modifiedBy')}>
+                  <Translate contentKey="minhShopApp.file.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('dataSize')}>
+                  <Translate contentKey="minhShopApp.file.dataSize">Data Size</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th className="hand" onClick={sort('comment')}>
+                  <Translate contentKey="minhShopApp.file.comment">Comment</Translate> <FontAwesomeIcon icon="sort"/>
+                </th>
+                <th/>
+              </tr>
               </thead>
               <tbody>
-                {fileList.map((file, i) => (
-                  <tr key={`entity-${i}`} data-cy="entityTable">
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${file.id}`} color="link" size="sm">
-                        {file.id}
-                      </Button>
-                    </td>
-                    <td>{file.uuid}</td>
-                    <td>
-                      {file.videoData ? (
-                        <div>
-                          {file.videoDataContentType ? (
-                            <a onClick={openFile(file.videoDataContentType, file.videoData)}>
-                              <Translate contentKey="entity.action.open">Open</Translate>
-                              &nbsp;
-                            </a>
-                          ) : null}
-                          <span>
-                            {file.videoDataContentType}, {byteSize(file.videoData)}
-                          </span>
-                        </div>
-                      ) : null}
-                    </td>
-                    <td>{file.nameVideo}</td>
-                    <td>{file.extension}</td>
-                    <td>{file.typeFile}</td>
-                    <td>{file.searchField}</td>
-                    <td>{file.role}</td>
-                    <td>{file.createdDate ? <TextFormat type="date" value={file.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
-                    <td>{file.modifiedDate ? <TextFormat type="date" value={file.modifiedDate} format={APP_DATE_FORMAT} /> : null}</td>
-                    <td>{file.createdBy}</td>
-                    <td>{file.modifiedBy}</td>
-                    <td>{file.dataSize}</td>
-                    <td>{file.comment}</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${file.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${file.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${file.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
+              {fileList.map((file, i) => (
+                <tr key={`entity-${i}`} data-cy="entityTable">
+                  <td>
+                    <Button tag={Link} to={`${match.url}/${file.id}`} color="link" size="sm">
+                      {file.id}
+                    </Button>
+                  </td>
+                  <td>{file.uuid}</td>
+                  <td>
+                    {file.videoData ? (
+                      <div>
+                        {file.videoDataContentType ? (
+                          <a onClick={openFile(file.videoDataContentType, file.videoData)}>
+                            <Translate contentKey="entity.action.open">Open</Translate>
+                            &nbsp;
+                          </a>
+                        ) : null}
+                        <span>
+                          {file.videoDataContentType}, {byteSize(file.videoData)}
+                        </span>
                       </div>
-                    </td>
-                  </tr>
-                ))}
+                    ) : null}
+                  </td>
+                  <td>{file.nameVideo}</td>
+                  <td>{file.extension}</td>
+                  <td>{file.typeFile}</td>
+                  <td>{file.searchField}</td>
+                  <td>{file.role}</td>
+                  <td>{file.createdDate ? <TextFormat type="date" value={file.createdDate} format={APP_DATE_FORMAT}/> : null}</td>
+                  <td>{file.modifiedDate ? <TextFormat type="date" value={file.modifiedDate} format={APP_DATE_FORMAT}/> : null}</td>
+                  <td>{file.createdBy}</td>
+                  <td>{file.modifiedBy}</td>
+                  <td>{file.dataSize}</td>
+                  <td>{file.comment}</td>
+                  <td className="text-right">
+                    <div className="btn-group flex-btn-group-container">
+                      <Button tag={Link} to={`${match.url}/${file.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                        <FontAwesomeIcon icon="eye"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.view">View</Translate>
+                        </span>
+                      </Button>
+                      <Button tag={Link} to={`${match.url}/${file.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                        <FontAwesomeIcon icon="pencil-alt"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.edit">Edit</Translate>
+                        </span>
+                      </Button>
+                      <Button tag={Link} to={`${match.url}/${file.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+                        <FontAwesomeIcon icon="trash"/>{' '}
+                        <span className="d-none d-md-inline">
+                          <Translate contentKey="entity.action.delete">Delete</Translate>
+                        </span>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
               </tbody>
             </Table>
           ) : (
@@ -289,7 +310,7 @@ export const File = (props: IFileProps) => {
   );
 };
 
-const mapStateToProps = ({ file }: IRootState) => ({
+const mapStateToProps = ({file}: IRootState) => ({
   fileList: file.entities,
   loading: file.loading,
   totalItems: file.totalItems,

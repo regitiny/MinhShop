@@ -1,22 +1,25 @@
 import './visible.scss';
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps, Redirect } from 'react-router-dom';
-import { Button, InputGroup, Col, Row } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Redirect, RouteComponentProps} from 'react-router-dom';
+import {Button, InputGroup} from 'reactstrap';
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {getSortState} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset, searchReset, getSearchVisibleEntities } from 'app/entities/simple-post/simple-post.reducer';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities, getSearchEntities, getSearchVisibleEntities, reset, searchReset} from 'app/entities/simple-post/simple-post.reducer';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
 
-import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
+import {getEntities as getTypePostFilters} from 'app/entities/type-post-filter/type-post-filter.reducer';
 
-export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
 
-export const VisibleSearch = (props: ISimplePostProps) => {
+export const VisibleSearch = (props: ISimplePostProps) =>
+{
   //cái danh sách sắp xếp
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -29,15 +32,18 @@ export const VisibleSearch = (props: ISimplePostProps) => {
 
   window.console.log(paginationState);
   window.console.log(props);
-  const { simplePostList, typePostFilters, match, loading, getSuccess } = props;
+  const {simplePostList, typePostFilters, match, loading, getSuccess} = props;
   const [sorting, setSorting] = useState(false);
-  useEffect(() => {
+  useEffect(() =>
+  {
     setStatusGetSuccess(getSuccess);
   }, [getSuccess]);
   window.console.log(simplePostList);
 
-  const getAllEntities = () => {
-    if (search) {
+  const getAllEntities = () =>
+  {
+    if (search)
+    {
       props.getSearchVisibleEntities(
         search,
         paginationState.activePage - 1,
@@ -49,10 +55,12 @@ export const VisibleSearch = (props: ISimplePostProps) => {
     //   props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     // }
   };
-  useEffect(() => {
+  useEffect(() =>
+  {
     props.getTypePostFilters();
   }, []);
-  const resetAll = () => {
+  const resetAll = () =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -61,20 +69,24 @@ export const VisibleSearch = (props: ISimplePostProps) => {
     // props.getEntities();
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     resetAll();
   }, []);
 
   //sử dụng để đưa giá trị mặc định của sort về ''
-  useEffect(() => {
+  useEffect(() =>
+  {
     setPaginationState({
       ...paginationState,
       sort: '',
     });
   }, []);
 
-  const startSearching = () => {
-    if (search) {
+  const startSearching = () =>
+  {
+    if (search)
+    {
       props.reset();
       setPaginationState({
         ...paginationState,
@@ -89,7 +101,8 @@ export const VisibleSearch = (props: ISimplePostProps) => {
     }
   };
 
-  const clear = () => {
+  const clear = () =>
+  {
     props.reset();
     setSearch('');
     setPaginationState({
@@ -101,38 +114,45 @@ export const VisibleSearch = (props: ISimplePostProps) => {
 
   const handleSearch = event => setSearch(event.target.value);
 
-  useEffect(() => {
-    if (props.updateSuccess) {
+  useEffect(() =>
+  {
+    if (props.updateSuccess)
+    {
       resetAll();
     }
   }, [props.updateSuccess]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     getAllEntities();
   }, [paginationState.activePage]);
 
-  useEffect(() => {
-    if (sorting) {
+  useEffect(() =>
+  {
+    if (sorting)
+    {
       getAllEntities();
       setSorting(false);
     }
   }, [sorting, search]);
   window.console.log(getSuccess);
-  useEffect(() => {
-    if (getSuccess === true) {
+  useEffect(() =>
+  {
+    if (getSuccess === true)
+    {
       props.searchReset();
     }
   }, [getSuccess]);
-  if (getSuccess === true) return <Redirect to="/result-search" />;
+  if (getSuccess === true) return <Redirect to="/result-search"/>;
   return (
     <div className=" d-flex justify-content-center col-12 col-sm-11 -col-md-10 col-lg-9 col-xl-8">
       <div className="col-12">
         <AvForm onSubmit={startSearching}>
           <AvGroup className="search-elastic">
             <InputGroup>
-              <AvInput type="text" name="search" value={search} onChange={handleSearch} placeholder="Nhập tên sản phẩm bạn muốn tìm kiếm" />
+              <AvInput type="text" name="search" value={search} onChange={handleSearch} placeholder="Nhập tên sản phẩm bạn muốn tìm kiếm"/>
               <Button className="input-group-addon">
-                <FontAwesomeIcon icon="search" />
+                <FontAwesomeIcon icon="search"/>
               </Button>
               {/*<Button type="reset" className="input-group-addon" onClick={clear}>*/}
               {/*  <FontAwesomeIcon icon="trash" />*/}

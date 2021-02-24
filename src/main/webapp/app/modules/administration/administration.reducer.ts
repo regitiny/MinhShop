@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
 export const ACTION_TYPES = {
   FETCH_LOGS: 'administration/FETCH_LOGS',
@@ -36,8 +36,10 @@ export type AdministrationState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: AdministrationState = initialState, action): AdministrationState => {
-  switch (action.type) {
+export default (state: AdministrationState = initialState, action): AdministrationState =>
+{
+  switch (action.type)
+  {
     case REQUEST(ACTION_TYPES.FETCH_METRICS):
     case REQUEST(ACTION_TYPES.FETCH_THREAD_DUMP):
     case REQUEST(ACTION_TYPES.FETCH_LOGS):
@@ -104,14 +106,15 @@ export default (state: AdministrationState = initialState, action): Administrati
         loading: false,
         health: action.payload.data,
       };
-    case ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE: {
+    case ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE:
+    {
       // filter out activities from the same session
       const uniqueActivities = state.tracker.activities.filter(activity => activity.sessionId !== action.payload.sessionId);
       // remove any activities with the page of logout
       const activities = [...uniqueActivities, action.payload].filter(activity => activity.page !== 'logout');
       return {
         ...state,
-        tracker: { activities },
+        tracker: {activities},
       };
     }
     default:
@@ -141,9 +144,11 @@ export const getLoggers = () => ({
   payload: axios.get('management/loggers'),
 });
 
-export const changeLogLevel: (name, configuredLevel) => void = (name, configuredLevel) => {
-  const body = { configuredLevel };
-  return async dispatch => {
+export const changeLogLevel: (name, configuredLevel) => void = (name, configuredLevel) =>
+{
+  const body = {configuredLevel};
+  return async dispatch =>
+  {
     await dispatch({
       type: ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL,
       payload: axios.post('management/loggers/' + name, body),

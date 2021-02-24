@@ -3,18 +3,22 @@ import axios from 'axios';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
-import { TranslatorContext } from 'react-jhipster';
+import {TranslatorContext} from 'react-jhipster';
 
-import { FAILURE, REQUEST, SUCCESS } from 'app/shared/reducers/action-type.util';
-import password, { ACTION_TYPES, reset, savePassword } from './password.reducer';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
+import password, {ACTION_TYPES, reset, savePassword} from './password.reducer';
 
-describe('Password reducer tests', () => {
-  beforeAll(() => {
+describe('Password reducer tests', () =>
+{
+  beforeAll(() =>
+  {
     TranslatorContext.registerTranslations('vi', {});
   });
 
-  describe('Common tests', () => {
-    it('should return the initial state', () => {
+  describe('Common tests', () =>
+  {
+    it('should return the initial state', () =>
+    {
       const toTest = password(undefined, {});
       expect(toTest).toMatchObject({
         loading: false,
@@ -25,25 +29,29 @@ describe('Password reducer tests', () => {
     });
   });
 
-  describe('Password update', () => {
-    it('should detect a request', () => {
-      const toTest = password(undefined, { type: REQUEST(ACTION_TYPES.UPDATE_PASSWORD) });
+  describe('Password update', () =>
+  {
+    it('should detect a request', () =>
+    {
+      const toTest = password(undefined, {type: REQUEST(ACTION_TYPES.UPDATE_PASSWORD)});
       expect(toTest).toMatchObject({
         updateSuccess: false,
         updateFailure: false,
         loading: true,
       });
     });
-    it('should detect a success', () => {
-      const toTest = password(undefined, { type: SUCCESS(ACTION_TYPES.UPDATE_PASSWORD) });
+    it('should detect a success', () =>
+    {
+      const toTest = password(undefined, {type: SUCCESS(ACTION_TYPES.UPDATE_PASSWORD)});
       expect(toTest).toMatchObject({
         updateSuccess: true,
         updateFailure: false,
         loading: false,
       });
     });
-    it('should detect a failure', () => {
-      const toTest = password(undefined, { type: FAILURE(ACTION_TYPES.UPDATE_PASSWORD) });
+    it('should detect a failure', () =>
+    {
+      const toTest = password(undefined, {type: FAILURE(ACTION_TYPES.UPDATE_PASSWORD)});
       expect(toTest).toMatchObject({
         updateSuccess: false,
         updateFailure: true,
@@ -51,7 +59,8 @@ describe('Password reducer tests', () => {
       });
     });
 
-    it('should reset the state', () => {
+    it('should reset the state', () =>
+    {
       const initialState = {
         loading: false,
         errorMessage: null,
@@ -60,7 +69,7 @@ describe('Password reducer tests', () => {
       };
       expect(
         password(
-          { ...initialState, loading: true },
+          {...initialState, loading: true},
           {
             type: ACTION_TYPES.RESET,
           }
@@ -71,17 +80,20 @@ describe('Password reducer tests', () => {
     });
   });
 
-  describe('Actions', () => {
+  describe('Actions', () =>
+  {
     let store;
 
-    const resolvedObject = { value: 'whatever' };
-    beforeEach(() => {
+    const resolvedObject = {value: 'whatever'};
+    beforeEach(() =>
+    {
       const mockStore = configureStore([thunk, promiseMiddleware]);
       store = mockStore({});
       axios.post = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches UPDATE_PASSWORD_PENDING and UPDATE_PASSWORD_FULFILLED actions', async () => {
+    it('dispatches UPDATE_PASSWORD_PENDING and UPDATE_PASSWORD_FULFILLED actions', async () =>
+    {
       const meta = {
         errorMessage: 'translation-not-found[password.messages.error]',
         successMessage: 'translation-not-found[password.messages.success]',
@@ -100,7 +112,8 @@ describe('Password reducer tests', () => {
       ];
       await store.dispatch(savePassword('', '')).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches ACTION_TYPES.RESET actions', async () => {
+    it('dispatches ACTION_TYPES.RESET actions', async () =>
+    {
       const expectedActions = [
         {
           type: ACTION_TYPES.RESET,

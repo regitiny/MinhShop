@@ -24,6 +24,8 @@ export const ACTION_TYPES = {
   SET_BLOB: 'simplePost/SET_BLOB',
   RESET: 'simplePost/RESET',
   SEARCH_RESET: 'simplePost/SEARCH_RESET',
+  SORT_SIMPLEPOST: 'simplePost/SORT_SIMPLEPOST', //todo add 19/2
+  SEARCH_VISIBLE: 'simplePost/SEARCH_VISIBLE', //todo add 23/2
 };
 
 const initialState = {
@@ -47,6 +49,8 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
     case REQUEST(ACTION_TYPES.SEARCH_SIMPLEPOSTS):
     case REQUEST(ACTION_TYPES.FETCH_SIMPLEPOST_LIST):
     case REQUEST(ACTION_TYPES.FETCH_SIMPLEPOST):
+    case REQUEST(ACTION_TYPES.SORT_SIMPLEPOST):
+    case REQUEST(ACTION_TYPES.SEARCH_VISIBLE):
       return {
         ...state,
         errorMessage: null,
@@ -69,6 +73,8 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
     case FAILURE(ACTION_TYPES.CREATE_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.UPDATE_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.DELETE_SIMPLEPOST):
+    case FAILURE(ACTION_TYPES.SORT_SIMPLEPOST):
+    case FAILURE(ACTION_TYPES.SEARCH_VISIBLE):
       return {
         ...state,
         loading: false,
@@ -77,10 +83,8 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
         updateSuccess: false,
         errorMessage: action.payload,
       };
-
-    case SUCCESS(ACTION_TYPES.SEARCH_SIMPLEPOSTS): {
+    case SUCCESS(ACTION_TYPES.SEARCH_VISIBLE): {
       const links = parseHeaderForLinks(action.payload.headers.link);
-
       return {
         ...state,
         loading: false,
@@ -90,7 +94,8 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
         totalItems: parseInt(action.payload.headers['x-total-count'], 10),
       };
     }
-
+    case SUCCESS(ACTION_TYPES.SORT_SIMPLEPOST):
+    case SUCCESS(ACTION_TYPES.SEARCH_SIMPLEPOSTS):
     case SUCCESS(ACTION_TYPES.FETCH_SIMPLEPOST_LIST): {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
@@ -155,6 +160,16 @@ const apiSearchUrl = 'api/_search/simple-posts';
 
 export const getSearchEntities: ICrudSearchAction<ISimplePost> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_SIMPLEPOSTS,
+  payload: axios.get<ISimplePost>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
+});
+export const getSortTypePostEntities: ICrudSearchAction<ISimplePost> = (query, page, size, sort) => ({
+  //todo add 19/2
+  type: ACTION_TYPES.SORT_SIMPLEPOST,
+  payload: axios.get<ISimplePost>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
+});
+export const getSearchVisibleEntities: ICrudSearchAction<ISimplePost> = (query, page, size, sort) => ({
+  //todo add 23/2
+  type: ACTION_TYPES.SEARCH_VISIBLE,
   payload: axios.get<ISimplePost>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`),
 });
 

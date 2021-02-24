@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import {
   Button,
-  Card,
-  CardBody,
-  CardHeader,
-  CardImg,
-  CardSubtitle,
-  CardText,
-  CardTitle,
+  InputGroup,
   Col,
-  Dropdown,
+  Row,
+  Table,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardHeader,
   DropdownItem,
+  Dropdown,
   DropdownMenu,
   DropdownToggle,
-  Input,
-  InputGroup,
   Progress,
-  Row,
 } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { getSortState, Storage, Translate, translate } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { Input } from 'reactstrap';
+
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, getSearchEntities, reset } from './simple-post.reducer';
+import { getSearchEntities, getSortTypePostEntities, getEntities, reset } from './simple-post.reducer';
+import { ISimplePost } from 'app/shared/model/simple-post.model';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 
-import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
-import axios from 'axios';
+// import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
+import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
+
+import { Storage } from 'react-jhipster';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -46,8 +52,8 @@ export const SimplePost = (props: ISimplePostProps) => {
   );
 
   window.console.log(paginationState);
-  window.console.log(props);
-  const { simplePostList, typePostFilters, match, loading } = props;
+  window.console.log(props.location.search);
+  const { simplePostList, typePost, match, loading } = props;
   const [sorting, setSorting] = useState(false);
 
   window.console.log(simplePostList);
@@ -65,7 +71,7 @@ export const SimplePost = (props: ISimplePostProps) => {
     }
   };
   useEffect(() => {
-    props.getTypePostFilters();
+    props.getTypePosts();
   }, []);
   const resetAll = () => {
     props.reset();
@@ -159,22 +165,22 @@ export const SimplePost = (props: ISimplePostProps) => {
 
   const token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${token}`;
-  window.console.log(typePostFilters);
+  window.console.log(typePost);
   window.console.log(authToken);
-  const onGetFilterSimplePost = event => {
-    window.console.log(event.target.value);
-    const typeNameFil = { typeNameFilter: event.target.value };
-    axios({
-      url: 'api/simple-posts',
-      method: 'post',
-      headers: {
-        Authorization: authToken,
-      },
-      // params:typeNameFil
-      data: typeNameFil,
-    }).then(res => window.console.log(res));
-    // .catch(erro=>window.console.log(erro))
+  const onGetFilterSimplePost = id => {
+    // axios({
+    //   url: 'api/_search/simple-posts',
+    //   method: 'get',
+    //   headers: {
+    //     Authorization: authToken,
+    //   },
+    //   // params:typeNameFil
+    //   params:{size: 20, page: 0, query: `typePost.id:${id}`}
+    // }).then(res => (res.data));
+    // // .catch(erro=>window.console.log(erro))
+    props.getSortTypePostEntities(`typePost.id:${id}`, paginationState.activePage - 1, paginationState.itemsPerPage);
   };
+
   return (
     <div className=" d-flex justify-content-center">
       <div className="col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
@@ -403,14 +409,15 @@ export const SimplePost = (props: ISimplePostProps) => {
                     <div className="d-flex justify-content-center">
                       <h5>Chọn danh mục</h5>
                     </div>
-                    {typePostFilters && typePostFilters.length > 0
-                      ? typePostFilters.map((typePostFilter, i) => (
+                    <Input className="btn-primary mb-2 color-white" type="button" value="XEM TẤT CẢ" onClick={clear} />
+                    {typePost && typePost.length > 0
+                      ? typePost.map((item, i) => (
                           <Input
-                            className="btn-primary mb-2 color-white"
-                            key={typePostFilter.uuid}
+                            className="btn-success mb-2 color-white"
+                            key={`key-${item.id}`}
                             type="button"
-                            value={typePostFilter.typeFilterName}
-                            onClick={onGetFilterSimplePost}
+                            value={item.typeName}
+                            onClick={() => onGetFilterSimplePost(item.id)}
                           />
                         ))
                       : null}
@@ -433,6 +440,7 @@ export const SimplePost = (props: ISimplePostProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   simplePostList: storeState.simplePost.entities,
+  typePost: storeState.typePost.entities,
   typePostFilters: storeState.typePostFilter.entities,
   loading: storeState.simplePost.loading,
   totalItems: storeState.simplePost.totalItems,
@@ -445,7 +453,8 @@ const mapDispatchToProps = {
   getSearchEntities,
   getEntities,
   reset,
-  getTypePostFilters,
+  getTypePosts,
+  getSortTypePostEntities,
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

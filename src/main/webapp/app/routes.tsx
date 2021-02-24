@@ -27,6 +27,10 @@ import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';
 import CompleteOrder from 'app/modules/checkout-cart/complete-order';
 import LaptopDetail from 'app/page-product/laptop/laptop-detail';
 import ResultSearch from 'app/modules/result-search/result-search';
+import MacbookDetail from 'app/page-product/mabook/macbook-detail';
+import MayConsoleDetail from 'app/page-product/may-console/may-console-detail';
+import TabletDetail from 'app/page-product/may-tinh-bang/tablet-detail';
+import GameEquipmentDetail from 'app/page-product/thiet-bi-choi-game/game-equipment-detail';
 
 const BreadcrumbLayout = props => {
   const { children } = props;
@@ -93,7 +97,12 @@ const Routes = props => {
         <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
         <ErrorBoundaryRoute path="/result-search" exact component={ResultSearch} />
         <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
+
         <ErrorBoundaryRoute path={`/:id`} exact component={LaptopDetail} />
+        <ErrorBoundaryRoute path={`/:id`} exact component={MacbookDetail} />
+        <ErrorBoundaryRoute path={`/:id`} exact component={MayConsoleDetail} />
+        <ErrorBoundaryRoute path={`/:id`} exact component={TabletDetail} />
+        <ErrorBoundaryRoute path={`/:id`} exact component={GameEquipmentDetail} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>
     </div>

@@ -1,14 +1,14 @@
 import './visible.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup } from 'reactstrap';
+import { Link, RouteComponentProps, Redirect } from 'react-router-dom';
+import { Button, InputGroup, Col, Row } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { getSortState } from 'react-jhipster';
+import { byteSize, Translate, translate, ICrudSearchAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, getSearchEntities, reset, searchReset } from 'app/entities/simple-post/simple-post.reducer';
+import { getSearchEntities, getEntities, reset, searchReset, getSearchVisibleEntities } from 'app/entities/simple-post/simple-post.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 
@@ -38,7 +38,7 @@ export const VisibleSearch = (props: ISimplePostProps) => {
 
   const getAllEntities = () => {
     if (search) {
-      props.getSearchEntities(
+      props.getSearchVisibleEntities(
         search,
         paginationState.activePage - 1,
         paginationState.itemsPerPage,
@@ -80,7 +80,7 @@ export const VisibleSearch = (props: ISimplePostProps) => {
         ...paginationState,
         activePage: 1,
       });
-      props.getSearchEntities(
+      props.getSearchVisibleEntities(
         search,
         paginationState.activePage - 1,
         paginationState.itemsPerPage,
@@ -161,6 +161,7 @@ const mapDispatchToProps = {
   reset,
   getTypePostFilters,
   searchReset,
+  getSearchVisibleEntities,
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

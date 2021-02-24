@@ -158,8 +158,6 @@ const CheckoutCart = props => {
         data: informationProducts,
       })
         .then(res => {
-          setStatusApi(res.statusText);
-          window.console.log(res.data);
           const cookieCart = {
             id: res.data.id,
             name: res.data.name,
@@ -181,13 +179,13 @@ const CheckoutCart = props => {
             })),
           };
           setCookie('_cart', Base64.encode(encodeURIComponent(JSON.stringify(cookieCart))), 30); //todo cần xem xét khi dữ liệu quá lớn
+          setStatusApi(res.statusText);
+          props.deleteCart();
         })
-        .catch(error => window.console.log(error));
+        .catch(error => alert(error.message));
     } else {
       return alert('Vui lòng đăng ký mua sản phẩm');
     }
-    props.deleteCart();
-    // setCookie("_cart", Base64.encode(encodeURIComponent(JSON.stringify(informationProducts))), 30)
   };
 
   window.console.log(informationProducts);
@@ -195,10 +193,6 @@ const CheckoutCart = props => {
   if (statusApi === 'Created') {
     return <Redirect to="/hoantatgiaohang" />;
   }
-
-  // if(document.cookie){
-  //   return (<Redirect to="/hoantatgiaohang" />)
-  // }
   return (
     <section className="checkout-custom col-9">
       <VerifieOrder statusApi={statusApi} />

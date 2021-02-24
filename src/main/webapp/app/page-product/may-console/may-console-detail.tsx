@@ -1,12 +1,30 @@
-import './product-detail.scss';
+import './may-console.scss';
 import React, { useEffect, useState } from 'react';
-import { ProductDetailContent } from './product-detail-content';
-
-export const ProductDetail = () => {
+import axios from 'axios';
+import { Storage } from 'react-jhipster';
+import { Table } from 'reactstrap';
+import Cart from 'app/modules/shopcart/cart';
+export const MayConsoleDetail = props => {
+  const [console, setConsole] = useState(null);
+  const page_path = props.match.url;
+  const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
+  const authToken = `Bearer ${Token}`;
+  window.console.log(props.match);
+  useEffect(() => {
+    axios({
+      url: `api/simple-posts/${props.match.params.id}`,
+      method: 'get',
+      headers: {
+        Authorization: authToken,
+      },
+      // data:typeNameFil
+    }).then(res => setConsole(res.data));
+  }, []);
+  window.console.log(props.match.params.id);
   const [count, setCount] = useState(1);
   const showSlides = () => {
     if (count) {
-      const slides = document.getElementsByClassName('image-product-detail');
+      const slides = document.getElementsByClassName('image-console-detail');
       const dots = document.getElementsByClassName('img-thb');
       for (let i = 0; i < slides.length; i++) {
         const slide: any = slides[i];
@@ -27,49 +45,50 @@ export const ProductDetail = () => {
   useEffect(() => {
     currentSlide(count);
   });
+  window.console.log(console);
   return (
-    <div className="product-detail">
-      <div className=" product-detail-header d-xl-flex d-lg-flex col-12">
-        <div className="image-product mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <div className="image-product-detail">
-            <img className="image-cover img-fluid" src="/content/images/do_go_san_pham_1.png" alt="product-detail" />
+    <div className="console-detail d-flex justify-content-center ">
+      <div className=" console-detail-header d-xl-flex d-lg-flex col-9 ">
+        <div className="image-console mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div className="image-console-detail">
+            <img className="image-cover img-fluid" src={console ? console.imageUrl : null} alt="console-detail" />
           </div>
-          <div className="image-product-detail">
+          <div className="image-console-detail">
             <img
               className="image-cover img-fluid"
-              src="https://trongmanhhung.com/uploads/images/product/thung-ruou-go-soi/1.-thung-g-soi-dang-nam-20lit.jpg"
+              src="https://www.asus.com/media/global/products/HYBtGIeaoACCt3lM/P_setting_fff_1_90_end_600.png"
               alt="product-detail"
             />
           </div>
-          <div className="image-product-detail">
+          <div className="image-console-detail">
             <img
               className="image-cover img-fluid"
-              src="https://trongmanhhung.com/uploads/images/product/thung-ruou-go-soi/mua-thung-go-soi-ngam-ruou.jpg"
+              src="https://www.asus.com/media/global/gallery/jg7rlmrw0kmdyrrj_setting_fff_1_90_end_500.png"
               alt="product-detail"
             />
           </div>
           <div className="list-image-thumbnail row mt-2">
-            <div className="image-thumbnail img-1 pr-2 col-sm-12 col-md-6 col-lg-6 col-xl-4 ">
+            <div className="image-thumbnail img-1 pr-2 col-4 ">
               <img
                 className="img-thb image-cover img-fluid cursor"
                 onClick={() => currentSlide(1)}
-                src="/content/images/do_go_san_pham_1.png"
-                alt="product-detail"
+                src={console ? console.imageUrl : null}
+                alt="console-detail"
               />
             </div>
-            <div className="image-thumbnail img-2 px-1 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+            <div className="image-thumbnail img-2 px-1 col-4">
               <img
                 className="img-thb image-cover img-fluid cursor"
                 onClick={() => currentSlide(2)}
-                src="https://trongmanhhung.com/uploads/images/product/thung-ruou-go-soi/1.-thung-g-soi-dang-nam-20lit.jpg"
+                src="https://www.asus.com/media/global/products/HYBtGIeaoACCt3lM/P_setting_fff_1_90_end_600.png"
                 alt="product-detail"
               />
             </div>
-            <div className="image-thumbnail img-3 pl-2 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+            <div className="image-thumbnail img-3 pl-2 col-4">
               <img
                 className="img-thb image-cover img-fluid cursor"
                 onClick={() => currentSlide(3)}
-                src="https://trongmanhhung.com/uploads/images/product/thung-ruou-go-soi/mua-thung-go-soi-ngam-ruou.jpg"
+                src="https://www.asus.com/media/global/gallery/jg7rlmrw0kmdyrrj_setting_fff_1_90_end_500.png"
                 alt="product-detail"
               />
             </div>
@@ -146,12 +165,27 @@ export const ProductDetail = () => {
             </tbody>
           </table>
           <hr />
-          <div>{/*todo shop-cart*/}</div>
+          <div>
+            {/*todo shop-cart*/}
+            {console !== undefined && console !== null ? (
+              <div className="console-detail-price">
+                <div>
+                  Giá gốc: <span className="text-primary">{console.price.toLocaleString()}đ</span>
+                </div>
+                <div>
+                  Giá khuyến mãi: <span className="text-danger">{console.salePrice.toLocaleString()}đ</span>
+                </div>
+                <Cart cartProductDetail={console} page_path={page_path} />
+                {/*<Cart productestEntity={macbookDetail}/>*/}
+              </div>
+            ) : (
+              '...loading'
+            )}
+          </div>
         </div>
       </div>
-      <div className="product-detail-content">
-        <ProductDetailContent />
-      </div>
+      <div className="product-detail-content">{/*<ProductDetailContent/>*/}</div>
     </div>
   );
 };
+export default MayConsoleDetail;

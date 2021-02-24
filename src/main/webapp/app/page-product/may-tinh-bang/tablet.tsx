@@ -6,56 +6,44 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, NavLink, RouteComponentProps } from 'react-router-dom';
 import _ from 'lodash';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { connect } from 'react-redux';
 import { IRootState } from 'app/shared/reducers';
 import { reset } from 'app/entities/simple-post/simple-post.reducer';
-import { getEntities as getTypePosts } from 'app/entities/type-post/type-post.reducer';
+import { connect } from 'react-redux';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
-const Laptop = (props: ISimplePostProps) => {
+const Tablet = (props: ISimplePostProps) => {
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
 
-  const [laptops, setLaptops] = useState([]);
-  const [totalLaptops, setTotalLaptops] = useState([]);
+  const [tablets, setTablets] = useState([]);
+  const [totalTablets, setTotalTablets] = useState([]);
   const authToken = `Bearer ${Token}`;
+
   useEffect(() => {
-    // axios({
-    //   url: 'api/_search/simple-posts',
-    //   method: 'get',
-    //   headers: {
-    //     Authorization: authToken,
-    //   },
-    //   params: { size: 20, page: 0, query: 'typePost.id:1051' },
-    // }).then(res => setLaptops(res.data));
-    async function getLaptop() {
-      try {
-        const response = await axios.get('api/_search/simple-posts', {
-          headers: { Authorization: authToken },
-          params: { page: paginationState.activePage - 1, size: paginationState.itemsPerPage, query: 'typePost.id:1051' },
-        });
-        const { data } = response;
-        window.console.log(response);
-        setLaptops(data);
-      } catch (error) {
-        window.console.log(error);
-      }
-    }
-    getLaptop();
-  }, [paginationState.activePage]);
+    axios({
+      url: 'api/_search/simple-posts',
+      method: 'get',
+      headers: {
+        Authorization: authToken,
+      },
+      params: { page: paginationState.activePage - 1, size: paginationState.itemsPerPage, query: 'typePost.id:1453' },
+    }).then(res => setTablets(res.data));
+  }, []);
+  window.console.log(tablets);
+
   useEffect(() => {
     axios({
       method: 'get',
       url: 'api/_search/simple-posts',
       headers: { Authorization: authToken },
-      params: { query: 'typePost.id:1051' },
-    }).then(res => setTotalLaptops(res.data));
+      params: { query: 'typePost.id:1453' },
+    }).then(res => setTotalTablets(res.data));
   }, []);
-  const totalItems = totalLaptops ? totalLaptops.length : 1;
+  const totalItems = totalTablets ? totalTablets.length : 1;
   const handlePagination = currentPage => {
     props.reset();
     setPaginationState({
@@ -64,32 +52,27 @@ const Laptop = (props: ISimplePostProps) => {
     });
   };
 
-  window.console.log(paginationState);
-  // useEffect(()=>{
-  //   props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, 'typePost.id:1051');
-  // },[])
-  window.console.log(laptops);
   return (
     <div>
       <div className="d-flex justify-content-center">
         <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
-          {laptops && laptops.length > 0
+          {tablets && tablets.length > 0
             ? // ? laptops
-              //     .filter(laptop => laptop.typePost.typeName === 'Laptop')
-              laptops.map(laptop => {
-                // if (laptop.typePost.typeName === 'Laptop') {}
+              //     .filter(tablet => tablet.typePost.typeName === 'tablet')
+              tablets.map(tablet => {
+                // if (tablet.typePost.typeName === 'tablet') {}
                 return (
-                  <div className="col-4" key={laptop.uuid + laptop.id}>
-                    <Link to={`/${laptop.id}`}>
-                      {/*<Link to={`${match.url}/${laptop.id}`}>*/}
+                  <div className="col-4" key={tablet.uuid + tablet.id}>
+                    <Link to={`/${tablet.id}`}>
+                      {/*<Link to={`${match.url}/${tablet.id}`}>*/}
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
                           <div>
-                            <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap" />
+                            <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap" />
                           </div>
                           <div className="float-group">
                             <CardTitle tag="h4" className="float-left">
-                              {laptop.title}
+                              {tablet.title}
                             </CardTitle>
                           </div>
                         </CardHeader>
@@ -97,21 +80,21 @@ const Laptop = (props: ISimplePostProps) => {
                           <CardText className="">
                             <p className="float-left">Giá gốc: </p>
                             <div className="float-left text-secondary ml-1">
-                              <del>{laptop.price}đ</del>
+                              <del>{tablet.price}đ</del>
                             </div>
                             <br />
                           </CardText>
                           <CardText className="">
                             <p className="float-left">Chỉ còn: </p>
                             <div className="float-left text-danger ml-1">
-                              <b>{laptop.salePrice.toLocaleString()}đ</b>
+                              <b>{tablet.salePrice.toLocaleString()}đ</b>
                             </div>
-                            <div className="float-left badge badge-danger text-white ml-2">-{laptop.percentSale}%</div>
+                            <div className="float-left badge badge-danger text-white ml-2">-{tablet.percentSale}%</div>
                             <br />
                           </CardText>
                           <div className="text-center" style={{ width: '200px' }}>
-                            <Progress animated value={laptop.scores}>
-                              {laptop.scores}
+                            <Progress animated value={tablet.scores}>
+                              {tablet.scores}
                             </Progress>
                           </div>
                         </CardBody>
@@ -123,8 +106,8 @@ const Laptop = (props: ISimplePostProps) => {
             : null}
         </div>
       </div>
-      {laptops.length ? (
-        <div className={laptops && laptops.length > 0 ? '' : 'd-none'}>
+      {tablets.length ? (
+        <div className={tablets && tablets.length > 0 ? '' : 'd-none'}>
           <Row className="justify-content-center">
             <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
           </Row>
@@ -148,9 +131,7 @@ const mapStateToProps = (storeState: IRootState) => ({});
 
 const mapDispatchToProps = {
   reset,
-  getTypePosts,
 };
-
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
-export default connect(null, mapDispatchToProps)(Laptop);
+export default connect(null, mapDispatchToProps)(Tablet);

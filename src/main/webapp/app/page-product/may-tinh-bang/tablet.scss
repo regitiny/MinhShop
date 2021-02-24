@@ -1,26 +1,20 @@
-.product-detail {
+.tablet-detail {
   background: white;
-
-  .product-detail-header {
+  .tablet-detail-header {
     padding: 0;
-
-    .image-product {
+    .image-tablet {
       //padding-right: 0;
       position: relative;
-
-      .image-product-detail {
+      .image-tablet-detail {
         display: none;
         //position: absolute;
       }
-
       .list-image-thumbnail {
         margin: 0;
-
         .image-thumbnail {
           padding: 0;
         }
       }
-
       .active,
       .img-thb:hover {
         outline: 1px solid #0089b9;
@@ -36,7 +30,7 @@ img {
 /* Position the image container (needed to position the left and right arrows) */
 
 /* Hide the images by default */
-.image-product-detail {
+.image-tablet-detail {
   display: none;
 }
 
@@ -69,5 +63,4 @@ td {
   margin: 0;
   color: black;
 }
-
 /* Add a transparency effect for thumnbail images */

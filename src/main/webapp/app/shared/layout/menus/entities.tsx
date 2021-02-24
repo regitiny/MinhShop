@@ -35,7 +35,7 @@ export const EntitiesMenu = props => (
     <MenuItem icon="asterisk" to="/entity/bill">
       <Translate contentKey="global.menu.entities.bill" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="entity/user-other-info">
+    <MenuItem icon="asterisk" to="/entity/user-other-info">
       <Translate contentKey="global.menu.entities.userOtherInfo" />
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/hanh-chinh-vn">

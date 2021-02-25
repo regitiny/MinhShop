@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Storage } from 'react-jhipster';
 import Cart from 'app/modules/shopcart/cart';
+import {ProductViews} from "app/page-product/product-view";
 
 export const MacbookDetail = props => {
   const [macbook, setMacbook] = useState(null);
   const page_path = props.match.url;
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${Token}`;
+  const [macbookView, setProductView]=useState(null);
+  const [macbookViews, setMacbookViews]=useState([]);
   window.console.log(props.match);
   useEffect(() => {
     axios({
@@ -46,6 +49,20 @@ export const MacbookDetail = props => {
     currentSlide(count);
   });
   window.console.log(macbook);
+  useEffect(()=>{
+    if(macbook){
+      setProductView({
+        id: macbook.id,
+        name: macbook.title,
+        image: macbook.imageUrl,
+        url: location.pathname
+      })
+    }
+  },[macbook])
+
+  useEffect(()=>{
+    ProductViews(setProductView)
+  },[setProductView])
   return (
     <div className="macbook-detail d-flex justify-content-center ">
       <div className=" macbook-detail-header d-xl-flex d-lg-flex col-9 ">

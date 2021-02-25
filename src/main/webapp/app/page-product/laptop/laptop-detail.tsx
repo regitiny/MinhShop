@@ -4,9 +4,12 @@ import axios from 'axios';
 import { Storage } from 'react-jhipster';
 import Cart from 'app/modules/shopcart/cart';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import {ProductViews} from'app/page-product/product-view'
+import HistoryView from "app/page-product/history-view";
 
 export const LaptopDetail = props => {
   const [laptop, setLaptop] = useState(null);
+  const [productView, setProductView]=useState(null);
   const page_path = props.match.url;
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${Token}`;
@@ -46,6 +49,41 @@ export const LaptopDetail = props => {
   useEffect(() => {
     currentSlide(count);
   });
+  useEffect(()=>{
+    if(laptop){
+      setProductView({
+        id: laptop.id,
+        name: laptop.title,
+        image: laptop.imageUrl,
+        url: location.pathname
+      })
+    }
+  },[laptop])
+  const ec=encodeURIComponent(JSON.stringify(productView));
+  const dc=decodeURIComponent('%5B%22424%22%2C%22307%22%2C%22426%22%5D')
+  window.console.log(productView)
+  window.console.log(ec)
+  window.console.log(dc)
+
+  // productViews.forEach(x =>
+  // {
+  //   if (x && x.id === laptopView.id)
+  //   {
+  //     alreadyExist = true;
+  //   }
+  // });
+  // if (!alreadyExist && laptopView)
+  // {
+  //   window.console.log(!alreadyExist);
+  //   productViews.push(laptopView);
+  // }
+  // window.console.log(productViews)
+  // localStorage.setItem('product',JSON.stringify(productViews))
+  useEffect(()=>{
+    window.console.log(productView)
+    ProductViews(productView)
+  },[productView])
+
   return (
     <div>
       {/*<div>*/}
@@ -194,6 +232,7 @@ export const LaptopDetail = props => {
         </div>
       </div>
       <div className="product-detail-content">{/*<ProductDetailContent/>*/}</div>
+      <HistoryView/>
     </div>
   );
 };

@@ -18,7 +18,6 @@ const BreadcrumbLayout = props => {
 };
 function PageProduct({ match }) {
   // window.console.log(`${match.url}lap-top`)
-
   return (
     <div>
       {/*<Breadcrumbs*/}

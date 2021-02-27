@@ -62,8 +62,8 @@ const GameEquipment = (props: ISimplePostProps) => {
                 // if (gameEquipment.typePost.typeName === 'gameEquipment') {}
                 return (
                   <div className="col-4" key={gameEquipment.uuid + gameEquipment.id}>
-                    <Link to={`/${gameEquipment.id}`}>
-                      {/*<Link to={`${match.url}/${gameEquipment.id}`}>*/}
+                    {/*<Link to={`/${gameEquipment.id}`}>*/}
+                      <Link to={`${props.match.url}/${gameEquipment.id}`}>
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
                           <div>

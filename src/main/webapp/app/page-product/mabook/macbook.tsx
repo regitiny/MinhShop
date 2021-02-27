@@ -54,7 +54,8 @@ const MacBook = (props: ISimplePostProps) => {
             ? macbooks.map(macbook => {
                 return (
                   <div className="col-4" key={macbook.id * 137}>
-                    <Link to={`/${macbook.id}`}>
+                    <Link to={`${props.match.url}/${macbook.id}`}>
+                    {/*<Link to={`/${macbook.id}`}>*/}
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
                           <div>

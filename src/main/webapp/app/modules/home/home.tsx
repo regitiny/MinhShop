@@ -103,7 +103,7 @@ const Home = props =>
                 {tablets && tablets.length > 0
                   ? tablets.map(tablet => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={tablet.uuid}>
-                      <NavLink to={`/${tablet.id}`} tag={Link}>
+                      <NavLink to={`/page/may-tinh-bang/${tablet.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap"/>
                           <CardBody>
@@ -152,7 +152,7 @@ const Home = props =>
                 {laptops && laptops.length > 0
                   ? laptops.map(laptop => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={laptop.uuid}>
-                      <NavLink to={`/${laptop.id}`} tag={Link}>
+                      <NavLink to={`/page/lap-top/${laptop.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap"/>
                           <CardBody>
@@ -201,7 +201,7 @@ const Home = props =>
                 {consoles && consoles.length > 0
                   ? consoles.map(console => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={console.uuid}>
-                      <NavLink to={`/${console.id}`} tag={Link}>
+                      <NavLink to={`/page/may-console/${console.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={console.imageUrl} alt="Card image cap"/>
                           <CardBody>
@@ -250,7 +250,7 @@ const Home = props =>
                 {macbooks && macbooks.length > 0
                   ? macbooks.map(macbook => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={macbook.uuid}>
-                      <NavLink to={`/${macbook.id}`} tag={Link}>
+                      <NavLink to={`/page/macbook/${macbook.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap"/>
                           <CardBody>
@@ -299,7 +299,7 @@ const Home = props =>
                 {gameEquipments && gameEquipments.length > 0
                   ? gameEquipments.map(gameEquipment => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={gameEquipment.uuid}>
-                      <NavLink to={`/${gameEquipment.id}`} tag={Link}>
+                      <NavLink to={`/page/thiet-bi-choi-game/${gameEquipment.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap"/>
                           <CardBody>

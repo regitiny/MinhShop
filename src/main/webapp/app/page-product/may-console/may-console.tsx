@@ -56,7 +56,8 @@ const MayConsole = (props: ISimplePostProps) => {
             ? consoles.map(console => {
                 return (
                   <div className="col-4" key={console.id * 137}>
-                    <Link to={`/${console.id}`}>
+                    <Link to={`${props.match.url}/${console.id}`}>
+                    {/*<Link to={`/${console.id}`}>*/}
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
                           <div>

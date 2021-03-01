@@ -164,7 +164,7 @@ const Home = props =>
                               <span className="price-new">{laptop.salePrice.toLocaleString()}</span>
                               <span className="price-old">{laptop.price.toLocaleString()}</span>
                               <span>
-                                <Badge color="warning">-{laptop.percentSale}%</Badge>
+                                <Badge color="warning">-{laptop.percentSale.toFixed(1)}%</Badge>
                               </span>
                             </CardText>
                             <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
@@ -254,7 +254,7 @@ const Home = props =>
                         <Card>
                           <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap"/>
                           <CardBody>
-                            <CardTitle tag="h5">{macbook.title}</CardTitle>
+                            <CardTitle tag="h5">{macbook.title.substring(0,20)}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
                               Mã sản phẩm: TGSN20
                             </CardSubtitle>

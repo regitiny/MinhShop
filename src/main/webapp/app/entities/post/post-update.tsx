@@ -415,7 +415,7 @@ export const PostUpdate = (props: IPostUpdateProps) =>
                   <Translate contentKey="minhShopApp.post.help.comment"/>
                 </UncontrolledTooltip>
               </AvGroup>
-              <Button tag={Link} id="cancel-save" to="/post" replace color="info">
+              <Button tag={Link} id="cancel-save" to="/entity/post" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">

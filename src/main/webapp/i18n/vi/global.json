@@ -39,6 +39,7 @@
         "logs": "Ghi logs",
         "apidocs": "API",
         "database": "Cơ sở dữ liệu",
+        "serverManagement": "Quản lý server",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
       "language": "Ngôn ngữ"

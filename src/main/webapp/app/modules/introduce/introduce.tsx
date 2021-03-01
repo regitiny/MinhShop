@@ -1,5 +1,7 @@
 import React from 'react';
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
+import {Link} from 'react-router-dom'
+import HistoryView from "app/page-product/history-view";
 
 const base_path = '/';
 
@@ -19,6 +21,7 @@ function Introduce({children})
       {/*  }}*/}
       {/*/>*/}
       <div>Đây là thông tin của trang web</div>
+      <HistoryView/>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 // import {Breadcrumb, NavLink} from "reactstrap";
-import { NavLink, Switch, useLocation } from 'react-router-dom';
+import { NavLink, Switch, useLocation, withRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
@@ -91,18 +91,22 @@ const Routes = props => {
         <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
         <ErrorBoundaryRoute path="/" exact component={Home} />
         {/*<Page path="/" exact component={Home} title="Home"/>*/}
+
         <ErrorBoundaryRoute path="/introduce" component={Introduce} />
         <ErrorBoundaryRoute path="/contact" component={Contact} />
+
         <ErrorBoundaryRoute path="/page" component={PageProduct} />
+
+        {/*<ErrorBoundaryRoute path={`/lap-top/:id`} exact component={LaptopDetail} />*/}
+        {/*<ErrorBoundaryRoute path={`/mac-book/:id`} exact component={MacbookDetail} />*/}
+        {/*<ErrorBoundaryRoute path={`/console/:id`} exact component={MayConsoleDetail} />*/}
+        {/*<ErrorBoundaryRoute path={`/tablet/:id`} exact component={TabletDetail} />*/}
+        {/*<ErrorBoundaryRoute path={`/game-equipment/:id`} exact component={GameEquipmentDetail} />*/}
+
         <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
         <ErrorBoundaryRoute path="/result-search" exact component={ResultSearch} />
         <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
 
-        <ErrorBoundaryRoute path={`/:id`} exact component={LaptopDetail} />
-        <ErrorBoundaryRoute path={`/:id`} exact component={MacbookDetail} />
-        <ErrorBoundaryRoute path={`/:id`} exact component={MayConsoleDetail} />
-        <ErrorBoundaryRoute path={`/:id`} exact component={TabletDetail} />
-        <ErrorBoundaryRoute path={`/:id`} exact component={GameEquipmentDetail} />
         <ErrorBoundaryRoute component={PageNotFound} />
       </Switch>
     </div>

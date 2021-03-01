@@ -63,8 +63,8 @@ const Tablet = (props: ISimplePostProps) => {
                 // if (tablet.typePost.typeName === 'tablet') {}
                 return (
                   <div className="col-4" key={tablet.uuid + tablet.id}>
-                    <Link to={`/${tablet.id}`}>
-                      {/*<Link to={`${match.url}/${tablet.id}`}>*/}
+                    {/*<Link to={`/${tablet.id}`}>*/}
+                      <Link to={`${props.match.url}/${tablet.id}`}>
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
                           <div>

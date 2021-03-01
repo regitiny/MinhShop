@@ -86,9 +86,20 @@ public class PostServiceImpl implements PostService
   }
 
   //  @Override
-  public Long createNewPost(PostModel postModel)
+  public Long createNewPost(final PostModel postModel)
   {
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
+    PostDetailsDTO postDetailsDTO = new PostDetailsDTO();
+    SimplePostDTO simplePostDTO = new SimplePostDTO();
+    if (postModel.getId() != null)
+    {
+      simplePostDTO = simplePostService.findOne(postModel.getId()).orElse(simplePostDTO);
+      if (simplePostDTO.getPostDetails() != null)
+        postDetailsDTO = postDetailsService.findOne(simplePostDTO.getPostDetails().getId()).orElse(postDetailsDTO);
+    }
+
+    simplePostDTO = (SimplePostDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(simplePostDTO);
+    postDetailsDTO = (PostDetailsDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(postDetailsDTO);
 
     String title = postModel.getTitle();
     Double price = postModel.getPrice();
@@ -101,36 +112,30 @@ public class PostServiceImpl implements PostService
     String content = postModel.getContent();
     String postDetailsId = postModel.getPostDetailsId();
     String comment = postModel.getComment();
-    String role = AuthoritiesConstants.MANAGEMENT;
     TypePostDTO typePost = postModel.getTypePost();
     Set<TypePostFilterDTO> typePostFilterDTO = postModel.getTypePostFilters();
 
-    Instant nowTime = Instant.now();
-    String thisUser = SecurityUtils.getCurrentUserLogin().get();
-    String searchField = StringPool.BLANK;
+    String contentCleanHTML = Jsoup.parse(content).text();
+    String tiengVietKhongDau = StringUtils.clean(content);
+    String searchField = tiengVietKhongDau + StringPool.SPACE + contentCleanHTML;
 
-    if (salePrice != null && price != null) percentSale = (float) (salePrice / price);
-
-    PostDetailsDTO postDetailsDTO = (PostDetailsDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new PostDetailsDTO());
+    if (salePrice != null && price != null) percentSale = (float) (salePrice / price) * 100;
 
     postDetailsDTO.setUuid(UUID.randomUUID());
     postDetailsDTO.setPostDetailsId(postDetailsId);
     postDetailsDTO.setContent(content);
-    postDetailsDTO.setRole(role);
-    postDetailsDTO.setCreatedDate(nowTime);
-    postDetailsDTO.setModifiedDate(nowTime);
-    postDetailsDTO.setCreatedBy(thisUser);
-    postDetailsDTO.setModifiedBy(thisUser);
     postDetailsDTO.setDataSize((long) content.getBytes().length);
     postDetailsDTO.setComment(comment);
+    postDetailsDTO.setSearchField(searchField);
 
     log.debug("postDetailsDTO = {}", postDetailsDTO);
 
     PostDetails resultPostDetails = postDetailsRepository.save(postDetailsMapper.toEntity(postDetailsDTO));
+    resultPostDetails.cleanInfiniteInterlockingRelationship();
+    postDetailsSearchRepository.save(resultPostDetails);
 
     log.info(resultPostDetails);
 
-    SimplePostDTO simplePostDTO = (SimplePostDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new SimplePostDTO());
 
     simplePostDTO.setUuid(UUID.randomUUID());
     simplePostDTO.setTitle(title);
@@ -142,11 +147,6 @@ public class PostServiceImpl implements PostService
     simplePostDTO.setSimpleContent(simpleContent);
     simplePostDTO.setOtherInfo(otherInfo);
     simplePostDTO.setSearchField(searchField);
-    simplePostDTO.setRole(role);
-    simplePostDTO.setCreatedDate(nowTime);
-    simplePostDTO.setModifiedDate(nowTime);
-    simplePostDTO.setCreatedBy(thisUser);
-    simplePostDTO.setModifiedBy(thisUser);
     simplePostDTO.setDataSize((long) simpleContent.getBytes().length);
     simplePostDTO.setComment(comment);
     simplePostDTO.setTypePost(typePost);
@@ -158,23 +158,16 @@ public class PostServiceImpl implements PostService
 
     Long postDetails_Id = resultPostDetails.getId();
     postDetailsRepository.findById(postDetails_Id).ifPresent(simplePost::setPostDetails);
+
     SimplePost resultSimplePost = simplePostRepository.save(simplePost);
-    //      sử lý đặc biệt chỉ dành cho search
-
-    PostDetails postDetailsDTOForSearch = resultSimplePost.getPostDetails();
-    String contentCleanHTML = Jsoup.parse(content).text();
-    searchField = StringUtils.clean(content);
-
-    postDetailsDTOForSearch.setContent(contentCleanHTML);
-    simplePostDTO.setSearchField(null);
-    postDetailsDTOForSearch.setSearchField(searchField);
-    resultSimplePost.setPostDetails(postDetailsDTOForSearch);
-
-    postDetailsSearchRepository.save(resultPostDetails);
+    resultSimplePost.cleanInfiniteInterlockingRelationship();
     simplePostSearchRepository.save(resultSimplePost);
     log.debug("sau khi lưu simple-post vào es : {} , {}", resultSimplePost, resultPostDetails);
 
-    log.info("upload post success");
+    if (postModel.getId() == null)
+      log.info("upload post success");
+    else
+      log.info("update post success");
 
 //    PostDetails postDetailsDTOForSearch = resultSimplePost.getPostDetails();
 //    String contentCleanHTML = Jsoup.parse(content).text();
@@ -266,23 +259,24 @@ public class PostServiceImpl implements PostService
       throw new BadRequestAlertException("đéo phải quản lý thì làm gì có cái quyền upload bạn ơi", null, "notManagement");
 
     Optional<SimplePostDTO> optionalSimplePostDTO = simplePostService.findOne(postModel.getId());
-    if (optionalSimplePostDTO.isEmpty())
-    {
-      return createNewPost(postModel);
-    }
-    else
-    {
-      SimplePostDTO oldSimplePostDTO = optionalSimplePostDTO.get();
-      long simplePostDTO_ID = oldSimplePostDTO.getId();
-      Optional<PostDetailsDTO> optionalPostDetailsDTO = postDetailsService.findOne(simplePostDTO_ID);
-      if (optionalPostDetailsDTO.isPresent())
-      {
-        PostDetailsDTO oldPostDetailsDTO = optionalPostDetailsDTO.get();
-        return partialUpdatePost(postModel, oldSimplePostDTO.getId(), oldPostDetailsDTO.getId());
-      }
-      log.warn("cần xử lý trong tương lai");
-      return null;
-    }
+    return createNewPost(postModel);
+//    if (optionalSimplePostDTO.isEmpty())
+//    {
+//      return createNewPost(postModel);
+//    }
+//    else
+//    {
+//      SimplePostDTO oldSimplePostDTO = optionalSimplePostDTO.get();
+//      long simplePostDTO_ID = oldSimplePostDTO.getId();
+//      Optional<PostDetailsDTO> optionalPostDetailsDTO = postDetailsService.findOne(simplePostDTO_ID);
+//      if (optionalPostDetailsDTO.isPresent())
+//      {
+//        PostDetailsDTO oldPostDetailsDTO = optionalPostDetailsDTO.get();
+//        return partialUpdatePost(postModel, oldSimplePostDTO.getId(), oldPostDetailsDTO.getId());
+//      }
+//      log.warn("cần xử lý trong tương lai");
+//      return null;
+//    }
   }
 
   @Override

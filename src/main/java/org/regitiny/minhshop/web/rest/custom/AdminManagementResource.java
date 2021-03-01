@@ -4,6 +4,9 @@ import lombok.extern.log4j.Log4j2;
 import org.regitiny.minhshop.domain.*;
 import org.regitiny.minhshop.repository.*;
 import org.regitiny.minhshop.repository.search.*;
+import org.regitiny.minhshop.security.AuthoritiesConstants;
+import org.regitiny.minhshop.security.SecurityUtils;
+import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
 import org.regitiny.minhshop.web.rest.errors.EmailAlreadyUsedException;
 import org.regitiny.minhshop.web.rest.errors.InvalidPasswordException;
 import org.regitiny.minhshop.web.rest.errors.LoginAlreadyUsedException;
@@ -68,11 +71,13 @@ public class AdminManagementResource
    * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
    * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
    */
-  @PutMapping("/management/admin/database/elastichsearch/syncs")
+  @PutMapping("/management/admin/database/elasticsearch/syncs/reindex-all")
   @ResponseStatus(HttpStatus.CREATED)
   @Transactional(readOnly = true)
   public ResponseEntity<String> reindexAllElasticsearch()
   {
+    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT))
+      throw new BadRequestAlertException("không có quyền bạn ơi", "ReindexElasticsearch", HttpStatus.BAD_REQUEST.toString());
     log.info("reindex all database syncs()");
     log.debug("start reindex.");
 

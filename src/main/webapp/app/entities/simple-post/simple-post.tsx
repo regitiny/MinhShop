@@ -196,6 +196,7 @@ export const SimplePost = (props: ISimplePostProps) =>
     //   params:{size: 20, page: 0, query: `typePost.id:${id}`}
     // }).then(res => (res.data));
     // // .catch(erro=>window.console.log(erro))
+    props.reset();
     props.getSortTypePostEntities(`typePost.id:${id}`, paginationState.activePage - 1, paginationState.itemsPerPage);
   };
 

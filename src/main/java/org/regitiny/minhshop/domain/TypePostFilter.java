@@ -285,6 +285,11 @@ public class TypePostFilter implements Serializable
 
   public void setSimplePosts(Set<SimplePost> simplePosts)
   {
+    if (simplePosts == null)
+    {
+      this.simplePosts = null;
+      return;
+    }
     if (this.simplePosts != null)
     {
       this.simplePosts.forEach(i -> i.removeTypePostFilter(this));
@@ -295,6 +300,11 @@ public class TypePostFilter implements Serializable
     }
     this.simplePosts = simplePosts;
   }
+//  //  yuvytung: practical experience
+//  public void clearSimplePosts()
+//  {
+//    this.simplePosts = null;
+//  }
 
   public TypePostFilter simplePosts(Set<SimplePost> simplePosts)
   {
@@ -356,5 +366,15 @@ public class TypePostFilter implements Serializable
       ", dataSize=" + getDataSize() +
       ", comment='" + getComment() + "'" +
       "}";
+  }
+
+  public void cleanInfiniteInterlockingRelationship()
+  {
+    if (simplePosts != null)
+    {
+      Set<SimplePost> reuSimplePosts = new HashSet<>();
+      this.simplePosts.forEach(simplePost -> reuSimplePosts.add(simplePost.typePostFilters(null)));
+      this.simplePosts = reuSimplePosts;
+    }
   }
 }

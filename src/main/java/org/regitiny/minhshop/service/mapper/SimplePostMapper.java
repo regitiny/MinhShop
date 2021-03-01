@@ -16,6 +16,12 @@ public interface SimplePostMapper extends EntityMapper<SimplePostDTO, SimplePost
   @Mapping(target = "typePostFilters", source = "typePostFilters", qualifiedByName = "typeFilterNameSet")
   SimplePostDTO toDto(SimplePost s);
 
+//  //  yuvytung: practical experience
+//  @Mapping(target = "postDetails",source = "postDetails" ,qualifiedByName = "postDetailIgnoreSimplePost")
+//  @Mapping(target = "typePostFilters", source = "typePostFilters", qualifiedByName = "typePostFilterIgnoreSimplePostSet")
+//  @Mapping(target = "removeTypePostFilter", ignore = true)
+//  SimplePost cleanNested(SimplePost s);
+
 
   @Mapping(target = "removeTypePostFilter", ignore = true)
   SimplePost toEntity(SimplePostDTO simplePostDTO);

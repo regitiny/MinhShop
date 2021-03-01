@@ -328,6 +328,11 @@ public class PostDetails implements Serializable
 
   public void setSimplePost(SimplePost simplePost)
   {
+    if (simplePost == null)
+    {
+      this.simplePost = null;
+      return;
+    }
     if (this.simplePost != null)
     {
       this.simplePost.setPostDetails(null);
@@ -387,5 +392,14 @@ public class PostDetails implements Serializable
       ", comment='" + getComment() + "'" +
       ", otherData='" + getOtherData() + "'" +
       "}";
+  }
+
+  public void cleanInfiniteInterlockingRelationship()
+  {
+    if (simplePost != null)
+    {
+      simplePost = simplePost.postDetails(null).typePostFilters(null);
+
+    }
   }
 }

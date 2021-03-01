@@ -332,4 +332,10 @@ public class Payment implements Serializable
       ", comment='" + getComment() + "'" +
       "}";
   }
+
+  public void cleanInfiniteInterlockingRelationship()
+  {
+    if (billId != null)
+      billId = billId.payment(null);
+  }
 }

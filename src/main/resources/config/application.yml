@@ -187,9 +187,9 @@ jhipster:
     description: MinhShop API documentation
     version: 0.0.1
     terms-of-service-url:
-    contact-name:
+    contact-name: yuvytung
     contact-url:
-    contact-email:
+    contact-email: yuvytung@gmail.com
     license: unlicensed
     license-url:
 kafka:

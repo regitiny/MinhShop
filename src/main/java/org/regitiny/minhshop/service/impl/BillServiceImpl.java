@@ -7,7 +7,6 @@ import org.regitiny.minhshop.security.AuthoritiesConstants;
 import org.regitiny.minhshop.security.SecurityUtils;
 import org.regitiny.minhshop.service.BillService;
 import org.regitiny.minhshop.service.dto.BillDTO;
-import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.regitiny.minhshop.service.mapper.BillMapper;
 import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.slf4j.Logger;
@@ -54,7 +53,7 @@ public class BillServiceImpl implements BillService
     log.debug("Request to save Bill : {}", billDTO);
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.USER);
     // EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave role mặc định là management
-    ImageDTO imageDTO = (ImageDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new ImageDTO());
+    billDTO = (BillDTO) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(billDTO);
     billDTO.setRole(AuthoritiesConstants.USER);
     Bill bill = billMapper.toEntity(billDTO);
     bill = billRepository.save(bill);

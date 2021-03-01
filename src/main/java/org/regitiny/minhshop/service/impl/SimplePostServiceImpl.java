@@ -72,6 +72,7 @@ public class SimplePostServiceImpl implements SimplePostService
     postDetailsRepository.findById(postDetailsId).ifPresent(simplePost::postDetails);
     simplePost = simplePostRepository.save(simplePost);
     SimplePostDTO result = simplePostMapper.toDto(simplePost);
+    simplePost.cleanInfiniteInterlockingRelationship();
     simplePostSearchRepository.save(simplePost);
     return result;
   }

@@ -1,6 +1,7 @@
 package org.regitiny.minhshop.web.rest.custom.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import org.regitiny.minhshop.service.dto.TypePostDTO;
 import org.regitiny.minhshop.service.dto.TypePostFilterDTO;
@@ -11,8 +12,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@Builder
 public class PostModel
 {
+  /**
+   * id
+   */
+  private Long id;
 
   /**
    * title
@@ -30,7 +36,7 @@ public class PostModel
   /**
    * price
    */
-  @ApiModelProperty(value = "price")
+  @ApiModelProperty(value = "salePrice")
   private Double salePrice;
 
   /**

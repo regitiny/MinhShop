@@ -478,4 +478,10 @@ public class Bill implements Serializable
       ", dataSize=" + getDataSize() +
       "}";
   }
+
+  public void cleanInfiniteInterlockingRelationship()
+  {
+    if (payment != null)
+      payment = payment.billId(null);
+  }
 }

@@ -19,19 +19,22 @@ import org.regitiny.minhshop.service.dto.TypePostDTO;
 import org.regitiny.minhshop.service.dto.TypePostFilterDTO;
 import org.regitiny.minhshop.service.mapper.PostDetailsMapper;
 import org.regitiny.minhshop.service.mapper.SimplePostMapper;
+import org.regitiny.minhshop.service.mapper.TypePostFilterMapper;
+import org.regitiny.minhshop.service.mapper.TypePostMapper;
 import org.regitiny.minhshop.web.rest.custom.model.PostModel;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
 import org.regitiny.tools.magic.constant.StringPool;
 import org.regitiny.tools.magic.exception.NhechException;
 import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
 import org.regitiny.tools.magic.utils.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Log4j2
 @Transactional
@@ -55,6 +58,10 @@ public class PostServiceImpl implements PostService
 
   private final PostDetailsSearchRepository postDetailsSearchRepository;
 
+  private final TypePostMapper typePostMapper;
+
+  private final TypePostFilterMapper typePostFilterMapper;
+
   public PostServiceImpl(
     SimplePostService simplePostService,
     PostDetailsService postDetailsService,
@@ -63,8 +70,8 @@ public class PostServiceImpl implements PostService
     SimplePostSearchRepository simplePostSearchRepository,
     SimplePostMapper simplePostMapper,
     PostDetailsMapper postDetailsMapper,
-    PostDetailsSearchRepository postDetailsSearchRepository
-  )
+    PostDetailsSearchRepository postDetailsSearchRepository,
+    TypePostMapper typePostMapper, TypePostFilterMapper typePostFilterMapper)
   {
     this.simplePostService = simplePostService;
     this.postDetailsService = postDetailsService;
@@ -74,10 +81,12 @@ public class PostServiceImpl implements PostService
     this.simplePostMapper = simplePostMapper;
     this.postDetailsMapper = postDetailsMapper;
     this.postDetailsSearchRepository = postDetailsSearchRepository;
+    this.typePostMapper = typePostMapper;
+    this.typePostFilterMapper = typePostFilterMapper;
   }
 
   //  @Override
-  public void createNewPost(PostModel postModel)
+  public Long createNewPost(PostModel postModel)
   {
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
 
@@ -166,10 +175,27 @@ public class PostServiceImpl implements PostService
     log.debug("sau khi lưu simple-post vào es : {} , {}", resultSimplePost, resultPostDetails);
 
     log.info("upload post success");
+
+//    PostDetails postDetailsDTOForSearch = resultSimplePost.getPostDetails();
+//    String contentCleanHTML = Jsoup.parse(content).text();
+//    searchField = StringUtils.clean(content);
+//
+//    postDetailsDTOForSearch.setContent(contentCleanHTML);
+//    simplePostDTO.setSearchField(null);
+//    postDetailsDTOForSearch.setSearchField(searchField);
+//    resultSimplePost.setPostDetails(postDetailsDTOForSearch);
+//
+//    postDetailsSearchRepository.save(resultPostDetails);
+//    simplePostSearchRepository.save(resultSimplePost);
+//    log.debug("sau khi lưu simple-post vào es : {} , {}", resultSimplePost, resultPostDetails);
+//
+//    log.info("upload post success");
+
+    return resultSimplePost.getId();
   }
 
   //  @Override
-  public void partialUpdatePost(PostModel postModel, Long simplePost_Id, Long posDetail_Id)
+  public Long partialUpdatePost(PostModel postModel, Long simplePost_Id, Long posDetail_Id)
   {
     SimplePostDTO simplePostDTO = new SimplePostDTO();
     PostDetailsDTO postDetailsDTO = new PostDetailsDTO();
@@ -230,18 +256,19 @@ public class PostServiceImpl implements PostService
     else log.info(
       "update simplePost and PostDetails succeed."
     );
+    return simplePost_Id;
   }
 
   @Override
-  public void save(Long simplifiedPostId, PostModel postModel)
+  public Long save(PostModel postModel)
   {
-    if (
-      !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT) || SecurityUtils.getCurrentUserLogin().isEmpty()
-    ) throw new BadRequestAlertException("đéo phải quản lý thì làm gì có cái quyền upload bạn ơi", null, "notManagement");
-    Optional<SimplePostDTO> optionalSimplePostDTO = simplePostService.findOne(simplifiedPostId);
-    if (simplifiedPostId == null || optionalSimplePostDTO.isEmpty())
+    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT) || SecurityUtils.getCurrentUserLogin().isEmpty())
+      throw new BadRequestAlertException("đéo phải quản lý thì làm gì có cái quyền upload bạn ơi", null, "notManagement");
+
+    Optional<SimplePostDTO> optionalSimplePostDTO = simplePostService.findOne(postModel.getId());
+    if (optionalSimplePostDTO.isEmpty())
     {
-      createNewPost(postModel);
+      return createNewPost(postModel);
     }
     else
     {
@@ -251,9 +278,10 @@ public class PostServiceImpl implements PostService
       if (optionalPostDetailsDTO.isPresent())
       {
         PostDetailsDTO oldPostDetailsDTO = optionalPostDetailsDTO.get();
-        partialUpdatePost(postModel, oldSimplePostDTO.getId(), oldPostDetailsDTO.getId());
+        return partialUpdatePost(postModel, oldSimplePostDTO.getId(), oldPostDetailsDTO.getId());
       }
       log.warn("cần xử lý trong tương lai");
+      return null;
     }
   }
 
@@ -280,5 +308,67 @@ public class PostServiceImpl implements PostService
           return null;
         }
       );
+  }
+
+  @Override
+  public Optional<PostModel> getPostBySimplePost_Id(long simplePostId)
+  {
+    return simplePostRepository.findById(simplePostId).map(simplePost ->
+    {
+      PostDetails postDetails = simplePost.getPostDetails() != null ? simplePost.getPostDetails() : new PostDetails();
+      TypePostDTO typePostDTO = typePostMapper.toDto(simplePost.getTypePost());
+      Set<TypePostFilterDTO> typePostFilterDTOs = new HashSet<>();
+      simplePost.getTypePostFilters().forEach(typePostFilter -> typePostFilterDTOs.add(typePostFilterMapper.toDto(typePostFilter)));
+      return PostModel.builder()
+        .id(simplePost.getId())
+        .imageUrl(simplePost.getImageUrl())
+        .otherInfo(simplePost.getOtherInfo())
+        .comment(simplePost.getComment())
+        .simpleContent(simplePost.getSimpleContent())
+        .percentSale(simplePost.getPercentSale())
+        .price(simplePost.getPrice())
+        .typePost(typePostDTO)
+        .salePrice(simplePost.getSalePrice())
+        .scores(simplePost.getScores())
+        .title(simplePost.getTitle())
+        .typePostFilters(typePostFilterDTOs)
+
+        .postDetailsId(postDetails.getPostDetailsId())
+        .content(postDetails.getContent())
+        .build();
+    });
+  }
+
+  @Override
+  public Page<PostModel> getAllPost(Pageable pageable)
+  {
+    List<PostModel> postModels = new ArrayList<>();
+    simplePostRepository.findAll(pageable).forEach(simplePost ->
+    {
+      PostDetails postDetails = simplePost.getPostDetails() != null ? simplePost.getPostDetails() : new PostDetails();
+      TypePostDTO typePostDTO = typePostMapper.toDto(simplePost.getTypePost());
+      Set<TypePostFilterDTO> typePostFilterDTOs = new HashSet<>();
+      simplePost.getTypePostFilters().forEach(typePostFilter -> typePostFilterDTOs.add(typePostFilterMapper.toDto(typePostFilter)));
+
+      postModels.add(PostModel.builder()
+        .id(simplePost.getId())
+        .imageUrl(simplePost.getImageUrl())
+        .otherInfo(simplePost.getOtherInfo())
+        .comment(simplePost.getComment())
+        .simpleContent(simplePost.getSimpleContent())
+        .percentSale(simplePost.getPercentSale())
+        .price(simplePost.getPrice())
+        .typePost(typePostDTO)
+        .salePrice(simplePost.getSalePrice())
+        .scores(simplePost.getScores())
+        .title(simplePost.getTitle())
+        .typePostFilters(typePostFilterDTOs)
+
+        .content(postDetails.getContent())
+        .postDetailsId(postDetails.getPostDetailsId())
+        .build());
+    });
+    return new PageImpl<>(postModels);
+
   }
 }

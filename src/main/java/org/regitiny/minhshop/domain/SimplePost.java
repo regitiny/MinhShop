@@ -563,4 +563,16 @@ public class SimplePost implements Serializable
       ", comment='" + getComment() + "'" +
       "}";
   }
+
+  public void cleanInfiniteInterlockingRelationship()
+  {
+    if (typePostFilters != null)
+    {
+      Set<TypePostFilter> resultTypePostFilters = new HashSet<>();
+      typePostFilters.forEach(typePostFilter -> resultTypePostFilters.add(typePostFilter.simplePosts(null)));
+      typePostFilters = resultTypePostFilters;
+    }
+    if (postDetails != null)
+      postDetails = postDetails.simplePost(null);
+  }
 }

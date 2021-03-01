@@ -20,4 +20,21 @@ public interface TypePostFilterMapper extends EntityMapper<TypePostFilterDTO, Ty
   @Mapping(target = "id", source = "id")
   @Mapping(target = "typeFilterName", source = "typeFilterName")
   Set<TypePostFilterDTO> toDtoTypeFilterNameSet(Set<TypePostFilter> typePostFilter);
+
+
+//  //  yuvytung: practical experience
+//  @Named("typePostFilterIgnoreSimplePostSet")
+//  default Set<TypePostFilter> typePostFilterIgnoreSimplePostSet(Set<TypePostFilter> typePostFilters)
+//  {
+//    Set<TypePostFilter> result = new HashSet<>();
+//
+//    typePostFilters.forEach(typePostFilter ->
+//    {
+//      typePostFilter.clearSimplePosts();
+//      result.add(typePostFilter);
+//    });
+//    return result;
+//  }
+
+
 }

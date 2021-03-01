@@ -56,6 +56,7 @@ public class PaymentServiceImpl implements PaymentService
     Payment payment = paymentMapper.toEntity(paymentDTO);
     payment = paymentRepository.save(payment);
     PaymentDTO result = paymentMapper.toDto(payment);
+    payment.cleanInfiniteInterlockingRelationship();
     paymentSearchRepository.save(payment);
     return result;
   }

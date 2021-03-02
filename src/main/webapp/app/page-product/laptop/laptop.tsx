@@ -103,16 +103,16 @@ const Laptop = (props: ISimplePostProps) =>
             {
               // if (laptop.typePost.typeName === 'Laptop') {}
               return (
-                <div className="col-4" key={laptop.uuid + laptop.id}>
+                <div className="col-3" key={laptop.uuid + laptop.id}>
                   {/*<Link to={`/${laptop.id}`}>*/}
                   <Link to={`${props.match.url}/${laptop.id}`}>
-                    <Card className="p-1 p-sm-1 p-lg-0 ">
+                    <Card className="p p-sm-1 p-lg-0 ">
                       <CardHeader className="px-1 px-md-1 p-lg-2">
                         <div>
                           <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap"/>
                         </div>
                         <div className="float-group">
-                          <CardTitle tag="h4" className="float-left">
+                          <CardTitle tag="h4" className="float-left text-dark mt-2">
                             {laptop.title}
                           </CardTitle>
                         </div>
@@ -121,16 +121,16 @@ const Laptop = (props: ISimplePostProps) =>
                         <CardText className="">
                           <p className="float-left">Giá gốc: </p>
                           <div className="float-left text-secondary ml-1">
-                            <del>{laptop.price}đ</del>
+                            <del>{laptop.price.toLocaleString()}đ</del>
                           </div>
                           <br/>
                         </CardText>
                         <CardText className="">
-                          <p className="float-left">Chỉ còn: </p>
-                          <div className="float-left text-danger ml-1">
+                          <p className="float-left">Mới: </p>
+                          <div className="float-left text-success ml-1">
                             <b>{laptop.salePrice.toLocaleString()}đ</b>
                           </div>
-                          <div className="float-left badge badge-danger text-white ml-2">-{laptop.percentSale}%</div>
+                          <div className="float-left badge badge-danger text-white ml-2">-{laptop.percentSale.toFixed(0)}%</div>
                           <br/>
                         </CardText>
                         <div className="text-center" style={{width: '200px'}}>

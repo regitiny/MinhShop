@@ -89,12 +89,15 @@ const Home = props =>
         <section className="panel1-products  mt-5">
           {/*Danh mục sản phẩm*/}
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <h2>MÁY TÍNH BẢNG</h2>
+            <NavLink to="/page/may-tinh-bang" tag={Link}>
+              <h2>MÁY TÍNH BẢNG</h2>
+            </NavLink>
           </header>
           <hr/>
           <div className="section-content d-flex">
-            <div className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
-              <NavLink to="/may-tinh-bang" tag={Link}>
+            <div
+              className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
+              <NavLink to="/page/may-tinh-bang" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
             </div>
@@ -118,7 +121,8 @@ const Home = props =>
                                 <Badge color="warning">-{tablet.percentSale}%</Badge>
                               </span>
                             </CardText>
-                            <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                            <Button color="primary"
+                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -130,7 +134,8 @@ const Home = props =>
               </div>
             </div>
           </div>
-          <div className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
+          <div
+            className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
             <NavLink to="/page/may-tinh-bang" tag={Link}>
               <Badge color="primary" className="p-3">
                 XEM THÊM NHIỀU SẢN PHẨM
@@ -138,11 +143,14 @@ const Home = props =>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <h2>LAPTOP</h2>
+            <NavLink to="/page/may-tinh-bang" tag={Link}>
+              <h2>LAPTOP</h2>
+            </NavLink>
           </header>
           <hr/>
           <div className="section-content d-flex">
-            <div className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
+            <div
+              className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
               <NavLink to="/may-tinh-bang" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
@@ -167,7 +175,8 @@ const Home = props =>
                                 <Badge color="warning">-{laptop.percentSale.toFixed(1)}%</Badge>
                               </span>
                             </CardText>
-                            <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                            <Button color="primary"
+                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -177,7 +186,8 @@ const Home = props =>
                   ))
                   : null}
               </div>
-              <div className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
+              <div
+                className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
                 <NavLink to="/page/lap-top" tag={Link}>
                   <Badge color="primary" className="p-3">
                     XEM THÊM NHIỀU SẢN PHẨM
@@ -187,11 +197,14 @@ const Home = props =>
             </div>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <h2>MÁY CONSOLE</h2>
+            <NavLink to="/page/may-tinh-bang" tag={Link}>
+              <h2>MÁY CONSOLE</h2>
+            </NavLink>
           </header>
           <hr/>
           <div className="section-content d-flex">
-            <div className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
+            <div
+              className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
               <NavLink to="/may-tinh-bang" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
@@ -200,7 +213,8 @@ const Home = props =>
               <div className="row d-flex">
                 {consoles && consoles.length > 0
                   ? consoles.map(console => (
-                    <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={console.uuid}>
+                    <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2"
+                         key={console.uuid}>
                       <NavLink to={`/page/may-console/${console.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={console.imageUrl} alt="Card image cap"/>
@@ -216,7 +230,8 @@ const Home = props =>
                                 <Badge color="warning">-{console.percentSale}%</Badge>
                               </span>
                             </CardText>
-                            <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                            <Button color="primary"
+                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -228,7 +243,8 @@ const Home = props =>
               </div>
             </div>
           </div>
-          <div className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
+          <div
+            className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
             <NavLink to="/page/may-console" tag={Link}>
               <Badge color="primary" className="p-3">
                 XEM THÊM NHIỀU SẢN PHẨM
@@ -236,11 +252,14 @@ const Home = props =>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <h2>MACBOOK</h2>
+            <NavLink to="/page/may-tinh-bang" tag={Link}>
+              <h2>MACBOOK</h2>
+            </NavLink>
           </header>
           <hr/>
           <div className="section-content d-flex">
-            <div className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
+            <div
+              className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
               <NavLink to="/may-tinh-bang" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
@@ -249,12 +268,13 @@ const Home = props =>
               <div className="row d-flex">
                 {macbooks && macbooks.length > 0
                   ? macbooks.map(macbook => (
-                    <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={macbook.uuid}>
+                    <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2"
+                         key={macbook.uuid}>
                       <NavLink to={`/page/macbook/${macbook.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap"/>
                           <CardBody>
-                            <CardTitle tag="h5">{macbook.title.substring(0,20)}</CardTitle>
+                            <CardTitle tag="h5">{macbook.title.substring(0, 20)}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
                               Mã sản phẩm: TGSN20
                             </CardSubtitle>
@@ -265,7 +285,8 @@ const Home = props =>
                                 <Badge color="warning">-{macbook.percentSale}%</Badge>
                               </span>
                             </CardText>
-                            <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                            <Button color="primary"
+                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -277,7 +298,8 @@ const Home = props =>
               </div>
             </div>
           </div>
-          <div className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
+          <div
+            className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
             <NavLink to="/page/macbook" tag={Link}>
               <Badge color="primary" className="p-3">
                 XEM THÊM NHIỀU SẢN PHẨM
@@ -285,11 +307,14 @@ const Home = props =>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <h2>THIẾT BỊ CHƠI GAME</h2>
+            <NavLink to="/page/may-tinh-bang" tag={Link}>
+              <h2>THIẾT BỊ CHƠI GAME</h2>
+            </NavLink>
           </header>
           <hr/>
           <div className="section-content d-flex">
-            <div className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
+            <div
+              className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
               <NavLink to="/may-tinh-bang" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
@@ -298,7 +323,8 @@ const Home = props =>
               <div className="row d-flex">
                 {gameEquipments && gameEquipments.length > 0
                   ? gameEquipments.map(gameEquipment => (
-                    <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={gameEquipment.uuid}>
+                    <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2"
+                         key={gameEquipment.uuid}>
                       <NavLink to={`/page/thiet-bi-choi-game/${gameEquipment.id}`} tag={Link}>
                         <Card>
                           <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap"/>
@@ -314,7 +340,8 @@ const Home = props =>
                                 <Badge color="warning">-{gameEquipment.percentSale}%</Badge>
                               </span>
                             </CardText>
-                            <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                            <Button color="primary"
+                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -326,7 +353,8 @@ const Home = props =>
               </div>
             </div>
           </div>
-          <div className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
+          <div
+            className="d-flex d-none d-sm-none d-md-none d-lg-block d-xl-block d-lg-flex d-xl-flex justify-content-end mt-2">
             <NavLink to="/page/thiet-bi-choi-game" tag={Link}>
               <Badge color="primary" className="p-3">
                 XEM THÊM NHIỀU SẢN PHẨM

@@ -22,10 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing {@link org.regitiny.minhshop.domain.Image}.
@@ -92,6 +89,29 @@ public class ImageResource
         .body(map);
     }
     else throw new BadRequestAlertException("láo toét upload cái đéo gì vậy", ENTITY_NAME, "error");
+  }
+
+  /**
+   * {@code POST  /images} : upload list images.
+   *
+   * @param imageDataFiles is list data of images
+   * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new imageDTO, or with status {@code 400 (Bad Request)} if the image has already an ID.
+   * @throws URISyntaxException if the Location URI syntax is incorrect.
+   */
+  @PostMapping("/images/multiple/upload")
+  public ResponseEntity<Map<String, List<String>>> uploadMultipleImage(@RequestParam MultipartFile[] imageDataFiles) throws URISyntaxException
+  {
+    log.debug("REST request to save Image : {}", imageDataFiles.length);
+
+    List<String> imageLinks = new ArrayList<>();
+    Arrays.stream(imageDataFiles)
+      .map(imageService::upload)
+      .forEach(imageDTO -> imageLinks.add("/api/images/public/" + imageDTO.getNameImage()));
+    Map<String, List<String>> map = new HashMap<>();
+    map.put("links", imageLinks);
+    return ResponseEntity
+      .ok()
+      .body(map);
   }
 
   @GetMapping("/images/public/{nameImage}")

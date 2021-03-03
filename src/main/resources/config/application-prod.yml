@@ -20,9 +20,9 @@ yuvytung:
 
 logging:
   level:
-    ROOT: INFO
-    tech.jhipster: INFO
-    org.regitiny.minhshop: INFO
+    ROOT: DEBUG
+    tech.jhipster: DEBUG
+    org.regitiny.minhshop: DEBUG
 
 eureka:
   instance:

@@ -22,6 +22,12 @@ public interface TypePostFilterMapper extends EntityMapper<TypePostFilterDTO, Ty
   Set<TypePostFilterDTO> toDtoTypeFilterNameSet(Set<TypePostFilter> typePostFilter);
 
 
+  @Override
+  @Mapping(target = "simplePosts", ignore = true)
+  @Mapping(target = "removeSimplePost", ignore = true)
+  TypePostFilter toEntity(TypePostFilterDTO typePostFilterDTO);
+
+
 //  //  yuvytung: practical experience
 //  @Named("typePostFilterIgnoreSimplePostSet")
 //  default Set<TypePostFilter> typePostFilterIgnoreSimplePostSet(Set<TypePostFilter> typePostFilters)

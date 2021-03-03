@@ -17,6 +17,10 @@ public interface BillMapper extends EntityMapper<BillDTO, Bill>
   BillDTO toDto(Bill s);
 
 
+  @Mapping(target = "payment", ignore = true)
+  Bill toEntity(BillDTO s);
+
+
   @Named("billId")
   @BeanMapping(ignoreByDefault = true)
   @Mapping(target = "id", source = "id")

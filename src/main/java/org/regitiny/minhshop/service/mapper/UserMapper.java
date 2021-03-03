@@ -1,6 +1,7 @@
 package org.regitiny.minhshop.service.mapper;
 
 import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.regitiny.minhshop.domain.Authority;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  * support is still in beta, and requires a manual step with an IDE.
  */
 @Service
+@Mapper
 public class UserMapper
 {
 

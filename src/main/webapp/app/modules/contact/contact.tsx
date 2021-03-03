@@ -1,80 +1,3 @@
-// import React, {useState} from 'react';
-// import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
-// import axios from 'axios'
-//
-// const base_path = '/home';
-//
-// function Contact({children})
-// {
-//   const [baseImage, setBaseImage] = useState([])
-//   const promises = [];
-//   const convertBase64 = (file) =>
-//   {
-//     return new Promise((resolve, reject) =>
-//     {
-//       const fileReader = new FileReader();
-//       fileReader.readAsDataURL(file.image);
-//       fileReader.onload = () =>
-//       {
-//         file.image.data = fileReader.result
-//         resolve(file.image);
-//       };
-//       window.console.log(file.image)
-//       fileReader.onerror = (error) =>
-//       {
-//         reject(error);
-//       };
-//     });
-//   }
-//
-//   const UploadImage = (event) =>
-//   {
-//     const {files} = event.target;
-//     const newFiles = Object.keys(files).map(i => ({image: files[i]}));
-//     const base64 = newFiles.map(file => promises.push(convertBase64(file)));
-//     Promise.all(promises)
-//       .then(response => {
-//         axios({
-//           method: 'post',
-//           url: 'https://api/fileanhs',
-//           headers: {Authorization: 'Client-ID c166b3ccc22b789'},
-//           data: JSON.stringify(response)
-//         }).then(res => window.console.log(res.data));
-//         setBaseImage(response)
-//       })
-//     window.console.log(baseImage)
-//   }
-//   return (
-//     <div>
-//       <BreadcrumbsItem glyph="calendar" to="/contact">
-//         Liên hệ
-//       </BreadcrumbsItem>
-//       {/*<Breadcrumbs*/}
-//       {/*  separator={<b> / </b>}*/}
-//       {/*  item={NavLink}*/}
-//       {/*  finalItem={'b'}*/}
-//       {/*  finalProps={{*/}
-//       {/*    style: {color: 'red'}*/}
-//       {/*  }}*/}
-//       {/*/>*/}
-//       <div>Đây là thông tin của trang web</div>
-//       <div className="d-flex justify-content-center">
-//         <div>
-//           <div>
-//             <input type="file" onChange={(event) => UploadImage(event)} multiple/>
-//           </div>
-//           {baseImage.map(item => (
-//             <div key={item.name}>
-//               <img src={item.data} style={{width: 300}}/>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-//
-// export default Contact;
 
 import React, {useState, useEffect} from 'react';
 import {Storage} from 'react-jhipster';
@@ -92,6 +15,8 @@ function Contact({children})
   const [baseImages, setBaseImages] = useState([]);
   const [dataImages, setDataImages] = useState([]);
   const [images, setImages]=useState([]);
+  const [abc, setAbc]=useState(null)
+  const [aaa, setAaa]=useState(null)
   const promises = [];
   const [link, setLink] = useState({link: '',id: ''})
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
@@ -100,8 +25,7 @@ function Contact({children})
   // const onHandleChange=(event)=>{
   //     setLink({link: event.target.value})
   // }
-  const upload = (file) =>
-  {
+  const upload =(file) => {
     return new Promise(
       (resolve, reject) =>
       {
@@ -126,20 +50,39 @@ function Contact({children})
       }
     );
   }
-  const uploadImage = async (event) =>
-  {
-    const {files} = event.target;
-    const newFiles = Object.keys(files).map(i => ({image: files[i]}));
-    const fileData = newFiles.map(file => promises.push(upload(file.image)))
-    await Promise.all(promises).then(
-      res =>
+  // const fetchUrl=(url)=>{
+  //
+  // }
+  const onUpload =(file, name) => {
+    const filename=name;
+    const urlUpload= new Promise(
+      (resolve, reject) =>
       {
-        res && res.length > 0 ? res.map(item => { const newItem={link: item.link, id: newID()};dataImages.push(newItem)}) : dataImages,
-          setBaseImages(res)
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/images/upload');
+        xhr.setRequestHeader('Authorization', authToken);
+        const data = new FormData();
+        data.append('imageDataFile', file, filename);
+        window.console.log(data)
+        xhr.send(data);
+        xhr.addEventListener('load', () =>
+        {
+          const response = JSON.parse(xhr.responseText);
+          dataImages.push({link:response.link, id: newID()})
+          window.console.log(response)
+          resolve(response);
+        });
+        xhr.addEventListener('error', () =>
+        {
+          const error = JSON.parse(xhr.responseText);
+          window.console.log(error)
+          reject(error);
+        });
       }
-    )
+    );
+    urlUpload.then(response => setAbc(response))
   }
-  // const dataImage=link.link?baseImages.push(link):baseImages
+  // abc?dataImages.push({link: abc.link,id: newID()}):dataImages
   const onHandleChange = (event) =>
   {
     setLink({link: event.target.value, id: newID()})
@@ -147,7 +90,7 @@ function Contact({children})
 
   const onSubmitInput = () =>
   {
-    if (link.link)
+    if (link.link) //todo link trong dataImages do server trả về luôn khác nhau và khác link nhập vào input không như push link từ input vào dataImages nên cần làm cách khác
     {
       let alreadyExist = false;
       dataImages.map(item =>
@@ -161,11 +104,41 @@ function Contact({children})
       window.console.log(alreadyExist)
       if (!alreadyExist)
       {
-        dataImages.push(link)
+        // dataImages.push(link)
+        axios.get(`https://cors-anywhere.froala.com/${link.link}`,{
+          responseType: 'blob'
+        })
+          .then(res=> {
+            const totalUrl=res.config.url.split('https://cors-anywhere.froala.com/');
+            const url=totalUrl[1];
+            onUpload(res.data, url),
+              setAaa(res.data)
+              window.console.log(res.status)
+          })
+        // fetchUrl(link.link)
+        // fetch(`https://cors-anywhere.froala.com/${link.link}`)
+        //   .then(response=>response.blob())
+        //   .then(data=>{onUpload(data),window.console.log(data)})
       }
     }
     setLink({link:'', id:''})
   }
+  const uploadImage = async (event) =>
+  {
+    const {files} = event.target;
+    const newFiles = Object.keys(files).map(i => ({image: files[i]}));
+    const fileData = newFiles.map(item => promises.push(upload(item.image)))
+    await Promise.all(promises).then(
+      res =>
+      {
+        res && res.length > 0 ? res.map(item => { const newItem={link: item.link, id: newID()};dataImages.push(newItem)}) : dataImages,
+          setBaseImages(res)
+      }
+    )
+  }
+
+  // const dataImage=link.link?baseImages.push(link):baseImages
+
 
   window.console.log(baseImages)
 
@@ -192,7 +165,7 @@ function Contact({children})
         window.console.log(image.link)
         return(
           <div key={index} className='d-flex'>
-            <div><img src={image.link} style={{width: 300, display:'block'}}/></div>
+            <div><img src={image.link} style={{width: 300, display:'block'}} alt='link ảnh không đúng'/></div>
             <div className="mt-5"><button type="button" className="btn btn-danger" onClick={()=>onDeleteImage(image.id)}>Xóa</button></div>
           </div>
         )

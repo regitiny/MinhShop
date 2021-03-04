@@ -6,7 +6,7 @@
       //padding-right: 0;
       position: relative;
       .image-console-detail {
-        display: none;
+        //display: none;
         //position: absolute;
       }
       .list-image-thumbnail {
@@ -30,9 +30,9 @@ img {
 /* Position the image container (needed to position the left and right arrows) */
 
 /* Hide the images by default */
-.image-console-detail {
-  display: none;
-}
+//.image-console-detail {
+//  display: none;
+//}
 
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {
@@ -63,4 +63,39 @@ td {
   margin: 0;
   color: black;
 }
-/* Add a transparency effect for thumnbail images */
+/* Add css for may-console.tsx */
+//todo chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi
+.card{
+  .image-size{
+    position: relative;
+    height: 150px;
+    img{
+      position: absolute;
+      max-width: 100%;
+      width: auto;
+      max-height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .float-group{
+    position: relative;
+    height: 60px;
+    .card-title{
+      position: absolute;
+      font-size: 20px;
+      white-space: nowrap; //todo add khi title quá dài
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-title:hover{
+      white-space: normal;
+      overflow: visible;
+      width: 100%;
+    }
+  }
+}
+// chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi
+

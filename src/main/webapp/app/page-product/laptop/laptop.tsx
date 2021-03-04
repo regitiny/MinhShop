@@ -1,3 +1,4 @@
+import './laptop.scss'
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Storage, Translate, getSortState, JhiPagination, JhiItemCount} from 'react-jhipster';
@@ -103,15 +104,15 @@ const Laptop = (props: ISimplePostProps) =>
             {
               // if (laptop.typePost.typeName === 'Laptop') {}
               return (
-                <div className="col-3" key={laptop.uuid + laptop.id}>
+                <div className="col-3 mt-3" key={laptop.uuid + laptop.id}>
                   {/*<Link to={`/${laptop.id}`}>*/}
                   <Link to={`${props.match.url}/${laptop.id}`}>
                     <Card className="p p-sm-1 p-lg-0 ">
                       <CardHeader className="px-1 px-md-1 p-lg-2">
-                        <div>
-                          <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap"/>
+                        <div className='image-size'>
+                          <CardImg top src={laptop.imageUrl} alt="Card image cap"/>
                         </div>
-                        <div className="float-group">
+                        <div className="float-group mt-1">
                           <CardTitle tag="h4" className="float-left text-dark mt-2">
                             {laptop.title}
                           </CardTitle>

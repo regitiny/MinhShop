@@ -109,6 +109,7 @@ public class PostServiceImpl implements PostService
     Float scores = postModel.getScores();
     String simpleContent = postModel.getSimpleContent();
     String otherInfo = postModel.getOtherInfo();
+    String otherData = postModel.getOtherData();
     String content = postModel.getContent();
     String postDetailsId = postModel.getPostDetailsId();
     String comment = postModel.getComment();
@@ -127,6 +128,7 @@ public class PostServiceImpl implements PostService
     postDetailsDTO.setDataSize((long) content.getBytes().length);
     postDetailsDTO.setComment(comment);
     postDetailsDTO.setSearchField(searchField);
+    postDetailsDTO.setOtherData(otherData);
 
     log.debug("postDetailsDTO = {}", postDetailsDTO);
 

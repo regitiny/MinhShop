@@ -119,7 +119,7 @@ public class PostServiceImpl implements PostService
     String tiengVietKhongDau = StringUtils.clean(content);
     String searchField = tiengVietKhongDau + StringPool.SPACE + contentCleanHTML;
 
-    if (salePrice != null && price != null) percentSale = (float) (salePrice / price) * 100;
+    if (salePrice != null && price != null) percentSale = (float) (1 - (salePrice / price)) * 100;
 
     postDetailsDTO.setUuid(UUID.randomUUID());
     postDetailsDTO.setPostDetailsId(postDetailsId);
@@ -207,13 +207,14 @@ public class PostServiceImpl implements PostService
     String postDetailsId = postModel.getPostDetailsId();
     String comment = postModel.getComment();
     Instant nowTime = Instant.now();
-    String thisUser = SecurityUtils.getCurrentUserLogin().get();
+    String thisUser = SecurityUtils.getCurrentUserLogin().orElse(StringPool.BLANK);
     TypePostDTO typePost = postModel.getTypePost();
     Set<TypePostFilterDTO> typePostFilterDTO = postModel.getTypePostFilters();
 
     String searchField = StringPool.BLANK;
 
-    if (salePrice != null && price != null) percentSale = (float) (salePrice / price);
+    if (salePrice != null && price != null && price != 0)
+      percentSale = (float) (salePrice / price);
     else throw new NhechException(
       "bạn cần phải xem lại giá bán , giảm giá"
     );
@@ -258,7 +259,6 @@ public class PostServiceImpl implements PostService
     if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT) || SecurityUtils.getCurrentUserLogin().isEmpty())
       throw new BadRequestAlertException("đéo phải quản lý thì làm gì có cái quyền upload bạn ơi", null, "notManagement");
 
-    Optional<SimplePostDTO> optionalSimplePostDTO = simplePostService.findOne(postModel.getId());
     return createNewPost(postModel);
 //    if (optionalSimplePostDTO.isEmpty())
 //    {
@@ -282,26 +282,22 @@ public class PostServiceImpl implements PostService
   @Override
   public void deletePost(long simplePostId)
   {
-    simplePostService
-      .findOne(simplePostId)
-      .map(
-        simplePostDTO ->
+    simplePostService.findOne(simplePostId)
+      .ifPresent(simplePostDTO ->
+      {
+        if (simplePostDTO.getPostDetails() != null)
         {
-          if (simplePostDTO.getPostDetails() != null)
+          Long postDetailsId = simplePostDTO.getPostDetails().getId();
+          if (postDetailsId != null)
           {
-            Long postDetailsId = simplePostDTO.getPostDetails().getId();
-            if (postDetailsId != null)
-            {
-              simplePostService.delete(simplePostId);
-              postDetailsService.delete(postDetailsId);
-              log.debug("deleted succeed : simplePostId = {} , posDetailId = {}", simplePostId, postDetailsId);
-            }
-            else throw new NhechException("not find postDetails");
+            simplePostService.delete(simplePostId);
+            postDetailsService.delete(postDetailsId);
+            log.debug("deleted succeed : simplePostId = {} , posDetailId = {}", simplePostId, postDetailsId);
           }
-          else simplePostService.delete(simplePostId);
-          return null;
+          else throw new NhechException("not find postDetails");
         }
-      );
+        else simplePostService.delete(simplePostId);
+      });
   }
 
   @Override

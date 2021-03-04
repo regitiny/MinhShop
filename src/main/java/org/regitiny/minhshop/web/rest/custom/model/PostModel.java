@@ -95,5 +95,6 @@ public class PostModel
 
   private TypePostDTO typePost;
 
+  @Builder.Default
   private Set<TypePostFilterDTO> typePostFilters = new HashSet<>();
 }

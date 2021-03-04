@@ -21,7 +21,7 @@ logging:
   file:
     max-size: 1GB
     max-history: 30
-    name: minhshop.log
+#    name: minhshop.log
 eureka:
   client:
     enabled: true

@@ -18,4 +18,8 @@ public interface PostDetailsMapper extends EntityMapper<PostDetailsDTO, PostDeta
   @Mapping(target = "id", source = "id")
   @Mapping(target = "postDetailsId", source = "postDetailsId")
   PostDetailsDTO toDtoPostDetailsId(PostDetails postDetails);
+
+
+  @Mapping(target = "simplePost", ignore = true)
+  PostDetails toEntity(PostDetailsDTO postDetailsDTO);
 }

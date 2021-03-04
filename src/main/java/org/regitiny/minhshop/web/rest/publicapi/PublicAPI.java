@@ -42,4 +42,12 @@ public class PublicAPI
 
     throw new FileNotFoundException();
   }
+
+  @GetMapping("/hihi")
+  public ResponseEntity<byte[]> getImagexx() throws FileNotFoundException
+  {
+    log.debug("REST request to get Image : 112");
+
+    return null;
+  }
 }

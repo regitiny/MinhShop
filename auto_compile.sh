@@ -16,9 +16,15 @@ recreateSha() {
     find src \( -type f -o -type d \) -print0 | sort -z | xargs -0 stat -c '%n %a'
   ) | sha1sum | awk '{print $1}'
 }
+
+recreateShaV2() {
+  ls -alR --full-time src | sha1sum | awk '{print $1}'
+}
+
 compileJava() {
   ./gradlew compileJava -x processResources
 }
+
 now() {
   date +'%Y-%m-%d %H:%M:%S'
 }

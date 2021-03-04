@@ -1,8 +1,10 @@
 package org.regitiny.minhshop.web.rest.custom.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.regitiny.minhshop.service.dto.TypePostDTO;
 import org.regitiny.minhshop.service.dto.TypePostFilterDTO;
 
@@ -13,6 +15,8 @@ import java.util.Set;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostModel
 {
   /**
@@ -74,6 +78,12 @@ public class PostModel
    */
   @ApiModelProperty(value = "otherInfo (Json)")
   private String otherInfo;
+
+  /**
+   * otherData (Json)
+   */
+  @ApiModelProperty(value = "other data (String Json)")
+  private String otherData;
 
   /**
    * content

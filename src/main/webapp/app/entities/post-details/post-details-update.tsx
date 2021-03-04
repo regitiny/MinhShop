@@ -27,6 +27,19 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
   const [simplePostId, setSimplePostId] = useState('0');
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+
+  const s4=()=>{
+    return Math.floor((1+Math.random()) *0x10000).toString(16).substring(1);
+  }
+  const newID=()=>{
+    return s4() + '-' + s4() + '-' + s4()  + '-' + s4() + s4() + '-' + s4() + '-' + s4()  + '-' + s4()
+  }
+  const [baseImages, setBaseImages] = useState([]);
+  const [dataImages, setDataImages] = useState([]);
+  const [images, setImages]=useState([]);
+  const promises = [];
+  const [link, setLink] = useState({link: '',id: ''})
+
   const {postDetailsEntity, simplePosts, loading, updating} = props;
 
   const {content, searchField} = postDetailsEntity;
@@ -63,6 +76,100 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
       handleClose();
     }
   }, [props.updateSuccess]);
+  const upload = (file) =>
+  {
+    return new Promise(
+      (resolve, reject) =>
+      {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/images/upload');
+        xhr.setRequestHeader('Authorization', authToken);
+        const data = new FormData();
+        data.append('imageDataFile', file);
+        xhr.send(data);
+        xhr.addEventListener('load', () =>
+        {
+          const response = JSON.parse(xhr.responseText);
+          window.console.log(response)
+          resolve(response);
+        });
+        xhr.addEventListener('error', () =>
+        {
+          const error = JSON.parse(xhr.responseText);
+          window.console.log(error)
+          reject(error);
+        });
+      }
+    );
+  }
+  const uploadImage = async (event) =>
+  {
+    const {files} = event.target;
+    const newFiles = Object.keys(files).map(i => ({image: files[i]}));
+    const fileData = newFiles.map(file => promises.push(upload(file.image)))
+    await Promise.all(promises).then(
+      res =>
+      {
+        res && res.length > 0 ? res.map(item => { const newItem={link: item.link, id: newID()};dataImages.push(newItem)}) : dataImages,
+          setBaseImages(res)
+      }
+    )
+  }
+  const onHandleChange = (event) =>
+  {
+    setLink({link: event.target.value, id: newID()})
+  }
+
+
+
+  const onSubmitInput = () =>
+  {
+    if (link.link)
+    {
+      let alreadyExist = false;
+      dataImages.map(item =>
+      {
+        if (item.link === link.link)
+        {
+          alreadyExist = true;
+          alert('Bạn đã nhập đường link này trước đó')
+        }
+      })
+      window.console.log(alreadyExist)
+      if (!alreadyExist)
+      {
+        dataImages.push(link)
+      }
+    }
+    setLink({link:'', id:''})
+  }
+  window.console.log(dataImages)
+
+  const onDeleteImage=(id)=>{
+    const array=dataImages.slice().filter(x => x.id !== id);
+
+    setDataImages(array)
+  }
+
+  const showImage = () =>
+  {
+    let result = null;
+    if (dataImages && dataImages.length > 0)
+    {
+      result = dataImages.map((image, index) =>{
+        window.console.log(image.link)
+        return(
+          <div key={index} className='d-flex'>
+            <div><img src={image.link} style={{width: 300, display:'block'}} alt='link ảnh không đúng'/></div>
+            <div className="mt-5"><button type="button" className="btn btn-danger" onClick={()=>onDeleteImage(image.id)}>Xóa</button></div>
+          </div>
+        )
+      })
+    }
+    return result
+  }
+
+
 
   const saveEntity = (event, errors, values) =>
   {
@@ -75,6 +182,7 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
         ...postDetailsEntity,
         ...values,
         ...{content: contentState},
+        ...{otherData: JSON.stringify(dataImages)}
       };
 
       if (isNew)
@@ -156,6 +264,14 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
                   <Translate contentKey="minhShopApp.postDetails.help.postDetailsId"/>
                 </UncontrolledTooltip>
               </AvGroup>
+              <AvGroup>
+                <input type="text" onChange={onHandleChange} name="link" value={link.link}/>
+                <button type='button' onClick={onSubmitInput}>Insert</button>
+              </AvGroup>
+              <AvGroup>
+                <input type="file" onChange={(event) => uploadImage(event)} multiple/>
+              </AvGroup>
+              {showImage()}
               <AvGroup>
                 <Label id="contentLabel" for="post-details-content">
                   <Translate contentKey="minhShopApp.postDetails.content">Content</Translate>
@@ -275,20 +391,20 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
                   <Translate contentKey="minhShopApp.postDetails.help.comment"/>
                 </UncontrolledTooltip>
               </AvGroup>
-              <AvGroup>
-                <Label id="otherDataLabel" for="post-details-otherData">
-                  <Translate contentKey="minhShopApp.postDetails.otherData">Other Data</Translate>
-                </Label>
-                <AvField
-                  id="post-details-otherData"
-                  data-cy="otherData"
-                  type="text"
-                  name="otherData"
-                  validate={{
-                    maxLength: {value: 10000, errorMessage: translate('entity.validation.maxlength', {max: 10000})},
-                  }}
-                />
-              </AvGroup>
+              {/*<AvGroup>*/}
+              {/*  <Label id="otherDataLabel" for="post-details-otherData">*/}
+              {/*    <Translate contentKey="minhShopApp.postDetails.otherData">Other Data</Translate>*/}
+              {/*  </Label>*/}
+              {/*  <AvField*/}
+              {/*    id="post-details-otherData"*/}
+              {/*    data-cy="otherData"*/}
+              {/*    type="text"*/}
+              {/*    name="otherData"*/}
+              {/*    validate={{*/}
+              {/*      maxLength: {value: 10000, errorMessage: translate('entity.validation.maxlength', {max: 10000})},*/}
+              {/*    }}*/}
+              {/*  />*/}
+              {/*</AvGroup>*/}
               <Button tag={Link} id="cancel-save" to="/post-details" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;

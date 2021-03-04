@@ -6,7 +6,7 @@
       //padding-right: 0;
       position: relative;
       .image-console-detail {
-        display: none;
+        //display: none;
         //position: absolute;
       }
       .list-image-thumbnail {
@@ -30,9 +30,9 @@ img {
 /* Position the image container (needed to position the left and right arrows) */
 
 /* Hide the images by default */
-.image-console-detail {
-  display: none;
-}
+//.image-console-detail {
+//  display: none;
+//}
 
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {

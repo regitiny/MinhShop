@@ -47,13 +47,13 @@ class FileResourceIT
   private static final UUID DEFAULT_UUID = UUID.randomUUID();
   private static final UUID UPDATED_UUID = UUID.randomUUID();
 
-  private static final byte[] DEFAULT_VIDEO_DATA = TestUtil.createByteArray(1, "0");
-  private static final byte[] UPDATED_VIDEO_DATA = TestUtil.createByteArray(1, "1");
-  private static final String DEFAULT_VIDEO_DATA_CONTENT_TYPE = "image/jpg";
-  private static final String UPDATED_VIDEO_DATA_CONTENT_TYPE = "image/png";
+  private static final byte[] DEFAULT_FILE_DATA = TestUtil.createByteArray(1, "0");
+  private static final byte[] UPDATED_FILE_DATA = TestUtil.createByteArray(1, "1");
+  private static final String DEFAULT_FILE_DATA_CONTENT_TYPE = "image/jpg";
+  private static final String UPDATED_FILE_DATA_CONTENT_TYPE = "image/png";
 
-  private static final String DEFAULT_NAME_VIDEO = "AAAAAAAAAA";
-  private static final String UPDATED_NAME_VIDEO = "BBBBBBBBBB";
+  private static final String DEFAULT_NAME_FILE = "AAAAAAAAAA";
+  private static final String UPDATED_NAME_FILE = "BBBBBBBBBB";
 
   private static final String DEFAULT_EXTENSION = "AAAAAAAAAA";
   private static final String UPDATED_EXTENSION = "BBBBBBBBBB";
@@ -117,9 +117,9 @@ class FileResourceIT
   {
     File file = new File()
       .uuid(DEFAULT_UUID)
-      .videoData(DEFAULT_VIDEO_DATA)
-      .videoDataContentType(DEFAULT_VIDEO_DATA_CONTENT_TYPE)
-      .nameVideo(DEFAULT_NAME_VIDEO)
+      .fileData(DEFAULT_FILE_DATA)
+      .fileDataContentType(DEFAULT_FILE_DATA_CONTENT_TYPE)
+      .nameFile(DEFAULT_NAME_FILE)
       .extension(DEFAULT_EXTENSION)
       .typeFile(DEFAULT_TYPE_FILE)
       .searchField(DEFAULT_SEARCH_FIELD)
@@ -143,9 +143,9 @@ class FileResourceIT
   {
     File file = new File()
       .uuid(UPDATED_UUID)
-      .videoData(UPDATED_VIDEO_DATA)
-      .videoDataContentType(UPDATED_VIDEO_DATA_CONTENT_TYPE)
-      .nameVideo(UPDATED_NAME_VIDEO)
+      .fileData(UPDATED_FILE_DATA)
+      .fileDataContentType(UPDATED_FILE_DATA_CONTENT_TYPE)
+      .nameFile(UPDATED_NAME_FILE)
       .extension(UPDATED_EXTENSION)
       .typeFile(UPDATED_TYPE_FILE)
       .searchField(UPDATED_SEARCH_FIELD)
@@ -181,9 +181,9 @@ class FileResourceIT
     assertThat(fileList).hasSize(databaseSizeBeforeCreate + 1);
     File testFile = fileList.get(fileList.size() - 1);
     assertThat(testFile.getUuid()).isEqualTo(DEFAULT_UUID);
-    assertThat(testFile.getVideoData()).isEqualTo(DEFAULT_VIDEO_DATA);
-    assertThat(testFile.getVideoDataContentType()).isEqualTo(DEFAULT_VIDEO_DATA_CONTENT_TYPE);
-    assertThat(testFile.getNameVideo()).isEqualTo(DEFAULT_NAME_VIDEO);
+    assertThat(testFile.getFileData()).isEqualTo(DEFAULT_FILE_DATA);
+    assertThat(testFile.getFileDataContentType()).isEqualTo(DEFAULT_FILE_DATA_CONTENT_TYPE);
+    assertThat(testFile.getNameFile()).isEqualTo(DEFAULT_NAME_FILE);
     assertThat(testFile.getExtension()).isEqualTo(DEFAULT_EXTENSION);
     assertThat(testFile.getTypeFile()).isEqualTo(DEFAULT_TYPE_FILE);
     assertThat(testFile.getSearchField()).isEqualTo(DEFAULT_SEARCH_FIELD);
@@ -255,12 +255,12 @@ class FileResourceIT
       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
       .andExpect(jsonPath("$.[*].id").value(hasItem(file.getId().intValue())))
       .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
-      .andExpect(jsonPath("$.[*].videoDataContentType").value(hasItem(DEFAULT_VIDEO_DATA_CONTENT_TYPE)))
-      .andExpect(jsonPath("$.[*].videoData").value(hasItem(Base64Utils.encodeToString(DEFAULT_VIDEO_DATA))))
-      .andExpect(jsonPath("$.[*].nameVideo").value(hasItem(DEFAULT_NAME_VIDEO)))
+      .andExpect(jsonPath("$.[*].fileDataContentType").value(hasItem(DEFAULT_FILE_DATA_CONTENT_TYPE)))
+      .andExpect(jsonPath("$.[*].fileData").value(hasItem(Base64Utils.encodeToString(DEFAULT_FILE_DATA))))
+      .andExpect(jsonPath("$.[*].nameFile").value(hasItem(DEFAULT_NAME_FILE)))
       .andExpect(jsonPath("$.[*].extension").value(hasItem(DEFAULT_EXTENSION)))
       .andExpect(jsonPath("$.[*].typeFile").value(hasItem(DEFAULT_TYPE_FILE)))
-      .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
+      .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD)))
       .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
       .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
       .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))
@@ -284,12 +284,12 @@ class FileResourceIT
       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
       .andExpect(jsonPath("$.id").value(file.getId().intValue()))
       .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
-      .andExpect(jsonPath("$.videoDataContentType").value(DEFAULT_VIDEO_DATA_CONTENT_TYPE))
-      .andExpect(jsonPath("$.videoData").value(Base64Utils.encodeToString(DEFAULT_VIDEO_DATA)))
-      .andExpect(jsonPath("$.nameVideo").value(DEFAULT_NAME_VIDEO))
+      .andExpect(jsonPath("$.fileDataContentType").value(DEFAULT_FILE_DATA_CONTENT_TYPE))
+      .andExpect(jsonPath("$.fileData").value(Base64Utils.encodeToString(DEFAULT_FILE_DATA)))
+      .andExpect(jsonPath("$.nameFile").value(DEFAULT_NAME_FILE))
       .andExpect(jsonPath("$.extension").value(DEFAULT_EXTENSION))
       .andExpect(jsonPath("$.typeFile").value(DEFAULT_TYPE_FILE))
-      .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD.toString()))
+      .andExpect(jsonPath("$.searchField").value(DEFAULT_SEARCH_FIELD))
       .andExpect(jsonPath("$.role").value(DEFAULT_ROLE))
       .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
       .andExpect(jsonPath("$.modifiedDate").value(DEFAULT_MODIFIED_DATE.toString()))
@@ -322,9 +322,9 @@ class FileResourceIT
     em.detach(updatedFile);
     updatedFile
       .uuid(UPDATED_UUID)
-      .videoData(UPDATED_VIDEO_DATA)
-      .videoDataContentType(UPDATED_VIDEO_DATA_CONTENT_TYPE)
-      .nameVideo(UPDATED_NAME_VIDEO)
+      .fileData(UPDATED_FILE_DATA)
+      .fileDataContentType(UPDATED_FILE_DATA_CONTENT_TYPE)
+      .nameFile(UPDATED_NAME_FILE)
       .extension(UPDATED_EXTENSION)
       .typeFile(UPDATED_TYPE_FILE)
       .searchField(UPDATED_SEARCH_FIELD)
@@ -346,9 +346,9 @@ class FileResourceIT
     assertThat(fileList).hasSize(databaseSizeBeforeUpdate);
     File testFile = fileList.get(fileList.size() - 1);
     assertThat(testFile.getUuid()).isEqualTo(UPDATED_UUID);
-    assertThat(testFile.getVideoData()).isEqualTo(UPDATED_VIDEO_DATA);
-    assertThat(testFile.getVideoDataContentType()).isEqualTo(UPDATED_VIDEO_DATA_CONTENT_TYPE);
-    assertThat(testFile.getNameVideo()).isEqualTo(UPDATED_NAME_VIDEO);
+    assertThat(testFile.getFileData()).isEqualTo(UPDATED_FILE_DATA);
+    assertThat(testFile.getFileDataContentType()).isEqualTo(UPDATED_FILE_DATA_CONTENT_TYPE);
+    assertThat(testFile.getNameFile()).isEqualTo(UPDATED_NAME_FILE);
     assertThat(testFile.getExtension()).isEqualTo(UPDATED_EXTENSION);
     assertThat(testFile.getTypeFile()).isEqualTo(UPDATED_TYPE_FILE);
     assertThat(testFile.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
@@ -401,8 +401,8 @@ class FileResourceIT
 
     partialUpdatedFile
       .uuid(UPDATED_UUID)
-      .videoData(UPDATED_VIDEO_DATA)
-      .videoDataContentType(UPDATED_VIDEO_DATA_CONTENT_TYPE)
+      .fileData(UPDATED_FILE_DATA)
+      .fileDataContentType(UPDATED_FILE_DATA_CONTENT_TYPE)
       .extension(UPDATED_EXTENSION)
       .searchField(UPDATED_SEARCH_FIELD)
       .createdDate(UPDATED_CREATED_DATE)
@@ -422,9 +422,9 @@ class FileResourceIT
     assertThat(fileList).hasSize(databaseSizeBeforeUpdate);
     File testFile = fileList.get(fileList.size() - 1);
     assertThat(testFile.getUuid()).isEqualTo(UPDATED_UUID);
-    assertThat(testFile.getVideoData()).isEqualTo(UPDATED_VIDEO_DATA);
-    assertThat(testFile.getVideoDataContentType()).isEqualTo(UPDATED_VIDEO_DATA_CONTENT_TYPE);
-    assertThat(testFile.getNameVideo()).isEqualTo(DEFAULT_NAME_VIDEO);
+    assertThat(testFile.getFileData()).isEqualTo(UPDATED_FILE_DATA);
+    assertThat(testFile.getFileDataContentType()).isEqualTo(UPDATED_FILE_DATA_CONTENT_TYPE);
+    assertThat(testFile.getNameFile()).isEqualTo(DEFAULT_NAME_FILE);
     assertThat(testFile.getExtension()).isEqualTo(UPDATED_EXTENSION);
     assertThat(testFile.getTypeFile()).isEqualTo(DEFAULT_TYPE_FILE);
     assertThat(testFile.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
@@ -452,9 +452,9 @@ class FileResourceIT
 
     partialUpdatedFile
       .uuid(UPDATED_UUID)
-      .videoData(UPDATED_VIDEO_DATA)
-      .videoDataContentType(UPDATED_VIDEO_DATA_CONTENT_TYPE)
-      .nameVideo(UPDATED_NAME_VIDEO)
+      .fileData(UPDATED_FILE_DATA)
+      .fileDataContentType(UPDATED_FILE_DATA_CONTENT_TYPE)
+      .nameFile(UPDATED_NAME_FILE)
       .extension(UPDATED_EXTENSION)
       .typeFile(UPDATED_TYPE_FILE)
       .searchField(UPDATED_SEARCH_FIELD)
@@ -479,9 +479,9 @@ class FileResourceIT
     assertThat(fileList).hasSize(databaseSizeBeforeUpdate);
     File testFile = fileList.get(fileList.size() - 1);
     assertThat(testFile.getUuid()).isEqualTo(UPDATED_UUID);
-    assertThat(testFile.getVideoData()).isEqualTo(UPDATED_VIDEO_DATA);
-    assertThat(testFile.getVideoDataContentType()).isEqualTo(UPDATED_VIDEO_DATA_CONTENT_TYPE);
-    assertThat(testFile.getNameVideo()).isEqualTo(UPDATED_NAME_VIDEO);
+    assertThat(testFile.getFileData()).isEqualTo(UPDATED_FILE_DATA);
+    assertThat(testFile.getFileDataContentType()).isEqualTo(UPDATED_FILE_DATA_CONTENT_TYPE);
+    assertThat(testFile.getNameFile()).isEqualTo(UPDATED_NAME_FILE);
     assertThat(testFile.getExtension()).isEqualTo(UPDATED_EXTENSION);
     assertThat(testFile.getTypeFile()).isEqualTo(UPDATED_TYPE_FILE);
     assertThat(testFile.getSearchField()).isEqualTo(UPDATED_SEARCH_FIELD);
@@ -549,12 +549,12 @@ class FileResourceIT
       .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
       .andExpect(jsonPath("$.[*].id").value(hasItem(file.getId().intValue())))
       .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
-      .andExpect(jsonPath("$.[*].videoDataContentType").value(hasItem(DEFAULT_VIDEO_DATA_CONTENT_TYPE)))
-      .andExpect(jsonPath("$.[*].videoData").value(hasItem(Base64Utils.encodeToString(DEFAULT_VIDEO_DATA))))
-      .andExpect(jsonPath("$.[*].nameVideo").value(hasItem(DEFAULT_NAME_VIDEO)))
+      .andExpect(jsonPath("$.[*].fileDataContentType").value(hasItem(DEFAULT_FILE_DATA_CONTENT_TYPE)))
+      .andExpect(jsonPath("$.[*].fileData").value(hasItem(Base64Utils.encodeToString(DEFAULT_FILE_DATA))))
+      .andExpect(jsonPath("$.[*].nameFile").value(hasItem(DEFAULT_NAME_FILE)))
       .andExpect(jsonPath("$.[*].extension").value(hasItem(DEFAULT_EXTENSION)))
       .andExpect(jsonPath("$.[*].typeFile").value(hasItem(DEFAULT_TYPE_FILE)))
-      .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD.toString())))
+      .andExpect(jsonPath("$.[*].searchField").value(hasItem(DEFAULT_SEARCH_FIELD)))
       .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)))
       .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
       .andExpect(jsonPath("$.[*].modifiedDate").value(hasItem(DEFAULT_MODIFIED_DATE.toString())))

@@ -73,8 +73,8 @@ class FileGatlingTest extends Simulation
             """{
                 "id":null
                 , "uuid":null
-                , "videoData":null
-                , "nameVideo":"SAMPLE_TEXT"
+                , "fileData":null
+                , "nameFile":"SAMPLE_TEXT"
                 , "extension":"SAMPLE_TEXT"
                 , "typeFile":"SAMPLE_TEXT"
                 , "searchField":null

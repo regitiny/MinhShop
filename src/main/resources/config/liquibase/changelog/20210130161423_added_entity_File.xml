@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
 
   <!--
@@ -15,13 +15,13 @@
       <column name="uuid" type="${uuidType}" remarks="the uuid equivalent id (primary key)">
         <constraints nullable="false" unique="true" uniqueConstraintName="ux_file__uuid"/>
       </column>
-      <column name="video_data" type="longblob" remarks="videoData is data of video in binary form">
+      <column name="file_data" type="longblob" remarks="fileData is data of video in binary form">
         <constraints nullable="false"/>
       </column>
-      <column name="video_data_content_type" type="varchar(255)">
+      <column name="file_data_content_type" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="name_video" type="varchar(1024)" remarks="name of video (Default is uuid + extension)">
+      <column name="name_file" type="varchar(1024)" remarks="name of file (Default is uuid + extension)">
         <constraints nullable="true"/>
       </column>
       <column name="extension" type="varchar(16)" remarks="extension of video (Example .mp4 ... )">
@@ -77,9 +77,9 @@
       tableName="file">
       <column name="id" type="numeric"/>
       <column name="uuid" type="string"/>
-      <column name="video_data" type="blob"/>
-      <column name="video_data_content_type" type="string"/>
-      <column name="name_video" type="string"/>
+      <column name="file_data" type="blob"/>
+      <column name="file_data_content_type" type="string"/>
+      <column name="name_file" type="string"/>
       <column name="extension" type="string"/>
       <column name="type_file" type="string"/>
       <column name="search_field" type="clob"/>

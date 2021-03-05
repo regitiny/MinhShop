@@ -11,18 +11,18 @@
       ]
     },
     {
-      "fieldName": "videoData",
+      "fieldName": "fileData",
       "fieldType": "byte[]",
-      "javadoc": "videoData is data of video in binary form",
+      "javadoc": "fileData is data of video in binary form",
       "fieldTypeBlobContent": "any",
       "fieldValidateRules": [
         "required"
       ]
     },
     {
-      "fieldName": "nameVideo",
+      "fieldName": "nameFile",
       "fieldType": "String",
-      "javadoc": "name of video (Default is uuid + extension)",
+      "javadoc": "name of file (Default is uuid + extension)",
       "fieldValidateRules": [
         "maxlength"
       ],

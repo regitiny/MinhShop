@@ -66,18 +66,18 @@ public class FileServiceImpl implements FileService
             existingFile.setUuid(fileDTO.getUuid());
           }
 
-          if (fileDTO.getVideoData() != null)
+          if (fileDTO.getFileData() != null)
           {
-            existingFile.setVideoData(fileDTO.getVideoData());
+            existingFile.setFileData(fileDTO.getFileData());
           }
-          if (fileDTO.getVideoDataContentType() != null)
+          if (fileDTO.getFileDataContentType() != null)
           {
-            existingFile.setVideoDataContentType(fileDTO.getVideoDataContentType());
+            existingFile.setFileDataContentType(fileDTO.getFileDataContentType());
           }
 
-          if (fileDTO.getNameVideo() != null)
+          if (fileDTO.getNameFile() != null)
           {
-            existingFile.setNameVideo(fileDTO.getNameVideo());
+            existingFile.setNameFile(fileDTO.getNameFile());
           }
 
           if (fileDTO.getExtension() != null)

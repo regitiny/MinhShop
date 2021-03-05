@@ -20,11 +20,11 @@ export const FileUpdate = (props: IFileUpdateProps) =>
 
   const {fileEntity, loading, updating} = props;
 
-  const {videoData, videoDataContentType, searchField} = fileEntity;
+  const {fileData, fileDataContentType, searchField} = fileEntity;
 
   const handleClose = () =>
   {
-    props.history.push('/entity/file');
+    props.history.push('/file');
   };
 
   useEffect(() =>
@@ -118,14 +118,14 @@ export const FileUpdate = (props: IFileUpdateProps) =>
               </AvGroup>
               <AvGroup>
                 <AvGroup>
-                  <Label id="videoDataLabel" for="videoData">
-                    <Translate contentKey="minhShopApp.file.videoData">Video Data</Translate>
+                  <Label id="fileDataLabel" for="fileData">
+                    <Translate contentKey="minhShopApp.file.fileData">File Data</Translate>
                   </Label>
                   <br/>
-                  {videoData ? (
+                  {fileData ? (
                     <div>
-                      {videoDataContentType ? (
-                        <a onClick={openFile(videoDataContentType, videoData)}>
+                      {fileDataContentType ? (
+                        <a onClick={openFile(fileDataContentType, fileData)}>
                           <Translate contentKey="entity.action.open">Open</Translate>
                         </a>
                       ) : null}
@@ -133,47 +133,47 @@ export const FileUpdate = (props: IFileUpdateProps) =>
                       <Row>
                         <Col md="11">
                           <span>
-                            {videoDataContentType}, {byteSize(videoData)}
+                            {fileDataContentType}, {byteSize(fileData)}
                           </span>
                         </Col>
                         <Col md="1">
-                          <Button color="danger" onClick={clearBlob('videoData')}>
+                          <Button color="danger" onClick={clearBlob('fileData')}>
                             <FontAwesomeIcon icon="times-circle"/>
                           </Button>
                         </Col>
                       </Row>
                     </div>
                   ) : null}
-                  <input id="file_videoData" data-cy="videoData" type="file" onChange={onBlobChange(false, 'videoData')}/>
+                  <input id="file_fileData" data-cy="fileData" type="file" onChange={onBlobChange(false, 'fileData')}/>
                   <AvInput
                     type="hidden"
-                    name="videoData"
-                    value={videoData}
+                    name="fileData"
+                    value={fileData}
                     validate={{
                       required: {value: true, errorMessage: translate('entity.validation.required')},
                     }}
                   />
                 </AvGroup>
 
-                <UncontrolledTooltip target="videoDataLabel">
-                  <Translate contentKey="minhShopApp.file.help.videoData"/>
+                <UncontrolledTooltip target="fileDataLabel">
+                  <Translate contentKey="minhShopApp.file.help.fileData"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>
-                <Label id="nameVideoLabel" for="file-nameVideo">
-                  <Translate contentKey="minhShopApp.file.nameVideo">Name Video</Translate>
+                <Label id="nameFileLabel" for="file-nameFile">
+                  <Translate contentKey="minhShopApp.file.nameFile">Name File</Translate>
                 </Label>
                 <AvField
-                  id="file-nameVideo"
-                  data-cy="nameVideo"
+                  id="file-nameFile"
+                  data-cy="nameFile"
                   type="text"
-                  name="nameVideo"
+                  name="nameFile"
                   validate={{
                     maxLength: {value: 1024, errorMessage: translate('entity.validation.maxlength', {max: 1024})},
                   }}
                 />
-                <UncontrolledTooltip target="nameVideoLabel">
-                  <Translate contentKey="minhShopApp.file.help.nameVideo"/>
+                <UncontrolledTooltip target="nameFileLabel">
+                  <Translate contentKey="minhShopApp.file.help.nameFile"/>
                 </UncontrolledTooltip>
               </AvGroup>
               <AvGroup>

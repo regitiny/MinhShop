@@ -4,7 +4,7 @@ import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
 import FileComponentsPage from './file.page-object';
 import FileUpdatePage from './file-update.page-object';
-import {getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed} from '../../util/utils';
+import {getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed,} from '../../util/utils';
 
 const expect = chai.expect;
 

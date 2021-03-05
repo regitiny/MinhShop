@@ -33,6 +33,7 @@ Main page styles
 
         .section-main {
           .section-product {
+            //display: table-cell;
             padding: 2px;
 
             .price-old {
@@ -42,6 +43,22 @@ Main page styles
             a {
               padding: 0;
             }
+          }
+          .card{
+            .card-body{
+              .card-title{
+                white-space: nowrap; //todo add khi title quá dài
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .card-title:hover{
+                white-space: normal;
+                overflow: visible;
+                width: 100%;
+              }
+            }
+
           }
         }
       }

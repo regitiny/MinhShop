@@ -10,7 +10,7 @@ export const ServerManagement=(props)=>
   const onResetElasticSearch=()=>{
     axios({
       method: 'put',
-      url: ' /api/management/admin/database/elasticsearch/syncs/reindex-all',
+      url: ' /api/management/admin/database/elasticsearch/reindex-all',
       headers: {Authorization: authToken}
     })
       .then(res=>window.console.log(res.data))

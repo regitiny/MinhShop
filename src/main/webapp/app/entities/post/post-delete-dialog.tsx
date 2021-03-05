@@ -21,7 +21,7 @@ export const PostDeleteDialog = (props: IPostDeleteDialogProps) =>
 
   const handleClose = () =>
   {
-    props.history.push('/post');
+    props.history.push('/entity/post');
   };
 
   useEffect(() =>

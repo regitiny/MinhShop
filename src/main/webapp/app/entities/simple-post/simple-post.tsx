@@ -32,6 +32,7 @@ import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-uti
 
 // import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
 import {getEntities as getTypePosts} from 'app/entities/type-post/type-post.reducer';
+import {getEntities as getPostDetails} from 'app/entities/post-details/post-details.reducer';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
 {
@@ -50,7 +51,7 @@ export const SimplePost = (props: ISimplePostProps) =>
 
   window.console.log(paginationState);
   window.console.log(props.location.search);
-  const {simplePostList, typePost, match, loading} = props;
+  const {simplePostList, typePost, postDetails, match, loading} = props;
   const [sorting, setSorting] = useState(false);
 
   window.console.log(simplePostList);
@@ -71,9 +72,15 @@ export const SimplePost = (props: ISimplePostProps) =>
       props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
     }
   };
+  
   useEffect(() =>
   {
     props.getTypePosts();
+  }, []);
+
+  useEffect(() =>
+  {
+    props.getPostDetails();
   }, []);
   const resetAll = () =>
   {
@@ -199,7 +206,30 @@ export const SimplePost = (props: ISimplePostProps) =>
     props.reset();
     props.getSortTypePostEntities(`typePost.id:${id}`, paginationState.activePage - 1, paginationState.itemsPerPage);
   };
+  window.console.log(postDetails)
+  const showImages=(id)=>{
+    let result=null;
+    if(postDetails && postDetails.length>0){
+      postDetails.map(item=>{
+        if(item.id===id){
+          if(item.otherData){
+            const urls:any=item.otherData;
+            const images=JSON.parse(urls);
+            if(images && images.length>0){
+              result=images.map(image=>{
+                return(
+                  <img key={image.id} width="100%" src={image.link} alt="Card image cap"/>
+                )
+              })
 
+            }
+          }
+        }
+      })
+
+    }
+    return result
+  }
   return (
     <div className=" d-flex justify-content-center">
       <div className="col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
@@ -343,7 +373,9 @@ export const SimplePost = (props: ISimplePostProps) =>
                                 </CardSubtitle>
                               </div>
                               <div>
+
                                 <CardImg top width="100%" src={simplePost.imageUrl} alt="Card image cap"/>
+                                {showImages(simplePost.postDetails.id)}
                               </div>
                             </CardHeader>
                             <CardBody>
@@ -461,6 +493,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   simplePostList: storeState.simplePost.entities,
   typePost: storeState.typePost.entities,
   typePostFilters: storeState.typePostFilter.entities,
+  postDetails: storeState.postDetails.entities,
   loading: storeState.simplePost.loading,
   totalItems: storeState.simplePost.totalItems,
   links: storeState.simplePost.links,
@@ -474,6 +507,7 @@ const mapDispatchToProps = {
   reset,
   getTypePosts,
   getSortTypePostEntities,
+  getPostDetails
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

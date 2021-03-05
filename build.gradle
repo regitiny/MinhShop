@@ -199,6 +199,16 @@ liquibase {
       logLevel "debug"
       classpath "$buildDir/classes/java/main"
     }
+    minhshop {
+      driver "org.mariadb.jdbc.Driver"
+      url "jdbc:mariadb://${project.property('server.address')}:${project.property('server.mariadb.port')}/minhshop?useLegacyDatetimeCode=false&serverTimezone=UTC"
+      username project.property("server.mariadb.username")
+      password project.property("server.mariadb.password")
+      changeLogFile "src/main/resources/config/liquibase/master.xml"
+      defaultSchemaName ""
+      logLevel "debug"
+      classpath "src/main/resources/"
+    }
   }
 
   runList = project.ext.runList

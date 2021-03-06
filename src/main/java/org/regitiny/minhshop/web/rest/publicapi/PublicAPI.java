@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
@@ -44,9 +48,15 @@ public class PublicAPI
   }
 
   @GetMapping("/hihi")
-  public String getImagexx() throws FileNotFoundException
+  public String getImagexx()
   {
     log.info("REST request to get Image : 112");
+    InputStream inputStream = getClass().getResourceAsStream("/config/data/dist_vn/tree.json");
+    String result = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
+    System.out.println(result.length());
+
+    System.out.println(getClass().getResource("/config/data/dist_vn/tree.json").toString());
+
 
     return "chạy ngon đét bạn ơi ";
   }

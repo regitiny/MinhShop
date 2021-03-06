@@ -94,9 +94,9 @@ export const Cart = props =>
     return id;
   };
   return (
-    <div className="shop-modal-content">
+    <div className="shop-modal-content mt-3">
       <AvForm inline>
-        <AvGroup inline>
+        <AvGroup className="button-quantity-group"inline>
           <Label id="editorLabel" for="editor-editor">
             <span>Số lượng</span>
           </Label>
@@ -116,7 +116,7 @@ export const Cart = props =>
           </Button>
         </AvGroup>
         {/*<Button>Đăng Ký mua hàng</Button>*/}
-        <Button className="add-to-cart" type="submit" color="danger" onClick={onAddToCart}>
+        <Button className="add-to-cart ml-3" type="submit" color="danger" onClick={onAddToCart}>
           ĐĂNG KÝ MUA HÀNG
         </Button>
       </AvForm>

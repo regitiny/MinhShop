@@ -3,7 +3,7 @@ import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import {Link} from 'react-router-dom';
 import {Storage} from 'react-jhipster';
 import axios from 'axios';
-import HistoryView from "app/page-product/history-view";
+import HistoryView from "app/page-product/product-history-view/history-view";
 
 const base_path = '/';
 

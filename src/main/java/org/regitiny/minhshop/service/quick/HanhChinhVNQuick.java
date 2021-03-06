@@ -7,13 +7,13 @@ import org.regitiny.minhshop.service.dto.HanhChinhVNDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 @Log4j2
@@ -35,8 +35,10 @@ public class HanhChinhVNQuick
   {
     try
     {
-      File file = ResourceUtils.getFile("classpath:config/data/dist_vn/tree.json");
-      String stringJsonData = Files.readString(file.toPath());
+//      File file = ResourceUtils.getFile("classpath:config/data/dist_vn/tree.json");
+//      String stringJsonData = Files.readString(file.toPath());
+      InputStream inputStream = getClass().getResourceAsStream("/config/data/dist_vn/tree.json");
+      String stringJsonData = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
       //      log.debug(stringJsonData);
       JSONObject jsonObjectData = new JSONObject(stringJsonData);
 
@@ -87,7 +89,7 @@ public class HanhChinhVNQuick
         log.info("{}/{} cities added", count + 1, maxCities);
       }
     }
-    catch (IOException e)
+    catch (Exception e)
     {
       e.printStackTrace();
     }

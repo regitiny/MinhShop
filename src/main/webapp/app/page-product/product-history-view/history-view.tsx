@@ -1,3 +1,4 @@
+import './history-view.scss'
 import React, {useState, useRef} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {
@@ -73,7 +74,7 @@ export const HistoryView = (props) =>
 
 
   return (
-    <div className="view mt-3">
+    <div className="view mt-3 mb-3">
       <div className="d-flex justify-content-center">
         <h3 className="col-9 text-body">Sản phẩm đã xem</h3>
       </div>
@@ -82,21 +83,21 @@ export const HistoryView = (props) =>
           <div className="container">
             <Slider {...settings}>
               {views && views.length > 0 ? views.map((item) => (
-                  <Link key={item.id} to={item.url}>
+                  <Link key={item.id} to={item.url} className="p-2">
                     {/*<div style={{height: 250}}>*/}
                     {/*  <img src={item.image} width='100%'/>*/}
                     {/*</div>*/}
                     {/*<h5>{item.name}</h5>*/}
                     <Card>
-                      <div style={{height: 200}}>
-                        <CardImg top width="100%" src={item.image} alt="Card image cap" />
+                      <div className="image-size">
+                          <CardImg top width="100%" src={item.image} alt="Card image cap" />
                       </div>
-                      <CardBody>
+                      <div className="float-group mt-3">
                         <CardTitle tag="h5" className="text-dark">{item.name}</CardTitle>
                         {/*<CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>*/}
                         {/*<CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>*/}
                         {/*<Button>Button</Button>*/}
-                      </CardBody>
+                      </div>
                     </Card>
                   </Link>
                 )

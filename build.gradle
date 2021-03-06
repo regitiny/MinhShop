@@ -4,6 +4,7 @@ buildscript {
     mavenCentral()
     gradlePluginPortal()
     maven { url "https://repo.spring.io/plugins-release" }
+    maven { url "https://plugins.gradle.org/m2/" }
   }
   dependencies {
     //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
@@ -27,6 +28,7 @@ plugins {
   id "org.sonarqube"
   id "io.spring.nohttp"
   //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
+  id "org.hidetake.ssh"
 }
 
 group = "org.regitiny.minhshop"
@@ -42,6 +44,11 @@ apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
 apply from: "gradle/swagger.gradle"
 //jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
+
+if (project.hasProperty("server.ssh.ip") && project.hasProperty("server.ssh.password"))
+{
+  apply from: "gradle/deploy_ssh.gradle"
+}
 
 if (project.hasProperty("prod") || project.hasProperty("gae"))
 {
@@ -191,6 +198,16 @@ liquibase {
       defaultSchemaName ""
       logLevel "debug"
       classpath "$buildDir/classes/java/main"
+    }
+    minhshop {
+      driver "org.mariadb.jdbc.Driver"
+      url "jdbc:mariadb://${project.property('server.address')}:${project.property('server.mariadb.port')}/minhshop?useLegacyDatetimeCode=false&serverTimezone=UTC"
+      username project.property("server.mariadb.username")
+      password project.property("server.mariadb.password")
+      changeLogFile "src/main/resources/config/liquibase/master.xml"
+      defaultSchemaName ""
+      logLevel "debug"
+      classpath "src/main/resources/"
     }
   }
 

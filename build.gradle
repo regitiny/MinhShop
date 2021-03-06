@@ -199,15 +199,19 @@ liquibase {
       logLevel "debug"
       classpath "$buildDir/classes/java/main"
     }
-    minhshop {
-      driver "org.mariadb.jdbc.Driver"
-      url "jdbc:mariadb://${project.property('server.address')}:${project.property('server.mariadb.port')}/minhshop?useLegacyDatetimeCode=false&serverTimezone=UTC"
-      username project.property("server.mariadb.username")
-      password project.property("server.mariadb.password")
-      changeLogFile "src/main/resources/config/liquibase/master.xml"
-      defaultSchemaName ""
-      logLevel "debug"
-      classpath "src/main/resources/"
+    if (project.hasProperty('server.address') && project.hasProperty("server.mariadb.username") &&
+      project.hasProperty("server.mariadb.password") && project.hasProperty('server.mariadb.port'))
+    {
+      minhshop {
+        driver "org.mariadb.jdbc.Driver"
+        url "jdbc:mariadb://${project.property('server.address')}:${project.property('server.mariadb.port')}/minhshop?useLegacyDatetimeCode=false&serverTimezone=UTC"
+        username project.property("server.mariadb.username")
+        password project.property("server.mariadb.password")
+        changeLogFile "src/main/resources/config/liquibase/master.xml"
+        defaultSchemaName ""
+        logLevel "debug"
+        classpath "src/main/resources/"
+      }
     }
   }
 
@@ -349,6 +353,7 @@ dependencies {
   compile group: 'org.json', name: 'json', version: "${jsonVersion}"
   compile group: 'com.google.code.gson', name: 'gson', version: "${gsonVersion}"
   compile group: 'org.jsoup', name: 'jsoup', version: "${jsoupVersion}"
+  compile group: 'io.vavr', name: 'vavr', version: "${vavrVersion}"
 }
 
 if (project.hasProperty("gae"))

@@ -8,12 +8,13 @@
 
 # declare parameters##############################################################################
 delayCompile=$((4)) # pause time (seconds)
+folderCheck="src/main/java"
 
 # declare functions need to be used###############################################################
 recreateSha() {
   (
-    find src -type f -print0 | sort -z | xargs -0 sha1sum
-    find src \( -type f -o -type d \) -print0 | sort -z | xargs -0 stat -c '%n %a'
+    find $folderCheck -type f -print0 | sort -z | xargs -0 sha1sum
+    find $folderCheck \( -type f -o -type d \) -print0 | sort -z | xargs -0 stat -c '%n %a'
   ) | sha1sum | awk '{print $1}'
 }
 

@@ -307,6 +307,9 @@ dependencies {
   compile group: 'com.google.code.gson', name: 'gson', version: "${gsonVersion}"
   compile group: 'org.jsoup', name: 'jsoup', version: "${jsoupVersion}"
   compile group: 'io.vavr', name: 'vavr', version: "${vavrVersion}"
+  // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
+  implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
 }
 
 if (project.hasProperty("gae"))

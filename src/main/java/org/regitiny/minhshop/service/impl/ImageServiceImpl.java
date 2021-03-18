@@ -51,9 +51,9 @@ public class ImageServiceImpl implements ImageService
     log.debug("Request to save Image : {}", imageDTO);
     Image image = imageMapper.toEntity(imageDTO);
     image = imageRepository.save(image);
-    ImageDTO result = imageMapper.toDto(image);
-    imageSearchRepository.save(image);
-    return result;
+//    ImageDTO result = imageMapper.toDto(image);
+//    imageSearchRepository.save(image);
+    return imageMapper.toDto(image);
   }
 
   @Override

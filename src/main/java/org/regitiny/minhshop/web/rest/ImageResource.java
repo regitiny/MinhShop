@@ -74,7 +74,32 @@ public class ImageResource
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
   @PostMapping("/images/upload")
-  public ResponseEntity<Map<String, String>> uploadImage(@RequestParam MultipartFile imageDataFile) throws URISyntaxException
+  public ResponseEntity<Map<String, String>> uploadImage(@RequestPart MultipartFile imageDataFile) throws URISyntaxException
+  {
+    log.debug("REST request to save Image : {}", imageDataFile.getSize());
+
+    ImageDTO result = imageService.upload(imageDataFile);
+    if (result != null)
+    {
+      Map<String, String> map = new HashMap<>();
+      map.put("link", "/api/images/public/" + result.getNameImage());
+      return ResponseEntity
+        .ok()
+        .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+        .body(map);
+    }
+    else throw new BadRequestAlertException("láo toét upload cái đéo gì vậy", ENTITY_NAME, "error");
+  }
+
+  /**
+   * {@code POST  /images} : upload a new image.
+   *
+   * @param imageDataFile is data of image
+   * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new imageDTO, or with status {@code 400 (Bad Request)} if the image has already an ID.
+   * @throws URISyntaxException if the Location URI syntax is incorrect.
+   */
+  @PostMapping("/images/upload2")
+  public ResponseEntity<Map<String, String>> uploadVideo(@RequestPart MultipartFile imageDataFile) throws URISyntaxException
   {
     log.debug("REST request to save Image : {}", imageDataFile.getSize());
 
@@ -99,7 +124,7 @@ public class ImageResource
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
   @PostMapping("/images/multiple/upload")
-  public ResponseEntity<Map<String, List<String>>> uploadMultipleImage(@RequestParam MultipartFile[] imageDataFiles) throws URISyntaxException
+  public ResponseEntity<Map<String, List<String>>> uploadMultipleImage(@RequestPart MultipartFile[] imageDataFiles) throws URISyntaxException
   {
     log.debug("REST request to save Image : {}", imageDataFiles.length);
 
@@ -123,6 +148,7 @@ public class ImageResource
     {
       ImageDTO imageDTO = result.get();
       HttpHeaders headerUtil = new HttpHeaders();
+//      // TODO: 07-Mar-21 xử lý nốt cái đuôi ảnh này  
       headerUtil.setContentType(MediaType.IMAGE_JPEG);
       return ResponseEntity.ok().headers(headerUtil).body(imageDTO.getImageData());
     }

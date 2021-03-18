@@ -21,7 +21,7 @@ logging:
   file:
     max-size: 1GB
     max-history: 30
-    name: log/minh-shop.log
+    name: ./log/minh-shop.log
 eureka:
   client:
     enabled: true
@@ -150,6 +150,10 @@ spring:
   output:
     ansi:
       console-available: true
+  servlet:
+    multipart:
+      max-file-size: 255MB
+      max-request-size: 256MB
 
 server:
   servlet:

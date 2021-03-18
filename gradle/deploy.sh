@@ -4,3 +4,4 @@ if [ "${pidMinhShop}" != "" ]; then
 fi
 nohup java -jar /root/minh-shop/minh-shop-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod >/root/minh-shop/minh-shop.log &# no create file nohup.out
 #nohup java -jar /root/minh-shop/minh-shop-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod >/dev/null 2>&1 &# no create file nohup.out
+echo "xxxx"

@@ -91,6 +91,8 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
         builder.with(MESSAGE_KEY, "error.http." + problem.getStatus().getStatusCode());
       }
     }
+//    // TODO: 18-Mar-21 : cần sửa lại method này fix broken pipe 
+//  return null;
     return new ResponseEntity<>(builder.build(), entity.getHeaders(), entity.getStatusCode());
   }
 

@@ -1,9 +1,12 @@
 package org.regitiny.minhshop.service;
 
+import org.regitiny.minhshop.domain.File;
 import org.regitiny.minhshop.service.dto.FileDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,6 +14,8 @@ import java.util.Optional;
  */
 public interface FileService
 {
+  String FILE_BY_FILE_NAME_CACHE = "FILE_BY_FILE_NAME_CACHE";
+
   /**
    * Save a file.
    *
@@ -18,6 +23,10 @@ public interface FileService
    * @return the persisted entity.
    */
   FileDTO save(FileDTO fileDTO);
+
+  List<FileDTO> uploads(List<MultipartFile> fileData);
+
+  Optional<File> getFileByFileName(String fileName);
 
 
   /**

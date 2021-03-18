@@ -115,3 +115,26 @@ td {
   }
 }
 //chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi
+
+.header-banner{
+  .product-banner{
+    .main-banner{
+      position: relative;
+      height: 500px;
+    }
+    img{
+      position: absolute;
+      max-width: 100%;
+      width: auto;
+      max-height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+.laptop-icon{
+  span{
+    cursor: pointer;
+  }
+}

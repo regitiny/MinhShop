@@ -1,0 +1,62 @@
+.show-light-box{
+  .carousel-content{
+    width: 500px;
+    margin: auto;
+    border: 1px solid black;
+    overflow: hidden;
+    .carousel-slide{
+      //transition: transform 0.5s ease-in-out;
+      margin: auto;
+      img{
+        width: 100%;
+      }
+    }
+
+  }
+  .row-box{
+    .slides{
+      margin: auto;
+    }
+  }
+  .modal-box{
+    display: none;
+    position: fixed;
+    z-index: 19999;
+    //padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+    .close-modal{
+      font-size: 40px;
+      cursor: pointer;
+    }
+    .modal-content-image{
+      position: relative;
+      background: black;
+
+      margin: auto;
+      padding: 0;
+      width: 90%;
+      max-width: 1200px;
+      .image-item{
+        img{
+          display: flex;
+          width: auto;
+          height: 60vh;
+          margin: auto;
+          justify-content: center;
+        }
+      }
+    }
+    .dots{
+      .dot-item{
+        cursor: pointer;
+      }
+    }
+
+  }
+
+}

@@ -132,6 +132,7 @@ function Contact({children})
                 // setAaa(res.data)
               window.console.log(res.status)
             }
+            else alert('Link ảnh không đúng. Vui lòng kiểm tra lại')
           })
         }
         else axios.get(`https://cors-anywhere.froala.com/${link.link}`, {
@@ -155,6 +156,7 @@ function Contact({children})
                 onUpload(res.data, url)
               }
             }
+            else alert('Link ảnh không đúng. Vui lòng kiểm tra lại')
           })
       }
 

@@ -58,7 +58,7 @@ export const Cart = props =>
   const {cartProductDetail} = props;
 
   window.console.log(props);
-  cartProductDetail.url = page_path;
+  cartProductDetail.url = page_path;  //add url to cart
 
   window.console.log(cartProductDetail);
   // window.console.log(productShops.products)

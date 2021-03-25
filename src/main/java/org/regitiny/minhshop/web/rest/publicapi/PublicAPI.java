@@ -5,20 +5,24 @@ import org.regitiny.minhshop.service.FileService;
 import org.regitiny.minhshop.service.ImageService;
 import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.util.InMemoryResource;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.time.Instant;
 import java.util.Optional;
+import java.util.logging.Level;
 
 @Log4j2
 @RestController
@@ -27,7 +31,8 @@ public class PublicAPI
 {
 
   private final ImageService imageService;
-  public static final String VideoUploadingDir = "D:\\";
+  //  public static final String VideoUploadingDir = "D:\\";
+  public static final String VideoUploadingDir = "/root/minh-shop/";
   private final FileService fileService;
 
   @GetMapping("/images/{nameImage}")
@@ -45,6 +50,7 @@ public class PublicAPI
 
     throw new FileNotFoundException();
   }
+
   @Autowired
   VideoStreamingService service;
 
@@ -57,13 +63,39 @@ public class PublicAPI
 
   @GetMapping(value = "/hihi", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
 //  @Cacheable(key = "#id")
-  public Flux<String> getImagexx(@RequestParam("id") String id)
+  public Mono<ResponseEntity<String>> getImagexx(@RequestParam("id") Integer id)
   {
-
-    return Flux.just("xxxx");
-
+    Instant now = Instant.now();
+    var a = Flux.just(6, 1, 5, 2, 4, 7).log("có đéo gì {} , {}", Level.INFO)
+      .flatMap(o ->
+        Flux.just(o + id).map(this::songSong).subscribeOn(Schedulers.elastic())
+      )
+      .map(integer ->
+      {
+        log.info("đầu tiên là sẽ thế này , {}", integer);
+        Mono.just(integer + id).map(this::songSong).subscribeOn(Schedulers.elastic());
+        return integer;
+      })
+      .subscribe(integerFlux -> log.info("cuối cùng thì id la :{}", now));
+    return Mono
+      .just(ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, String.valueOf(MediaType.APPLICATION_JSON)).body("xxyyzz"));
   }
 //  public static final String VideoUploadingDir = System.getProperty("user.dir") + "/Uploads/Posts/Videos";
+
+  private int songSong(int in)
+  {
+    try
+    {
+      Thread.sleep(in * 1000);
+      log.info("có cái đéo gì đó ở đây đó là  {}", in);
+      return in;
+    }
+    catch (InterruptedException e)
+    {
+      e.printStackTrace();
+      return in;
+    }
+  }
 
   @GetMapping(value = "/video", produces = "application/octet-stream")
   public ResponseEntity<ResourceRegion> getVideo(@RequestHeader(value = "Range", required = false) String rangeHeader)
@@ -126,15 +158,15 @@ public class PublicAPI
     if (rangeHeader != null)
       start = Integer.parseInt(rangeHeader.replace("bytes=", "").replace("-", ""));
     java.io.File file = new java.io.File(VideoUploadingDir + "video2.mp4");
-    byte[] data = new FileInputStream(file).readAllBytes();
-    ResourceRegion result2 = new ResourceRegion(new InMemoryResource(data), start, 10 * 1024 * 1024);
+    Resource r = new FileSystemResource(file);
+//    byte[] data = new FileInputStream(file).readAllBytes();
+    ResourceRegion result2 = new ResourceRegion(r, start, 10 * 1024 * 1024);
     return ResponseEntity.status(206)
       .contentType(MediaType.parseMediaType("video/mp4"))
       .body(result2);
   }
 
+
 }
-
-
 
 

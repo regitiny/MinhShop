@@ -1,6 +1,5 @@
 package org.regitiny.minhshop.web.rest.publicapi;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.regitiny.minhshop.service.FileService;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import static java.lang.Math.min;
 
@@ -34,7 +34,7 @@ public class VideoStreamingService
 //    try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
 //      outputStream.write(data);
 //    }
-    byte[] data = FileUtils.readFileToByteArray(outputFile);
+    byte[] data = Files.readAllBytes(outputFile.toPath());
     Resource resource = new InMemoryResource(data);
     FileUrlResource videoResource = new FileUrlResource(directory + "/video.mp4");
     String b = String.valueOf(MediaTypeFactory.getMediaType(resource));

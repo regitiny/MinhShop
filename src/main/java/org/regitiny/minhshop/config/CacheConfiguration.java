@@ -106,7 +106,7 @@ public class CacheConfiguration
       createCache(cm, org.regitiny.minhshop.domain.HanhChinhVN.class.getName(), jcacheConfiguration);
       // jhipster-needle-redis-add-entry
       createCache(cm, org.regitiny.minhshop.service.FileService.FILE_BY_FILE_NAME_CACHE, jcacheConfiguration);
-      createCache(cm, "hidi", jcacheConfiguration);
+      createCache(cm, "cacheTest", jcacheConfiguration);
     };
   }
 

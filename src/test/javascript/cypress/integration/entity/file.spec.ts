@@ -90,9 +90,9 @@ describe('File e2e test', () => {
       .invoke('val')
       .should('match', new RegExp('fbb5d871-dd42-4e20-b92a-a095ef01f7c1'));
 
-    cy.setFieldImageAsBytesOfEntity('videoData', 'integration-test.png', 'image/png');
+    cy.setFieldImageAsBytesOfEntity('fileData', 'integration-test.png', 'image/png');
 
-    cy.get(`[data-cy="nameVideo"]`)
+    cy.get(`[data-cy="nameFile"]`)
       .type('Brand Kenya generation', { force: true })
       .invoke('val')
       .should('match', new RegExp('Brand Kenya generation'));

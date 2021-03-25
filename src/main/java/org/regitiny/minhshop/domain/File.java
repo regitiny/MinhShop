@@ -37,22 +37,22 @@ public class File implements Serializable
   private UUID uuid;
 
   /**
-   * videoData is data of video in binary form
+   * fileData is data of video in binary form
    */
 
   @Lob
-  @Column(name = "video_data", nullable = false)
-  private byte[] videoData;
+  @Column(name = "file_data", nullable = false)
+  private byte[] fileData;
 
-  @Column(name = "video_data_content_type", nullable = false)
-  private String videoDataContentType;
+  @Column(name = "file_data_content_type", nullable = false)
+  private String fileDataContentType;
 
   /**
-   * name of video (Default is uuid + extension)
+   * name of file (Default is uuid + extension)
    */
   @Size(max = 1024)
-  @Column(name = "name_video", length = 1024)
-  private String nameVideo;
+  @Column(name = "name_file", length = 1024)
+  private String nameFile;
 
   /**
    * extension of video (Example .mp4 ... )
@@ -151,51 +151,51 @@ public class File implements Serializable
     return this;
   }
 
-  public byte[] getVideoData()
+  public byte[] getFileData()
   {
-    return this.videoData;
+    return this.fileData;
   }
 
-  public void setVideoData(byte[] videoData)
+  public void setFileData(byte[] fileData)
   {
-    this.videoData = videoData;
+    this.fileData = fileData;
   }
 
-  public File videoData(byte[] videoData)
+  public File fileData(byte[] fileData)
   {
-    this.videoData = videoData;
+    this.fileData = fileData;
     return this;
   }
 
-  public String getVideoDataContentType()
+  public String getFileDataContentType()
   {
-    return this.videoDataContentType;
+    return this.fileDataContentType;
   }
 
-  public void setVideoDataContentType(String videoDataContentType)
+  public void setFileDataContentType(String fileDataContentType)
   {
-    this.videoDataContentType = videoDataContentType;
+    this.fileDataContentType = fileDataContentType;
   }
 
-  public File videoDataContentType(String videoDataContentType)
+  public File fileDataContentType(String fileDataContentType)
   {
-    this.videoDataContentType = videoDataContentType;
+    this.fileDataContentType = fileDataContentType;
     return this;
   }
 
-  public String getNameVideo()
+  public String getNameFile()
   {
-    return this.nameVideo;
+    return this.nameFile;
   }
 
-  public void setNameVideo(String nameVideo)
+  public void setNameFile(String nameFile)
   {
-    this.nameVideo = nameVideo;
+    this.nameFile = nameFile;
   }
 
-  public File nameVideo(String nameVideo)
+  public File nameFile(String nameFile)
   {
-    this.nameVideo = nameVideo;
+    this.nameFile = nameFile;
     return this;
   }
 
@@ -389,9 +389,9 @@ public class File implements Serializable
     return "File{" +
       "id=" + getId() +
       ", uuid='" + getUuid() + "'" +
-      ", videoData='" + getVideoData() + "'" +
-      ", videoDataContentType='" + getVideoDataContentType() + "'" +
-      ", nameVideo='" + getNameVideo() + "'" +
+      ", fileData='" + getFileData() + "'" +
+      ", fileDataContentType='" + getFileDataContentType() + "'" +
+      ", nameFile='" + getNameFile() + "'" +
       ", extension='" + getExtension() + "'" +
       ", typeFile='" + getTypeFile() + "'" +
       ", searchField='" + getSearchField() + "'" +

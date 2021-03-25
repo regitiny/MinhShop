@@ -16,12 +16,12 @@
 
 logging:
   pattern:
-    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(%-40.40logger{39} %5L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}'
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(%-5.20thread{19}){magenta} %clr(%-40.40logger{39} %5L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}'
     file: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(%-40.40logger{39} %5L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}'
   file:
     max-size: 1GB
     max-history: 30
-    name: log/minh-shop.log
+    name: ./log/minh-shop.log
 eureka:
   client:
     enabled: true
@@ -150,6 +150,10 @@ spring:
   output:
     ansi:
       console-available: true
+  servlet:
+    multipart:
+      max-file-size: 255MB
+      max-request-size: 256MB
 
 server:
   servlet:

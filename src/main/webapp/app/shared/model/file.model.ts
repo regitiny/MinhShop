@@ -2,9 +2,9 @@ export interface IFile
 {
   id?: number;
   uuid?: string;
-  videoDataContentType?: string;
-  videoData?: string;
-  nameVideo?: string | null;
+  fileDataContentType?: string;
+  fileData?: string;
+  nameFile?: string | null;
   extension?: string | null;
   typeFile?: string | null;
   searchField?: string | null;

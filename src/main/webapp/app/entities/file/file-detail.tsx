@@ -38,36 +38,36 @@ export const FileDetail = (props: IFileDetailProps) =>
           </dt>
           <dd>{fileEntity.uuid}</dd>
           <dt>
-            <span id="videoData">
-              <Translate contentKey="minhShopApp.file.videoData">Video Data</Translate>
+            <span id="fileData">
+              <Translate contentKey="minhShopApp.file.fileData">File Data</Translate>
             </span>
-            <UncontrolledTooltip target="videoData">
-              <Translate contentKey="minhShopApp.file.help.videoData"/>
+            <UncontrolledTooltip target="fileData">
+              <Translate contentKey="minhShopApp.file.help.fileData"/>
             </UncontrolledTooltip>
           </dt>
           <dd>
-            {fileEntity.videoData ? (
+            {fileEntity.fileData ? (
               <div>
-                {fileEntity.videoDataContentType ? (
-                  <a onClick={openFile(fileEntity.videoDataContentType, fileEntity.videoData)}>
+                {fileEntity.fileDataContentType ? (
+                  <a onClick={openFile(fileEntity.fileDataContentType, fileEntity.fileData)}>
                     <Translate contentKey="entity.action.open">Open</Translate>&nbsp;
                   </a>
                 ) : null}
                 <span>
-                  {fileEntity.videoDataContentType}, {byteSize(fileEntity.videoData)}
+                  {fileEntity.fileDataContentType}, {byteSize(fileEntity.fileData)}
                 </span>
               </div>
             ) : null}
           </dd>
           <dt>
-            <span id="nameVideo">
-              <Translate contentKey="minhShopApp.file.nameVideo">Name Video</Translate>
+            <span id="nameFile">
+              <Translate contentKey="minhShopApp.file.nameFile">Name File</Translate>
             </span>
-            <UncontrolledTooltip target="nameVideo">
-              <Translate contentKey="minhShopApp.file.help.nameVideo"/>
+            <UncontrolledTooltip target="nameFile">
+              <Translate contentKey="minhShopApp.file.help.nameFile"/>
             </UncontrolledTooltip>
           </dt>
-          <dd>{fileEntity.nameVideo}</dd>
+          <dd>{fileEntity.nameFile}</dd>
           <dt>
             <span id="extension">
               <Translate contentKey="minhShopApp.file.extension">Extension</Translate>

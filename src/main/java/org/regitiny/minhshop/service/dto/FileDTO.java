@@ -28,21 +28,21 @@ public class FileDTO implements Serializable
   private UUID uuid;
 
   /**
-   * videoData is data of video in binary form
+   * fileData is data of video in binary form
    */
 
-  @ApiModelProperty(value = "videoData is data of video in binary form", required = true)
+  @ApiModelProperty(value = "fileData is data of video in binary form", required = true)
   @Lob
-  private byte[] videoData;
+  private byte[] fileData;
 
-  private String videoDataContentType;
+  private String fileDataContentType;
 
   /**
-   * name of video (Default is uuid + extension)
+   * name of file (Default is uuid + extension)
    */
   @Size(max = 1024)
-  @ApiModelProperty(value = "name of video (Default is uuid + extension)")
-  private String nameVideo;
+  @ApiModelProperty(value = "name of file (Default is uuid + extension)")
+  private String nameFile;
 
   /**
    * extension of video (Example .mp4 ... )
@@ -128,34 +128,34 @@ public class FileDTO implements Serializable
     this.uuid = uuid;
   }
 
-  public byte[] getVideoData()
+  public byte[] getFileData()
   {
-    return videoData;
+    return fileData;
   }
 
-  public void setVideoData(byte[] videoData)
+  public void setFileData(byte[] fileData)
   {
-    this.videoData = videoData;
+    this.fileData = fileData;
   }
 
-  public String getVideoDataContentType()
+  public String getFileDataContentType()
   {
-    return videoDataContentType;
+    return fileDataContentType;
   }
 
-  public void setVideoDataContentType(String videoDataContentType)
+  public void setFileDataContentType(String fileDataContentType)
   {
-    this.videoDataContentType = videoDataContentType;
+    this.fileDataContentType = fileDataContentType;
   }
 
-  public String getNameVideo()
+  public String getNameFile()
   {
-    return nameVideo;
+    return nameFile;
   }
 
-  public void setNameVideo(String nameVideo)
+  public void setNameFile(String nameFile)
   {
-    this.nameVideo = nameVideo;
+    this.nameFile = nameFile;
   }
 
   public String getExtension()
@@ -291,8 +291,8 @@ public class FileDTO implements Serializable
     return "FileDTO{" +
       "id=" + getId() +
       ", uuid='" + getUuid() + "'" +
-      ", videoData='" + getVideoData() + "'" +
-      ", nameVideo='" + getNameVideo() + "'" +
+      ", fileData='" + getFileData() + "'" +
+      ", nameFile='" + getNameFile() + "'" +
       ", extension='" + getExtension() + "'" +
       ", typeFile='" + getTypeFile() + "'" +
       ", searchField='" + getSearchField() + "'" +

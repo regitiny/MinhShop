@@ -1,3 +1,4 @@
+import './tablet.scss'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Storage, Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
@@ -62,12 +63,12 @@ const Tablet = (props: ISimplePostProps) => {
               tablets.map(tablet => {
                 // if (tablet.typePost.typeName === 'tablet') {}
                 return (
-                  <div className="col-4" key={tablet.uuid + tablet.id}>
+                  <div className="col-3 mt-3" key={tablet.uuid + tablet.id}>
                     {/*<Link to={`/${tablet.id}`}>*/}
                       <Link to={`${props.match.url}/${tablet.id}`}>
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div>
+                          <div className='image-size'>
                             <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap" />
                           </div>
                           <div className="float-group">

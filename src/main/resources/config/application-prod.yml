@@ -22,6 +22,7 @@ logging:
   level:
     ROOT: DEBUG
     tech.jhipster: DEBUG
+#    org.hibernate.SQL: DEBUG
     org.regitiny.minhshop: DEBUG
 
 eureka:
@@ -38,10 +39,6 @@ management:
         enabled: false
 
 spring:
-  servlet:
-    multipart:
-      max-file-size: 20MB
-
   profiles:
     active: prod
     include:
@@ -67,6 +64,11 @@ spring:
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
   jpa:
+  #    # show query
+  #    properties:
+  #      hibernate:
+  #        format_sql: true
+  #    show-sql: true
   elasticsearch:
     rest:
       uris: http://${yuvytung.server.name}:9200
@@ -116,6 +118,8 @@ server:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
     min-response-size: 1024
+  error:
+    include-stacktrace: always
 
 # ===================================================================
 # JHipster specific properties
@@ -131,6 +135,7 @@ jhipster:
     redis: # Redis configuration
       expiration: 3600 # By default objects stay 1 hour (in seconds) in the cache
       server: redis://${yuvytung.server.name}:6379
+      #      server: redis://localhost:6379
       cluster: false
       # server: redis://localhost:6379,redis://localhost:16379,redis://localhost:26379
       # cluster: true

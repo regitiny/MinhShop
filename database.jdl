@@ -181,10 +181,10 @@ entity Image {
 entity File {
     /** the uuid equivalent id (primary key) */
     uuid UUID required unique
-    /** videoData is data of video in binary form */
-    videoData AnyBlob required
-    /** name of video (Default is uuid + extension)*/
-    nameVideo String maxlength(1024)
+    /** fileData is data of video in binary form */
+    fileData AnyBlob required
+    /** name of file (Default is uuid + extension)*/
+    nameFile String maxlength(1024)
     /** extension of video (Example .mp4 ... ) */
     extension String maxlength(16)
     /** typeFile */

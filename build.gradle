@@ -44,6 +44,7 @@ apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
 apply from: "gradle/swagger.gradle"
 //jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
+apply from: "gradle/liquibase.gradle"
 
 if (project.hasProperty("server.ssh.ip") && project.hasProperty("server.ssh.password"))
 {
@@ -169,50 +170,6 @@ task cucumberTestReport(type: TestReport) {
   reportOn cucumberTest
 }
 
-if (!project.hasProperty("runList"))
-{
-  project.ext.runList = "main"
-}
-
-project.ext.diffChangelogFile = "src/main/resources/config/liquibase/changelog/" + new Date().format("yyyyMMddHHmmss") + "_changelog.xml"
-
-liquibase {
-  activities {
-    main {
-      driver "org.h2.Driver"
-      url "jdbc:h2:file:./build/h2db/db/minhshop"
-      username "MinhShop"
-      password ""
-      changeLogFile "src/main/resources/config/liquibase/master.xml"
-      defaultSchemaName ""
-      logLevel "debug"
-      classpath "src/main/resources/"
-    }
-    diffLog {
-      driver "org.h2.Driver"
-      url "jdbc:h2:file:./build/h2db/db/minhshop"
-      username "MinhShop"
-      password ""
-      changeLogFile project.ext.diffChangelogFile
-      referenceUrl "hibernate:spring:org.regitiny.minhshop.domain?dialect=org.hibernate.dialect.H2Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
-      defaultSchemaName ""
-      logLevel "debug"
-      classpath "$buildDir/classes/java/main"
-    }
-    minhshop {
-      driver "org.mariadb.jdbc.Driver"
-      url "jdbc:mariadb://${project.property('server.address')}:${project.property('server.mariadb.port')}/minhshop?useLegacyDatetimeCode=false&serverTimezone=UTC"
-      username project.property("server.mariadb.username")
-      password project.property("server.mariadb.password")
-      changeLogFile "src/main/resources/config/liquibase/master.xml"
-      defaultSchemaName ""
-      logLevel "debug"
-      classpath "src/main/resources/"
-    }
-  }
-
-  runList = project.ext.runList
-}
 
 gitProperties {
   failOnNoGitDirectory = false
@@ -349,6 +306,8 @@ dependencies {
   compile group: 'org.json', name: 'json', version: "${jsonVersion}"
   compile group: 'com.google.code.gson', name: 'gson', version: "${gsonVersion}"
   compile group: 'org.jsoup', name: 'jsoup', version: "${jsoupVersion}"
+  compile group: 'io.vavr', name: 'vavr', version: "${vavrVersion}"
+
 }
 
 if (project.hasProperty("gae"))

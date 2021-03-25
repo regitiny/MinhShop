@@ -37,6 +37,7 @@ buildscript {
     classpath "org.openapitools:openapi-generator-gradle-plugin:5.0.1"
   }
 }
+
 task buildOpenApiFrontend(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
   generatorName = "typescript-axios"
   inputSpec = "$rootDir/src/main/resources/swagger/api.yml".toString()
@@ -46,23 +47,39 @@ task buildOpenApiFrontend(type: org.openapitools.generator.gradle.plugin.tasks.G
   apiFilesConstrainedTo = [""]
   modelFilesConstrainedTo = [""]
   configOptions = [
-    delegatePattern: "true",
-    title: "minh-shop",
-    withSeparateModelsAndApi : "true"
+    delegatePattern         : "true",
+    title                   : "minh-shop",
+    withSeparateModelsAndApi: "true"
   ]
   validateSpec = true
   importMappings = [Problem: "org.zalando.problem.Problem"]
 }
 task buildOpenApiBackend(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
   generatorName = "spring"
-  inputSpec = "$rootDir/src/main/resources/swagger/api.yml".toString()
+  inputSpec = "$rootDir/src/main/resources/swagger/minh-shop.yml".toString()
   outputDir = "$buildDir/openapi".toString()
-  apiPackage = "org.regitiny.minhshop.web.api"
-  modelPackage = "org.regitiny.minhshop.web.api.model"
+  apiPackage = "org.regitiny.minhshop.web.api.open"
+  modelPackage = "org.regitiny.minhshop.web.api.open.model"
   apiFilesConstrainedTo = [""]
   modelFilesConstrainedTo = [""]
   supportingFilesConstrainedTo = ["ApiUtil.java"]
-  configOptions = [delegatePattern: "true", title: "minh-shop"]
+  configOptions = [
+    delegatePattern        : "true",
+    title                  : "minh-shop",
+    useTags                : "true",
+//    useOptional            : "true",
+//    hideGenerationTimestamp: "true",
+//    interfaceOnly: "true"
+  ]
+  typeMappings = [
+    "org.springframework.core.io.Resource" : "org.springframework.core.io.support.ResourceRegion",
+    "OffsetDateTime" : "Instant",
+  ]
+  instantiationTypes = [
+    "OffsetDateTime" : "java.time.Instant",
+  ]
   validateSpec = true
   importMappings = [Problem: "org.zalando.problem.Problem"]
 }
+
+compileJava.dependsOn("buildOpenApiBackend")  //to openapi no generate while compile

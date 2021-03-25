@@ -108,7 +108,9 @@ const Home = props =>
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={tablet.uuid}>
                       <NavLink to={`/page/may-tinh-bang/${tablet.id}`} tag={Link}>
                         <Card>
-                          <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap"/>
+                          <div className="image-size">
+                            <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap"/>
+                          </div>
                           <CardBody>
                             <CardTitle tag="h5">{tablet.title}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
@@ -118,7 +120,7 @@ const Home = props =>
                               <span className="price-new">{tablet.salePrice.toLocaleString()}</span>
                               <span className="price-old">{tablet.price.toLocaleString()}</span>
                               <span>
-                                <Badge color="warning">-{tablet.percentSale}%</Badge>
+                                <Badge color="warning">-{tablet.percentSale.toFixed(0)}%</Badge>
                               </span>
                             </CardText>
                             <Button color="primary"
@@ -143,7 +145,7 @@ const Home = props =>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <NavLink to="/page/may-tinh-bang" tag={Link}>
+            <NavLink to="/page/lap-top" tag={Link}>
               <h2>LAPTOP</h2>
             </NavLink>
           </header>
@@ -162,7 +164,9 @@ const Home = props =>
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2" key={laptop.uuid}>
                       <NavLink to={`/page/lap-top/${laptop.id}`} tag={Link}>
                         <Card>
-                          <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap"/>
+                          <div className="image-size">
+                            <CardImg top width="100%" src={laptop.imageUrl} alt="Card image cap"/>
+                          </div>
                           <CardBody>
                             <CardTitle tag="h5">{laptop.title}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
@@ -172,7 +176,7 @@ const Home = props =>
                               <span className="price-new">{laptop.salePrice.toLocaleString()}</span>
                               <span className="price-old">{laptop.price.toLocaleString()}</span>
                               <span>
-                                <Badge color="warning">-{laptop.percentSale.toFixed(1)}%</Badge>
+                                <Badge color="warning">-{laptop.percentSale.toFixed(0)}%</Badge>
                               </span>
                             </CardText>
                             <Button color="primary"
@@ -197,7 +201,7 @@ const Home = props =>
             </div>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <NavLink to="/page/may-tinh-bang" tag={Link}>
+            <NavLink to="/page/may-console" tag={Link}>
               <h2>MÁY CONSOLE</h2>
             </NavLink>
           </header>
@@ -205,7 +209,7 @@ const Home = props =>
           <div className="section-content d-flex">
             <div
               className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
-              <NavLink to="/may-tinh-bang" tag={Link}>
+              <NavLink to="/may-console" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
             </div>
@@ -217,7 +221,9 @@ const Home = props =>
                          key={console.uuid}>
                       <NavLink to={`/page/may-console/${console.id}`} tag={Link}>
                         <Card>
-                          <CardImg top width="100%" src={console.imageUrl} alt="Card image cap"/>
+                          <div className="image-size">
+                            <CardImg top width="100%" src={console.imageUrl} alt="Card image cap"/>
+                          </div>
                           <CardBody>
                             <CardTitle tag="h5">{console.title}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
@@ -227,7 +233,7 @@ const Home = props =>
                               <span className="price-new">{console.salePrice.toLocaleString()}</span>
                               <span className="price-old">{console.price.toLocaleString()}</span>
                               <span>
-                                <Badge color="warning">-{console.percentSale}%</Badge>
+                                <Badge color="warning">-{console.percentSale.toFixed(0)}%</Badge>
                               </span>
                             </CardText>
                             <Button color="primary"
@@ -252,7 +258,7 @@ const Home = props =>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <NavLink to="/page/may-tinh-bang" tag={Link}>
+            <NavLink to="/page/macbook" tag={Link}>
               <h2>MACBOOK</h2>
             </NavLink>
           </header>
@@ -260,7 +266,7 @@ const Home = props =>
           <div className="section-content d-flex">
             <div
               className="section-banner d-none d-sm-none d-md-block d-lg-block d-xl-block col-md-3 col-lg-3 col-xl-3">
-              <NavLink to="/may-tinh-bang" tag={Link}>
+              <NavLink to="/macbook" tag={Link}>
                 <img className="img-fluid" src="content/images/do_go_noi_that_1.png" alt="banner"/>
               </NavLink>
             </div>
@@ -272,7 +278,9 @@ const Home = props =>
                          key={macbook.uuid}>
                       <NavLink to={`/page/macbook/${macbook.id}`} tag={Link}>
                         <Card>
-                          <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap"/>
+                          <div className="image-size">
+                            <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap"/>
+                          </div>
                           <CardBody>
                             <CardTitle tag="h5">{macbook.title.substring(0, 20)}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
@@ -282,7 +290,7 @@ const Home = props =>
                               <span className="price-new">{macbook.salePrice.toLocaleString()}</span>
                               <span className="price-old">{macbook.price.toLocaleString()}</span>
                               <span>
-                                <Badge color="warning">-{macbook.percentSale}%</Badge>
+                                <Badge color="warning">-{macbook.percentSale.toFixed(0)}%</Badge>
                               </span>
                             </CardText>
                             <Button color="primary"
@@ -307,7 +315,7 @@ const Home = props =>
             </NavLink>
           </div>
           <header className="panel1-header d-flex align-items-center justify-content-between">
-            <NavLink to="/page/may-tinh-bang" tag={Link}>
+            <NavLink to="/page/thiet-bi-choi-game" tag={Link}>
               <h2>THIẾT BỊ CHƠI GAME</h2>
             </NavLink>
           </header>
@@ -327,7 +335,9 @@ const Home = props =>
                          key={gameEquipment.uuid}>
                       <NavLink to={`/page/thiet-bi-choi-game/${gameEquipment.id}`} tag={Link}>
                         <Card>
-                          <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap"/>
+                          <div className="image-size">
+                            <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap"/>
+                          </div>
                           <CardBody>
                             <CardTitle tag="h5">{gameEquipment.title}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
@@ -337,7 +347,7 @@ const Home = props =>
                               <span className="price-new">{gameEquipment.salePrice.toLocaleString()}</span>
                               <span className="price-old">{gameEquipment.price.toLocaleString()}</span>
                               <span>
-                                <Badge color="warning">-{gameEquipment.percentSale}%</Badge>
+                                <Badge color="warning">-{gameEquipment.percentSale.toFixed(0)}%</Badge>
                               </span>
                             </CardText>
                             <Button color="primary"

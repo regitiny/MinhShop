@@ -4,8 +4,8 @@ import axios from 'axios';
 import {Storage} from 'react-jhipster';
 import Cart from 'app/modules/shopcart/cart';
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
-import {ProductViews} from 'app/page-product/product-view'
-import HistoryView from "app/page-product/history-view";
+import {ProductViews} from 'app/page-product/product-history-view/product-view'
+import HistoryView from "app/page-product/product-history-view/history-view";
 import {Link, withRouter} from 'react-router-dom';
 
 export const LaptopDetail = props =>
@@ -155,7 +155,7 @@ export const LaptopDetail = props =>
             </div>
           </div>
           <div className="product-description mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-            {laptop ? <h5>{laptop.title}</h5> : ''}
+            {laptop ? <h2>{laptop.title}</h2> : ''}
             <hr/>
             <table className="col-12">
               <tbody>
@@ -229,11 +229,11 @@ export const LaptopDetail = props =>
               {/*todo shop-cart*/}
               {laptop !== undefined && laptop !== null ? (
                 <div className="laptop-detail-price">
-                  <div>
-                    Giá gốc: <span className="text-primary">{laptop.price.toLocaleString()}đ</span>
+                  <div className="price">
+                    Giá gốc: <span className="text-danger">{laptop.price.toLocaleString()}đ</span>
                   </div>
-                  <div>
-                    Giá khuyến mãi: <span className="text-danger">{laptop.salePrice.toLocaleString()}đ</span>
+                  <div className="sale-price">
+                    Giá khuyến mãi: <span className="text-success">{laptop.salePrice.toLocaleString()}đ</span>
                   </div>
                   <Cart cartProductDetail={laptop} page_path={page_path}/>
                   {/*<Cart productestEntity={laptopDetail}/>*/}

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Col, InputGroup, Row, Table} from 'reactstrap';
 import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
-import {byteSize, getSortState, openFile, TextFormat, Translate, translate} from 'react-jhipster';
+import {byteSize, getSortState, openFile, TextFormat, Translate, translate,} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import {IRootState} from 'app/shared/reducers';
@@ -197,11 +197,11 @@ export const File = (props: IFileProps) =>
                 <th className="hand" onClick={sort('uuid')}>
                   <Translate contentKey="minhShopApp.file.uuid">Uuid</Translate> <FontAwesomeIcon icon="sort"/>
                 </th>
-                <th className="hand" onClick={sort('videoData')}>
-                  <Translate contentKey="minhShopApp.file.videoData">Video Data</Translate> <FontAwesomeIcon icon="sort"/>
+                <th className="hand" onClick={sort('fileData')}>
+                  <Translate contentKey="minhShopApp.file.fileData">File Data</Translate> <FontAwesomeIcon icon="sort"/>
                 </th>
-                <th className="hand" onClick={sort('nameVideo')}>
-                  <Translate contentKey="minhShopApp.file.nameVideo">Name Video</Translate> <FontAwesomeIcon icon="sort"/>
+                <th className="hand" onClick={sort('nameFile')}>
+                  <Translate contentKey="minhShopApp.file.nameFile">Name File</Translate> <FontAwesomeIcon icon="sort"/>
                 </th>
                 <th className="hand" onClick={sort('extension')}>
                   <Translate contentKey="minhShopApp.file.extension">Extension</Translate> <FontAwesomeIcon icon="sort"/>
@@ -246,21 +246,21 @@ export const File = (props: IFileProps) =>
                   </td>
                   <td>{file.uuid}</td>
                   <td>
-                    {file.videoData ? (
+                    {file.fileData ? (
                       <div>
-                        {file.videoDataContentType ? (
-                          <a onClick={openFile(file.videoDataContentType, file.videoData)}>
+                        {file.fileDataContentType ? (
+                          <a onClick={openFile(file.fileDataContentType, file.fileData)}>
                             <Translate contentKey="entity.action.open">Open</Translate>
                             &nbsp;
                           </a>
                         ) : null}
                         <span>
-                          {file.videoDataContentType}, {byteSize(file.videoData)}
+                          {file.fileDataContentType}, {byteSize(file.fileData)}
                         </span>
                       </div>
                     ) : null}
                   </td>
-                  <td>{file.nameVideo}</td>
+                  <td>{file.nameFile}</td>
                   <td>{file.extension}</td>
                   <td>{file.typeFile}</td>
                   <td>{file.searchField}</td>

@@ -132,6 +132,7 @@ function Contact({children})
                 // setAaa(res.data)
               window.console.log(res.status)
             }
+            else alert('Link ảnh không đúng. Vui lòng kiểm tra lại')
           })
         }
         else axios.get(`https://cors-anywhere.froala.com/${link.link}`, {
@@ -155,6 +156,7 @@ function Contact({children})
                 onUpload(res.data, url)
               }
             }
+            else alert('Link ảnh không đúng. Vui lòng kiểm tra lại')
           })
       }
 
@@ -244,7 +246,7 @@ return (
     <div className="d-flex justify-content-center">
       <form onSubmit={onSubmit}>
         <div>
-          <input type="text" onChange={onHandleChange} name="link" value={link.link}/>
+          <input type="text" onChange={onHandleChange} name="link" value={link.link} placeholder="Nhập link ảnh ở đây..."/>
           <button type='button' onClick={onSubmitInput}>Insert</button>
         </div>
         <div>

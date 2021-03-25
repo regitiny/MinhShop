@@ -63,4 +63,38 @@ td {
   margin: 0;
   color: black;
 }
-/* Add a transparency effect for thumnbail images */
+/* Add css for game-equipment.tsx */
+//todo chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi
+.card{
+  .image-size{
+    position: relative;
+    height: 150px;
+    img{
+      position: absolute;
+      max-width: 100%;
+      width: auto;
+      max-height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .float-group{
+    //position: relative;
+    //height: 60px;
+    .card-title{
+      //position: absolute;
+      font-size: 20px;
+      white-space: nowrap; //todo add khi title quá dài
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-title:hover{
+      white-space: normal;
+      overflow: visible;
+      width: 100%;
+    }
+  }
+}
+//chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi

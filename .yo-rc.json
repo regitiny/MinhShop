@@ -47,12 +47,12 @@
     "clientPackageManager": "npm",
     "languages": ["vi", "en"],
     "entities": [
+      "File",
       "PostDetails",
       "SimplePost",
       "TypePost",
       "TypePostFilter",
       "Image",
-      "File",
       "Payment",
       "Bill",
       "UserOtherInfo",

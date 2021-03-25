@@ -13,8 +13,8 @@ export default class FileUpdatePage
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   uuidInput: ElementFinder = element(by.css('input#file-uuid'));
-  videoDataInput: ElementFinder = element(by.css('input#file_videoData'));
-  nameVideoInput: ElementFinder = element(by.css('input#file-nameVideo'));
+  fileDataInput: ElementFinder = element(by.css('input#file_fileData'));
+  nameFileInput: ElementFinder = element(by.css('input#file-nameFile'));
   extensionInput: ElementFinder = element(by.css('input#file-extension'));
   typeFileInput: ElementFinder = element(by.css('input#file-typeFile'));
   searchFieldInput: ElementFinder = element(by.css('textarea#file-searchField'));
@@ -41,24 +41,24 @@ export default class FileUpdatePage
     return this.uuidInput.getAttribute('value');
   }
 
-  async setVideoDataInput(videoData)
+  async setFileDataInput(fileData)
   {
-    await this.videoDataInput.sendKeys(videoData);
+    await this.fileDataInput.sendKeys(fileData);
   }
 
-  async getVideoDataInput()
+  async getFileDataInput()
   {
-    return this.videoDataInput.getAttribute('value');
+    return this.fileDataInput.getAttribute('value');
   }
 
-  async setNameVideoInput(nameVideo)
+  async setNameFileInput(nameFile)
   {
-    await this.nameVideoInput.sendKeys(nameVideo);
+    await this.nameFileInput.sendKeys(nameFile);
   }
 
-  async getNameVideoInput()
+  async getNameFileInput()
   {
-    return this.nameVideoInput.getAttribute('value');
+    return this.nameFileInput.getAttribute('value');
   }
 
   async setExtensionInput(extension)
@@ -182,10 +182,10 @@ export default class FileUpdatePage
     await this.setUuidInput('64c99148-3908-465d-8c4a-e510e3ade974');
     expect(await this.getUuidInput()).to.match(/64c99148-3908-465d-8c4a-e510e3ade974/);
     await waitUntilDisplayed(this.saveButton);
-    await this.setVideoDataInput(absolutePath);
+    await this.setFileDataInput(absolutePath);
     await waitUntilDisplayed(this.saveButton);
-    await this.setNameVideoInput('nameVideo');
-    expect(await this.getNameVideoInput()).to.match(/nameVideo/);
+    await this.setNameFileInput('nameFile');
+    expect(await this.getNameFileInput()).to.match(/nameFile/);
     await waitUntilDisplayed(this.saveButton);
     await this.setExtensionInput('extension');
     expect(await this.getExtensionInput()).to.match(/extension/);

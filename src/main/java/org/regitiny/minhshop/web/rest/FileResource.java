@@ -34,7 +34,6 @@ public class FileResource
   private static final String ENTITY_NAME = "file";
   private final Logger log = LoggerFactory.getLogger(FileResource.class);
   private final FileService fileService;
-
   @Value("${jhipster.clientApp.name}")
   private String applicationName;
 

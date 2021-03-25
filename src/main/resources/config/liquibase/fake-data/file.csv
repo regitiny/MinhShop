@@ -1,4 +1,4 @@
-id;uuid;video_data;video_data_content_type;name_video;extension;type_file;search_field;role;created_date;modified_date;created_by;modified_by;data_size;comment
+id;uuid;file_data;file_data_content_type;name_file;extension;type_file;search_field;role;created_date;modified_date;created_by;modified_by;data_size;comment
 1;ab1c4c7b-c877-4203-a883-8d5311b27f03;../fake-data/blob/hipster.png;image/png;Tunisian Cambridgeshire;cyan Mississippi;Shoes;../fake-data/blob/hipster.txt;generate;2021-01-30T02:58:41;2021-01-30T08:38:41;bluetooth Automotive National;Hawaii front-end;52118;5th static
 2;6e05eca4-8fff-4019-97b9-e349b11a0251;../fake-data/blob/hipster.png;image/png;cross-platform;Grenada dedicate;Jewelery e-commerce back-end;../fake-data/blob/hipster.txt;Branding magnetic;2021-01-30T10:21:21;2021-01-29T23:08:26;enhance;architect;35774;Auto
 3;9f25c990-19dd-4922-be85-68f027325196;../fake-data/blob/hipster.png;image/png;Expanded Singapore;Central Kids;Toys Chief;../fake-data/blob/hipster.txt;panel Electronics;2021-01-30T02:29:01;2021-01-30T16:07:18;invoice Sausages Frozen;TCP;78787;Agent Botswana Officer

@@ -7,13 +7,14 @@
 # note : to use this file in windows you must install GIT .
 
 # declare parameters##############################################################################
-delayCompile=$((4)) # pause time (seconds)
+delayCompile=$((2)) # pause time (seconds)
+folderCheck="src/main/java"
 
 # declare functions need to be used###############################################################
 recreateSha() {
   (
-    find src -type f -print0 | sort -z | xargs -0 sha1sum
-    find src \( -type f -o -type d \) -print0 | sort -z | xargs -0 stat -c '%n %a'
+    find $folderCheck -type f -print0 | sort -z | xargs -0 sha1sum
+    find $folderCheck \( -type f -o -type d \) -print0 | sort -z | xargs -0 stat -c '%n %a'
   ) | sha1sum | awk '{print $1}'
 }
 
@@ -36,17 +37,18 @@ oldSha=$(recreateSha)
 while :; do
   newSha=$(recreateSha)
   if [ "$oldSha" != "$newSha" ]; then
-    sleep $delayCompile
-    if [ "$newSha" = "$(recreateSha)" ]; then
+#    sleep $delayCompile
+#    if [ "$newSha" = "$(recreateSha)" ]; then
       echo "$(now) | $newSha | recompile (only java code)"
       compileJava | tail -n 2 | head -n 1
+      tput cuu 5 && tput ed
       echo "recompile done."
       oldSha=$newSha
       sleep $((delayCompile * 2))
-    else
-      echo "$(now) | is writing code so it won't recompile"
-      sleep $((delayCompile * 2))
-    fi
+#    else
+#      echo "$(now) | is writing code so it won't recompile"
+#      sleep $((delayCompile * 2))
+#    fi
   else
     echo "$(now) Nhếch đang nghỉ ngơi"
     sleep $((delayCompile * 1, 5))

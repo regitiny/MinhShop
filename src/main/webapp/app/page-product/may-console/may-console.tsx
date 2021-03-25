@@ -1,3 +1,4 @@
+import './may-console-detail'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Storage, Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
@@ -55,12 +56,12 @@ const MayConsole = (props: ISimplePostProps) => {
           {consoles && consoles.length > 0
             ? consoles.map(console => {
                 return (
-                  <div className="col-4" key={console.id * 137}>
+                  <div className="col-3 mt-3" key={console.id * 137}>
                     <Link to={`${props.match.url}/${console.id}`}>
                     {/*<Link to={`/${console.id}`}>*/}
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div>
+                          <div className='image-size'>
                             <CardImg top width="100%" src={console.imageUrl} alt="Card image cap" />
                           </div>
                           <div className="float-group">

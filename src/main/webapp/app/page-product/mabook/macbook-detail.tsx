@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {Storage} from 'react-jhipster';
 import Cart from 'app/modules/shopcart/cart';
-import {ProductViews} from "app/page-product/product-view";
-import HistoryView from "app/page-product/history-view";
+import {ProductViews} from "app/page-product/product-history-view/product-view";
+import HistoryView from "app/page-product/product-history-view/history-view";
 
 export const MacbookDetail = props =>
 {

@@ -1,3 +1,4 @@
+import './game-equipment.scss';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Storage, Translate, getSortState, JhiItemCount, JhiPagination } from 'react-jhipster';
@@ -61,12 +62,12 @@ const GameEquipment = (props: ISimplePostProps) => {
               gameEquipments.map(gameEquipment => {
                 // if (gameEquipment.typePost.typeName === 'gameEquipment') {}
                 return (
-                  <div className="col-4" key={gameEquipment.uuid + gameEquipment.id}>
+                  <div className="col-3 mt-3" key={gameEquipment.uuid + gameEquipment.id}>
                     {/*<Link to={`/${gameEquipment.id}`}>*/}
                       <Link to={`${props.match.url}/${gameEquipment.id}`}>
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div>
+                          <div className='image-size'>
                             <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap" />
                           </div>
                           <div className="float-group">

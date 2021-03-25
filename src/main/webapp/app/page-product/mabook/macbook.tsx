@@ -1,3 +1,4 @@
+import './macbook.scss'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Storage, Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
@@ -53,12 +54,12 @@ const MacBook = (props: ISimplePostProps) => {
           {macbooks && macbooks.length > 0
             ? macbooks.map(macbook => {
                 return (
-                  <div className="col-4" key={macbook.id * 137}>
+                  <div className="col-3 mt-3" key={macbook.id * 137}>
                     <Link to={`${props.match.url}/${macbook.id}`}>
                     {/*<Link to={`/${macbook.id}`}>*/}
                       <Card className="p-1 p-sm-1 p-lg-0 ">
                         <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div>
+                          <div className='image-size'>
                             <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap" />
                           </div>
                           <div className="float-group">

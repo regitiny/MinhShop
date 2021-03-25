@@ -112,7 +112,7 @@ export const PostDetails = (props: IPostDetailsProps) =>
       });
     }
   };
-
+  window.console.log(paginationState)
   useEffect(() =>
   {
     if (sorting)

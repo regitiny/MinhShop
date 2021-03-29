@@ -210,4 +210,21 @@ public class SimplePostResource
     JSONObject resultJsonObject = simplePostService.getSimplePostsGroupByTypePost();
     return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(resultJsonObject.toString());
   }
+
+  /**
+   * {@code GET  /open/simple-posts?typePost_id=:id} : get a list of SimplePost by TypePost.id
+   *
+   * @param typePost_id the id of typePost.
+   * @param pageable    the pagination information.
+   * @return the result page of SimplePost.
+   */
+  @GetMapping("/open/simple-posts")
+  public ResponseEntity<List<SimplePostDTO>> getSimplePostsByTypePost_Id(@RequestParam long typePost_id, Pageable pageable)
+  {
+    log.debug("REST request to search for a page of SimplePosts for query {}", typePost_id);
+    Page<SimplePostDTO> page = simplePostService.getSimplePostsByTypePost_Id(typePost_id, pageable);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
 }

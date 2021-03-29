@@ -1,31 +1,18 @@
 import './laptop.scss'
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Storage, Translate, getSortState, JhiPagination, JhiItemCount} from 'react-jhipster';
-import { Badge } from 'reactstrap';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardSubtitle,
-  CardImg,
-  CardBody,
-  CardText,
-  Progress,
-  Button,
-  Row
-} from 'reactstrap';
+import {getSortState, JhiItemCount, JhiPagination, Storage} from 'react-jhipster';
+import {Badge, Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Progress, Row} from 'reactstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faList, faTh} from '@fortawesome/free-solid-svg-icons';
-import {Link, NavLink, RouteComponentProps} from 'react-router-dom';
-import _ from 'lodash';
-import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
 import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
 import {connect} from 'react-redux';
 import {IRootState} from 'app/shared/reducers';
 import {reset} from 'app/entities/simple-post/simple-post.reducer';
 import {getEntities as getTypePosts} from 'app/entities/type-post/type-post.reducer';
+import {OpenApiPathConst} from "app/page-product/OpenApiPathConst";
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
 {
@@ -59,9 +46,9 @@ const Laptop = (props: ISimplePostProps) =>
     {
       try
       {
-        const response = await axios.get('api/_search/simple-posts', {
+        const response = await axios.get(OpenApiPathConst.SIMPLE_POST_PATH, {
           headers: {Authorization: authToken},
-          params: {page: paginationState.activePage - 1, size: paginationState.itemsPerPage, query: 'typePost.id:1051'},
+          params: {page: paginationState.activePage - 1, size: paginationState.itemsPerPage, typePost_id: '1051'},
         });
         const {data} = response;
         window.console.log(response);
@@ -79,9 +66,9 @@ const Laptop = (props: ISimplePostProps) =>
   {
     axios({
       method: 'get',
-      url: 'api/_search/simple-posts',
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
       headers: {Authorization: authToken},
-      params: {query: 'typePost.id:1051'},
+      params: {typePost_id: '1051'},
     }).then(res => {
       setTotalLaptops(res.data);
     });

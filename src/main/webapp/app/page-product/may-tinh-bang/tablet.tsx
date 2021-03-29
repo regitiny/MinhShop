@@ -1,20 +1,22 @@
 import './tablet.scss'
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Storage, Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
-import { Card, CardHeader, CardTitle, CardSubtitle, CardImg, CardBody, CardText, Progress, Button, Row } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, NavLink, RouteComponentProps } from 'react-router-dom';
-import _ from 'lodash';
-import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
-import { IRootState } from 'app/shared/reducers';
-import { reset } from 'app/entities/simple-post/simple-post.reducer';
-import { connect } from 'react-redux';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import {getSortState, JhiItemCount, JhiPagination, Storage} from 'react-jhipster';
+import {Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Progress, Row} from 'reactstrap';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {IRootState} from 'app/shared/reducers';
+import {reset} from 'app/entities/simple-post/simple-post.reducer';
+import {connect} from 'react-redux';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {OpenApiPathConst} from "app/page-product/OpenApiPathConst";
 
-export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
-const Tablet = (props: ISimplePostProps) => {
+export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
+
+const Tablet = (props: ISimplePostProps) =>
+{
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
@@ -26,12 +28,12 @@ const Tablet = (props: ISimplePostProps) => {
 
   useEffect(() => {
     axios({
-      url: 'api/_search/simple-posts',
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
       headers: {
         Authorization: authToken,
       },
-      params: { page: paginationState.activePage - 1, size: paginationState.itemsPerPage, query: 'typePost.id:1453' },
+      params: {page: paginationState.activePage - 1, size: paginationState.itemsPerPage, typePost_id: '1453'},
     }).then(res => setTablets(res.data));
   }, []);
   window.console.log(tablets);
@@ -39,9 +41,9 @@ const Tablet = (props: ISimplePostProps) => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'api/_search/simple-posts',
-      headers: { Authorization: authToken },
-      params: { query: 'typePost.id:1453' },
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
+      headers: {Authorization: authToken},
+      params: {typePost_id: '1453'},
     }).then(res => setTotalTablets(res.data));
   }, []);
   const totalItems = totalTablets ? totalTablets.length : 1;

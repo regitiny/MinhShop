@@ -1,17 +1,22 @@
 import './may-console-detail'
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Storage, Translate, getSortState, JhiPagination, JhiItemCount } from 'react-jhipster';
-import { Card, CardHeader, CardTitle, CardSubtitle, CardImg, CardBody, CardText, Progress, Button, Row } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { IRootState } from 'app/shared/reducers';
-import { reset } from 'app/entities/simple-post/simple-post.reducer';
-import { connect } from 'react-redux';
-export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
-const MayConsole = (props: ISimplePostProps) => {
+import {getSortState, JhiItemCount, JhiPagination, Storage} from 'react-jhipster';
+import {Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Progress, Row} from 'reactstrap';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {IRootState} from 'app/shared/reducers';
+import {reset} from 'app/entities/simple-post/simple-post.reducer';
+import {connect} from 'react-redux';
+import {OpenApiPathConst} from '../OpenApiPathConst';
+
+export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
+
+const MayConsole = (props: ISimplePostProps) =>
+{
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
@@ -23,21 +28,21 @@ const MayConsole = (props: ISimplePostProps) => {
 
   useEffect(() => {
     axios({
-      url: 'api/_search/simple-posts',
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
       headers: {
         Authorization: authToken,
       },
-      params: { page: paginationState.activePage - 1, size: paginationState.itemsPerPage, query: 'typePost.id:1452' },
+      params: {page: paginationState.activePage - 1, size: paginationState.itemsPerPage, typePost_id: '1452'},
     }).then(res => setConsoles(res.data));
   }, []);
   window.console.log(consoles);
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'api/_search/simple-posts',
-      headers: { Authorization: authToken },
-      params: { query: 'typePost.id:1452' },
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
+      headers: {Authorization: authToken},
+      params: {typePost_id: '1452'},
     }).then(res => setTotalConsoles(res.data));
   }, []);
   const totalItems = totalConsoles ? totalConsoles.length : 1;

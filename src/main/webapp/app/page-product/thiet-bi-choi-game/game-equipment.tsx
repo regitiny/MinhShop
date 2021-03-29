@@ -1,21 +1,23 @@
 import './game-equipment.scss';
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Storage, Translate, getSortState, JhiItemCount, JhiPagination } from 'react-jhipster';
-import { Card, CardHeader, CardTitle, CardSubtitle, CardImg, CardBody, CardText, Progress, Button, Row } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, NavLink, RouteComponentProps } from 'react-router-dom';
-import _ from 'lodash';
-import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import {getSortState, JhiItemCount, JhiPagination, Storage} from 'react-jhipster';
+import {Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Progress, Row} from 'reactstrap';
+import {Link, RouteComponentProps} from 'react-router-dom';
 
-import { connect } from 'react-redux';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { IRootState } from 'app/shared/reducers';
-import { reset } from 'app/entities/simple-post/simple-post.reducer';
+import {connect} from 'react-redux';
+import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-utils';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
+import {IRootState} from 'app/shared/reducers';
+import {reset} from 'app/entities/simple-post/simple-post.reducer';
+import {OpenApiPathConst} from "app/page-product/OpenApiPathConst";
 
-export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
-const GameEquipment = (props: ISimplePostProps) => {
+export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
+{
+}
+
+const GameEquipment = (props: ISimplePostProps) =>
+{
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
   );
@@ -27,21 +29,21 @@ const GameEquipment = (props: ISimplePostProps) => {
 
   useEffect(() => {
     axios({
-      url: 'api/_search/simple-posts',
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
       headers: {
         Authorization: authToken,
       },
-      params: { size: 20, page: 0, query: 'typePost.id:1451' },
+      params: {size: 20, page: 0, typePost_id: '1451'},
     }).then(res => setGameEquipments(res.data));
   }, []);
   window.console.log(gameEquipments);
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'api/_search/simple-posts',
-      headers: { Authorization: authToken },
-      params: { query: 'typePost.id:1451' },
+      url: OpenApiPathConst.SIMPLE_POST_PATH,
+      headers: {Authorization: authToken},
+      params: {typePost_id: '1451'},
     }).then(res => setTotalGameEquipments(res.data));
   }, []);
   const totalItems = totalGameEquipments ? totalGameEquipments.length : 1;

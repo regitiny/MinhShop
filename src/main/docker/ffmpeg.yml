@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  ffmpeg:
+    image: yuvytung/ffmpeg:latest
+    volumes:
+      - /root/minh-shop/data/video/original:/root/minh-shop/data/video/processed
+      - /root/minh-shop/data/video/processed:/root/minh-shop/data/video/processed
+    command:
+      - service ssh restart
+      - echo 'root:rootVs.' | chpasswd
+#    entrypoint:
+#      - /root/minh-shop/script/ffmpeg:/script/ffmpeg
+#    command: chmod +x /script/ffmpeg/process_videos.sh
+#    entrypoint: /script/ffmpeg/process_videos.sh

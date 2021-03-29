@@ -19,10 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
@@ -58,49 +55,42 @@ public class FileServiceImpl implements FileService
   }
 
   @Override
-  public List<FileDTO> uploads(List<MultipartFile> fileDatas)
+  public FileDTO upload(MultipartFile fileData)
   {
-    log.debug("Request to upload File : dataIsEmpty = {}", fileDatas.isEmpty());
+    log.debug("Request to upload File : dataIsEmpty = {}", fileData.isEmpty());
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
-    List<FileDTO> result = new ArrayList<>();
-    fileDatas.stream()
-      .filter(fileData -> !fileData.isEmpty())
-      .map(fileData ->
-      {
-        File file = (File) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new File());
-        try
-        {
-          UUID uuid = UUID.randomUUID();
-          String nameFile = uuid.toString();
-          byte[] fileDataBytes = fileData.getBytes();
-          String extension = StringPool.BLANK;
-          String typeFile = fileData.getContentType();
-          long dataSize = fileData.getSize();
-          String comment = null;
 
-          String imageDataName = fileData.getOriginalFilename();
-          String[] temp = imageDataName != null ? imageDataName.split(StringPool.DOT_IN_REGEX) : new String[0];
-          if (temp.length >= 2) extension = temp[temp.length - 1];
-          nameFile += StringPool.PERIOD + extension;
+    File file = (File) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new File());
+    try
+    {
+      String nameFile = file.getUuid().toString();
+      byte[] fileDataBytes = fileData.getBytes();
+      String extension = StringPool.BLANK;
+      String typeFile = fileData.getContentType();
+      long dataSize = fileData.getSize();
+      String comment = null;
 
-          file.fileData(fileDataBytes)
-            .nameFile(nameFile)
-            .dataSize(dataSize)
-            .fileDataContentType(typeFile)
-            .typeFile(typeFile)
-            .extension(extension)
-            .comment(comment);
-        }
-        catch (IOException e)
-        {
-          log.debug(" IOException = {}", e.getMessage());
-        }
-        return file;
-      })
-      .map(fileRepository::save)
-      .forEach(file -> result.add(fileMapper.toDto(file)));
-    return result;
+      String imageDataName = fileData.getOriginalFilename();
+      String[] temp = imageDataName != null ? imageDataName.split(StringPool.DOT_IN_REGEX) : new String[0];
+      if (temp.length >= 2) extension = temp[temp.length - 1];
+      nameFile += StringPool.PERIOD + extension;
+
+      file.fileData(fileDataBytes)
+        .nameFile(nameFile)
+        .dataSize(dataSize)
+        .fileDataContentType(typeFile)
+        .typeFile(typeFile)
+        .extension(extension)
+        .comment(comment);
+    }
+    catch (IOException e)
+    {
+      log.debug(" IOException = {}", e.getMessage());
+    }
+    return fileMapper.toDto(fileRepository.save(file));
+
   }
+
 
   @Override
   @Cacheable(key = "{#fileName}", cacheNames = FileService.FILE_BY_FILE_NAME_CACHE)

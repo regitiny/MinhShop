@@ -3,6 +3,7 @@ package org.regitiny.minhshop.web.rest.publicapi;
 import lombok.extern.log4j.Log4j2;
 import org.regitiny.minhshop.service.FileService;
 import org.regitiny.minhshop.service.ImageService;
+import org.regitiny.minhshop.service.business.FfmpegBusiness;
 import org.regitiny.minhshop.service.dto.ImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -55,30 +56,13 @@ public class PublicAPI
   VideoStreamingService service;
 
 
-  public PublicAPI(ImageService imageService, FileService fileService)
+  private final FfmpegBusiness ffmpegBusiness;
+
+  public PublicAPI(ImageService imageService, FileService fileService, FfmpegBusiness ffmpegBusiness)
   {
     this.imageService = imageService;
     this.fileService = fileService;
-  }
-
-  @GetMapping(value = "/hihi", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-//  @Cacheable(key = "#id")
-  public Mono<ResponseEntity<String>> getImagexx(@RequestParam("id") Integer id)
-  {
-    Instant now = Instant.now();
-    var a = Flux.just(6, 1, 5, 2, 4, 7).log("có đéo gì {} , {}", Level.INFO)
-      .flatMap(o ->
-        Flux.just(o + id).map(this::songSong).subscribeOn(Schedulers.elastic())
-      )
-      .map(integer ->
-      {
-        log.info("đầu tiên là sẽ thế này , {}", integer);
-        Mono.just(integer + id).map(this::songSong).subscribeOn(Schedulers.elastic());
-        return integer;
-      })
-      .subscribe(integerFlux -> log.info("cuối cùng thì id la :{}", now));
-    return Mono
-      .just(ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, String.valueOf(MediaType.APPLICATION_JSON)).body("xxyyzz"));
+    this.ffmpegBusiness = ffmpegBusiness;
   }
 //  public static final String VideoUploadingDir = System.getProperty("user.dir") + "/Uploads/Posts/Videos";
 
@@ -166,7 +150,26 @@ public class PublicAPI
       .body(result2);
   }
 
-
+  @GetMapping(value = "/hihi", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+//  @Cacheable(key = "#id")
+  public Mono<ResponseEntity<String>> getImagexx(@RequestParam("id") Integer id)
+  {
+    log.debug(ffmpegBusiness.runCommand("echo 1234xx"));
+    Instant now = Instant.now();
+    var a = Flux.just(6, 1, 5, 2, 4, 7).log("có đéo gì {} , {}", Level.INFO)
+      .flatMap(o ->
+        Flux.just(o + id).map(this::songSong).subscribeOn(Schedulers.elastic())
+      )
+      .map(integer ->
+      {
+        log.info("đầu tiên là sẽ thế này , {}", integer);
+        Mono.just(integer + id).map(this::songSong).subscribeOn(Schedulers.elastic());
+        return integer;
+      })
+      .subscribe(integerFlux -> log.info("cuối cùng thì id la :{}", now));
+    return Mono
+      .just(ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, String.valueOf(MediaType.APPLICATION_JSON)).body("xxyyzz"));
+  }
 }
 
 

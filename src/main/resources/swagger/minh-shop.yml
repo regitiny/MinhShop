@@ -137,7 +137,7 @@ paths:
           multipart/form-data:
             schema:
               properties:
-                videoData:
+                videoDatas:
                   type: array
                   description: video to upload
                   items:
@@ -152,7 +152,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseDefaultModel'
+                properties:
+                  result:
+                    type: object
         405:
           description: Invalid videoData value
           content: { }

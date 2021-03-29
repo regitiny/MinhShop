@@ -6,6 +6,7 @@ import {NavLink as Link} from 'react-router-dom';
 import {Storage} from 'react-jhipster';
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import axios from 'axios';
+import {OpenApiPathConst} from "app/page-product/OpenApiPathConst";
 
 const Home = props =>
 {
@@ -17,64 +18,26 @@ const Home = props =>
   const [gameEquipments, setGameEquipments] = useState([]);
 
   const authToken = `Bearer ${Token}`;
-  useEffect(() =>
-  {
-    axios({
-      url: 'api/_search/simple-posts',
-      method: 'get',
-      headers: {
-        Authorization: authToken,
-      },
-      params: {size: 12, page: 0, query: 'typePost.id:1453'},
-    }).then(res => setTablets(res.data));
-  }, []);
 
   useEffect(() =>
   {
-    axios({
-      url: 'api/_search/simple-posts',
-      method: 'get',
-      headers: {
-        Authorization: authToken,
-      },
-      params: {size: 12, page: 0, query: 'typePost.id:1051'},
-    }).then(res => setLaptops(res.data));
-  }, []);
-
-  useEffect(() =>
-  {
-    axios({
-      url: 'api/_search/simple-posts',
-      method: 'get',
-      headers: {
-        Authorization: authToken,
-      },
-      params: {size: 12, page: 0, query: 'typePost.id:1452'},
-    }).then(res => setConsoles(res.data));
-  }, []);
-
-  useEffect(() =>
-  {
-    axios({
-      url: 'api/_search/simple-posts',
-      method: 'get',
-      headers: {
-        Authorization: authToken,
-      },
-      params: {size: 12, page: 0, query: 'typePost.id:1052'},
-    }).then(res => setMacbooks(res.data));
-  }, []);
-
-  useEffect(() =>
-  {
-    axios({
-      url: 'api/_search/simple-posts',
-      method: 'get',
-      headers: {
-        Authorization: authToken,
-      },
-      params: {size: 12, page: 0, query: 'typePost.id:1451'},
-    }).then(res => setGameEquipments(res.data));
+    const typePost_id = [
+      {id: 1453, f: setTablets},
+      {id: 1051, f: setLaptops},
+      {id: 1452, f: setConsoles},
+      {id: 1052, f: setMacbooks},
+      {id: 1451, f: setGameEquipments}];
+    typePost_id.map(value =>
+    {
+      axios({
+        url: OpenApiPathConst.SIMPLE_POST_PATH,
+        method: 'get',
+        headers: {
+          Authorization: authToken,
+        },
+        params: {size: 12, page: 0, typePost_id: value.id},
+      }).then(res => value.f(res.data));
+    });
   }, []);
 
   window.console.log(laptops);
@@ -172,15 +135,14 @@ const Home = props =>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">
                               Mã sản phẩm: TGSN20
                             </CardSubtitle>
-                            <CardText className="d-xl-flex justify-content-between">
-                              <span className="price-new">{laptop.salePrice.toLocaleString()}</span>
-                              <span className="price-old">{laptop.price.toLocaleString()}</span>
+                            <CardText className="">
+                              <span className="price-old "><h6 className="text-secondary">{laptop.price.toLocaleString()}</h6></span>
+                              <span className="price-new text-primary size-xl"><h4>{laptop.salePrice.toLocaleString()}</h4></span>
                               <span>
                                 <Badge color="warning">-{laptop.percentSale.toFixed(0)}%</Badge>
                               </span>
                             </CardText>
-                            <Button color="primary"
-                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                            <Button color="primary" className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>

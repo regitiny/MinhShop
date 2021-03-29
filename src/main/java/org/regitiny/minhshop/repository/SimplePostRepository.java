@@ -33,4 +33,7 @@ public interface SimplePostRepository extends JpaRepository<SimplePost, Long>
 
 
   List<SimplePost> findAllByTypePostId(Long ids);
+
+
+  Page<SimplePost> findAllByTypePostId(Long id, Pageable pageable);
 }

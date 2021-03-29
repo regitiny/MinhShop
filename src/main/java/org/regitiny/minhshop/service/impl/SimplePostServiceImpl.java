@@ -253,4 +253,10 @@ public class SimplePostServiceImpl implements SimplePostService
     log.debug(result.toString());
     return result;
   }
+
+  @Override
+  public Page<SimplePostDTO> getSimplePostsByTypePost_Id(Long typePost_Id, Pageable pageable)
+  {
+    return simplePostRepository.findAllByTypePostId(typePost_Id, pageable).map(simplePostMapper::toDto);
+  }
 }

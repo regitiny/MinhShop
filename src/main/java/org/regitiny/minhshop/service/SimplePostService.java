@@ -76,4 +76,14 @@ public interface SimplePostService
 
 
   JSONObject getSimplePostsGroupByTypePost();
+
+
+  /**
+   * get list simplePost in typePost by id.
+   *
+   * @param typePost_Id id of TypePost.
+   * @param pageable    the pagination information.
+   * @return the list of entities.
+   */
+  Page<SimplePostDTO> getSimplePostsByTypePost_Id(Long typePost_Id, Pageable pageable);
 }

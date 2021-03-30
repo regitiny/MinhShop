@@ -49,17 +49,23 @@ management:
         enabled: false
 
 spring:
-  profiles:
-    active: prod
-    include:
-      - api-docs
-      # Uncomment to activate TLS for the dev profile
-      #- tls
   devtools:
     restart:
       enabled: false
     livereload:
       enabled: false
+  cloud:
+    config:
+      retry:
+        initial-interval: 1000
+        max-interval: 2000
+        max-attempts: 100
+      uri: http://admin:${jhipster.registry.password}@localhost:8761/config
+      # name of the config server's property source (file.yml) that we want to use
+      name: MinhShop
+      profile: prod
+      label: main # toggle to switch to a different version of the configuration as stored in git
+      # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mariadb://${yuvytung.server.host}:3306/MinhShop?useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -149,6 +155,8 @@ jhipster:
       cluster: false
       # server: redis://localhost:6379,redis://localhost:16379,redis://localhost:26379
       # cluster: true
+  registry:
+    password: admin
   security:
     authentication:
       jwt:

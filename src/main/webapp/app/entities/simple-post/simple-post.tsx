@@ -46,7 +46,7 @@ export const SimplePost = (props: ISimplePostProps) =>
 
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
   );
 
   window.console.log(paginationState);

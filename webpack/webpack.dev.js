@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge').merge;
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -22,6 +21,9 @@ module.exports = options =>
       path: utils.root('build/resources/main/static/'),
       filename: 'app/[name].bundle.js',
       chunkFilename: 'app/[id].chunk.js',
+    },
+    optimization: {
+      moduleIds: 'named',
     },
     module: {
       rules: [
@@ -59,7 +61,7 @@ module.exports = options =>
         },
       ],
       watchOptions: {
-        ignored: /node_modules/,
+        ignore: [/node_modules/, utils.root('src/test')],
       },
       https: options.tls,
       historyApiFallback: true,
@@ -101,10 +103,7 @@ module.exports = options =>
           reload: false,
         }
       ),
-      new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
-      new writeFilePlugin(),
-      new webpack.WatchIgnorePlugin([utils.root('src/test')]),
       new WebpackNotifierPlugin({
         title: 'Minh Shop',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),

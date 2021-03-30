@@ -1,12 +1,12 @@
 import './form-insert.scss';
-import React, { useState } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import React, {useState} from 'react';
+import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
 
 import axios from 'axios';
 
 import FroalaEditor from 'react-froala-wysiwyg';
 
-import { Storage } from 'react-jhipster';
+import {Storage} from 'react-jhipster';
 
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
@@ -75,15 +75,15 @@ export const PostUpdate = props => {
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Price</Label>
-          <Input type="string" name="price" onChange={onHandleChange} />
+          <Input inputType="string" name="price" onChange={onHandleChange}/>
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Sell Price</Label>
-          <Input type="string" name="sellPrice" onChange={onHandleChange} />
+          <Input inputType="string" name="sellPrice" onChange={onHandleChange}/>
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Percent Price</Label>
-          <Input type="string" name="percentPrice" onChange={onHandleChange} />
+          <Input inputType="string" name="percentPrice" onChange={onHandleChange}/>
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Image Url</Label>
@@ -91,11 +91,11 @@ export const PostUpdate = props => {
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Score</Label>
-          <Input type="string" name="scores" onChange={onHandleChange} />
+          <Input inputType="string" name="scores" onChange={onHandleChange}/>
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Simple Content</Label>
-          <Input type="string" name="simpleContent" onChange={onHandleChange} />
+          <Input inputType="string" name="simpleContent" onChange={onHandleChange}/>
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Other Info</Label>

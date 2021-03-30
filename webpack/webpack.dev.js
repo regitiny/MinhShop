@@ -47,7 +47,7 @@ module.exports = options =>
       contentBase: './build/resources/main/static/',
       proxy: [
         {
-          context: ['/api', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/v3/api-docs', '/h2-console', '/auth'],
+          context: ['/api', '/api/open', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/v3/api-docs', '/h2-console', '/auth'],
           target: `http${options.tls ? 's' : ''}://catiny.com:8080`,
           // target: `http${options.tls ? 's' : ''}://localhost:8080`,
           secure: false,

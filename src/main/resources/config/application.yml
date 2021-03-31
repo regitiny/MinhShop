@@ -52,7 +52,7 @@ management:
       base-path: /management
       exposure:
         include:
-          ['configprops', 'env', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump', 'caches', 'liquibase']
+          [ 'configprops', 'env', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump', 'caches', 'liquibase' ]
   endpoint:
     health:
       show-details: when_authorized
@@ -116,7 +116,7 @@ spring:
       prod:
         - prod
         - api-docs
-#        - tls
+  #        - tls
   jmx:
     enabled: false
   data:

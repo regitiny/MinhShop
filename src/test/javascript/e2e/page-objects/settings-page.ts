@@ -1,9 +1,10 @@
-import { $, browser, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 
 import BasePage from './base-component';
 
 const selector: ElementFinder = $('#settings-form');
-export default class SettingsPage extends BasePage {
+export default class SettingsPage extends BasePage
+{
   selector: ElementFinder;
   firstName: ElementFinder = this.selector.$('#firstName');
   lastName: ElementFinder = this.selector.$('#lastName');
@@ -11,37 +12,45 @@ export default class SettingsPage extends BasePage {
   saveButton: ElementFinder = this.selector.$('button[type=submit]');
   title: ElementFinder = $('#settings-title');
 
-  constructor() {
+  constructor()
+  {
     super(selector);
     this.selector = selector;
   }
 
-  async get() {
+  async get()
+  {
     await browser.get('/account/settings');
     await this.waitUntilDisplayed();
   }
 
-  async getTitle() {
+  async getTitle()
+  {
     return this.title.getAttribute('id');
   }
 
-  async setFirstName(firstName) {
+  async setFirstName(firstName)
+  {
     await this.firstName.sendKeys(firstName);
   }
 
-  async setLastName(lastName) {
+  async setLastName(lastName)
+  {
     await this.lastName.sendKeys(lastName);
   }
 
-  async setEmail(email) {
+  async setEmail(email)
+  {
     await this.email.sendKeys(email);
   }
 
-  async clearEmail() {
+  async clearEmail()
+  {
     await this.email.clear();
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 }

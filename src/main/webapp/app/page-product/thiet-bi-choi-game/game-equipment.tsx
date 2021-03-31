@@ -27,7 +27,8 @@ const GameEquipment = (props: ISimplePostProps) =>
   const [totalGameEquipments, setTotalGameEquipments] = useState([]);
   const authToken = `Bearer ${Token}`;
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
@@ -38,7 +39,8 @@ const GameEquipment = (props: ISimplePostProps) =>
     }).then(res => setGameEquipments(res.data));
   }, []);
   window.console.log(gameEquipments);
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       method: 'get',
       url: OpenApiPathConst.SIMPLE_POST_PATH,
@@ -47,7 +49,8 @@ const GameEquipment = (props: ISimplePostProps) =>
     }).then(res => setTotalGameEquipments(res.data));
   }, []);
   const totalItems = totalGameEquipments ? totalGameEquipments.length : 1;
-  const handlePagination = currentPage => {
+  const handlePagination = currentPage =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -61,57 +64,58 @@ const GameEquipment = (props: ISimplePostProps) =>
           {gameEquipments && gameEquipments.length > 0
             ? // ? laptops
               //     .filter(gameEquipment => gameEquipment.typePost.typeName === 'gameEquipment')
-              gameEquipments.map(gameEquipment => {
-                // if (gameEquipment.typePost.typeName === 'gameEquipment') {}
-                return (
-                  <div className="col-3 mt-3" key={gameEquipment.uuid + gameEquipment.id}>
-                    {/*<Link to={`/${gameEquipment.id}`}>*/}
-                      <Link to={`${props.match.url}/${gameEquipment.id}`}>
-                      <Card className="p-1 p-sm-1 p-lg-0 ">
-                        <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div className='image-size'>
-                            <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap" />
+            gameEquipments.map(gameEquipment =>
+            {
+              // if (gameEquipment.typePost.typeName === 'gameEquipment') {}
+              return (
+                <div className="col-3 mt-3" key={gameEquipment.uuid + gameEquipment.id}>
+                  {/*<Link to={`/${gameEquipment.id}`}>*/}
+                  <Link to={`${props.match.url}/${gameEquipment.id}`}>
+                    <Card className="p-1 p-sm-1 p-lg-0 ">
+                      <CardHeader className="px-1 px-md-1 p-lg-2">
+                        <div className='image-size'>
+                          <CardImg top width="100%" src={gameEquipment.imageUrl} alt="Card image cap"/>
+                        </div>
+                        <div className="float-group">
+                          <CardTitle tag="h4" className="float-left">
+                            {gameEquipment.title}
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardBody>
+                        <CardText className="">
+                          <p className="float-left">Giá gốc: </p>
+                          <div className="float-left text-secondary ml-1">
+                            <del>{gameEquipment.price}đ</del>
                           </div>
-                          <div className="float-group">
-                            <CardTitle tag="h4" className="float-left">
-                              {gameEquipment.title}
-                            </CardTitle>
+                          <br/>
+                        </CardText>
+                        <CardText className="">
+                          <p className="float-left">Chỉ còn: </p>
+                          <div className="float-left text-danger ml-1">
+                            <b>{gameEquipment.salePrice.toLocaleString()}đ</b>
                           </div>
-                        </CardHeader>
-                        <CardBody>
-                          <CardText className="">
-                            <p className="float-left">Giá gốc: </p>
-                            <div className="float-left text-secondary ml-1">
-                              <del>{gameEquipment.price}đ</del>
-                            </div>
-                            <br />
-                          </CardText>
-                          <CardText className="">
-                            <p className="float-left">Chỉ còn: </p>
-                            <div className="float-left text-danger ml-1">
-                              <b>{gameEquipment.salePrice.toLocaleString()}đ</b>
-                            </div>
-                            <div className="float-left badge badge-danger text-white ml-2">-{gameEquipment.percentSale}%</div>
-                            <br />
-                          </CardText>
-                          <div className="text-center" style={{ width: '200px' }}>
-                            <Progress animated value={gameEquipment.scores}>
-                              {gameEquipment.scores}
-                            </Progress>
-                          </div>
-                        </CardBody>
-                      </Card>
-                    </Link>
-                  </div>
-                );
-              })
+                          <div className="float-left badge badge-danger text-white ml-2">-{gameEquipment.percentSale}%</div>
+                          <br/>
+                        </CardText>
+                        <div className="text-center" style={{width: '200px'}}>
+                          <Progress animated value={gameEquipment.scores}>
+                            {gameEquipment.scores}
+                          </Progress>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </div>
+              );
+            })
             : null}
         </div>
       </div>
       {gameEquipments.length ? (
         <div className={gameEquipments && gameEquipments.length > 0 ? '' : 'd-none'}>
           <Row className="justify-content-center">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
+            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled/>
           </Row>
           <Row className="justify-content-center">
             <JhiPagination

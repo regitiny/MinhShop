@@ -32,13 +32,15 @@ exports.config = {
     timeout: 60000,
   },
 
-  beforeLaunch() {
+  beforeLaunch()
+  {
     require('ts-node').register({
       project: './tsconfig.e2e.json',
     });
   },
 
-  onPrepare() {
+  onPrepare()
+  {
     // @ts-ignore
     browser.driver.manage().window().setSize(1280, 1024);
     // @ts-ignore

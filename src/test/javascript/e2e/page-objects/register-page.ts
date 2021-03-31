@@ -1,9 +1,10 @@
-import { $, browser, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 
 import BasePage from './base-component';
 
 const selector: ElementFinder = $('#register-form');
-export default class RegisterPage extends BasePage {
+export default class RegisterPage extends BasePage
+{
   selector: ElementFinder;
   username: ElementFinder = this.selector.$('#username');
   email: ElementFinder = this.selector.$('#email');
@@ -12,37 +13,45 @@ export default class RegisterPage extends BasePage {
   saveButton: ElementFinder = this.selector.$('button[type=submit]');
   title: ElementFinder = $('#register-title');
 
-  constructor() {
+  constructor()
+  {
     super(selector);
     this.selector = selector;
   }
 
-  async get() {
+  async get()
+  {
     await browser.get('/account/register');
     await this.waitUntilDisplayed();
   }
 
-  async getTitle() {
+  async getTitle()
+  {
     return this.title.getAttribute('id');
   }
 
-  async setUserName(username: string) {
+  async setUserName(username: string)
+  {
     await this.username.sendKeys(username);
   }
 
-  async setEmail(email: string) {
+  async setEmail(email: string)
+  {
     await this.email.sendKeys(email);
   }
 
-  async setFirstPassword(password: string) {
+  async setFirstPassword(password: string)
+  {
     await this.firstPassword.sendKeys(password);
   }
 
-  async setSecondPassword(password: string) {
+  async setSecondPassword(password: string)
+  {
     await this.secondPassword.sendKeys(password);
   }
 
-  async autoSignUpUsing(username: string, email: string, password: string) {
+  async autoSignUpUsing(username: string, email: string, password: string)
+  {
     await this.setUserName(username);
     await this.setEmail(email);
     await this.setFirstPassword(password);
@@ -50,7 +59,8 @@ export default class RegisterPage extends BasePage {
     await this.save();
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 }

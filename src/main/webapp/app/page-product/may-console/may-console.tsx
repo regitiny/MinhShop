@@ -26,7 +26,8 @@ const MayConsole = (props: ISimplePostProps) =>
   const [totalConsoles, setTotalConsoles] = useState([]);
   const authToken = `Bearer ${Token}`;
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
@@ -37,7 +38,8 @@ const MayConsole = (props: ISimplePostProps) =>
     }).then(res => setConsoles(res.data));
   }, []);
   window.console.log(consoles);
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       method: 'get',
       url: OpenApiPathConst.SIMPLE_POST_PATH,
@@ -46,7 +48,8 @@ const MayConsole = (props: ISimplePostProps) =>
     }).then(res => setTotalConsoles(res.data));
   }, []);
   const totalItems = totalConsoles ? totalConsoles.length : 1;
-  const handlePagination = currentPage => {
+  const handlePagination = currentPage =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -59,56 +62,57 @@ const MayConsole = (props: ISimplePostProps) =>
       <div className="d-flex justify-content-center">
         <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
           {consoles && consoles.length > 0
-            ? consoles.map(console => {
-                return (
-                  <div className="col-3 mt-3" key={console.id * 137}>
-                    <Link to={`${props.match.url}/${console.id}`}>
+            ? consoles.map(console =>
+            {
+              return (
+                <div className="col-3 mt-3" key={console.id * 137}>
+                  <Link to={`${props.match.url}/${console.id}`}>
                     {/*<Link to={`/${console.id}`}>*/}
-                      <Card className="p-1 p-sm-1 p-lg-0 ">
-                        <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div className='image-size'>
-                            <CardImg top width="100%" src={console.imageUrl} alt="Card image cap" />
+                    <Card className="p-1 p-sm-1 p-lg-0 ">
+                      <CardHeader className="px-1 px-md-1 p-lg-2">
+                        <div className='image-size'>
+                          <CardImg top width="100%" src={console.imageUrl} alt="Card image cap"/>
+                        </div>
+                        <div className="float-group">
+                          <CardTitle tag="h4" className="float-left">
+                            {console.title}
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardBody>
+                        <CardText className="">
+                          <p className="float-left">Giá gốc: </p>
+                          <div className="float-left text-secondary ml-1">
+                            <del>{console.price.toLocaleString()}đ</del>
                           </div>
-                          <div className="float-group">
-                            <CardTitle tag="h4" className="float-left">
-                              {console.title}
-                            </CardTitle>
+                          <br/>
+                        </CardText>
+                        <CardText className="">
+                          <p className="float-left">Chỉ còn: </p>
+                          <div className="float-left text-danger ml-1">
+                            <b>{console.salePrice.toLocaleString()}đ</b>
                           </div>
-                        </CardHeader>
-                        <CardBody>
-                          <CardText className="">
-                            <p className="float-left">Giá gốc: </p>
-                            <div className="float-left text-secondary ml-1">
-                              <del>{console.price.toLocaleString()}đ</del>
-                            </div>
-                            <br />
-                          </CardText>
-                          <CardText className="">
-                            <p className="float-left">Chỉ còn: </p>
-                            <div className="float-left text-danger ml-1">
-                              <b>{console.salePrice.toLocaleString()}đ</b>
-                            </div>
-                            <div className="float-left badge badge-danger text-white ml-2">-{console.percentSale}%</div>
-                            <br />
-                          </CardText>
-                          <div className="text-center" style={{ width: '200px' }}>
-                            <Progress animated value={console.scores}>
-                              {console.scores}
-                            </Progress>
-                          </div>
-                        </CardBody>
-                      </Card>
-                    </Link>
-                  </div>
-                );
-              })
+                          <div className="float-left badge badge-danger text-white ml-2">-{console.percentSale}%</div>
+                          <br/>
+                        </CardText>
+                        <div className="text-center" style={{width: '200px'}}>
+                          <Progress animated value={console.scores}>
+                            {console.scores}
+                          </Progress>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </div>
+              );
+            })
             : null}
         </div>
       </div>
       {consoles.length ? (
         <div className={consoles && consoles.length > 0 ? '' : 'd-none'}>
           <Row className="justify-content-center">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
+            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled/>
           </Row>
           <Row className="justify-content-center">
             <JhiPagination

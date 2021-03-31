@@ -13,7 +13,7 @@ export const MacbookDetail = props =>
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${Token}`;
   const [productView, setProductView] = useState(null);
-  const urlPage=props.location.pathname
+  const urlPage = props.location.pathname
   window.console.log(props.match);
   useEffect(() =>
   {

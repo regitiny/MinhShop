@@ -1,9 +1,10 @@
-import { $, browser, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 
 import BasePage from './base-component';
 
 const selector: ElementFinder = $('#password-form');
-export default class PasswordPage extends BasePage {
+export default class PasswordPage extends BasePage
+{
   selector: ElementFinder;
   currentPassword: ElementFinder = this.selector.$('#currentPassword');
   newPassword: ElementFinder = this.selector.$('#newPassword');
@@ -11,52 +12,63 @@ export default class PasswordPage extends BasePage {
   saveButton: ElementFinder = this.selector.$('button[type=submit]');
   title: ElementFinder = $('#password-title');
 
-  constructor() {
+  constructor()
+  {
     super(selector);
     this.selector = selector;
   }
 
-  async get() {
+  async get()
+  {
     await browser.get('/account/password');
     await this.waitUntilDisplayed();
   }
 
-  async getTitle() {
+  async getTitle()
+  {
     return this.title.getAttribute('id');
   }
 
-  async setCurrentPassword(password: string) {
+  async setCurrentPassword(password: string)
+  {
     await this.currentPassword.sendKeys(password);
   }
 
-  async clearCurrentPassword() {
+  async clearCurrentPassword()
+  {
     await this.currentPassword.clear();
   }
 
-  async setNewPassword(newPassword: string) {
+  async setNewPassword(newPassword: string)
+  {
     await this.newPassword.sendKeys(newPassword);
   }
 
-  async clearNewPassword() {
+  async clearNewPassword()
+  {
     await this.newPassword.clear();
   }
 
-  async setConfirmPassword(confirmPassword: string) {
+  async setConfirmPassword(confirmPassword: string)
+  {
     await this.confirmPassword.sendKeys(confirmPassword);
   }
 
-  async clearConfirmPassword() {
+  async clearConfirmPassword()
+  {
     await this.confirmPassword.clear();
   }
 
-  async autoChangePassword(currentPassword: string, newPassword: string, confirmPassword: string) {
+  async autoChangePassword(currentPassword: string, newPassword: string, confirmPassword: string)
+  {
     await this.setCurrentPassword(currentPassword);
     await this.setNewPassword(newPassword);
     await this.setConfirmPassword(confirmPassword);
     await this.save();
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 }

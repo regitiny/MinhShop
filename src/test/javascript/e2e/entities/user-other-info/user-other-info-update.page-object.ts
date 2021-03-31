@@ -1,9 +1,10 @@
-import { by, element, ElementFinder, protractor } from 'protractor';
-import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {by, element, ElementFinder, protractor} from 'protractor';
+import {isVisible, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 const expect = chai.expect;
 
-export default class UserOtherInfoUpdatePage {
+export default class UserOtherInfoUpdatePage
+{
   pageTitle: ElementFinder = element(by.id('minhShopApp.userOtherInfo.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
@@ -26,175 +27,218 @@ export default class UserOtherInfoUpdatePage {
   commentInput: ElementFinder = element(by.css('input#user-other-info-comment'));
   userNameSelect: ElementFinder = element(by.css('select#user-other-info-userName'));
 
-  getPageTitle() {
+  getPageTitle()
+  {
     return this.pageTitle;
   }
 
-  async setUuidInput(uuid) {
+  async setUuidInput(uuid)
+  {
     await this.uuidInput.sendKeys(uuid);
   }
 
-  async getUuidInput() {
+  async getUuidInput()
+  {
     return this.uuidInput.getAttribute('value');
   }
 
-  async setPhoneNumberInput(phoneNumber) {
+  async setPhoneNumberInput(phoneNumber)
+  {
     await this.phoneNumberInput.sendKeys(phoneNumber);
   }
 
-  async getPhoneNumberInput() {
+  async getPhoneNumberInput()
+  {
     return this.phoneNumberInput.getAttribute('value');
   }
 
-  async setEmailInput(email) {
+  async setEmailInput(email)
+  {
     await this.emailInput.sendKeys(email);
   }
 
-  async getEmailInput() {
+  async getEmailInput()
+  {
     return this.emailInput.getAttribute('value');
   }
 
-  async setWardCodeInput(wardCode) {
+  async setWardCodeInput(wardCode)
+  {
     await this.wardCodeInput.sendKeys(wardCode);
   }
 
-  async getWardCodeInput() {
+  async getWardCodeInput()
+  {
     return this.wardCodeInput.getAttribute('value');
   }
 
-  async setDistCodeInput(distCode) {
+  async setDistCodeInput(distCode)
+  {
     await this.distCodeInput.sendKeys(distCode);
   }
 
-  async getDistCodeInput() {
+  async getDistCodeInput()
+  {
     return this.distCodeInput.getAttribute('value');
   }
 
-  async setCityCodeInput(cityCode) {
+  async setCityCodeInput(cityCode)
+  {
     await this.cityCodeInput.sendKeys(cityCode);
   }
 
-  async getCityCodeInput() {
+  async getCityCodeInput()
+  {
     return this.cityCodeInput.getAttribute('value');
   }
 
-  async setAddressDetailsInput(addressDetails) {
+  async setAddressDetailsInput(addressDetails)
+  {
     await this.addressDetailsInput.sendKeys(addressDetails);
   }
 
-  async getAddressDetailsInput() {
+  async getAddressDetailsInput()
+  {
     return this.addressDetailsInput.getAttribute('value');
   }
 
-  async setDateOfBirthInput(dateOfBirth) {
+  async setDateOfBirthInput(dateOfBirth)
+  {
     await this.dateOfBirthInput.sendKeys(dateOfBirth);
   }
 
-  async getDateOfBirthInput() {
+  async getDateOfBirthInput()
+  {
     return this.dateOfBirthInput.getAttribute('value');
   }
 
-  async setOtherInfoInput(otherInfo) {
+  async setOtherInfoInput(otherInfo)
+  {
     await this.otherInfoInput.sendKeys(otherInfo);
   }
 
-  async getOtherInfoInput() {
+  async getOtherInfoInput()
+  {
     return this.otherInfoInput.getAttribute('value');
   }
 
-  async setSearchFieldInput(searchField) {
+  async setSearchFieldInput(searchField)
+  {
     await this.searchFieldInput.sendKeys(searchField);
   }
 
-  async getSearchFieldInput() {
+  async getSearchFieldInput()
+  {
     return this.searchFieldInput.getAttribute('value');
   }
 
-  async setRoleInput(role) {
+  async setRoleInput(role)
+  {
     await this.roleInput.sendKeys(role);
   }
 
-  async getRoleInput() {
+  async getRoleInput()
+  {
     return this.roleInput.getAttribute('value');
   }
 
-  async setCreatedDateInput(createdDate) {
+  async setCreatedDateInput(createdDate)
+  {
     await this.createdDateInput.sendKeys(createdDate);
   }
 
-  async getCreatedDateInput() {
+  async getCreatedDateInput()
+  {
     return this.createdDateInput.getAttribute('value');
   }
 
-  async setModifiedDateInput(modifiedDate) {
+  async setModifiedDateInput(modifiedDate)
+  {
     await this.modifiedDateInput.sendKeys(modifiedDate);
   }
 
-  async getModifiedDateInput() {
+  async getModifiedDateInput()
+  {
     return this.modifiedDateInput.getAttribute('value');
   }
 
-  async setCreatedByInput(createdBy) {
+  async setCreatedByInput(createdBy)
+  {
     await this.createdByInput.sendKeys(createdBy);
   }
 
-  async getCreatedByInput() {
+  async getCreatedByInput()
+  {
     return this.createdByInput.getAttribute('value');
   }
 
-  async setModifiedByInput(modifiedBy) {
+  async setModifiedByInput(modifiedBy)
+  {
     await this.modifiedByInput.sendKeys(modifiedBy);
   }
 
-  async getModifiedByInput() {
+  async getModifiedByInput()
+  {
     return this.modifiedByInput.getAttribute('value');
   }
 
-  async setDataSizeInput(dataSize) {
+  async setDataSizeInput(dataSize)
+  {
     await this.dataSizeInput.sendKeys(dataSize);
   }
 
-  async getDataSizeInput() {
+  async getDataSizeInput()
+  {
     return this.dataSizeInput.getAttribute('value');
   }
 
-  async setCommentInput(comment) {
+  async setCommentInput(comment)
+  {
     await this.commentInput.sendKeys(comment);
   }
 
-  async getCommentInput() {
+  async getCommentInput()
+  {
     return this.commentInput.getAttribute('value');
   }
 
-  async userNameSelectLastOption() {
+  async userNameSelectLastOption()
+  {
     await this.userNameSelect.all(by.tagName('option')).last().click();
   }
 
-  async userNameSelectOption(option) {
+  async userNameSelectOption(option)
+  {
     await this.userNameSelect.sendKeys(option);
   }
 
-  getUserNameSelect() {
+  getUserNameSelect()
+  {
     return this.userNameSelect;
   }
 
-  async getUserNameSelectedOption() {
+  async getUserNameSelectedOption()
+  {
     return this.userNameSelect.element(by.css('option:checked')).getText();
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel()
+  {
     await this.cancelButton.click();
   }
 
-  getSaveButton() {
+  getSaveButton()
+  {
     return this.saveButton;
   }
 
-  async enterData() {
+  async enterData()
+  {
     await waitUntilDisplayed(this.saveButton);
     await this.setUuidInput('64c99148-3908-465d-8c4a-e510e3ade974');
     expect(await this.getUuidInput()).to.match(/64c99148-3908-465d-8c4a-e510e3ade974/);

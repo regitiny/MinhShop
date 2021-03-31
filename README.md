@@ -59,12 +59,15 @@ JHipster ships with PWA (Progressive Web App) support, and it's turned off by de
 The service worker initialization code is commented out by default. To enable it, uncomment the following code in `src/main/webapp/index.html`:
 
 ```html
+
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function () {
-      console.log('Service Worker Registered');
-    });
-  }
+    if ('serviceWorker' in navigator)
+    {
+        navigator.serviceWorker.register('./service-worker.js').then(function ()
+        {
+            console.log('Service Worker Registered');
+        });
+    }
 </script>
 ```
 

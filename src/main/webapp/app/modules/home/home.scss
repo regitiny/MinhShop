@@ -44,11 +44,13 @@ Main page styles
               padding: 0;
             }
           }
-          .card{
-            .image-size{
+
+          .card {
+            .image-size {
               position: relative;
               height: 150px;
-              img{
+
+              img {
                 position: absolute;
                 max-width: 100%;
                 width: auto;
@@ -58,14 +60,16 @@ Main page styles
                 transform: translate(-50%, -50%);
               }
             }
-            .card-body{
-              .card-title{
+
+            .card-body {
+              .card-title {
                 white-space: nowrap; //todo add khi title quá dài
                 width: 100%;
                 overflow: hidden;
                 text-overflow: ellipsis;
               }
-              .card-title:hover{
+
+              .card-title:hover {
                 white-space: normal;
                 overflow: visible;
                 width: 100%;

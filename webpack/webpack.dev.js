@@ -13,7 +13,7 @@ const commonConfig = require('./webpack.common.js');
 const ENV = 'development';
 
 module.exports = options =>
-  webpackMerge(commonConfig({ env: ENV }), {
+  webpackMerge(commonConfig({env: ENV}), {
     devtool: 'cheap-module-source-map', // https://reactjs.org/docs/cross-origin-errors.html
     mode: ENV,
     entry: ['./src/main/webapp/app/index'],
@@ -35,7 +35,7 @@ module.exports = options =>
             'postcss-loader',
             {
               loader: 'sass-loader',
-              options: { implementation: sass },
+              options: {implementation: sass},
             },
           ],
         },
@@ -71,8 +71,8 @@ module.exports = options =>
       process.env.JHI_DISABLE_WEBPACK_LOGS
         ? null
         : new SimpleProgressWebpackPlugin({
-            format: options.stats === 'minimal' ? 'compact' : 'expanded',
-          }),
+          format: options.stats === 'minimal' ? 'compact' : 'expanded',
+        }),
       new FriendlyErrorsWebpackPlugin(),
       new BrowserSyncPlugin(
         {

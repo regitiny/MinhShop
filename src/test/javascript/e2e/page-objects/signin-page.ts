@@ -1,56 +1,67 @@
-import { $, browser, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 
 import BasePage from './base-component';
 
 const selector: ElementFinder = $('#login-page');
-export default class SignInPage extends BasePage {
+export default class SignInPage extends BasePage
+{
   selector: ElementFinder;
   username: ElementFinder = this.selector.$('#username');
   password: ElementFinder = this.selector.$('#password');
   loginButton: ElementFinder = this.selector.$('button[type=submit]');
   title: ElementFinder = this.selector.$('#login-title');
 
-  constructor() {
+  constructor()
+  {
     super(selector);
     this.selector = selector;
   }
 
-  async get() {
+  async get()
+  {
     await browser.get('/login');
     await this.waitUntilDisplayed();
   }
 
-  async getTitle() {
+  async getTitle()
+  {
     return this.title.getAttribute('id');
   }
 
-  async setUserName(username: string) {
+  async setUserName(username: string)
+  {
     await this.username.sendKeys(username);
   }
 
-  async clearUserName() {
+  async clearUserName()
+  {
     await this.username.clear();
   }
 
-  async setPassword(password: string) {
+  async setPassword(password: string)
+  {
     await this.password.sendKeys(password);
   }
 
-  async clearPassword() {
+  async clearPassword()
+  {
     await this.password.clear();
   }
 
-  async autoSignInUsing(username: string, password: string) {
+  async autoSignInUsing(username: string, password: string)
+  {
     await this.setUserName(username);
     await this.setPassword(password);
     await this.login();
   }
 
-  async autoSignOut() {
+  async autoSignOut()
+  {
     await browser.get('/logout');
   }
 
-  async login() {
+  async login()
+  {
     await this.loginButton.click();
   }
 }

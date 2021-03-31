@@ -73,56 +73,7 @@ public class TypePostServiceImpl implements TypePostService
       .map(
         existingTypePost ->
         {
-          if (typePostDTO.getUuid() != null)
-          {
-            existingTypePost.setUuid(typePostDTO.getUuid());
-          }
-
-          if (typePostDTO.getTypeName() != null)
-          {
-            existingTypePost.setTypeName(typePostDTO.getTypeName());
-          }
-
-          if (typePostDTO.getSearchField() != null)
-          {
-            existingTypePost.setSearchField(typePostDTO.getSearchField());
-          }
-
-          if (typePostDTO.getRole() != null)
-          {
-            existingTypePost.setRole(typePostDTO.getRole());
-          }
-
-          if (typePostDTO.getCreatedDate() != null)
-          {
-            existingTypePost.setCreatedDate(typePostDTO.getCreatedDate());
-          }
-
-          if (typePostDTO.getModifiedDate() != null)
-          {
-            existingTypePost.setModifiedDate(typePostDTO.getModifiedDate());
-          }
-
-          if (typePostDTO.getCreatedBy() != null)
-          {
-            existingTypePost.setCreatedBy(typePostDTO.getCreatedBy());
-          }
-
-          if (typePostDTO.getModifiedBy() != null)
-          {
-            existingTypePost.setModifiedBy(typePostDTO.getModifiedBy());
-          }
-
-          if (typePostDTO.getDataSize() != null)
-          {
-            existingTypePost.setDataSize(typePostDTO.getDataSize());
-          }
-
-          if (typePostDTO.getComment() != null)
-          {
-            existingTypePost.setComment(typePostDTO.getComment());
-          }
-
+          typePostMapper.partialUpdate(existingTypePost, typePostDTO);
           return existingTypePost;
         }
       )

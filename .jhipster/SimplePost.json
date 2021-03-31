@@ -125,7 +125,8 @@
       "relationshipName": "postDetails",
       "otherEntityField": "postDetailsId",
       "ownerSide": true,
-      "useJPADerivedIdentifier": true
+      "useJPADerivedIdentifier": true,
+      "id": true
     },
     {
       "relationshipType": "many-to-one",

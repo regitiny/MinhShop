@@ -96,7 +96,7 @@ export const Cart = props =>
   return (
     <div className="shop-modal-content mt-3">
       <AvForm inline>
-        <AvGroup className="button-quantity-group"inline>
+        <AvGroup className="button-quantity-group" inline>
           <Label id="editorLabel" for="editor-editor">
             <span>Số lượng</span>
           </Label>

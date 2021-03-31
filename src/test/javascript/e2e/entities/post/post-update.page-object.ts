@@ -1,9 +1,10 @@
-import { by, element, ElementFinder } from 'protractor';
-import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {by, element, ElementFinder} from 'protractor';
+import {isVisible, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 const expect = chai.expect;
 
-export default class PostUpdatePage {
+export default class PostUpdatePage
+{
   pageTitle: ElementFinder = element(by.id('minhShopApp.post.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
@@ -22,135 +23,168 @@ export default class PostUpdatePage {
   modifiedByInput: ElementFinder = element(by.css('input#post-modifiedBy'));
   commentInput: ElementFinder = element(by.css('input#post-comment'));
 
-  getPageTitle() {
+  getPageTitle()
+  {
     return this.pageTitle;
   }
 
-  async setTitleInput(title) {
+  async setTitleInput(title)
+  {
     await this.titleInput.sendKeys(title);
   }
 
-  async getTitleInput() {
+  async getTitleInput()
+  {
     return this.titleInput.getAttribute('value');
   }
 
-  async setPriceInput(price) {
+  async setPriceInput(price)
+  {
     await this.priceInput.sendKeys(price);
   }
 
-  async getPriceInput() {
+  async getPriceInput()
+  {
     return this.priceInput.getAttribute('value');
   }
 
-  async setSalePriceInput(salePrice) {
+  async setSalePriceInput(salePrice)
+  {
     await this.salePriceInput.sendKeys(salePrice);
   }
 
-  async getSalePriceInput() {
+  async getSalePriceInput()
+  {
     return this.salePriceInput.getAttribute('value');
   }
 
-  async setPercentSaleInput(percentSale) {
+  async setPercentSaleInput(percentSale)
+  {
     await this.percentSaleInput.sendKeys(percentSale);
   }
 
-  async getPercentSaleInput() {
+  async getPercentSaleInput()
+  {
     return this.percentSaleInput.getAttribute('value');
   }
 
-  async setImageUrlInput(imageUrl) {
+  async setImageUrlInput(imageUrl)
+  {
     await this.imageUrlInput.sendKeys(imageUrl);
   }
 
-  async getImageUrlInput() {
+  async getImageUrlInput()
+  {
     return this.imageUrlInput.getAttribute('value');
   }
 
-  async setScoresInput(scores) {
+  async setScoresInput(scores)
+  {
     await this.scoresInput.sendKeys(scores);
   }
 
-  async getScoresInput() {
+  async getScoresInput()
+  {
     return this.scoresInput.getAttribute('value');
   }
 
-  async setSimpleContentInput(simpleContent) {
+  async setSimpleContentInput(simpleContent)
+  {
     await this.simpleContentInput.sendKeys(simpleContent);
   }
 
-  async getSimpleContentInput() {
+  async getSimpleContentInput()
+  {
     return this.simpleContentInput.getAttribute('value');
   }
 
-  async setOtherInfoInput(otherInfo) {
+  async setOtherInfoInput(otherInfo)
+  {
     await this.otherInfoInput.sendKeys(otherInfo);
   }
 
-  async getOtherInfoInput() {
+  async getOtherInfoInput()
+  {
     return this.otherInfoInput.getAttribute('value');
   }
 
-  async setPostDetailsIdInput(postDetailsId) {
+  async setPostDetailsIdInput(postDetailsId)
+  {
     await this.postDetailsIdInput.sendKeys(postDetailsId);
   }
 
-  async getPostDetailsIdInput() {
+  async getPostDetailsIdInput()
+  {
     return this.postDetailsIdInput.getAttribute('value');
   }
 
-  async setContentInput(content) {
+  async setContentInput(content)
+  {
     await this.contentInput.sendKeys(content);
   }
 
-  async getContentInput() {
+  async getContentInput()
+  {
     return this.contentInput.getAttribute('value');
   }
 
-  async setRoleInput(role) {
+  async setRoleInput(role)
+  {
     await this.roleInput.sendKeys(role);
   }
 
-  async getRoleInput() {
+  async getRoleInput()
+  {
     return this.roleInput.getAttribute('value');
   }
 
-  async setCreatedByInput(createdBy) {
+  async setCreatedByInput(createdBy)
+  {
     await this.createdByInput.sendKeys(createdBy);
   }
 
-  async getCreatedByInput() {
+  async getCreatedByInput()
+  {
     return this.createdByInput.getAttribute('value');
   }
 
-  async setModifiedByInput(modifiedBy) {
+  async setModifiedByInput(modifiedBy)
+  {
     await this.modifiedByInput.sendKeys(modifiedBy);
   }
 
-  async getModifiedByInput() {
+  async getModifiedByInput()
+  {
     return this.modifiedByInput.getAttribute('value');
   }
 
-  async setCommentInput(comment) {
+  async setCommentInput(comment)
+  {
     await this.commentInput.sendKeys(comment);
   }
 
-  async getCommentInput() {
+  async getCommentInput()
+  {
     return this.commentInput.getAttribute('value');
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel()
+  {
     await this.cancelButton.click();
   }
 
-  getSaveButton() {
+  getSaveButton()
+  {
     return this.saveButton;
   }
 
-  async enterData() {
+  async enterData()
+  {
     await waitUntilDisplayed(this.saveButton);
     await this.setTitleInput('title');
     expect(await this.getTitleInput()).to.match(/title/);

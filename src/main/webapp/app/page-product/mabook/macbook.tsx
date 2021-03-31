@@ -18,14 +18,15 @@ export interface ISimplePostProps extends StateProps, DispatchProps, RouteCompon
 const MacBook = (props: ISimplePostProps) =>
 {
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
   );
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const [macbooks, setmacbooks] = useState([]);
   const [totalMacbooks, setTotalMacbooks] = useState([]);
   const authToken = `Bearer ${Token}`;
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
@@ -36,7 +37,8 @@ const MacBook = (props: ISimplePostProps) =>
     }).then(res => setmacbooks(res.data));
   }, []);
   window.console.log(macbooks);
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       method: 'get',
       url: OpenApiPathConst.SIMPLE_POST_PATH,
@@ -45,7 +47,8 @@ const MacBook = (props: ISimplePostProps) =>
     }).then(res => setTotalMacbooks(res.data));
   }, []);
   const totalItems = totalMacbooks ? totalMacbooks.length : 1;
-  const handlePagination = currentPage => {
+  const handlePagination = currentPage =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -57,56 +60,57 @@ const MacBook = (props: ISimplePostProps) =>
       <div className="d-flex justify-content-center">
         <div className="d-flex row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
           {macbooks && macbooks.length > 0
-            ? macbooks.map(macbook => {
-                return (
-                  <div className="col-3 mt-3" key={macbook.id * 137}>
-                    <Link to={`${props.match.url}/${macbook.id}`}>
+            ? macbooks.map(macbook =>
+            {
+              return (
+                <div className="col-3 mt-3" key={macbook.id * 137}>
+                  <Link to={`${props.match.url}/${macbook.id}`}>
                     {/*<Link to={`/${macbook.id}`}>*/}
-                      <Card className="p-1 p-sm-1 p-lg-0 ">
-                        <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div className='image-size'>
-                            <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap" />
+                    <Card className="p-1 p-sm-1 p-lg-0 ">
+                      <CardHeader className="px-1 px-md-1 p-lg-2">
+                        <div className='image-size'>
+                          <CardImg top width="100%" src={macbook.imageUrl} alt="Card image cap"/>
+                        </div>
+                        <div className="float-group">
+                          <CardTitle tag="h4" className="float-left">
+                            {macbook.title}
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardBody>
+                        <CardText className="">
+                          <p className="float-left">Giá gốc: </p>
+                          <div className="float-left text-secondary ml-1">
+                            <del>{macbook.price.toLocaleString()}đ</del>
                           </div>
-                          <div className="float-group">
-                            <CardTitle tag="h4" className="float-left">
-                              {macbook.title}
-                            </CardTitle>
+                          <br/>
+                        </CardText>
+                        <CardText className="">
+                          <p className="float-left">Chỉ còn: </p>
+                          <div className="float-left text-danger ml-1">
+                            <b>{macbook.salePrice.toLocaleString()}đ</b>
                           </div>
-                        </CardHeader>
-                        <CardBody>
-                          <CardText className="">
-                            <p className="float-left">Giá gốc: </p>
-                            <div className="float-left text-secondary ml-1">
-                              <del>{macbook.price.toLocaleString()}đ</del>
-                            </div>
-                            <br />
-                          </CardText>
-                          <CardText className="">
-                            <p className="float-left">Chỉ còn: </p>
-                            <div className="float-left text-danger ml-1">
-                              <b>{macbook.salePrice.toLocaleString()}đ</b>
-                            </div>
-                            <div className="float-left badge badge-danger text-white ml-2">-{macbook.percentSale}%</div>
-                            <br />
-                          </CardText>
-                          <div className="text-center" style={{ width: '200px' }}>
-                            <Progress animated value={macbook.scores}>
-                              {macbook.scores}
-                            </Progress>
-                          </div>
-                        </CardBody>
-                      </Card>
-                    </Link>
-                  </div>
-                );
-              })
+                          <div className="float-left badge badge-danger text-white ml-2">-{macbook.percentSale}%</div>
+                          <br/>
+                        </CardText>
+                        <div className="text-center" style={{width: '200px'}}>
+                          <Progress animated value={macbook.scores}>
+                            {macbook.scores}
+                          </Progress>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </div>
+              );
+            })
             : null}
         </div>
       </div>
       {macbooks.length ? (
         <div className={macbooks && macbooks.length > 0 ? '' : 'd-none'}>
           <Row className="justify-content-center">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
+            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled/>
           </Row>
           <Row className="justify-content-center">
             <JhiPagination

@@ -1,14 +1,15 @@
-import { browser } from 'protractor';
+import {browser} from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
 import SimplePostComponentsPage from './simple-post.page-object';
 import SimplePostUpdatePage from './simple-post-update.page-object';
-import { waitUntilDisplayed } from '../../util/utils';
+import {waitUntilDisplayed} from '../../util/utils';
 
 const expect = chai.expect;
 
-describe('SimplePost e2e test', () => {
+describe('SimplePost e2e test', () =>
+{
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
   let simplePostComponentsPage: SimplePostComponentsPage;
@@ -16,7 +17,8 @@ describe('SimplePost e2e test', () => {
   const username = process.env.E2E_USERNAME ?? 'admin';
   const password = process.env.E2E_PASSWORD ?? 'admin';
 
-  before(async () => {
+  before(async () =>
+  {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
@@ -30,14 +32,16 @@ describe('SimplePost e2e test', () => {
     await waitUntilDisplayed(navBarPage.accountMenu);
   });
 
-  beforeEach(async () => {
+  beforeEach(async () =>
+  {
     await browser.get('/');
     await waitUntilDisplayed(navBarPage.entityMenu);
     simplePostComponentsPage = new SimplePostComponentsPage();
     simplePostComponentsPage = await simplePostComponentsPage.goToPage(navBarPage);
   });
 
-  it('should load SimplePosts', async () => {
+  it('should load SimplePosts', async () =>
+  {
     expect(await simplePostComponentsPage.title.getText()).to.match(/Simple Posts/);
     expect(await simplePostComponentsPage.createButton.isEnabled()).to.be.true;
   });
@@ -61,7 +65,8 @@ describe('SimplePost e2e test', () => {
         }
     }); */
 
-  after(async () => {
+  after(async () =>
+  {
     await navBarPage.autoSignOut();
   });
 });

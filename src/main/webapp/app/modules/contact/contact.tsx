@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Storage} from 'react-jhipster';
 import axios from 'axios';
 
@@ -18,7 +18,7 @@ function Contact({children})
   const [images, setImages] = useState([]);
   const [abc, setAbc] = useState(null)
   // const [aaa, setAaa] = useState(null)
-  const [importLinks, setImportLink]=useState([]);
+  const [importLinks, setImportLink] = useState([]);
   const promises = [];
   const [link, setLink] = useState({link: '', id: ''})
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
@@ -106,8 +106,10 @@ function Contact({children})
       //     alert('Bạn đã nhập đường link này trước đó')
       //   }
       // })
-      if(importLinks && importLinks.length>0){
-        importLinks.map(importLink=>{
+      if (importLinks && importLinks.length > 0)
+      {
+        importLinks.map(importLink =>
+        {
           if (link.link === importLink.link)
           {
             alreadyExist = true;
@@ -118,19 +120,21 @@ function Contact({children})
       window.console.log(alreadyExist)
       if (!alreadyExist)
       {
-        if(link.link.slice(0,10)==="data:image") {
+        if (link.link.slice(0, 10) === "data:image")
+        {
           axios.get(`${link.link}`, {
             responseType: 'blob'
-          }).then(res => {
+          }).then(res =>
+          {
             const resType = res.headers['content-type']
-            const tail=resType.split("/")[1]
+            const tail = resType.split("/")[1]
             window.console.log(resType)
             if (res.status === 200 && resType.indexOf('image') >= 0)
             {
-              const url=`${newID()}.${tail}`
+              const url = `${newID()}.${tail}`
               onUpload(res.data, url),
                 // setAaa(res.data)
-              window.console.log(res.status)
+                window.console.log(res.status)
             }
             else alert('Link ảnh không đúng. Vui lòng kiểm tra lại')
           })
@@ -138,21 +142,24 @@ function Contact({children})
         else axios.get(`https://cors-anywhere.froala.com/${link.link}`, {
           responseType: 'blob'
         })
-          .then(res => {
+          .then(res =>
+          {
             const resType = res.headers['content-type']
-            const tail=resType.split("/")[1]
+            const tail = resType.split("/")[1]
             window.console.log(resType)
             window.console.log(tail)
             if (res.status === 200 && resType.indexOf('image') >= 0)
             {
               const totalUrl = res.config.url.split('https://cors-anywhere.froala.com/');
               window.console.log(totalUrl)
-              if(totalUrl[1].indexOf('.jpg')===-1 && totalUrl[1].indexOf('.jepg')===-1 && totalUrl[1].indexOf('.png')===-1 && totalUrl[1].indexOf('.gif')===-1){
-                const addUrl=`${totalUrl[1]}.${tail}`
+              if (totalUrl[1].indexOf('.jpg') === -1 && totalUrl[1].indexOf('.jepg') === -1 && totalUrl[1].indexOf('.png') === -1 && totalUrl[1].indexOf('.gif') === -1)
+              {
+                const addUrl = `${totalUrl[1]}.${tail}`
                 onUpload(res.data, addUrl)
               }
-              else {
-                const url=totalUrl[1];
+              else
+              {
+                const url = totalUrl[1];
                 onUpload(res.data, url)
               }
             }
@@ -170,28 +177,28 @@ function Contact({children})
   }
   window.console.log(importLinks)
 
-const uploadImage = async (event) =>
-{
-  const {files} = event.target;
-  const newFiles = Object.keys(files).map(i => ({image: files[i]}));
-  const fileData = newFiles.map(item => promises.push(upload(item.image)))
-  await Promise.all(promises).then(
-    res =>
-    {
-      res && res.length > 0 ? res.map(item =>
+  const uploadImage = async (event) =>
+  {
+    const {files} = event.target;
+    const newFiles = Object.keys(files).map(i => ({image: files[i]}));
+    const fileData = newFiles.map(item => promises.push(upload(item.image)))
+    await Promise.all(promises).then(
+      res =>
       {
-        const newItem = {link: item.link, id: newID()};
-        dataImages.push(newItem)
-      }) : dataImages,
-        setBaseImages(res)
-    }
-  )
-}
+        res && res.length > 0 ? res.map(item =>
+        {
+          const newItem = {link: item.link, id: newID()};
+          dataImages.push(newItem)
+        }) : dataImages,
+          setBaseImages(res)
+      }
+    )
+  }
 
 // const dataImage=link.link?baseImages.push(link):baseImages
 
 
-window.console.log(baseImages)
+  window.console.log(baseImages)
 
 // const dataImage=[...baseImages, link]
 
@@ -199,71 +206,71 @@ window.console.log(baseImages)
 //   setDataImages(dataImages)
 // },[dataImages])
 
-window.console.log(dataImages)
+  window.console.log(dataImages)
 
-const onDeleteImage = (id) =>
-{
-  const array = dataImages.slice().filter(x => x.id !== id);
-
-  setDataImages(array)
-}
-
-const showImage = () =>
-{
-  let result = null;
-  if (dataImages && dataImages.length > 0)
+  const onDeleteImage = (id) =>
   {
-    result = dataImages.map((image, index) =>
-    {
-      window.console.log(image.link)
-      return (
-        <div key={index} className='d-flex'>
-          <div><img src={image.link} style={{width: 300, display: 'block'}} alt='link ảnh không đúng'/></div>
-          <div className="mt-5">
-            <button type="button" className="btn btn-danger" onClick={() => onDeleteImage(image.id)}>Xóa</button>
-          </div>
-        </div>
-      )
-    })
+    const array = dataImages.slice().filter(x => x.id !== id);
+
+    setDataImages(array)
   }
-  return result
-}
 
-const onSubmit = (event) =>
-{
-  event.preventDefault()
-  axios({
-    method: "post",
-    url: "http://localhost:4001/messages",
-    data: dataImages
-  }).then(res => setImages(res.data))
-}
+  const showImage = () =>
+  {
+    let result = null;
+    if (dataImages && dataImages.length > 0)
+    {
+      result = dataImages.map((image, index) =>
+      {
+        window.console.log(image.link)
+        return (
+          <div key={index} className='d-flex'>
+            <div><img src={image.link} style={{width: 300, display: 'block'}} alt='link ảnh không đúng'/></div>
+            <div className="mt-5">
+              <button type="button" className="btn btn-danger" onClick={() => onDeleteImage(image.id)}>Xóa</button>
+            </div>
+          </div>
+        )
+      })
+    }
+    return result
+  }
 
-window.console.log(images)
-return (
-  <div>
-    <div>Đây là thông tin của trang web</div>
-    <div className="d-flex justify-content-center">
-      <form onSubmit={onSubmit}>
-        <div>
-          <input type="text" onChange={onHandleChange} name="link" value={link.link} placeholder="Nhập link ảnh ở đây..."/>
-          <button type='button' onClick={onSubmitInput}>Insert</button>
-        </div>
-        <div>
-          <input type="file" onChange={(event) => uploadImage(event)} multiple/>
-        </div>
-        {/*{dataImages &&dataImages.length>0?baseImages.map((dataImage,index)=>(*/}
-        {/*  <div key={index}>*/}
-        {/*    <img src={dataImage.link} style={{width: 300}} />*/}
-        {/*  </div>*/}
-        {/*)):('không có ảnh nào ở đây')}*/}
-        {showImage()}
-        {/*<button type="button" onClick={showImage}>showImage</button>*/}
-        <button type="submit">SEND</button>
-      </form>
+  const onSubmit = (event) =>
+  {
+    event.preventDefault()
+    axios({
+      method: "post",
+      url: "http://localhost:4001/messages",
+      data: dataImages
+    }).then(res => setImages(res.data))
+  }
+
+  window.console.log(images)
+  return (
+    <div>
+      <div>Đây là thông tin của trang web</div>
+      <div className="d-flex justify-content-center">
+        <form onSubmit={onSubmit}>
+          <div>
+            <input type="text" onChange={onHandleChange} name="link" value={link.link} placeholder="Nhập link ảnh ở đây..."/>
+            <button type='button' onClick={onSubmitInput}>Insert</button>
+          </div>
+          <div>
+            <input type="file" onChange={(event) => uploadImage(event)} multiple/>
+          </div>
+          {/*{dataImages &&dataImages.length>0?baseImages.map((dataImage,index)=>(*/}
+          {/*  <div key={index}>*/}
+          {/*    <img src={dataImage.link} style={{width: 300}} />*/}
+          {/*  </div>*/}
+          {/*)):('không có ảnh nào ở đây')}*/}
+          {showImage()}
+          {/*<button type="button" onClick={showImage}>showImage</button>*/}
+          <button type="submit">SEND</button>
+        </form>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Contact;

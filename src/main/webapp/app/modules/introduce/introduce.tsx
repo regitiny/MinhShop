@@ -1,5 +1,5 @@
 import './introduce.scss'
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import {Storage} from 'react-jhipster';
 
@@ -75,39 +75,50 @@ function Introduce({children})
   //     setCounter(counter - 1)
   //   }
   // }
-  const onChangeCounter=(n)=>{
+  const onChangeCounter = (n) =>
+  {
     setCounter(counter + Number(n))
   }
-  useEffect(() => {
-    if (carouselSlide && carouselImage[counter].id === 'last-clone'){
-      setCounter(carouselImage.length-2);
+  useEffect(() =>
+  {
+    if (carouselSlide && carouselImage[counter].id === 'last-clone')
+    {
+      setCounter(carouselImage.length - 2);
       carouselSlide.style.transition = 'none';
       carouselSlide.style.transform = 'translateX(' + (-size * (carouselImage.length - 2)) + 'px)';
-    };
-    if (carouselSlide && carouselImage[counter].id === 'first-clone'){
+    }
+
+    if (carouselSlide && carouselImage[counter].id === 'first-clone')
+    {
       setCounter(carouselImage.length - counter);
       carouselSlide.style.transition = 'none';
       carouselSlide.style.transform = 'translateX(' + (-size * (carouselImage.length - counter)) + 'px)';
-    };
+    }
+
   })
 
-  useEffect(()=>{
+  useEffect(() =>
+  {
     // showCarousel()
-    if(counter>0 && counter<carouselImage.length-1){
+    if (counter > 0 && counter < carouselImage.length - 1)
+    {
       carouselSlide.style.transition = "0.5s";
       carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
     }
-  },[counter])
+  }, [counter])
 
   const modal = document.getElementById('image-modal');
-  const openModal = () => {
+  const openModal = () =>
+  {
     // modal.style.display="block";
   }
-  const onCloseModal = () => {
+  const onCloseModal = () =>
+  {
     // modal.style.display="none";
   }
   const [count, setCount] = useState(1);
-  const showSlides = () => {
+  const showSlides = () =>
+  {
     if (count)
     {
       const slides = Array.from(document.getElementsByClassName('image-item') as HTMLCollectionOf<HTMLElement>);
@@ -133,11 +144,13 @@ function Introduce({children})
       //  dots[count - 1].className += ' active';
     }
   };
-  const currentSlide = n => {
+  const currentSlide = n =>
+  {
     setCount(n);
     showSlides();
   };
-  useEffect(() => {
+  useEffect(() =>
+  {
     currentSlide(count);
   });
   window.console.log(count)
@@ -176,7 +189,7 @@ function Introduce({children})
               slideImage(1);
               currentSlide(1)
             }} width="150"
-                 src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-asus-zenbook-13-ux325ea_1_.jpg"/>
+              src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-asus-zenbook-13-ux325ea_1_.jpg"/>
           </div>
           <div className="slide-item">
             <img onClick={() =>
@@ -185,7 +198,7 @@ function Introduce({children})
               slideImage(2);
               currentSlide(2)
             }} width="150"
-                 src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop_gaming_acer_nitro_5_an515-55-5923_nh.q7nsv.004__0004_layer_1.jpg"/>
+              src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop_gaming_acer_nitro_5_an515-55-5923_nh.q7nsv.004__0004_layer_1.jpg"/>
           </div>
           <div className="slide-item">
             <img onClick={() =>
@@ -194,7 +207,7 @@ function Introduce({children})
               slideImage(3);
               currentSlide(3)
             }} width="150"
-                 src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-huawei-matebook-13_0005_laptop-huawei-matebook-13_4_.jpg"/>
+              src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-huawei-matebook-13_0005_laptop-huawei-matebook-13_4_.jpg"/>
           </div>
           <div className="slide-item">
             <img onClick={() =>
@@ -203,7 +216,7 @@ function Introduce({children})
               slideImage(4);
               currentSlide(4)
             }} width="150"
-                 src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/a/s/asus-tuf-gaming-f15-fx506li-hn039t-i5-10300h_1b0ebb8ab81946358a526da61f2e5b65_master.jpg"/>
+              src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/a/s/asus-tuf-gaming-f15-fx506li-hn039t-i5-10300h_1b0ebb8ab81946358a526da61f2e5b65_master.jpg"/>
           </div>
           <div className="slide-item">
             <img onClick={() =>
@@ -212,7 +225,7 @@ function Introduce({children})
               slideImage(5);
               currentSlide(5)
             }} width="150"
-                 src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/m/a/macbook-air-space-gray-config-20.jpg"/>
+              src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/m/a/macbook-air-space-gray-config-20.jpg"/>
           </div>
         </div>
       </div>
@@ -250,7 +263,7 @@ function Introduce({children})
                 openModal();
                 currentSlide(1)
               }} width="150"
-                   src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-asus-zenbook-13-ux325ea_1_.jpg"/>
+                src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-asus-zenbook-13-ux325ea_1_.jpg"/>
             </div>
             <div className="dot-item m-1">
               <img onClick={() =>
@@ -258,7 +271,7 @@ function Introduce({children})
                 openModal();
                 currentSlide(2)
               }} width="150"
-                   src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop_gaming_acer_nitro_5_an515-55-5923_nh.q7nsv.004__0004_layer_1.jpg"/>
+                src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop_gaming_acer_nitro_5_an515-55-5923_nh.q7nsv.004__0004_layer_1.jpg"/>
             </div>
             <div className="dot-item m-1">
               <img onClick={() =>
@@ -266,7 +279,7 @@ function Introduce({children})
                 openModal();
                 currentSlide(3)
               }} width="150"
-                   src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-huawei-matebook-13_0005_laptop-huawei-matebook-13_4_.jpg"/>
+                src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-huawei-matebook-13_0005_laptop-huawei-matebook-13_4_.jpg"/>
             </div>
             <div className="dot-item m-1">
               <img onClick={() =>
@@ -274,7 +287,7 @@ function Introduce({children})
                 openModal();
                 currentSlide(4)
               }} width="150"
-                   src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/a/s/asus-tuf-gaming-f15-fx506li-hn039t-i5-10300h_1b0ebb8ab81946358a526da61f2e5b65_master.jpg"/>
+                src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/a/s/asus-tuf-gaming-f15-fx506li-hn039t-i5-10300h_1b0ebb8ab81946358a526da61f2e5b65_master.jpg"/>
             </div>
             <div className="dot-item m-1">
               <img onClick={() =>
@@ -282,13 +295,13 @@ function Introduce({children})
                 openModal();
                 currentSlide(5)
               }} width="150"
-                   src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/m/a/macbook-air-space-gray-config-20.jpg"/>
+                src="https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/m/a/macbook-air-space-gray-config-20.jpg"/>
             </div>
           </div>
         </div>
       </div>
-      <button id="prevBtn"  onClick={()=>onChangeCounter(-1)}>Prev</button>
-      <button id="nextBtn"  onClick={()=>onChangeCounter(1)}>Next</button>
+      <button id="prevBtn" onClick={() => onChangeCounter(-1)}>Prev</button>
+      <button id="nextBtn" onClick={() => onChangeCounter(1)}>Next</button>
       {/*<button id="prevBtn">Prev</button>*/}
       {/*<button id="nextBtn">Next</button>*/}
     </div>

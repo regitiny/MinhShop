@@ -1,9 +1,10 @@
-import { by, element, ElementFinder } from 'protractor';
-import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {by, element, ElementFinder} from 'protractor';
+import {isVisible, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 const expect = chai.expect;
 
-export default class HanhChinhVNUpdatePage {
+export default class HanhChinhVNUpdatePage
+{
   pageTitle: ElementFinder = element(by.id('minhShopApp.hanhChinhVN.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
@@ -16,87 +17,108 @@ export default class HanhChinhVNUpdatePage {
   pathInput: ElementFinder = element(by.css('input#hanh-chinh-vn-path'));
   pathWithTypeInput: ElementFinder = element(by.css('input#hanh-chinh-vn-pathWithType'));
 
-  getPageTitle() {
+  getPageTitle()
+  {
     return this.pageTitle;
   }
 
-  async setNameInput(name) {
+  async setNameInput(name)
+  {
     await this.nameInput.sendKeys(name);
   }
 
-  async getNameInput() {
+  async getNameInput()
+  {
     return this.nameInput.getAttribute('value');
   }
 
-  async setSlugInput(slug) {
+  async setSlugInput(slug)
+  {
     await this.slugInput.sendKeys(slug);
   }
 
-  async getSlugInput() {
+  async getSlugInput()
+  {
     return this.slugInput.getAttribute('value');
   }
 
-  async setTypeInput(type) {
+  async setTypeInput(type)
+  {
     await this.typeInput.sendKeys(type);
   }
 
-  async getTypeInput() {
+  async getTypeInput()
+  {
     return this.typeInput.getAttribute('value');
   }
 
-  async setNameWithTypeInput(nameWithType) {
+  async setNameWithTypeInput(nameWithType)
+  {
     await this.nameWithTypeInput.sendKeys(nameWithType);
   }
 
-  async getNameWithTypeInput() {
+  async getNameWithTypeInput()
+  {
     return this.nameWithTypeInput.getAttribute('value');
   }
 
-  async setCodeInput(code) {
+  async setCodeInput(code)
+  {
     await this.codeInput.sendKeys(code);
   }
 
-  async getCodeInput() {
+  async getCodeInput()
+  {
     return this.codeInput.getAttribute('value');
   }
 
-  async setParentCodeInput(parentCode) {
+  async setParentCodeInput(parentCode)
+  {
     await this.parentCodeInput.sendKeys(parentCode);
   }
 
-  async getParentCodeInput() {
+  async getParentCodeInput()
+  {
     return this.parentCodeInput.getAttribute('value');
   }
 
-  async setPathInput(path) {
+  async setPathInput(path)
+  {
     await this.pathInput.sendKeys(path);
   }
 
-  async getPathInput() {
+  async getPathInput()
+  {
     return this.pathInput.getAttribute('value');
   }
 
-  async setPathWithTypeInput(pathWithType) {
+  async setPathWithTypeInput(pathWithType)
+  {
     await this.pathWithTypeInput.sendKeys(pathWithType);
   }
 
-  async getPathWithTypeInput() {
+  async getPathWithTypeInput()
+  {
     return this.pathWithTypeInput.getAttribute('value');
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel()
+  {
     await this.cancelButton.click();
   }
 
-  getSaveButton() {
+  getSaveButton()
+  {
     return this.saveButton;
   }
 
-  async enterData() {
+  async enterData()
+  {
     await waitUntilDisplayed(this.saveButton);
     await this.setNameInput('name');
     expect(await this.getNameInput()).to.match(/name/);

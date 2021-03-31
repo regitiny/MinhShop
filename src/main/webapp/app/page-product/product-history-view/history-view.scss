@@ -1,9 +1,10 @@
-.view{
-  .container{
-    .image-size{
+.view {
+  .container {
+    .image-size {
       position: relative;
       height: 150px;
-      img{
+
+      img {
         position: absolute;
         max-width: 100%;
         width: auto;
@@ -13,10 +14,11 @@
         transform: translate(-50%, -50%);
       }
     }
-    .float-group{
+
+    .float-group {
       //position: relative;
       //height: 60px;
-      .card-title{
+      .card-title {
         //position: absolute;
         font-size: 16px;
         white-space: nowrap; //todo add khi title quá dài
@@ -24,7 +26,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .card-title:hover{
+
+      .card-title:hover {
         white-space: normal;
         overflow: visible;
         width: 100%;

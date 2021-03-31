@@ -76,7 +76,7 @@ public class AdminManagementResource
   @Transactional(readOnly = true)
   public ResponseEntity<String> reindexAllElasticsearch()
   {
-    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) && !SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT))
+    if (!SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN) && !SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.MANAGEMENT))
       throw new BadRequestAlertException("không có quyền bạn ơi", "ReindexElasticsearch", HttpStatus.BAD_REQUEST.toString());
     log.info("reindex all database syncs()");
     log.debug("start reindex.");

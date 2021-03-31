@@ -2,7 +2,6 @@ import './may-console.scss';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {Storage} from 'react-jhipster';
-import {Table} from 'reactstrap';
 import {connect} from 'react-redux';
 import Cart from 'app/modules/shopcart/cart';
 import {IRootState} from "app/shared/reducers";
@@ -49,14 +48,16 @@ export const MayConsoleDetail = props =>
       {
         dots[i].className = dots[i].className.replace(' active', '');
       }
-      if(slides && slides.length>0){
-        slides[count-1].style.display="block"
+      if (slides && slides.length > 0)
+      {
+        slides[count - 1].style.display = "block"
       }
-      if(dots && dots.length>0){
+      if (dots && dots.length > 0)
+      {
         dots[count - 1].className += ' active';
       }
-     // slides[count-1].style.display = 'block';
-     //  dots[count - 1].className += ' active';
+      // slides[count-1].style.display = 'block';
+      //  dots[count - 1].className += ' active';
     }
   };
   const currentSlide = n =>
@@ -90,7 +91,7 @@ export const MayConsoleDetail = props =>
               {
                 window.console.log(image.link)
                 return (
-                  <div key={image.id +1232131} className="image-console-detail" style={{display: 'none'}}>
+                  <div key={image.id + 1232131} className="image-console-detail" style={{display: 'none'}}>
                     <img
                       className="image-cover img-fluid"
                       src={image.link}
@@ -131,11 +132,11 @@ export const MayConsoleDetail = props =>
                   <div key={image.id} className="image-thumbnail img-2 px-1 col-4">
                     <img
                       className="img-thb image-cover img-fluid cursor"
-                      onClick={() => currentSlide(index+1)}
+                      onClick={() => currentSlide(index + 1)}
                       src={image.link}
                       alt="product-detail"
                     />
-                    {index+1}
+                    {index + 1}
                   </div>
                 )
               })
@@ -152,10 +153,10 @@ export const MayConsoleDetail = props =>
     <div className="console-detail d-flex justify-content-center ">
       <div className=" console-detail-header d-xl-flex d-lg-flex col-9 ">
         <div className="image-console mt-3  col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <div id="aaa" style={{display:"none"}}>hello</div>
-          {showImages(console?console.id: null)}
+          <div id="aaa" style={{display: "none"}}>hello</div>
+          {showImages(console ? console.id : null)}
           <div className="list-image-thumbnail row mt-2">
-            {showCurentImages(console?console.id: null)}
+            {showCurentImages(console ? console.id : null)}
           </div>
         </div>
         <div className="product-description mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">

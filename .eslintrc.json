@@ -1,6 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "extends": [
     "plugin:react/recommended",
     "eslint:recommended",
@@ -8,7 +10,6 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier",
-    "prettier/@typescript-eslint",
     "eslint-config-prettier"
   ],
   "parserOptions": {
@@ -28,13 +29,23 @@
     "@typescript-eslint/member-ordering": [
       "error",
       {
-        "default": ["static-field", "instance-field", "constructor", "static-method", "instance-method"]
+        "default": [
+          "static-field",
+          "instance-field",
+          "constructor",
+          "static-method",
+          "instance-method"
+        ]
       }
     ],
     "@typescript-eslint/no-parameter-properties": [
       "warn",
       {
-        "allows": ["public", "private", "protected"]
+        "allows": [
+          "public",
+          "private",
+          "protected"
+        ]
       }
     ],
     "@typescript-eslint/no-unused-vars": "off",
@@ -62,7 +73,10 @@
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/no-shadow": "error",
-    "spaced-comment": ["warn", "always"],
+    "spaced-comment": [
+      "warn",
+      "always"
+    ],
     "guard-for-in": "error",
     "no-labels": "error",
     "no-caller": "error",
@@ -70,7 +84,10 @@
     "no-console": [
       "error",
       {
-        "allow": ["warn", "error"]
+        "allow": [
+          "warn",
+          "error"
+        ]
       }
     ],
     "no-new-wrappers": "error",
@@ -94,7 +111,10 @@
       }
     ],
     "default-case": "error",
-    "complexity": ["error", 40],
+    "complexity": [
+      "error",
+      40
+    ],
     "no-invalid-this": "off",
     "react/prop-types": "off",
     "react/display-name": "off"

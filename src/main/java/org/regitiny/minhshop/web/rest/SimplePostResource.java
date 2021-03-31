@@ -1,6 +1,7 @@
 package org.regitiny.minhshop.web.rest;
 
 import org.json.JSONObject;
+import org.regitiny.minhshop.repository.SimplePostRepository;
 import org.regitiny.minhshop.service.SimplePostService;
 import org.regitiny.minhshop.service.dto.SimplePostDTO;
 import org.regitiny.minhshop.web.rest.errors.BadRequestAlertException;
@@ -37,13 +38,14 @@ public class SimplePostResource
   private static final String ENTITY_NAME = "simplePost";
   private final Logger log = LoggerFactory.getLogger(SimplePostResource.class);
   private final SimplePostService simplePostService;
-
+  private final SimplePostRepository simplePostRepository;
   @Value("${jhipster.clientApp.name}")
   private String applicationName;
 
-  public SimplePostResource(SimplePostService simplePostService)
+  public SimplePostResource(SimplePostService simplePostService, SimplePostRepository simplePostRepository)
   {
     this.simplePostService = simplePostService;
+    this.simplePostRepository = simplePostRepository;
   }
 
   /**
@@ -73,22 +75,30 @@ public class SimplePostResource
   }
 
   /**
-   * {@code PUT  /simple-posts} : Updates an existing simplePost.
+   * {@code PUT  /simple-posts/:id} : Updates an existing simplePost.
    *
+   * @param id            the id of the simplePostDTO to save.
    * @param simplePostDTO the simplePostDTO to update.
    * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated simplePostDTO,
    * or with status {@code 400 (Bad Request)} if the simplePostDTO is not valid,
    * or with status {@code 500 (Internal Server Error)} if the simplePostDTO couldn't be updated.
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
-  @PutMapping("/simple-posts")
-  public ResponseEntity<SimplePostDTO> updateSimplePost(@Valid @RequestBody SimplePostDTO simplePostDTO) throws URISyntaxException
+  @PutMapping("/simple-posts/{id}")
+  public ResponseEntity<SimplePostDTO> updateSimplePost(
+    @PathVariable(value = "id", required = false) final Long id,
+    @Valid @RequestBody SimplePostDTO simplePostDTO
+  ) throws URISyntaxException
   {
-    log.debug("REST request to update SimplePost : {}", simplePostDTO);
+    log.debug("REST request to update SimplePost : {}, {}", id, simplePostDTO);
     if (simplePostDTO.getId() == null)
-    {
       throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-    }
+    if (!Objects.equals(id, simplePostDTO.getId()))
+      throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+
+    if (!simplePostRepository.existsById(id))
+      throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+
     SimplePostDTO result = simplePostService.save(simplePostDTO);
     return ResponseEntity
       .ok()
@@ -97,8 +107,9 @@ public class SimplePostResource
   }
 
   /**
-   * {@code PATCH  /simple-posts} : Updates given fields of an existing simplePost.
+   * {@code PATCH  /simple-posts/:id} : Partial updates given fields of an existing simplePost, field will ignore if it is null
    *
+   * @param id            the id of the simplePostDTO to save.
    * @param simplePostDTO the simplePostDTO to update.
    * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated simplePostDTO,
    * or with status {@code 400 (Bad Request)} if the simplePostDTO is not valid,
@@ -106,15 +117,20 @@ public class SimplePostResource
    * or with status {@code 500 (Internal Server Error)} if the simplePostDTO couldn't be updated.
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
-  @PatchMapping(value = "/simple-posts", consumes = "application/merge-patch+json")
-  public ResponseEntity<SimplePostDTO> partialUpdateSimplePost(@NotNull @RequestBody SimplePostDTO simplePostDTO)
-    throws URISyntaxException
+  @PatchMapping(value = "/simple-posts/{id}", consumes = "application/merge-patch+json")
+  public ResponseEntity<SimplePostDTO> partialUpdateSimplePost(
+    @PathVariable(value = "id", required = false) final Long id,
+    @NotNull @RequestBody SimplePostDTO simplePostDTO
+  ) throws URISyntaxException
   {
-    log.debug("REST request to update SimplePost partially : {}", simplePostDTO);
+    log.debug("REST request to partial update SimplePost partially : {}, {}", id, simplePostDTO);
     if (simplePostDTO.getId() == null)
-    {
       throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-    }
+    if (!Objects.equals(id, simplePostDTO.getId()))
+      throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+
+    if (!simplePostRepository.existsById(id))
+      throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
 
     Optional<SimplePostDTO> result = simplePostService.partialUpdate(simplePostDTO);
 

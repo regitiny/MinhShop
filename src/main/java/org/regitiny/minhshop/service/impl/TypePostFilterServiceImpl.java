@@ -72,56 +72,7 @@ public class TypePostFilterServiceImpl implements TypePostFilterService
       .map(
         existingTypePostFilter ->
         {
-          if (typePostFilterDTO.getUuid() != null)
-          {
-            existingTypePostFilter.setUuid(typePostFilterDTO.getUuid());
-          }
-
-          if (typePostFilterDTO.getTypeFilterName() != null)
-          {
-            existingTypePostFilter.setTypeFilterName(typePostFilterDTO.getTypeFilterName());
-          }
-
-          if (typePostFilterDTO.getSearchField() != null)
-          {
-            existingTypePostFilter.setSearchField(typePostFilterDTO.getSearchField());
-          }
-
-          if (typePostFilterDTO.getRole() != null)
-          {
-            existingTypePostFilter.setRole(typePostFilterDTO.getRole());
-          }
-
-          if (typePostFilterDTO.getCreatedDate() != null)
-          {
-            existingTypePostFilter.setCreatedDate(typePostFilterDTO.getCreatedDate());
-          }
-
-          if (typePostFilterDTO.getModifiedDate() != null)
-          {
-            existingTypePostFilter.setModifiedDate(typePostFilterDTO.getModifiedDate());
-          }
-
-          if (typePostFilterDTO.getCreatedBy() != null)
-          {
-            existingTypePostFilter.setCreatedBy(typePostFilterDTO.getCreatedBy());
-          }
-
-          if (typePostFilterDTO.getModifiedBy() != null)
-          {
-            existingTypePostFilter.setModifiedBy(typePostFilterDTO.getModifiedBy());
-          }
-
-          if (typePostFilterDTO.getDataSize() != null)
-          {
-            existingTypePostFilter.setDataSize(typePostFilterDTO.getDataSize());
-          }
-
-          if (typePostFilterDTO.getComment() != null)
-          {
-            existingTypePostFilter.setComment(typePostFilterDTO.getComment());
-          }
-
+          typePostFilterMapper.partialUpdate(existingTypePostFilter, typePostFilterDTO);
           return existingTypePostFilter;
         }
       )

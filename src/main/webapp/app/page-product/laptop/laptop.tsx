@@ -21,7 +21,7 @@ export interface ISimplePostProps extends StateProps, DispatchProps, RouteCompon
 const Laptop = (props: ISimplePostProps) =>
 {
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
   );
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
 
@@ -69,7 +69,8 @@ const Laptop = (props: ISimplePostProps) =>
       url: OpenApiPathConst.SIMPLE_POST_PATH,
       headers: {Authorization: authToken},
       params: {typePost_id: '1051'},
-    }).then(res => {
+    }).then(res =>
+    {
       setTotalLaptops(res.data);
     });
   }, []);
@@ -153,7 +154,7 @@ const Laptop = (props: ISimplePostProps) =>
       {
         clearTimeout(upIndex)
       }
-      if (slideIndex === (randomNumbers.length-1))
+      if (slideIndex === (randomNumbers.length - 1))
       {
         setSlideIndex(0)
       }
@@ -175,22 +176,26 @@ const Laptop = (props: ISimplePostProps) =>
     setMultiProduct(false);
 
   }
-  const onChangeToMultiListProduct=()=>{
+  const onChangeToMultiListProduct = () =>
+  {
     setMultiProduct(true)
 
   }
-  useEffect(()=>{
-    const list=document.getElementById('list-laptop');
-    const multiList=document.getElementById('multiList-laptop')
-    if(!multiProduct){
+  useEffect(() =>
+  {
+    const list = document.getElementById('list-laptop');
+    const multiList = document.getElementById('multiList-laptop')
+    if (!multiProduct)
+    {
       list.classList.add('text-danger');
       multiList.classList.remove('text-danger');
     }
-    else {
+    else
+    {
       list.classList.remove('text-danger');
       multiList.classList.add('text-danger');
     }
-  },[multiProduct])
+  }, [multiProduct])
 
   window.console.log('multiProduct', multiProduct)
   return (
@@ -205,7 +210,7 @@ const Laptop = (props: ISimplePostProps) =>
       </div>
       <div className="header-banner d-flex justify-content-center">
         <div className="laptop-icon d-flex justify-content-end col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9">
-          <h3 id="multiList-laptop"  className="m-3"><span><FontAwesomeIcon icon={faTh} onClick={onChangeToMultiListProduct}/></span></h3>
+          <h3 id="multiList-laptop" className="m-3"><span><FontAwesomeIcon icon={faTh} onClick={onChangeToMultiListProduct}/></span></h3>
           <h3 id="list-laptop" className="m-3"><span><FontAwesomeIcon icon={faList} onClick={onChangeToListProduct}/></span></h3>
         </div>
       </div>
@@ -217,9 +222,10 @@ const Laptop = (props: ISimplePostProps) =>
             laptops.map(laptop =>
             {
               // if (laptop.typePost.typeName === 'Laptop') {}
-              if(multiProduct){
+              if (multiProduct)
+              {
                 return (
-                    <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-3" key={laptop.uuid + laptop.id}>
+                  <div className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-3" key={laptop.uuid + laptop.id}>
                     {/*<Link to={`/${laptop.id}`}>*/}
                     <Link to={`${props.match.url}/${laptop.id}`} className="laptop-view">
                       <Card className="p p-sm-1 p-lg-0 ">
@@ -262,7 +268,8 @@ const Laptop = (props: ISimplePostProps) =>
                   </div>
                 );
               }
-              else {
+              else
+              {
                 return (
                   <div key={laptop.uuid + laptop.id} className="col-12 mt-5">
                     {/*<Link to={`/${laptop.id}`}>*/}
@@ -271,10 +278,14 @@ const Laptop = (props: ISimplePostProps) =>
                         <img width="100%" src={laptop.imageUrl}/>
                       </div>
                       <div className="ml-5">
-                        <div><h3>Giảm: <Badge color="danger">{(laptop.price-laptop.salePrice).toLocaleString()} đ</Badge></h3></div>
+                        <div><h3>Giảm: <Badge color="danger">{(laptop.price - laptop.salePrice).toLocaleString()} đ</Badge></h3></div>
                         <div><h2>{laptop.title}</h2></div>
                         <div><h3><Badge color="success">{laptop.salePrice.toLocaleString()} đ</Badge></h3></div>
-                        <div><h5 className="text-secondary"><del>{laptop.price.toLocaleString()} đ</del></h5></div>
+                        <div>
+                          <h5 className="text-secondary">
+                            <del>{laptop.price.toLocaleString()} đ</del>
+                          </h5>
+                        </div>
                         <div><h5 className="text-dark">Thông tin sản phẩm:</h5></div>
                       </div>
                     </Link>
@@ -283,32 +294,37 @@ const Laptop = (props: ISimplePostProps) =>
                 )
               }
             })
-          : null}
+            : null}
         </div>
         <div className=" row col-12 col-sm-11 -col-md-10 col-lg-10 col-xl-9 d-block d-sm-block d-md-block d-lg-none d-xl-none">
           {laptops && laptops.length > 0
             ? // ? laptops
               //     .filter(laptop => laptop.typePost.typeName === 'Laptop')
-            laptops.map(laptop => {
+            laptops.map(laptop =>
+            {
               // if (laptop.typePost.typeName === 'Laptop') {}
-                return (
-                  <div key={laptop.uuid + laptop.id} className="col-12 mt-5">
-                    {/*<Link to={`/${laptop.id}`}>*/}
-                    <Link to={`${props.match.url}/${laptop.id}`} className="laptop-view d-flex">
-                      <div className='col-6'>
-                        <img width="100%" src={laptop.imageUrl}/>
+              return (
+                <div key={laptop.uuid + laptop.id} className="col-12 mt-5">
+                  {/*<Link to={`/${laptop.id}`}>*/}
+                  <Link to={`${props.match.url}/${laptop.id}`} className="laptop-view d-flex">
+                    <div className='col-6'>
+                      <img width="100%" src={laptop.imageUrl}/>
+                    </div>
+                    <div className="ml-5">
+                      <div><h3>Giảm: <Badge color="danger">{(laptop.price - laptop.salePrice).toLocaleString()} đ</Badge></h3></div>
+                      <div><h2>{laptop.title}</h2></div>
+                      <div><h3><Badge color="success">{laptop.salePrice.toLocaleString()} đ</Badge></h3></div>
+                      <div>
+                        <h5 className="text-secondary">
+                          <del>{laptop.price.toLocaleString()} đ</del>
+                        </h5>
                       </div>
-                      <div className="ml-5">
-                        <div><h3>Giảm: <Badge color="danger">{(laptop.price-laptop.salePrice).toLocaleString()} đ</Badge></h3></div>
-                        <div><h2>{laptop.title}</h2></div>
-                        <div><h3><Badge color="success">{laptop.salePrice.toLocaleString()} đ</Badge></h3></div>
-                        <div><h5 className="text-secondary"><del>{laptop.price.toLocaleString()} đ</del></h5></div>
-                        <div><h5 className="text-dark">Thông tin sản phẩm:</h5></div>
-                      </div>
-                    </Link>
-                    <hr/>
-                  </div>
-                )
+                      <div><h5 className="text-dark">Thông tin sản phẩm:</h5></div>
+                    </div>
+                  </Link>
+                  <hr/>
+                </div>
+              )
             })
             : null}
         </div>
@@ -317,7 +333,7 @@ const Laptop = (props: ISimplePostProps) =>
         <div className={laptops && laptops.length > 0 ? '' : 'd-none'}>
           <Row className="justify-content-center">
             <JhiItemCount page={paginationState.activePage} total={totalItems}
-                          itemsPerPage={paginationState.itemsPerPage} i18nEnabled/>
+              itemsPerPage={paginationState.itemsPerPage} i18nEnabled/>
           </Row>
           <Row className="justify-content-center">
             <JhiPagination

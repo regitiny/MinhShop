@@ -71,56 +71,7 @@ public class PaymentServiceImpl implements PaymentService
       .map(
         existingPayment ->
         {
-          if (paymentDTO.getUuid() != null)
-          {
-            existingPayment.setUuid(paymentDTO.getUuid());
-          }
-
-          if (paymentDTO.getStatus() != null)
-          {
-            existingPayment.setStatus(paymentDTO.getStatus());
-          }
-
-          if (paymentDTO.getSearchField() != null)
-          {
-            existingPayment.setSearchField(paymentDTO.getSearchField());
-          }
-
-          if (paymentDTO.getRole() != null)
-          {
-            existingPayment.setRole(paymentDTO.getRole());
-          }
-
-          if (paymentDTO.getCreatedDate() != null)
-          {
-            existingPayment.setCreatedDate(paymentDTO.getCreatedDate());
-          }
-
-          if (paymentDTO.getModifiedDate() != null)
-          {
-            existingPayment.setModifiedDate(paymentDTO.getModifiedDate());
-          }
-
-          if (paymentDTO.getCreatedBy() != null)
-          {
-            existingPayment.setCreatedBy(paymentDTO.getCreatedBy());
-          }
-
-          if (paymentDTO.getModifiedBy() != null)
-          {
-            existingPayment.setModifiedBy(paymentDTO.getModifiedBy());
-          }
-
-          if (paymentDTO.getDataSize() != null)
-          {
-            existingPayment.setDataSize(paymentDTO.getDataSize());
-          }
-
-          if (paymentDTO.getComment() != null)
-          {
-            existingPayment.setComment(paymentDTO.getComment());
-          }
-
+          paymentMapper.partialUpdate(existingPayment, paymentDTO);
           return existingPayment;
         }
       )

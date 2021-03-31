@@ -1,6 +1,6 @@
-import { by, element, ElementArrayFinder, ElementFinder } from 'protractor';
+import {by, element, ElementArrayFinder, ElementFinder} from 'protractor';
 
-import { click, isVisible, waitUntilAnyDisplayed, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {click, isVisible, waitUntilAnyDisplayed, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 import NavBarPage from './../../page-objects/navbar-page';
 
@@ -8,21 +8,25 @@ import PostDetailsUpdatePage from './post-details-update.page-object';
 
 const expect = chai.expect;
 
-export class PostDetailsDeleteDialog {
+export class PostDetailsDeleteDialog
+{
   deleteModal = element(by.className('modal'));
   private dialogTitle: ElementFinder = element(by.id('minhShopApp.postDetails.delete.question'));
   private confirmButton = element(by.id('jhi-confirm-delete-postDetails'));
 
-  getDialogTitle() {
+  getDialogTitle()
+  {
     return this.dialogTitle;
   }
 
-  async clickOnConfirmButton() {
+  async clickOnConfirmButton()
+  {
     await this.confirmButton.click();
   }
 }
 
-export default class PostDetailsComponentsPage {
+export default class PostDetailsComponentsPage
+{
   createButton: ElementFinder = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('div table .btn-danger'));
   title: ElementFinder = element(by.id('post-details-heading'));
@@ -31,30 +35,36 @@ export default class PostDetailsComponentsPage {
 
   records: ElementArrayFinder = this.table.all(by.css('tbody tr'));
 
-  getDetailsButton(record: ElementFinder) {
+  getDetailsButton(record: ElementFinder)
+  {
     return record.element(by.css('a.btn.btn-info.btn-sm'));
   }
 
-  getEditButton(record: ElementFinder) {
+  getEditButton(record: ElementFinder)
+  {
     return record.element(by.css('a.btn.btn-primary.btn-sm'));
   }
 
-  getDeleteButton(record: ElementFinder) {
+  getDeleteButton(record: ElementFinder)
+  {
     return record.element(by.css('a.btn.btn-danger.btn-sm'));
   }
 
-  async goToPage(navBarPage: NavBarPage) {
+  async goToPage(navBarPage: NavBarPage)
+  {
     await navBarPage.getEntityPage('post-details');
     await waitUntilAnyDisplayed([this.noRecords, this.table]);
     return this;
   }
 
-  async goToCreatePostDetails() {
+  async goToCreatePostDetails()
+  {
     await this.createButton.click();
     return new PostDetailsUpdatePage();
   }
 
-  async deletePostDetails() {
+  async deletePostDetails()
+  {
     const deleteButton = this.getDeleteButton(this.records.last());
     await click(deleteButton);
 

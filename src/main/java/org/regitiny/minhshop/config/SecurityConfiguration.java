@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
       .antMatchers("/i18n/**")
       .antMatchers("/content/**")
       .antMatchers("/h2-console/**")
-      .antMatchers("/swagger-ui/index.html")
+      .antMatchers("/swagger-ui/**")
       .antMatchers("/test/**");
   }
 
@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
       .and()
       .headers()
       .contentSecurityPolicy("default-src 'self'; " +
-        "frame-src 'self' https://www.google.com/maps/embed data:; " +
+        "frame-src 'self' https://www.google.com/maps/embed https://www.youtube.com data:; " +
         "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; " +
         "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; " +
         "img-src * 'self' data:; " +

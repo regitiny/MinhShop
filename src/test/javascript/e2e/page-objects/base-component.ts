@@ -1,26 +1,30 @@
-import { ElementFinder } from 'protractor';
+import {ElementFinder} from 'protractor';
 
-import { isDisplayed, isHidden, waitUntilDisplayed, waitUntilHidden } from '../util/utils';
+import {isDisplayed, isHidden, waitUntilDisplayed, waitUntilHidden} from '../util/utils';
 
 /**
  * Base ui component class that other components should inherit from.
  */
-export default class BasePage {
+export default class BasePage
+{
   /**
    * This class property enables use of specific functions 'isDisplayed' and 'waitUntilDisplayed'
    */
   selector: ElementFinder = undefined;
 
-  constructor(selector?) {
+  constructor(selector?)
+  {
     this.selector = selector;
   }
 
-  checkSelectorExist() {
-    if (this.selector === undefined) {
+  checkSelectorExist()
+  {
+    if (this.selector === undefined)
+    {
       throw new TypeError(
         `Class '${this.constructor.name}' ` +
-          `extends 'UIComponent' possibly 'Page' Object Class and have to implement abstract property 'selector' ` +
-          `when 'isDisplayed' or 'waitUntilDisplayed' are used`
+        `extends 'UIComponent' possibly 'Page' Object Class and have to implement abstract property 'selector' ` +
+        `when 'isDisplayed' or 'waitUntilDisplayed' are used`
       );
     }
   }
@@ -28,12 +32,14 @@ export default class BasePage {
   /**
    * @returns Function which resolves to boolean
    */
-  isDisplayed() {
+  isDisplayed()
+  {
     this.checkSelectorExist();
     return isDisplayed(this.selector);
   }
 
-  isHidden() {
+  isHidden()
+  {
     this.checkSelectorExist();
     return isHidden(this.selector);
   }
@@ -41,12 +47,14 @@ export default class BasePage {
   /**
    * Wait until this page is displayed.
    */
-  async waitUntilDisplayed() {
+  async waitUntilDisplayed()
+  {
     this.checkSelectorExist();
     await waitUntilDisplayed(this.selector, this.constructor.name);
   }
 
-  async waitUntilHidden() {
+  async waitUntilHidden()
+  {
     this.checkSelectorExist();
     await waitUntilHidden(this.selector, this.constructor.name);
   }

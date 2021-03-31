@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   minhshop-mariadb:
-    image: mariadb:10.5.8
+    image: mariadb:10.5.9
     # volumes:
     #     - ~/volumes/jhipster/MinhShop/mysql/:/var/lib/mysql/
     environment:

@@ -1,6 +1,6 @@
 import React from 'react';
 // import {Breadcrumb, NavLink} from "reactstrap";
-import { NavLink, Switch, useLocation, withRouter } from 'react-router-dom';
+import {NavLink, Switch, useLocation} from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
@@ -14,29 +14,25 @@ import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
-import { AUTHORITIES } from 'app/config/constants';
-import { sendActivity } from 'app/config/websocket-middleware';
-import { PostUpdate } from 'app/custom-entity/post/post-update';
+import {AUTHORITIES} from 'app/config/constants';
+import {sendActivity} from 'app/config/websocket-middleware';
+import {PostUpdate} from 'app/custom-entity/post/post-update';
 import Introduce from 'app/modules/introduce/introduce';
 
 //todo test breadcrumb
-import { Breadcrumbs, BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+import {Breadcrumbs, BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import Contact from 'app/modules/contact/contact';
 import PageProduct from 'app/page-product';
 import CheckoutCart from 'app/modules/checkout-cart/checkout-cart';
 import CompleteOrder from 'app/modules/checkout-cart/complete-order';
-import LaptopDetail from 'app/page-product/laptop/laptop-detail';
 import ResultSearch from 'app/modules/result-search/result-search';
-import MacbookDetail from 'app/page-product/mabook/macbook-detail';
-import MayConsoleDetail from 'app/page-product/may-console/may-console-detail';
-import TabletDetail from 'app/page-product/may-tinh-bang/tablet-detail';
-import GameEquipmentDetail from 'app/page-product/thiet-bi-choi-game/game-equipment-detail';
 
-const BreadcrumbLayout = props => {
-  const { children } = props;
+const BreadcrumbLayout = props =>
+{
+  const {children} = props;
   return (
     <div className="d-flex justify-content-center">
-      <div className="breadcrumb col-9" style={location.pathname === '/' ? { display: 'none' } : { display: 'block' }}>
+      <div className="breadcrumb col-9" style={location.pathname === '/' ? {display: 'none'} : {display: 'block'}}>
         {children}
       </div>
     </div>
@@ -54,9 +50,11 @@ const Admin = Loadable({
 });
 
 const base_path = '/';
-const Routes = props => {
+const Routes = props =>
+{
   const location = useLocation();
-  React.useEffect(() => {
+  React.useEffect(() =>
+  {
     sendActivity(location.pathname);
   }, [location]);
   return (
@@ -73,29 +71,29 @@ const Routes = props => {
         item={NavLink}
         finalItem={'b'} //chọn thẻ tag cho route cuối cùng
         finalProps={{
-          style: { color: 'gray' },
+          style: {color: 'gray'},
         }}
         container={BreadcrumbLayout}
         // compare={(a,b)=>a.weight-b.weight} removeProps={{weight: true}}
       />
       <Switch>
-        <ErrorBoundaryRoute path="/login" component={Login} />
-        <ErrorBoundaryRoute path="/logout" component={Logout} />
-        <ErrorBoundaryRoute path="/account/register" component={Register} />
-        <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
-        <ErrorBoundaryRoute path="/account/reset/request" component={PasswordResetInit} />
-        <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish} />
-        <ErrorBoundaryRoute path="/form-insert" exact component={PostUpdate} />
-        <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
-        <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
-        <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
-        <ErrorBoundaryRoute path="/" exact component={Home} />
+        <ErrorBoundaryRoute path="/login" component={Login}/>
+        <ErrorBoundaryRoute path="/logout" component={Logout}/>
+        <ErrorBoundaryRoute path="/account/register" component={Register}/>
+        <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate}/>
+        <ErrorBoundaryRoute path="/account/reset/request" component={PasswordResetInit}/>
+        <ErrorBoundaryRoute path="/account/reset/finish/:key?" component={PasswordResetFinish}/>
+        <ErrorBoundaryRoute path="/form-insert" exact component={PostUpdate}/>
+        <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]}/>
+        <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}/>
+        <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]}/>
+        <ErrorBoundaryRoute path="/" exact component={Home}/>
         {/*<Page path="/" exact component={Home} title="Home"/>*/}
 
-        <ErrorBoundaryRoute path="/introduce" component={Introduce} />
-        <ErrorBoundaryRoute path="/contact" component={Contact} />
+        <ErrorBoundaryRoute path="/introduce" component={Introduce}/>
+        <ErrorBoundaryRoute path="/contact" component={Contact}/>
 
-        <ErrorBoundaryRoute path="/page" component={PageProduct} />
+        <ErrorBoundaryRoute path="/page" component={PageProduct}/>
 
         {/*<ErrorBoundaryRoute path={`/lap-top/:id`} exact component={LaptopDetail} />*/}
         {/*<ErrorBoundaryRoute path={`/mac-book/:id`} exact component={MacbookDetail} />*/}
@@ -103,11 +101,11 @@ const Routes = props => {
         {/*<ErrorBoundaryRoute path={`/tablet/:id`} exact component={TabletDetail} />*/}
         {/*<ErrorBoundaryRoute path={`/game-equipment/:id`} exact component={GameEquipmentDetail} />*/}
 
-        <ErrorBoundaryRoute path="/checkout" component={CheckoutCart} />
-        <ErrorBoundaryRoute path="/result-search" exact component={ResultSearch} />
-        <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder} />
+        <ErrorBoundaryRoute path="/checkout" component={CheckoutCart}/>
+        <ErrorBoundaryRoute path="/result-search" exact component={ResultSearch}/>
+        <ErrorBoundaryRoute path="/hoantatgiaohang" component={CompleteOrder}/>
 
-        <ErrorBoundaryRoute component={PageNotFound} />
+        <ErrorBoundaryRoute component={PageNotFound}/>
       </Switch>
     </div>
   );

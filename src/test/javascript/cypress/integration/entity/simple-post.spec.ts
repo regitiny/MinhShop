@@ -7,11 +7,14 @@ import {
   entityTableSelector,
 } from '../../support/entity';
 
-describe('SimplePost e2e test', () => {
+describe('SimplePost e2e test', () =>
+{
   let startingEntitiesCount = 0;
 
-  before(() => {
-    cy.window().then(win => {
+  before(() =>
+  {
+    cy.window().then(win =>
+    {
       win.sessionStorage.clear();
     });
 
@@ -20,55 +23,64 @@ describe('SimplePost e2e test', () => {
     cy.visit('');
     cy.login('admin', 'admin');
     cy.clickOnEntityMenuItem('simple-post');
-    cy.wait('@entitiesRequest').then(({ request, response }) => (startingEntitiesCount = response.body.length));
+    cy.wait('@entitiesRequest').then(({request, response}) => (startingEntitiesCount = response.body.length));
     cy.visit('/');
   });
 
-  it('should load SimplePosts', () => {
+  it('should load SimplePosts', () =>
+  {
     cy.intercept('GET', '/api/simple-posts*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('simple-post');
     cy.wait('@entitiesRequest');
     cy.getEntityHeading('SimplePost').should('exist');
-    if (startingEntitiesCount === 0) {
+    if (startingEntitiesCount === 0)
+    {
       cy.get(entityTableSelector).should('not.exist');
-    } else {
+    }
+    else
+    {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
   });
 
-  it('should load details SimplePost page', () => {
+  it('should load details SimplePost page', () =>
+  {
     cy.intercept('GET', '/api/simple-posts*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('simple-post');
     cy.wait('@entitiesRequest');
-    if (startingEntitiesCount > 0) {
-      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+    if (startingEntitiesCount > 0)
+    {
+      cy.get(entityDetailsButtonSelector).first().click({force: true});
       cy.getEntityDetailsHeading('simplePost');
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
   });
 
-  it('should load create SimplePost page', () => {
+  it('should load create SimplePost page', () =>
+  {
     cy.intercept('GET', '/api/simple-posts*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('simple-post');
     cy.wait('@entitiesRequest');
-    cy.get(entityCreateButtonSelector).click({ force: true });
+    cy.get(entityCreateButtonSelector).click({force: true});
     cy.getEntityCreateUpdateHeading('SimplePost');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
 
-  it('should load edit SimplePost page', () => {
+  it('should load edit SimplePost page', () =>
+  {
     cy.intercept('GET', '/api/simple-posts*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('simple-post');
     cy.wait('@entitiesRequest');
-    if (startingEntitiesCount > 0) {
-      cy.get(entityEditButtonSelector).first().click({ force: true });
+    if (startingEntitiesCount > 0)
+    {
+      cy.get(entityEditButtonSelector).first().click({force: true});
       cy.getEntityCreateUpdateHeading('SimplePost');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }

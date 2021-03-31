@@ -1,24 +1,28 @@
-.show-light-box{
-  .carousel-content{
+.show-light-box {
+  .carousel-content {
     width: 500px;
     margin: auto;
     border: 1px solid black;
     overflow: hidden;
-    .carousel-slide{
+
+    .carousel-slide {
       //transition: transform 0.5s ease-in-out;
       margin: auto;
-      img{
+
+      img {
         width: 100%;
       }
     }
 
   }
-  .row-box{
-    .slides{
+
+  .row-box {
+    .slides {
       margin: auto;
     }
   }
-  .modal-box{
+
+  .modal-box {
     display: none;
     position: fixed;
     z-index: 19999;
@@ -29,11 +33,13 @@
     height: 100%;
     overflow: auto;
     background-color: black;
-    .close-modal{
+
+    .close-modal {
       font-size: 40px;
       cursor: pointer;
     }
-    .modal-content-image{
+
+    .modal-content-image {
       position: relative;
       background: black;
 
@@ -41,8 +47,9 @@
       padding: 0;
       width: 90%;
       max-width: 1200px;
-      .image-item{
-        img{
+
+      .image-item {
+        img {
           display: flex;
           width: auto;
           height: 60vh;
@@ -51,8 +58,9 @@
         }
       }
     }
-    .dots{
-      .dot-item{
+
+    .dots {
+      .dot-item {
         cursor: pointer;
       }
     }

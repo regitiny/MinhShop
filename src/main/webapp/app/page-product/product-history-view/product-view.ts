@@ -15,7 +15,7 @@ export const ProductViews = (productView) =>
   }
   if (!alreadyExist)
   {
-     productViews.push(productView)
+    productViews.push(productView)
   }
   // localStorage.setItem('product', JSON.stringify(productViews))
   localStorage.setItem('product', JSON.stringify(productViews))

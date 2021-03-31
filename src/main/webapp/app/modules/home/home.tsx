@@ -87,7 +87,7 @@ const Home = props =>
                               </span>
                             </CardText>
                             <Button color="primary"
-                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                              className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -180,7 +180,7 @@ const Home = props =>
                 {consoles && consoles.length > 0
                   ? consoles.map(console => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2"
-                         key={console.uuid}>
+                      key={console.uuid}>
                       <NavLink to={`/page/may-console/${console.id}`} tag={Link}>
                         <Card>
                           <div className="image-size">
@@ -199,7 +199,7 @@ const Home = props =>
                               </span>
                             </CardText>
                             <Button color="primary"
-                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                              className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -237,7 +237,7 @@ const Home = props =>
                 {macbooks && macbooks.length > 0
                   ? macbooks.map(macbook => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2"
-                         key={macbook.uuid}>
+                      key={macbook.uuid}>
                       <NavLink to={`/page/macbook/${macbook.id}`} tag={Link}>
                         <Card>
                           <div className="image-size">
@@ -256,7 +256,7 @@ const Home = props =>
                               </span>
                             </CardText>
                             <Button color="primary"
-                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                              className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>
@@ -294,7 +294,7 @@ const Home = props =>
                 {gameEquipments && gameEquipments.length > 0
                   ? gameEquipments.map(gameEquipment => (
                     <div className="section-product col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-2"
-                         key={gameEquipment.uuid}>
+                      key={gameEquipment.uuid}>
                       <NavLink to={`/page/thiet-bi-choi-game/${gameEquipment.id}`} tag={Link}>
                         <Card>
                           <div className="image-size">
@@ -313,7 +313,7 @@ const Home = props =>
                               </span>
                             </CardText>
                             <Button color="primary"
-                                    className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                              className="btn-block d-none d-sm-none d-md-none d-lg-block d-xl-block">
                               XEM THÊM CHI TIẾT
                             </Button>
                           </CardBody>

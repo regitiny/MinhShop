@@ -20,7 +20,7 @@ export const HanhChinhVN = (props: IHanhChinhVNProps) =>
 {
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
   );
   const [sorting, setSorting] = useState(false);
 

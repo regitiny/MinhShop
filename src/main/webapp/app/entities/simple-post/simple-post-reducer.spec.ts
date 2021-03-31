@@ -13,6 +13,7 @@ import reducer, {
   getEntities,
   getEntity,
   getSearchEntities,
+  partialUpdate,
   reset,
   updateEntity,
 } from './simple-post.reducer';
@@ -98,7 +99,12 @@ describe('Entities reducer tests', () =>
     it('should set state to updating', () =>
     {
       testMultipleTypes(
-        [REQUEST(ACTION_TYPES.CREATE_SIMPLEPOST), REQUEST(ACTION_TYPES.UPDATE_SIMPLEPOST), REQUEST(ACTION_TYPES.DELETE_SIMPLEPOST)],
+        [
+          REQUEST(ACTION_TYPES.CREATE_SIMPLEPOST),
+          REQUEST(ACTION_TYPES.UPDATE_SIMPLEPOST),
+          REQUEST(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST),
+          REQUEST(ACTION_TYPES.DELETE_SIMPLEPOST),
+        ],
         {},
         state =>
         {
@@ -137,6 +143,7 @@ describe('Entities reducer tests', () =>
           FAILURE(ACTION_TYPES.FETCH_SIMPLEPOST),
           FAILURE(ACTION_TYPES.CREATE_SIMPLEPOST),
           FAILURE(ACTION_TYPES.UPDATE_SIMPLEPOST),
+          FAILURE(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST),
           FAILURE(ACTION_TYPES.DELETE_SIMPLEPOST),
         ],
         'error message',
@@ -247,6 +254,7 @@ describe('Entities reducer tests', () =>
       axios.get = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.post = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.put = sinon.stub().returns(Promise.resolve(resolvedObject));
+      axios.patch = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
@@ -317,6 +325,20 @@ describe('Entities reducer tests', () =>
         },
       ];
       await store.dispatch(updateEntity({id: 1})).then(() => expect(store.getActions()).toEqual(expectedActions));
+    });
+
+    it('dispatches ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST actions', async () =>
+    {
+      const expectedActions = [
+        {
+          type: REQUEST(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST),
+        },
+        {
+          type: SUCCESS(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST),
+          payload: resolvedObject,
+        },
+      ];
+      await store.dispatch(partialUpdate({id: 1})).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
     it('dispatches ACTION_TYPES.DELETE_SIMPLEPOST actions', async () =>

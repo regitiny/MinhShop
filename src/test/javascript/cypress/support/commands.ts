@@ -63,6 +63,8 @@ export const submitInitResetPasswordSelector = '[data-cy="submit"]';
 
 // Administration
 export const userManagementPageHeadingSelector = '[data-cy="userManagementPageHeading"]';
+export const swaggerFrameSelector = 'iframe[data-cy="swagger-frame"]';
+export const swaggerPageSelector = '[id="swagger-ui"]';
 export const metricsPageHeadingSelector = '[data-cy="metricsPageHeading"]';
 export const healthPageHeadingSelector = '[data-cy="healthPageHeading"]';
 export const logsPageHeadingSelector = '[data-cy="logsPageHeading"]';
@@ -76,16 +78,20 @@ export const classInvalid = 'av-invalid';
 
 export const classValid = 'av-valid';
 
-Cypress.Commands.add('login', (username: string, password: string) => {
+Cypress.Commands.add('login', (username: string, password: string) =>
+{
   cy.clickOnLoginItem();
   cy.get(usernameLoginSelector).type(username);
   cy.get(passwordLoginSelector).type(password);
   cy.get(submitLoginSelector).click();
 });
 
-declare global {
-  namespace Cypress {
-    interface Chainable<Subject> {
+declare global
+{
+  namespace Cypress
+  {
+    interface Chainable<Subject>
+    {
       login(username: string, password: string): Cypress.Chainable;
     }
   }

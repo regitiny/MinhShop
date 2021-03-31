@@ -258,7 +258,7 @@ public class PostServiceImpl implements PostService
   @Override
   public Long save(PostModel postModel)
   {
-    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.MANAGEMENT) || SecurityUtils.getCurrentUserLogin().isEmpty())
+    if (!SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.MANAGEMENT) || SecurityUtils.getCurrentUserLogin().isEmpty())
       throw new BadRequestAlertException("đéo phải quản lý thì làm gì có cái quyền upload bạn ơi", null, "notManagement");
 
     return createNewPost(postModel);

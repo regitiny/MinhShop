@@ -1,9 +1,10 @@
-import { by, element, ElementFinder, protractor } from 'protractor';
-import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {by, element, ElementFinder, protractor} from 'protractor';
+import {isVisible, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 const expect = chai.expect;
 
-export default class TypePostUpdatePage {
+export default class TypePostUpdatePage
+{
   pageTitle: ElementFinder = element(by.id('minhShopApp.typePost.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
@@ -18,103 +19,128 @@ export default class TypePostUpdatePage {
   dataSizeInput: ElementFinder = element(by.css('input#type-post-dataSize'));
   commentInput: ElementFinder = element(by.css('input#type-post-comment'));
 
-  getPageTitle() {
+  getPageTitle()
+  {
     return this.pageTitle;
   }
 
-  async setUuidInput(uuid) {
+  async setUuidInput(uuid)
+  {
     await this.uuidInput.sendKeys(uuid);
   }
 
-  async getUuidInput() {
+  async getUuidInput()
+  {
     return this.uuidInput.getAttribute('value');
   }
 
-  async setTypeNameInput(typeName) {
+  async setTypeNameInput(typeName)
+  {
     await this.typeNameInput.sendKeys(typeName);
   }
 
-  async getTypeNameInput() {
+  async getTypeNameInput()
+  {
     return this.typeNameInput.getAttribute('value');
   }
 
-  async setSearchFieldInput(searchField) {
+  async setSearchFieldInput(searchField)
+  {
     await this.searchFieldInput.sendKeys(searchField);
   }
 
-  async getSearchFieldInput() {
+  async getSearchFieldInput()
+  {
     return this.searchFieldInput.getAttribute('value');
   }
 
-  async setRoleInput(role) {
+  async setRoleInput(role)
+  {
     await this.roleInput.sendKeys(role);
   }
 
-  async getRoleInput() {
+  async getRoleInput()
+  {
     return this.roleInput.getAttribute('value');
   }
 
-  async setCreatedDateInput(createdDate) {
+  async setCreatedDateInput(createdDate)
+  {
     await this.createdDateInput.sendKeys(createdDate);
   }
 
-  async getCreatedDateInput() {
+  async getCreatedDateInput()
+  {
     return this.createdDateInput.getAttribute('value');
   }
 
-  async setModifiedDateInput(modifiedDate) {
+  async setModifiedDateInput(modifiedDate)
+  {
     await this.modifiedDateInput.sendKeys(modifiedDate);
   }
 
-  async getModifiedDateInput() {
+  async getModifiedDateInput()
+  {
     return this.modifiedDateInput.getAttribute('value');
   }
 
-  async setCreatedByInput(createdBy) {
+  async setCreatedByInput(createdBy)
+  {
     await this.createdByInput.sendKeys(createdBy);
   }
 
-  async getCreatedByInput() {
+  async getCreatedByInput()
+  {
     return this.createdByInput.getAttribute('value');
   }
 
-  async setModifiedByInput(modifiedBy) {
+  async setModifiedByInput(modifiedBy)
+  {
     await this.modifiedByInput.sendKeys(modifiedBy);
   }
 
-  async getModifiedByInput() {
+  async getModifiedByInput()
+  {
     return this.modifiedByInput.getAttribute('value');
   }
 
-  async setDataSizeInput(dataSize) {
+  async setDataSizeInput(dataSize)
+  {
     await this.dataSizeInput.sendKeys(dataSize);
   }
 
-  async getDataSizeInput() {
+  async getDataSizeInput()
+  {
     return this.dataSizeInput.getAttribute('value');
   }
 
-  async setCommentInput(comment) {
+  async setCommentInput(comment)
+  {
     await this.commentInput.sendKeys(comment);
   }
 
-  async getCommentInput() {
+  async getCommentInput()
+  {
     return this.commentInput.getAttribute('value');
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel()
+  {
     await this.cancelButton.click();
   }
 
-  getSaveButton() {
+  getSaveButton()
+  {
     return this.saveButton;
   }
 
-  async enterData() {
+  async enterData()
+  {
     await waitUntilDisplayed(this.saveButton);
     await this.setUuidInput('64c99148-3908-465d-8c4a-e510e3ade974');
     expect(await this.getUuidInput()).to.match(/64c99148-3908-465d-8c4a-e510e3ade974/);

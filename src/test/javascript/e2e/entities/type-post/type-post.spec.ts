@@ -1,14 +1,15 @@
-import { browser } from 'protractor';
+import {browser} from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
 import TypePostComponentsPage from './type-post.page-object';
 import TypePostUpdatePage from './type-post-update.page-object';
-import { getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed } from '../../util/utils';
+import {getRecordsCount, isVisible, waitUntilCount, waitUntilDisplayed} from '../../util/utils';
 
 const expect = chai.expect;
 
-describe('TypePost e2e test', () => {
+describe('TypePost e2e test', () =>
+{
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
   let typePostComponentsPage: TypePostComponentsPage;
@@ -16,7 +17,8 @@ describe('TypePost e2e test', () => {
   const username = process.env.E2E_USERNAME ?? 'admin';
   const password = process.env.E2E_PASSWORD ?? 'admin';
 
-  before(async () => {
+  before(async () =>
+  {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
@@ -30,19 +32,22 @@ describe('TypePost e2e test', () => {
     await waitUntilDisplayed(navBarPage.accountMenu);
   });
 
-  beforeEach(async () => {
+  beforeEach(async () =>
+  {
     await browser.get('/');
     await waitUntilDisplayed(navBarPage.entityMenu);
     typePostComponentsPage = new TypePostComponentsPage();
     typePostComponentsPage = await typePostComponentsPage.goToPage(navBarPage);
   });
 
-  it('should load TypePosts', async () => {
+  it('should load TypePosts', async () =>
+  {
     expect(await typePostComponentsPage.title.getText()).to.match(/Type Posts/);
     expect(await typePostComponentsPage.createButton.isEnabled()).to.be.true;
   });
 
-  it('should create and delete TypePosts', async () => {
+  it('should create and delete TypePosts', async () =>
+  {
     const beforeRecordsCount = (await isVisible(typePostComponentsPage.noRecords))
       ? 0
       : await getRecordsCount(typePostComponentsPage.table);
@@ -55,15 +60,19 @@ describe('TypePost e2e test', () => {
     expect(await typePostComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
 
     await typePostComponentsPage.deleteTypePost();
-    if (beforeRecordsCount !== 0) {
+    if (beforeRecordsCount !== 0)
+    {
       await waitUntilCount(typePostComponentsPage.records, beforeRecordsCount);
       expect(await typePostComponentsPage.records.count()).to.eq(beforeRecordsCount);
-    } else {
+    }
+    else
+    {
       await waitUntilDisplayed(typePostComponentsPage.noRecords);
     }
   });
 
-  after(async () => {
+  after(async () =>
+  {
     await navBarPage.autoSignOut();
   });
 });

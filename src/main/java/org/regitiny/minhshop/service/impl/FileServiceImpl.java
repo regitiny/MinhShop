@@ -110,75 +110,7 @@ public class FileServiceImpl implements FileService
       .map(
         existingFile ->
         {
-          if (fileDTO.getUuid() != null)
-          {
-            existingFile.setUuid(fileDTO.getUuid());
-          }
-
-          if (fileDTO.getFileData() != null)
-          {
-            existingFile.setFileData(fileDTO.getFileData());
-          }
-          if (fileDTO.getFileDataContentType() != null)
-          {
-            existingFile.setFileDataContentType(fileDTO.getFileDataContentType());
-          }
-
-          if (fileDTO.getNameFile() != null)
-          {
-            existingFile.setNameFile(fileDTO.getNameFile());
-          }
-
-          if (fileDTO.getExtension() != null)
-          {
-            existingFile.setExtension(fileDTO.getExtension());
-          }
-
-          if (fileDTO.getTypeFile() != null)
-          {
-            existingFile.setTypeFile(fileDTO.getTypeFile());
-          }
-
-          if (fileDTO.getSearchField() != null)
-          {
-            existingFile.setSearchField(fileDTO.getSearchField());
-          }
-
-          if (fileDTO.getRole() != null)
-          {
-            existingFile.setRole(fileDTO.getRole());
-          }
-
-          if (fileDTO.getCreatedDate() != null)
-          {
-            existingFile.setCreatedDate(fileDTO.getCreatedDate());
-          }
-
-          if (fileDTO.getModifiedDate() != null)
-          {
-            existingFile.setModifiedDate(fileDTO.getModifiedDate());
-          }
-
-          if (fileDTO.getCreatedBy() != null)
-          {
-            existingFile.setCreatedBy(fileDTO.getCreatedBy());
-          }
-
-          if (fileDTO.getModifiedBy() != null)
-          {
-            existingFile.setModifiedBy(fileDTO.getModifiedBy());
-          }
-
-          if (fileDTO.getDataSize() != null)
-          {
-            existingFile.setDataSize(fileDTO.getDataSize());
-          }
-
-          if (fileDTO.getComment() != null)
-          {
-            existingFile.setComment(fileDTO.getComment());
-          }
-
+          fileMapper.partialUpdate(existingFile, fileDTO);
           return existingFile;
         }
       )

@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge').merge;
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -14,7 +13,7 @@ const commonConfig = require('./webpack.common.js');
 const ENV = 'development';
 
 module.exports = options =>
-  webpackMerge(commonConfig({ env: ENV }), {
+  webpackMerge(commonConfig({env: ENV}), {
     devtool: 'cheap-module-source-map', // https://reactjs.org/docs/cross-origin-errors.html
     mode: ENV,
     entry: ['./src/main/webapp/app/index'],
@@ -22,6 +21,9 @@ module.exports = options =>
       path: utils.root('build/resources/main/static/'),
       filename: 'app/[name].bundle.js',
       chunkFilename: 'app/[id].chunk.js',
+    },
+    optimization: {
+      moduleIds: 'named',
     },
     module: {
       rules: [
@@ -33,7 +35,7 @@ module.exports = options =>
             'postcss-loader',
             {
               loader: 'sass-loader',
-              options: { implementation: sass },
+              options: {implementation: sass},
             },
           ],
         },
@@ -45,7 +47,7 @@ module.exports = options =>
       contentBase: './build/resources/main/static/',
       proxy: [
         {
-          context: ['/api', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/v3/api-docs', '/h2-console', '/auth'],
+          context: ['/api', '/api/open', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/v3/api-docs', '/h2-console', '/auth'],
           target: `http${options.tls ? 's' : ''}://catiny.com:8080`,
           // target: `http${options.tls ? 's' : ''}://localhost:8080`,
           secure: false,
@@ -59,7 +61,7 @@ module.exports = options =>
         },
       ],
       watchOptions: {
-        ignored: /node_modules/,
+        ignore: [/node_modules/, utils.root('src/test')],
       },
       https: options.tls,
       historyApiFallback: true,
@@ -69,8 +71,8 @@ module.exports = options =>
       process.env.JHI_DISABLE_WEBPACK_LOGS
         ? null
         : new SimpleProgressWebpackPlugin({
-            format: options.stats === 'minimal' ? 'compact' : 'expanded',
-          }),
+          format: options.stats === 'minimal' ? 'compact' : 'expanded',
+        }),
       new FriendlyErrorsWebpackPlugin(),
       new BrowserSyncPlugin(
         {
@@ -101,10 +103,7 @@ module.exports = options =>
           reload: false,
         }
       ),
-      new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
-      new writeFilePlugin(),
-      new webpack.WatchIgnorePlugin([utils.root('src/test')]),
       new WebpackNotifierPlugin({
         title: 'Minh Shop',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),

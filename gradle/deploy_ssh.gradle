@@ -10,9 +10,13 @@ remotes {
     password = project.property('server.ssh.password')
     host = project.property('server.ssh.ip')
     if (project.hasProperty('server.ssh.port'))
+    {
       port = project.property('server.ssh.port') as int
+    }
     if (project.hasProperty("server.ssh.username"))
+    {
       user = project.property('server.ssh.username')
+    }
   }
 }
 

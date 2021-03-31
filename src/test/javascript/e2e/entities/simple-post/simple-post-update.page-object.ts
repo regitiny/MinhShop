@@ -1,9 +1,10 @@
-import { by, element, ElementFinder, protractor } from 'protractor';
-import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {by, element, ElementFinder, protractor} from 'protractor';
+import {isVisible, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 const expect = chai.expect;
 
-export default class SimplePostUpdatePage {
+export default class SimplePostUpdatePage
+{
   pageTitle: ElementFinder = element(by.id('minhShopApp.simplePost.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
@@ -28,207 +29,258 @@ export default class SimplePostUpdatePage {
   typePostSelect: ElementFinder = element(by.css('select#simple-post-typePost'));
   typePostFilterSelect: ElementFinder = element(by.css('select#simple-post-typePostFilter'));
 
-  getPageTitle() {
+  getPageTitle()
+  {
     return this.pageTitle;
   }
 
-  async setUuidInput(uuid) {
+  async setUuidInput(uuid)
+  {
     await this.uuidInput.sendKeys(uuid);
   }
 
-  async getUuidInput() {
+  async getUuidInput()
+  {
     return this.uuidInput.getAttribute('value');
   }
 
-  async setTitleInput(title) {
+  async setTitleInput(title)
+  {
     await this.titleInput.sendKeys(title);
   }
 
-  async getTitleInput() {
+  async getTitleInput()
+  {
     return this.titleInput.getAttribute('value');
   }
 
-  async setPriceInput(price) {
+  async setPriceInput(price)
+  {
     await this.priceInput.sendKeys(price);
   }
 
-  async getPriceInput() {
+  async getPriceInput()
+  {
     return this.priceInput.getAttribute('value');
   }
 
-  async setSalePriceInput(salePrice) {
+  async setSalePriceInput(salePrice)
+  {
     await this.salePriceInput.sendKeys(salePrice);
   }
 
-  async getSalePriceInput() {
+  async getSalePriceInput()
+  {
     return this.salePriceInput.getAttribute('value');
   }
 
-  async setPercentSaleInput(percentSale) {
+  async setPercentSaleInput(percentSale)
+  {
     await this.percentSaleInput.sendKeys(percentSale);
   }
 
-  async getPercentSaleInput() {
+  async getPercentSaleInput()
+  {
     return this.percentSaleInput.getAttribute('value');
   }
 
-  async setImageUrlInput(imageUrl) {
+  async setImageUrlInput(imageUrl)
+  {
     await this.imageUrlInput.sendKeys(imageUrl);
   }
 
-  async getImageUrlInput() {
+  async getImageUrlInput()
+  {
     return this.imageUrlInput.getAttribute('value');
   }
 
-  async setScoresInput(scores) {
+  async setScoresInput(scores)
+  {
     await this.scoresInput.sendKeys(scores);
   }
 
-  async getScoresInput() {
+  async getScoresInput()
+  {
     return this.scoresInput.getAttribute('value');
   }
 
-  async setSimpleContentInput(simpleContent) {
+  async setSimpleContentInput(simpleContent)
+  {
     await this.simpleContentInput.sendKeys(simpleContent);
   }
 
-  async getSimpleContentInput() {
+  async getSimpleContentInput()
+  {
     return this.simpleContentInput.getAttribute('value');
   }
 
-  async setOtherInfoInput(otherInfo) {
+  async setOtherInfoInput(otherInfo)
+  {
     await this.otherInfoInput.sendKeys(otherInfo);
   }
 
-  async getOtherInfoInput() {
+  async getOtherInfoInput()
+  {
     return this.otherInfoInput.getAttribute('value');
   }
 
-  async setSearchFieldInput(searchField) {
+  async setSearchFieldInput(searchField)
+  {
     await this.searchFieldInput.sendKeys(searchField);
   }
 
-  async getSearchFieldInput() {
+  async getSearchFieldInput()
+  {
     return this.searchFieldInput.getAttribute('value');
   }
 
-  async setRoleInput(role) {
+  async setRoleInput(role)
+  {
     await this.roleInput.sendKeys(role);
   }
 
-  async getRoleInput() {
+  async getRoleInput()
+  {
     return this.roleInput.getAttribute('value');
   }
 
-  async setCreatedDateInput(createdDate) {
+  async setCreatedDateInput(createdDate)
+  {
     await this.createdDateInput.sendKeys(createdDate);
   }
 
-  async getCreatedDateInput() {
+  async getCreatedDateInput()
+  {
     return this.createdDateInput.getAttribute('value');
   }
 
-  async setModifiedDateInput(modifiedDate) {
+  async setModifiedDateInput(modifiedDate)
+  {
     await this.modifiedDateInput.sendKeys(modifiedDate);
   }
 
-  async getModifiedDateInput() {
+  async getModifiedDateInput()
+  {
     return this.modifiedDateInput.getAttribute('value');
   }
 
-  async setCreatedByInput(createdBy) {
+  async setCreatedByInput(createdBy)
+  {
     await this.createdByInput.sendKeys(createdBy);
   }
 
-  async getCreatedByInput() {
+  async getCreatedByInput()
+  {
     return this.createdByInput.getAttribute('value');
   }
 
-  async setModifiedByInput(modifiedBy) {
+  async setModifiedByInput(modifiedBy)
+  {
     await this.modifiedByInput.sendKeys(modifiedBy);
   }
 
-  async getModifiedByInput() {
+  async getModifiedByInput()
+  {
     return this.modifiedByInput.getAttribute('value');
   }
 
-  async setDataSizeInput(dataSize) {
+  async setDataSizeInput(dataSize)
+  {
     await this.dataSizeInput.sendKeys(dataSize);
   }
 
-  async getDataSizeInput() {
+  async getDataSizeInput()
+  {
     return this.dataSizeInput.getAttribute('value');
   }
 
-  async setCommentInput(comment) {
+  async setCommentInput(comment)
+  {
     await this.commentInput.sendKeys(comment);
   }
 
-  async getCommentInput() {
+  async getCommentInput()
+  {
     return this.commentInput.getAttribute('value');
   }
 
-  async postDetailsSelectLastOption() {
+  async postDetailsSelectLastOption()
+  {
     await this.postDetailsSelect.all(by.tagName('option')).last().click();
   }
 
-  async postDetailsSelectOption(option) {
+  async postDetailsSelectOption(option)
+  {
     await this.postDetailsSelect.sendKeys(option);
   }
 
-  getPostDetailsSelect() {
+  getPostDetailsSelect()
+  {
     return this.postDetailsSelect;
   }
 
-  async getPostDetailsSelectedOption() {
+  async getPostDetailsSelectedOption()
+  {
     return this.postDetailsSelect.element(by.css('option:checked')).getText();
   }
 
-  async typePostSelectLastOption() {
+  async typePostSelectLastOption()
+  {
     await this.typePostSelect.all(by.tagName('option')).last().click();
   }
 
-  async typePostSelectOption(option) {
+  async typePostSelectOption(option)
+  {
     await this.typePostSelect.sendKeys(option);
   }
 
-  getTypePostSelect() {
+  getTypePostSelect()
+  {
     return this.typePostSelect;
   }
 
-  async getTypePostSelectedOption() {
+  async getTypePostSelectedOption()
+  {
     return this.typePostSelect.element(by.css('option:checked')).getText();
   }
 
-  async typePostFilterSelectLastOption() {
+  async typePostFilterSelectLastOption()
+  {
     await this.typePostFilterSelect.all(by.tagName('option')).last().click();
   }
 
-  async typePostFilterSelectOption(option) {
+  async typePostFilterSelectOption(option)
+  {
     await this.typePostFilterSelect.sendKeys(option);
   }
 
-  getTypePostFilterSelect() {
+  getTypePostFilterSelect()
+  {
     return this.typePostFilterSelect;
   }
 
-  async getTypePostFilterSelectedOption() {
+  async getTypePostFilterSelectedOption()
+  {
     return this.typePostFilterSelect.element(by.css('option:checked')).getText();
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel()
+  {
     await this.cancelButton.click();
   }
 
-  getSaveButton() {
+  getSaveButton()
+  {
     return this.saveButton;
   }
 
-  async enterData() {
+  async enterData()
+  {
     await waitUntilDisplayed(this.saveButton);
     await this.setUuidInput('64c99148-3908-465d-8c4a-e510e3ade974');
     expect(await this.getUuidInput()).to.match(/64c99148-3908-465d-8c4a-e510e3ade974/);

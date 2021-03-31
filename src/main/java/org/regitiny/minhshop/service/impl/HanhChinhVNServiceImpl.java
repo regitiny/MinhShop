@@ -76,46 +76,7 @@ public class HanhChinhVNServiceImpl implements HanhChinhVNService
       .map(
         existingHanhChinhVN ->
         {
-          if (hanhChinhVNDTO.getName() != null)
-          {
-            existingHanhChinhVN.setName(hanhChinhVNDTO.getName());
-          }
-
-          if (hanhChinhVNDTO.getSlug() != null)
-          {
-            existingHanhChinhVN.setSlug(hanhChinhVNDTO.getSlug());
-          }
-
-          if (hanhChinhVNDTO.getType() != null)
-          {
-            existingHanhChinhVN.setType(hanhChinhVNDTO.getType());
-          }
-
-          if (hanhChinhVNDTO.getNameWithType() != null)
-          {
-            existingHanhChinhVN.setNameWithType(hanhChinhVNDTO.getNameWithType());
-          }
-
-          if (hanhChinhVNDTO.getCode() != null)
-          {
-            existingHanhChinhVN.setCode(hanhChinhVNDTO.getCode());
-          }
-
-          if (hanhChinhVNDTO.getParentCode() != null)
-          {
-            existingHanhChinhVN.setParentCode(hanhChinhVNDTO.getParentCode());
-          }
-
-          if (hanhChinhVNDTO.getPath() != null)
-          {
-            existingHanhChinhVN.setPath(hanhChinhVNDTO.getPath());
-          }
-
-          if (hanhChinhVNDTO.getPathWithType() != null)
-          {
-            existingHanhChinhVN.setPathWithType(hanhChinhVNDTO.getPathWithType());
-          }
-
+          hanhChinhVNMapper.partialUpdate(existingHanhChinhVN, hanhChinhVNDTO);
           return existingHanhChinhVN;
         }
       )

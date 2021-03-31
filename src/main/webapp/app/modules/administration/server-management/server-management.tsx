@@ -3,17 +3,18 @@ import {Button} from 'reactstrap';
 import {Storage} from 'react-jhipster';
 import axios from 'axios';
 
-export const ServerManagement=(props)=>
+export const ServerManagement = (props) =>
 {
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${Token}`;
-  const onResetElasticSearch=()=>{
+  const onResetElasticSearch = () =>
+  {
     axios({
       method: 'put',
       url: ' /api/management/admin/database/elasticsearch/syncs/reindex-all',
       headers: {Authorization: authToken}
     })
-      .then(res=>window.console.log(res.data))
+      .then(res => window.console.log(res.data))
   }
   return (
     <div className="d-flex justify-content-center">

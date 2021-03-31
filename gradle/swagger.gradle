@@ -64,19 +64,19 @@ task buildOpenApiBackend(type: org.openapitools.generator.gradle.plugin.tasks.Ge
   modelFilesConstrainedTo = [""]
   supportingFilesConstrainedTo = ["ApiUtil.java"]
   configOptions = [
-    delegatePattern        : "true",
-    title                  : "minh-shop",
-    useTags                : "true",
+    delegatePattern: "true",
+    title          : "minh-shop",
+    useTags        : "true",
 //    useOptional            : "true",
 //    hideGenerationTimestamp: "true",
 //    interfaceOnly: "true"
   ]
   typeMappings = [
-    "org.springframework.core.io.Resource" : "org.springframework.core.io.support.ResourceRegion",
-    "OffsetDateTime" : "Instant",
+    "org.springframework.core.io.Resource": "org.springframework.core.io.support.ResourceRegion",
+    "OffsetDateTime"                      : "Instant",
   ]
   instantiationTypes = [
-    "OffsetDateTime" : "java.time.Instant",
+    "OffsetDateTime": "java.time.Instant",
   ]
   validateSpec = true
   importMappings = [Problem: "org.zalando.problem.Problem"]

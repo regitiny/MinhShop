@@ -98,6 +98,20 @@ server:
 #
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
+yuvytung:
+  value:
+    number-of-cities: 0 # mặc định là không import và tối đa 63 thành phố
+  server:
+    host: catiny.com
+    ssh-ffmpeg:
+      host: catiny.com
+      port: 10022
+      username: root
+      password: rootVs.
+  data:
+    video:
+      folder-original: /root/minh-shop/data/video/original/
+      folder-processed: /root/minh-shop/data/video/processed/
 
 jhipster:
   cache: # Cache configuration

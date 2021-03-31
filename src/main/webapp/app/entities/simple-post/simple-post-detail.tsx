@@ -29,6 +29,12 @@ export const SimplePostDetail = (props: ISimplePostDetailProps) =>
         </h2>
         <dl className="jh-entity-details">
           <dt>
+            <span id="id">
+              <Translate contentKey="global.field.id">ID</Translate>
+            </span>
+          </dt>
+          <dd>{simplePostEntity.id}</dd>
+          <dt>
             <span id="uuid">
               <Translate contentKey="minhShopApp.simplePost.uuid">Uuid</Translate>
             </span>

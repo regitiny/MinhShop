@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
 import {Button, Col, Label, Row, UncontrolledTooltip} from 'reactstrap';
-import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {AvFeedback, AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
 import {setFileData, Translate, translate} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IRootState} from 'app/shared/reducers';
@@ -74,6 +74,8 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) =>
         ...simplePostEntity,
         ...values,
         typePostFilters: mapIdList(values.typePostFilters),
+        postDetails: postDetails.find(it => it.id.toString() === values.postDetailsId.toString()),
+        typePost: typePosts.find(it => it.id.toString() === values.typePostId.toString()),
       };
 
       if (isNew)
@@ -338,7 +340,14 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) =>
                 <Label for="simple-post-postDetails">
                   <Translate contentKey="minhShopApp.simplePost.postDetails">Post Details</Translate>
                 </Label>
-                <AvInput id="simple-post-postDetails" data-cy="postDetails" type="select" className="form-control" name="postDetails.id">
+                <AvInput
+                  id="simple-post-postDetails"
+                  data-cy="postDetails"
+                  type="select"
+                  className="form-control"
+                  name="postDetailsId"
+                  required
+                >
                   <option value="" key="0"/>
                   {postDetails
                     ? postDetails.map(otherEntity => (
@@ -348,6 +357,9 @@ export const SimplePostUpdate = (props: ISimplePostUpdateProps) =>
                     ))
                     : null}
                 </AvInput>
+                <AvFeedback>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </AvFeedback>
               </AvGroup>
               <AvGroup>
                 <Label for="simple-post-typePost">

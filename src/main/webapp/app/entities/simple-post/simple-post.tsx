@@ -33,6 +33,7 @@ import {overridePaginationStateWithQueryParams} from 'app/shared/util/entity-uti
 // import { getEntities as getTypePostFilters } from 'app/entities/type-post-filter/type-post-filter.reducer';
 import {getEntities as getTypePosts} from 'app/entities/type-post/type-post.reducer';
 import {getEntities as getPostDetails} from 'app/entities/post-details/post-details.reducer';
+import _ from 'lodash';
 
 export interface ISimplePostProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }>
 {
@@ -219,7 +220,7 @@ export const SimplePost = (props: ISimplePostProps) =>
           if (item.otherData)
           {
             const urls: any = item.otherData;
-            const images = JSON.parse(urls);
+            const images = _.attempt(() => JSON.parse(urls));
             if (images && images.length > 0)
             {
               result = images.map(image =>
@@ -228,12 +229,10 @@ export const SimplePost = (props: ISimplePostProps) =>
                   <img key={image.id} width="100%" src={image.link} alt="Card image cap"/>
                 )
               })
-
             }
           }
         }
       })
-
     }
     return result
   }

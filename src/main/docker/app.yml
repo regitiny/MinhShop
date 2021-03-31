@@ -42,6 +42,7 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 6379:6379
+    command: redis-server --requirepass rootVs.
   minhshop-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     #    volumes:

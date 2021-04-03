@@ -17,6 +17,7 @@ externalDocs:
   description: Find out more about Minh-Shop
   url: http://catiny.com
 servers:
+  - url: http://dev.catiny.com/api
   - url: http://localhost:8080/api
     description: Development server
   - url: https://localhost:8080/api

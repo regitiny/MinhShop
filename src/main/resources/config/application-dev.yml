@@ -12,6 +12,21 @@
 # Full reference is available at:
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
+yuvytung:
+  value:
+    number-of-cities: 0 # mặc định là không import và tối đa 63 thành phố
+  server:
+    host: localhost
+    ssh-ffmpeg:
+      host: localhost
+      port: 10022
+      username: root
+      password: rootVs.
+  data:
+    video:
+      folder-original: T:/data/minh-shop/ffmpeg/original-dev/
+      folder-processed: T:/data/minh-shop/ffmpeg/processed-dev/
+
 
 logging:
   level:
@@ -36,7 +51,7 @@ management:
 spring:
   devtools:
     restart:
-      enabled: true
+      enabled: false
       additional-exclude: static/**,.h2.server.properties
     livereload:
       enabled: false # we use Webpack dev server + BrowserSync for livereload
@@ -98,20 +113,7 @@ server:
 #
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-yuvytung:
-  value:
-    number-of-cities: 0 # mặc định là không import và tối đa 63 thành phố
-  server:
-    host: catiny.com
-    ssh-ffmpeg:
-      host: catiny.com
-      port: 10022
-      username: root
-      password: rootVs.
-  data:
-    video:
-      folder-original: /root/minh-shop/data/video/original/
-      folder-processed: /root/minh-shop/data/video/processed/
+
 
 jhipster:
   cache: # Cache configuration
@@ -126,11 +128,11 @@ jhipster:
   # CORS is only enabled by default with the "dev" profile
   cors:
     # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
-    allowed-origins: 'http://localhost:8100'
+    allowed-origins: 'https://dev.catiny.com:80'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
-    allow-credentials: true
+    #    allow-credentials: true
     max-age: 1800
   security:
     authentication:

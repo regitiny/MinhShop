@@ -1,14 +1,18 @@
 version: '3.8'
 services:
-  ffmpeg:
+  minhshop-dev-ffmpeg:
     image: yuvytung/ffmpeg:latest
     volumes:
-      - /root/minh-shop/data/video/original:/root/minh-shop/data/video/processed
-      - /root/minh-shop/data/video/processed:/root/minh-shop/data/video/processed
-    command:
-      - service ssh restart
-      - echo 'root:rootVs.' | chpasswd
-#    entrypoint:
-#      - /root/minh-shop/script/ffmpeg:/script/ffmpeg
-#    command: chmod +x /script/ffmpeg/process_videos.sh
-#    entrypoint: /script/ffmpeg/process_videos.sh
+      - T:/data/minh-shop/ffmpeg/original-dev:/data/minh-shop/ffmpeg/original
+      - T:/data/minh-shop/ffmpeg/processed-dev:/data/minh-shop/ffmpeg/processed
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+      resources:
+        limits:
+          cpus: '4'
+          memory: 512MB
+    ports:
+      - 10022:22

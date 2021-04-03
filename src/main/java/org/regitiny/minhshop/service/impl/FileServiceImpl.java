@@ -1,7 +1,6 @@
 package org.regitiny.minhshop.service.impl;
 
 import lombok.extern.log4j.Log4j2;
-import org.regitiny.minhshop.config.constant.ServerCommand;
 import org.regitiny.minhshop.domain.File;
 import org.regitiny.minhshop.repository.FileRepository;
 import org.regitiny.minhshop.repository.search.FileSearchRepository;
@@ -55,7 +54,7 @@ public class FileServiceImpl implements FileService
   }
 
   @Override
-  public FileDTO upload(MultipartFile fileData)
+  public FileDTO createFileDetail(MultipartFile fileData)
   {
     log.debug("Request to upload File : dataIsEmpty = {}", fileData.isEmpty());
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
@@ -73,8 +72,6 @@ public class FileServiceImpl implements FileService
     nameFile += StringPool.PERIOD + extension;
 
     file.nameFile(nameFile)
-      .pathFileOriginal(ServerCommand.getFOLDER_INPUT())
-      .pathFileProcessed(ServerCommand.getFOLDER_OUTPUT())
       .processed(false)
       .dataSize(dataSize)
       .typeFile(typeFile)

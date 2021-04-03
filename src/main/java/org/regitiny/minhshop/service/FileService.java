@@ -31,7 +31,7 @@ public interface FileService
    * @param fileData data of file
    * @return FileDTO (other detail of file)
    */
-  FileDTO upload(MultipartFile fileData);
+  FileDTO createFileDetail(MultipartFile fileData);
 
 
   Optional<File> getFileByFileName(String fileName);

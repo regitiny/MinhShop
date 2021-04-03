@@ -47,6 +47,12 @@ module.exports = options =>
     devServer: {
       stats: options.stats,
       hot: true,
+      allowedHosts: [
+        'localhost',
+        'catiny.com',
+        'dev.catiny.com',
+        'host2.com',
+      ],
       contentBase: './build/resources/main/static/',
       proxy: [
         {

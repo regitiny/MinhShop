@@ -1,9 +1,10 @@
 jib {
   from {
-    image = "adoptopenjdk:11-jre-hotspot"
+    image = "openjdk:11.0.10-jdk"
+//    image = "adoptopenjdk:11-jre-hotspot"
   }
   to {
-    image = "minhshop:latest"
+    image = "yuvytung/minhshop:latest"
   }
   container {
     entrypoint = ["bash", "-c", "/entrypoint.sh"]

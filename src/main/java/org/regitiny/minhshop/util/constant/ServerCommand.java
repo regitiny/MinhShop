@@ -35,24 +35,24 @@ public class ServerCommand
    */
   public static String videoQRN(String fileName)
   {
-    return ffmpegCustom(fileName, null, " -preset fast -crf 26 ");
+    return ffmpegCustom(fileName, null, " -c:v libx264 -c:a copy -preset fast -crf 26 ");
   }
 
-  public static String ffmpegCustom(String folderOriginal, String folderProcessed, String customOption)
+  public static String ffmpegCustom(String fileNameInput, String fileNameOutput, String customOption)
   {
     String command = "ffmpeg -i ${varOriginalServerProcessing}${fileNameInput} " +
-      "-y -c:v libx264 -c:a copy ${customOption} " +
+      "-y ${customOption} " +
       "${varProcessedServerProcessing}${fileNameOutput} " +
-      "2> ${varOriginalServerProcessing}${fileNameOutput}.log && " +
-      "cat ffmpeg-log/${varOriginalServerProcessing}${fileNameOutput}.log";
+      "2> ${varProcessedServerProcessing}${fileNameOutput}.log && " +
+      "cat ${varProcessedServerProcessing}${fileNameOutput}.log";
     if (customOption == null || customOption.equals(StringPool.BLANK))
-      customOption = " -preset slower -crf 28 ";
-    if (folderProcessed == null || folderProcessed.equals(StringPool.BLANK))
-      folderProcessed = folderOriginal;
+      customOption = " ";
+    if (fileNameOutput == null || fileNameOutput.equals(StringPool.BLANK))
+      fileNameOutput = fileNameInput;
     command = command.replace(NAME_FOLDER_ORIGINAL_SERVER_PROCESSING, FOLDER_ORIGINAL_SERVER_PROCESSING)
-      .replace(FILE_NAME_INPUT, folderOriginal)
+      .replace(FILE_NAME_INPUT, fileNameInput)
       .replace(NAME_FOLDER_PROCESSED_SERVER_PROCESSING, FOLDER_PROCESSED_SERVER_PROCESSING)
-      .replace(FILE_NAME_OUTPUT, folderProcessed)
+      .replace(FILE_NAME_OUTPUT, fileNameOutput)
       .replace(CUSTOM_OPTION, customOption);
     log.debug("command quality reduction video : command= {}", command);
     return command;
@@ -60,12 +60,12 @@ public class ServerCommand
 
   public static String ffmpegVideoQualityReductionLittle(String fileName)
   {
-    return ffmpegCustom(fileName, null, " -preset ultrafast -crf 24 ");
+    return ffmpegCustom(fileName, null, " -c:v libx264 -c:a copy -preset ultrafast -crf 24 ");
   }
 
   public static String ffmpegVideoQualityReductionGreat(String fileName)
   {
-    return ffmpegCustom(fileName, null, " -preset veryslow -crf 28 ");
+    return ffmpegCustom(fileName, null, " -c:v libx264 -c:a copy -preset veryslow -crf 28 ");
   }
 
   @Autowired

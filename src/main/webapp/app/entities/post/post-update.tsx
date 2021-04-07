@@ -474,14 +474,21 @@ export const PostUpdate = (props: IPostUpdateProps) =>
                   model={contentState}
                   onModelChange={handleModelChange}
                   config={{
-                    imageUploadURL: '/api/images/upload',
-                    imageUploadParam: 'imageDataFile',
                     requestHeaders: {
                       Authorization: authToken,
                     },
+                    imageUploadURL: '/api/file/images/froala/upload',
+                    imageUploadParam: 'imageData',
                     imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
                     imageUploadMethod: 'POST',
                     imageUpload: true,
+
+                    videoUploadURL: '/api/file/videos/froala/upload',
+                    videoUploadParam: 'videoDatas',
+                    videoUploadMethod: 'POST',
+                    videoMaxSize: 1024 * 1024 * 1024, // 1Gb
+                    videoAllowedTypes: ['webm', 'jpg', 'ogg', 'mp4'],
+                    videoUpload: true
                   }}
                 />
                 <UncontrolledTooltip target="contentLabel">

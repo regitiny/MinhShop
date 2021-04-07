@@ -6,6 +6,7 @@ import org.regitiny.minhshop.security.SecurityUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -18,23 +19,28 @@ import java.util.UUID;
 public class EntityDefaultPropertiesServiceUtils
 {
 
+  private EntityDefaultPropertiesServiceUtils()
+  {
+    throw new IllegalStateException("EntityDefaultPropertiesServiceUtils class");
+  }
+
   public static Object setPropertiesBeforeCreate(Object object)
   {
     log.debug("class name of Object = {}", object.getClass().getName());
     try
     {
       Instant now = Instant.now();
-      String thisUser = null;
-      if (SecurityUtils.getCurrentUserLogin().isPresent()) thisUser = SecurityUtils.getCurrentUserLogin().get();
-      String createdBy = thisUser;
-      String modifiedBy = thisUser;
+      String thisUser = SecurityUtils.getCurrentUserLogin().orElse(null);
 
       object.getClass().getDeclaredMethod("setRole", String.class).invoke(object, AuthoritiesConstants.MANAGEMENT);
       object.getClass().getDeclaredMethod("setUuid", UUID.class).invoke(object, UUID.randomUUID());
       object.getClass().getDeclaredMethod("setCreatedDate", now.getClass()).invoke(object, now);
       object.getClass().getDeclaredMethod("setModifiedDate", now.getClass()).invoke(object, now);
-      object.getClass().getDeclaredMethod("setCreatedBy", createdBy.getClass()).invoke(object, createdBy);
-      object.getClass().getDeclaredMethod("setModifiedBy", modifiedBy.getClass()).invoke(object, modifiedBy);
+      if (Objects.nonNull(thisUser))
+      {
+        object.getClass().getDeclaredMethod("setCreatedBy", thisUser.getClass()).invoke(object, thisUser);
+        object.getClass().getDeclaredMethod("setModifiedBy", thisUser.getClass()).invoke(object, thisUser);
+      }
     }
     catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
     {
@@ -49,11 +55,11 @@ public class EntityDefaultPropertiesServiceUtils
     try
     {
       Instant now = Instant.now();
-      String thisUser = null;
-      if (SecurityUtils.getCurrentUserLogin().isPresent()) thisUser = SecurityUtils.getCurrentUserLogin().get();
-      String modifiedBy = thisUser;
+      String thisUser = SecurityUtils.getCurrentUserLogin().orElse(null);
+
       object.getClass().getDeclaredMethod("setModifiedDate", now.getClass()).invoke(object, now);
-      object.getClass().getDeclaredMethod("setModifiedBy", modifiedBy.getClass()).invoke(object, modifiedBy);
+      if (Objects.nonNull(thisUser))
+        object.getClass().getDeclaredMethod("setModifiedBy", thisUser.getClass()).invoke(object, thisUser);
     }
     catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
     {
@@ -68,12 +74,14 @@ public class EntityDefaultPropertiesServiceUtils
     {
       Long id = (Long) object.getClass().getDeclaredMethod("getId").invoke(object);
       log.debug("id = {}", id);
-      if (id == null) return setPropertiesBeforeCreate(object);
-      else return setPropertiesBeforeUpdate(object);
+      if (id == null)
+        return setPropertiesBeforeCreate(object);
+      else
+        return setPropertiesBeforeUpdate(object);
     }
     catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
     {
-      e.printStackTrace();
+      log.warn(e);
       return object;
     }
   }

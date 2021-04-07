@@ -37,6 +37,9 @@ public interface FileService
   Optional<File> getFileByFileName(String fileName);
 
 
+  Optional<File> cacheUpdateFileByFileName(String fileName);
+
+
   /**
    * Partially updates a file.
    *

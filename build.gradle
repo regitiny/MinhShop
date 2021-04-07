@@ -291,20 +291,18 @@ dependencies {
   testImplementation "org.testcontainers:testcontainers"
   //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 
-  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  implementation "org.projectlombok:lombok:${lombokVersion}"
   annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
   testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
   testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
-  compile group: 'org.json', name: 'json', version: "${jsonVersion}"
-  compile group: 'com.google.code.gson', name: 'gson', version: "${gsonVersion}"
-  compile group: 'org.jsoup', name: 'jsoup', version: "${jsoupVersion}"
-  compile group: 'io.vavr', name: 'vavr', version: "${vavrVersion}"
-  // https://mvnrepository.com/artifact/com.jcraft/jsch
-  implementation group: 'com.jcraft', name: 'jsch', version: '0.1.55'
-  // https://mvnrepository.com/artifact/org.webjars/bootstrap
-  runtimeClasspath group: 'org.webjars', name: 'bootstrap', version: '4.4.1'
+  implementation "org.json:json:${jsonVersion}"
+  implementation "com.google.code.gson:gson:${gsonVersion}"
+  implementation "org.jsoup:jsoup:${jsoupVersion}"
+  implementation "io.vavr:vavr:${vavrVersion}"
+  implementation "com.jcraft:jsch:${jschVersion}"
+  runtimeClasspath "org.webjars:bootstrap:${bootstrapVersion}"
 }
 
 if (project.hasProperty("gae"))

@@ -60,6 +60,7 @@ task buildOpenApiBackend(type: org.openapitools.generator.gradle.plugin.tasks.Ge
   apiFilesConstrainedTo = [""]
   modelFilesConstrainedTo = [""]
   supportingFilesConstrainedTo = ["ApiUtil.java"]
+//  skipValidateSpec = true //không kiểm tra file yml input
   configOptions = [
     delegatePattern: "true",
     title          : "minh-shop",
@@ -69,7 +70,7 @@ task buildOpenApiBackend(type: org.openapitools.generator.gradle.plugin.tasks.Ge
 //    interfaceOnly: "true"
   ]
   typeMappings = [
-    "org.springframework.core.io.Resource": "org.springframework.core.io.support.ResourceRegion",
+    "org.springframework.core.io.support.ResourceRegion": "org.springframework.core.io.support.ResourceRegion",
     "OffsetDateTime"                      : "Instant",
   ]
   instantiationTypes = [

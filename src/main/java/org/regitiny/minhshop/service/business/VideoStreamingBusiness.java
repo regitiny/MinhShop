@@ -30,6 +30,7 @@ public class VideoStreamingBusiness
 
   public Tuple2<ResourceRegion, String> getResourceRegion(String videoName, String range)
   {
+
     return fileService.getFileByFileName(videoName)
       .map(file ->
       {

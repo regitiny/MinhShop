@@ -2,6 +2,7 @@ package org.regitiny.minhshop.service.business;
 
 import lombok.extern.log4j.Log4j2;
 import org.regitiny.minhshop.repository.FileRepository;
+import org.regitiny.minhshop.service.FileService;
 import org.regitiny.minhshop.service.dto.FileDTO;
 import org.regitiny.minhshop.service.mapper.FileMapper;
 import org.regitiny.minhshop.util.constant.ServerCommand;
@@ -17,11 +18,13 @@ public class VideoProcessingBusiness
 {
   private final FfmpegBusiness ffmpegBusiness;
   private final FileRepository fileRepository;
+  private final FileService fileService;
   private final FileMapper fileMapper;
 
-  public VideoProcessingBusiness(FfmpegBusiness ffmpegBusiness, FileRepository fileRepository, FileMapper fileMapper)
+  public VideoProcessingBusiness(FfmpegBusiness ffmpegBusiness, FileRepository fileRepository, FileService fileService, FileMapper fileMapper)
   {
     this.ffmpegBusiness = ffmpegBusiness;
+    this.fileService = fileService;
     this.fileMapper = fileMapper;
     this.fileRepository = fileRepository;
   }
@@ -36,11 +39,19 @@ public class VideoProcessingBusiness
       log.debug("video size {} byte , path {}", videoData.length, file.getPath());
       fileOutputStream.write(videoData);
       fileOutputStream.flush();
-      return fileRepository.findByNameFile(videoName).map(file1 ->
-      {
-        file1.pathFileOriginal(file.getAbsolutePath());
-        return fileMapper.toDto(fileRepository.save(file1));
-      }).orElse(null);
+      return fileRepository.findByNameFile(videoName)
+        .map(file1 ->
+        {
+          file1.pathFileOriginal(file.getAbsolutePath());
+          log.debug(file1);
+          log.debug(fileMapper.toDto(file1));
+          log.debug(fileRepository.save(file1));
+          return fileService.save(fileMapper.toDto(file1));
+        })
+        .map(fileDTO -> fileService.cacheUpdateFileByFileName(fileDTO.getNameFile())
+          .map(fileMapper::toDto)
+          .orElse(fileDTO))
+        .orElse(null);
     }
     catch (IOException e)
     {
@@ -54,18 +65,19 @@ public class VideoProcessingBusiness
    * @param videoName name of video
    * @return Tuple2 (resultCommand,pathFileProcessed)
    */
-  public Boolean videoQualityReduction(String videoName)
+  public void videoQualityReduction(String videoName)
   {
     var resultCommand = ffmpegBusiness.runCommand(ServerCommand.videoQRN(videoName));
     String err = "No such file or directory";
     if (!resultCommand.contains(err))
-      return fileRepository.findByNameFile(videoName).map(file1 ->
+      fileRepository.findByNameFile(videoName).ifPresent(file1 ->
       {
         File file = new File(ServerCommand.getFOLDER_ORIGINAL() + videoName);
         file1.processed(true)
           .pathFileProcessed(file.getAbsolutePath());
-        return fileRepository.save(file1).getProcessed();
-      }).orElse(false);
-    return false;
+        fileService.cacheUpdateFileByFileName(
+          fileService.save(
+            fileMapper.toDto(file1)).getNameFile());
+      });
   }
 }

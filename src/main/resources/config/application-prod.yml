@@ -34,6 +34,8 @@ logging:
     tech.jhipster: DEBUG
     #    org.hibernate.SQL: DEBUG
     org.regitiny.minhshop: DEBUG
+    _org.springframework.web.servlet.HandlerMapping: INFO
+    Validator: INFO
 
 eureka:
   instance:

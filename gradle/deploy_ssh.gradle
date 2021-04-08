@@ -22,6 +22,7 @@ remotes {
 
 task deploy {
   println("deploying")
+  execute("dir")
 
   ssh.run {
     session(remotes.catinyServer) {

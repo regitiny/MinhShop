@@ -1,4 +1,4 @@
-package org.regitiny.minhshop.util.constant;
+package org.regitiny.minhshop.service.util;
 
 
 import lombok.Getter;

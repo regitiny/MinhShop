@@ -134,12 +134,18 @@ paths:
           multipart/form-data:
             schema:
               properties:
-                videoDatas:
+                videoData:
                   type: array
                   description: video to upload
                   items:
                     type: string
                     format: binary
+                uploadByFroala:
+                  type: string
+                  description: is true if upload by froala
+                  default: false
+              required:
+                - 'videoData'
             encoding:
               videoData:
                 contentType: video/mp4
@@ -268,6 +274,12 @@ paths:
                   items:
                     type: string
                     format: binary
+                uploadByFroala:
+                  type: boolean
+                  description: is true if upload by froala
+                  default: false
+              required:
+                - 'fileData'
             encoding:
               videoData:
                 contentType: video/mp4
@@ -277,7 +289,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseDefaultModel'
+                properties:
+                  result:
+                    type: object
         405:
           description: Invalid fileData value
           content: { }
@@ -295,44 +309,18 @@ paths:
           multipart/form-data:
             schema:
               properties:
-                imageDatas:
+                imageData:
                   type: array
                   description: an image to upload
                   items:
                     type: string
                     format: binary
-            encoding:
-              videoData:
-                contentType: image/*
-      responses:
-        200:
-          description: successfully uploaded
-          content:
-            application/json:
-              schema:
-                properties:
-                  result:
-                    type: object
-        405:
-          description: Invalid imageDatas value
-          content: { }
-      security:
-        - jwt: [ ]
-  /file/images/froala/upload:
-    post:
-      tags:
-        - image
-      summary: uploads an image (using for froala)
-      operationId: froalaUploadImage
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              properties:
-                imageData:
+                uploadByFroala:
                   type: string
-                  format: binary
-                  description: an image to upload
+                  description: is true if upload by froala
+                  default: false
+              required:
+                - 'imageData'
             encoding:
               videoData:
                 contentType: image/*

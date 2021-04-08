@@ -1,27 +1,39 @@
 package org.regitiny.minhshop.service.business;
 
+import io.vavr.Tuple;
+import io.vavr.Tuple2;
+import io.vavr.control.Try;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.regitiny.minhshop.repository.FileRepository;
 import org.regitiny.minhshop.service.FileService;
 import org.regitiny.minhshop.service.dto.FileDTO;
 import org.regitiny.minhshop.service.mapper.FileMapper;
-import org.regitiny.minhshop.util.constant.ServerCommand;
+import org.regitiny.minhshop.service.util.ServerCommand;
+import org.regitiny.tools.magic.exception.NhechException;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
+
+import static java.lang.Math.min;
 
 @Service
 @Log4j2
-public class VideoProcessingBusiness
+public class VideoBusiness
 {
   private final FfmpegBusiness ffmpegBusiness;
   private final FileRepository fileRepository;
   private final FileService fileService;
   private final FileMapper fileMapper;
+  private static final Long RANGE_DEFAULT = 10 * 1024 * 1024L; // 10 MB
 
-  public VideoProcessingBusiness(FfmpegBusiness ffmpegBusiness, FileRepository fileRepository, FileService fileService, FileMapper fileMapper)
+  public VideoBusiness(FfmpegBusiness ffmpegBusiness, FileRepository fileRepository, FileService fileService, FileMapper fileMapper)
   {
     this.ffmpegBusiness = ffmpegBusiness;
     this.fileService = fileService;
@@ -63,7 +75,6 @@ public class VideoProcessingBusiness
 
   /**
    * @param videoName name of video
-   * @return Tuple2 (resultCommand,pathFileProcessed)
    */
   public void videoQualityReduction(String videoName)
   {
@@ -79,5 +90,54 @@ public class VideoProcessingBusiness
           fileService.save(
             fileMapper.toDto(file1)).getNameFile());
       });
+  }
+
+  public Tuple2<ResourceRegion, String> getResourceRegion(String videoName, String range)
+  {
+
+    return fileService.getFileByFileName(videoName)
+      .map(file ->
+      {
+        String filePath = null;
+        if (Boolean.TRUE.equals(file.getProcessed()) && Objects.nonNull(file.getPathFileProcessed()))
+          filePath = file.getPathFileProcessed();
+        else if (Objects.nonNull(file.getPathFileOriginal()))
+          filePath = file.getPathFileOriginal();
+        if (filePath == null)
+          throw new NhechException("Nhếch bảo chả biết cất cái video này ở đâu");
+        Resource resource = new FileSystemResource(filePath);
+        ResourceRegion resourceRegion;
+        long contentLength = Try.of(resource::contentLength)
+          .onFailure(throwable ->
+          {
+            log.debug("error video.contentLength or video no data", throwable);
+            throw new NhechException("nhếch tìm đến nhà này chẳng thấy ai cả");
+          })
+          .getOrElse(0L);
+        long fromRange = 0;
+        long toRange = 0;
+        if (StringUtils.isNotBlank(range))
+        {
+          String[] ranges = range
+            .substring("bytes=".length())
+            .split("-");
+          fromRange = Integer.parseInt(ranges[0]);
+          if (ranges.length > 1)
+            toRange = Integer.parseInt(ranges[1]);
+          else
+            toRange = (int) (contentLength - 1);
+        }
+        if (fromRange > 0)
+        {
+          long rangeLength = min(RANGE_DEFAULT, toRange - fromRange + 1);
+          resourceRegion = new ResourceRegion(resource, fromRange, rangeLength);
+        }
+        else
+        {
+          long rangeLength = min(RANGE_DEFAULT, contentLength - 1);
+          resourceRegion = new ResourceRegion(resource, 0, rangeLength);
+        }
+        return Tuple.of(resourceRegion, file.getTypeFile());
+      }).orElse(Tuple.of(null, null));
   }
 }

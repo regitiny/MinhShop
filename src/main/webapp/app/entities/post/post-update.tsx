@@ -477,15 +477,17 @@ export const PostUpdate = (props: IPostUpdateProps) =>
                     requestHeaders: {
                       Authorization: authToken,
                     },
-                    imageUploadURL: '/api/file/images/froala/upload',
-                    imageUploadParam: 'imageData',
-                    imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
                     imageUploadMethod: 'POST',
+                    imageUploadURL: '/api/file/images/upload',
+                    imageUploadParam: 'imageData',
+                    imageUploadParams: {'uploadByFroala': 'true'},
+                    imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
                     imageUpload: true,
 
-                    videoUploadURL: '/api/file/videos/froala/upload',
-                    videoUploadParam: 'videoDatas',
                     videoUploadMethod: 'POST',
+                    videoUploadURL: '/api/file/videos/upload',
+                    videoUploadParam: 'videoData',
+                    videoUploadParams: {'uploadByFroala': 'true'},
                     videoMaxSize: 1024 * 1024 * 1024, // 1Gb
                     videoAllowedTypes: ['webm', 'jpg', 'ogg', 'mp4'],
                     videoUpload: true

@@ -47,19 +47,25 @@ module.exports = options =>
     devServer: {
       stats: options.stats,
       hot: true,
+      allowedHosts: [
+        'localhost',
+        'catiny.com',
+        'dev.catiny.com',
+        'host2.com',
+      ],
       contentBase: './build/resources/main/static/',
       proxy: [
         {
           context: ['/api', '/api/open', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/v3/api-docs', '/h2-console', '/auth'],
           target: `http${options.tls ? 's' : ''}://dev.catiny.com`,
-          // target: `http${options.tls ? 's' : ''}://localhost:8080`,
+          // target: `http${options.tls ? 's' : ''}://localhost`,
           secure: false,
           changeOrigin: options.tls,
         },
         {
           context: ['/websocket'],
           target: 'ws://dev.catiny.com',
-          // target: 'ws://127.0.0.1:8080',
+          // target: 'ws://127.0.0.1',
           ws: true,
         },
       ],

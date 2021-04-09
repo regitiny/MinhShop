@@ -1,0 +1,44 @@
+{
+  "properties": [
+    {
+      "name": "yuvytung.value.number-of-cities",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.value.number-of-cities : number of cities importing to Entity HanhChinhVN in database."
+    },
+    {
+      "name": "yuvytung.server.ssh-ffmpeg.host",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.server.ssh-ffmpeg.host : ip or domain of ffmpeg server to processing video , image ."
+    },
+    {
+      "name": "yuvytung.server.host",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.server.host. : ip or domain to connect with db , es , redis,..."
+    },
+    {
+      "name": "yuvytung.server.ssh-ffmpeg.password",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.server.ssh-ffmpeg.password : password of ffmpeg server."
+    },
+    {
+      "name": "yuvytung.server.ssh-ffmpeg.username",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.server.ssh-ffmpeg.username : user name of ffmpeg server."
+    },
+    {
+      "name": "yuvytung.server.ssh-ffmpeg.port",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.server.ssh-ffmpeg.port : port of ffmpeg server."
+    },
+    {
+      "name": "yuvytung.data.video.folder-original",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.data.video.folder-original : folder save video when upload to server."
+    },
+    {
+      "name": "yuvytung.data.video.folder-processed",
+      "type": "java.lang.String",
+      "description": "Description for yuvytung.data.video.folder-processed : folder save video when ffmpeg processed."
+    }
+  ]
+}

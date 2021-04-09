@@ -1,7 +1,6 @@
 package org.regitiny.minhshop.service.impl;
 
 import lombok.extern.log4j.Log4j2;
-import org.regitiny.minhshop.config.constant.ServerCommand;
 import org.regitiny.minhshop.domain.File;
 import org.regitiny.minhshop.repository.FileRepository;
 import org.regitiny.minhshop.repository.search.FileSearchRepository;
@@ -12,6 +11,7 @@ import org.regitiny.minhshop.service.dto.FileDTO;
 import org.regitiny.minhshop.service.mapper.FileMapper;
 import org.regitiny.tools.magic.constant.StringPool;
 import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +47,7 @@ public class FileServiceImpl implements FileService
   public FileDTO save(FileDTO fileDTO)
   {
     log.debug("Request to save File : {}", fileDTO);
-    File file = fileMapper.toEntity(fileDTO);
+    File file = (File) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(fileMapper.toEntity(fileDTO));
     file = fileRepository.save(file);
     FileDTO result = fileMapper.toDto(file);
     fileSearchRepository.save(file);
@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService
   }
 
   @Override
-  public FileDTO upload(MultipartFile fileData)
+  public FileDTO createFileDetail(MultipartFile fileData)
   {
     log.debug("Request to upload File : dataIsEmpty = {}", fileData.isEmpty());
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
@@ -73,8 +73,6 @@ public class FileServiceImpl implements FileService
     nameFile += StringPool.PERIOD + extension;
 
     file.nameFile(nameFile)
-      .pathFileOriginal(ServerCommand.getFOLDER_INPUT())
-      .pathFileProcessed(ServerCommand.getFOLDER_OUTPUT())
       .processed(false)
       .dataSize(dataSize)
       .typeFile(typeFile)
@@ -86,10 +84,18 @@ public class FileServiceImpl implements FileService
 
 
   @Override
-  @Cacheable(key = "{#fileName}", cacheNames = FileService.FILE_BY_FILE_NAME_CACHE)
+  @Cacheable(key = "{#fileName}", cacheNames = FILE_BY_FILE_NAME_CACHE)
   public Optional<File> getFileByFileName(String fileName)
   {
     log.debug("file name = {}", fileName);
+    return fileRepository.findByNameFile(fileName);
+  }
+
+  @Override
+  @CachePut(key = "{#fileName}", cacheNames = FILE_BY_FILE_NAME_CACHE)
+  public Optional<File> cacheUpdateFileByFileName(String fileName)
+  {
+    log.debug("cache update : file name = {}", fileName);
     return fileRepository.findByNameFile(fileName);
   }
 

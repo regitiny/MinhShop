@@ -17,6 +17,7 @@ externalDocs:
   description: Find out more about Minh-Shop
   url: http://catiny.com
 servers:
+  - url: http://dev.catiny.com/api
   - url: http://localhost:8080/api
     description: Development server
   - url: https://localhost:8080/api
@@ -35,18 +36,39 @@ tags:
     description: Everything about your videos
     externalDocs:
       description: Find out more
-      url: http://catiny.com/open/api/file/videos
+      url: http://catiny.com/api/*/file/videos
   - name: file
     description: Everything about your file
     externalDocs:
       description: Find out more the File
-      url: http://catiny.com/open/api/files
+      url: http://catiny.com/api/*/files
+  - name: open-api
+    description: api public (no need to login)
+    externalDocs:
+      description: Find out more the api (open)
+      url: http://catiny.com/api/open/**
+  - name: image
+    description: api related to the image
+    externalDocs:
+      description: Find out more the File
+      url: http://catiny/com/api/*/file/images
+  - name: management
+    description: api related to the role:magagement
+    externalDocs:
+      description: Find out more the role:magagement
+      url: http://catiny/com/api/management/**
+  - name: user-utility
+    description: api related to the utility of user
+    externalDocs:
+      description: Find out more the utility of user
+      url: http://catiny/com/api/user/utility/**
 # PATHS ###########################################################################################
 paths:
-  /open/file/videos/{videoName}:
+  /open/file/videos/download/{videoName}:
     get:
       tags:
         - video
+        - open-api
       summary: get file (video download data) by videoName
       description: api use to get data of a video by name of the video
       operationId: getVideoDataByName
@@ -71,6 +93,7 @@ paths:
     get:
       tags:
         - video
+        - open-api
       summary: get video ( stream data ) by videoName
       description: api use to get data (stream) of a video by name of the video
       operationId: getVideoStreamDataByName
@@ -87,51 +110,99 @@ paths:
             type: string
           description: this
       responses:
-        200:
+        206:
           description: video data
           content:
-            video/mp4:
+            video/*:
               schema:
                 type: string
-                format: binary
+                format: org.springframework.core.io.support.ResourceRegion
         404:
           description: File not found
           content:
             application/problem+json:
               schema:
                 $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
-
-  /open/files/{fileName}:
-    get:
-      tags:
-        - file
-      summary: get file (data) by fileName
-      description: api use to get data of file by fileName of the File
-      operationId: getFileDataByName
-      parameters:
-        - name: fileName
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: file data
-          content:
-            application/*: { }
-        400:
-          description: File not found
-          content:
-            application/problem+json:
-              schema:
-                $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
-  #############################################################################################
   /file/videos/upload:
     post:
       tags:
         - video
       summary: uploads an video or list video
       operationId: uploadVideos
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                videoData:
+                  type: array
+                  description: video to upload
+                  items:
+                    type: string
+                    format: binary
+                uploadByFroala:
+                  type: string
+                  description: is true if upload by froala
+                  default: false
+              required:
+                - 'videoData'
+            encoding:
+              videoData:
+                contentType: video/mp4
+      responses:
+        200:
+          description: successfully uploaded
+          content:
+            application/json:
+              schema:
+                properties:
+                  result:
+                    type: object
+        405:
+          description: Invalid videoData value
+          content: { }
+      security:
+        - jwt: [ ]
+  /management/file/videos/show-all:
+    get:
+      tags:
+        - management
+        - video
+      summary: show all file-videos in database
+      operationId: showAllVideos
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                videoDatas:
+                  type: array
+                  description: video to upload
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              videoData:
+                contentType: video/mp4
+      responses:
+        200:
+          description: successfully uploaded
+          content:
+            application/json:
+              schema:
+                type: string
+                format: tyke.byte.Oc
+        405:
+          description: Invalid videoData value
+          content: { }
+      security:
+        - jwt: [ ]
+  /file/videos/upload/original-data:
+    post:
+      tags:
+        - video
+      summary: uploads an video or list video (original data)
+      operationId: uploadVideosOriginalData
       requestBody:
         content:
           multipart/form-data:
@@ -160,6 +231,32 @@ paths:
           content: { }
       security:
         - jwt: [ ]
+  ##File#############################################################################################
+  /open/files/download/{fileName}:
+    get:
+      tags:
+        - file
+        - open-api
+      summary: download file (data) by fileName
+      description: api use to get data of file by fileName of the File
+      operationId: downloadFileByName
+      parameters:
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: file data
+          content:
+            application/*: { }
+        400:
+          description: File not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
   /files/upload:
     post:
       tags:
@@ -177,6 +274,12 @@ paths:
                   items:
                     type: string
                     format: binary
+                uploadByFroala:
+                  type: boolean
+                  description: is true if upload by froala
+                  default: false
+              required:
+                - 'fileData'
             encoding:
               videoData:
                 contentType: video/mp4
@@ -186,12 +289,151 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseDefaultModel'
+                properties:
+                  result:
+                    type: object
         405:
           description: Invalid fileData value
           content: { }
       security:
         - jwt: [ ]
+  ##-Image-#############################################################################################
+  /file/images/upload:
+    post:
+      tags:
+        - image
+      summary: uploads an image or list video
+      operationId: uploadImages
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                imageData:
+                  type: array
+                  description: an image to upload
+                  items:
+                    type: string
+                    format: binary
+                uploadByFroala:
+                  type: string
+                  description: is true if upload by froala
+                  default: false
+              required:
+                - 'imageData'
+            encoding:
+              videoData:
+                contentType: image/*
+      responses:
+        200:
+          description: successfully uploaded
+          content:
+            application/json:
+              schema:
+                properties:
+                  result:
+                    type: object
+        405:
+          description: Invalid imageDatas value
+          content: { }
+      security:
+        - jwt: [ ]
+  /file/images/upload/original-data:
+    post:
+      tags:
+        - image
+      summary: uploads an image or list image (original data)
+      operationId: uploadImagesOriginalData
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                imageDatas:
+                  type: array
+                  description: an image to upload
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              videoData:
+                contentType: image/*
+      responses:
+        200:
+          description: successfully uploaded
+          content:
+            application/json:
+              schema:
+                properties:
+                  result:
+                    type: object
+        405:
+          description: Invalid imageDatas value
+          content: { }
+      security:
+        - jwt: [ ]
+  /open/file/images/{imageName}:
+    get:
+      tags:
+        - image
+        - open-api
+      summary: get image by name of image
+      operationId: getImageByName
+      parameters:
+        - name: imageName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: file data
+          content:
+            image/*:
+              schema:
+                type: string
+                format: byte
+        400:
+          description: File not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
+  /user/utility/rating:
+    post:
+      tags:
+        - user-utility
+      summary: user rating for product
+      operationId: userRatingProfuct
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                productId:
+                  type: string
+                  description: uuid of the product
+                scores:
+                  type: number
+                  description: scores of the product
+      responses:
+        200:
+          description: successfully uploaded
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    default: Thank you have successfully rating
+                  detail:
+                    type: string
+        405:
+          description: Invalid imageDatas value
+          content: { }
+      security:
+        - jwt: [ ]
+
 components:
   schemas:
     ResponseDefaultModel:

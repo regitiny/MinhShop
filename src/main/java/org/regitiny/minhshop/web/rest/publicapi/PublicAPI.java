@@ -31,10 +31,21 @@ import java.util.logging.Level;
 public class PublicAPI
 {
 
-  private final ImageService imageService;
   //  public static final String VideoUploadingDir = "D:\\";
   public static final String VideoUploadingDir = "/root/minh-shop/";
+  private final ImageService imageService;
   private final FileService fileService;
+  private final FfmpegBusiness ffmpegBusiness;
+  @Autowired
+  VideoStreamingService service;
+
+
+  public PublicAPI(ImageService imageService, FileService fileService, FfmpegBusiness ffmpegBusiness)
+  {
+    this.imageService = imageService;
+    this.fileService = fileService;
+    this.ffmpegBusiness = ffmpegBusiness;
+  }
 
   @GetMapping("/images/{nameImage}")
   public ResponseEntity<byte[]> getImage(@PathVariable String nameImage) throws FileNotFoundException
@@ -50,19 +61,6 @@ public class PublicAPI
     }
 
     throw new FileNotFoundException();
-  }
-
-  @Autowired
-  VideoStreamingService service;
-
-
-  private final FfmpegBusiness ffmpegBusiness;
-
-  public PublicAPI(ImageService imageService, FileService fileService, FfmpegBusiness ffmpegBusiness)
-  {
-    this.imageService = imageService;
-    this.fileService = fileService;
-    this.ffmpegBusiness = ffmpegBusiness;
   }
 //  public static final String VideoUploadingDir = System.getProperty("user.dir") + "/Uploads/Posts/Videos";
 

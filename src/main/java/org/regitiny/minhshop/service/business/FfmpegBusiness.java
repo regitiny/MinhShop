@@ -43,6 +43,7 @@ public class FfmpegBusiness
       channelExec.connect();
       String result = new String(resultStream.readAllBytes(), StandardCharsets.UTF_8);
       channelExec.disconnect();
+      session.disconnect();
       return result;
     }
     catch (JSchException | IOException e)
@@ -55,7 +56,8 @@ public class FfmpegBusiness
   @Autowired
   private void ffmpegServerStatus()
   {
-    log.info(runCommand("echo 'server ffmpeg is running!'"));
+    log.debug(runCommand("echo 'server ffmpeg is running!'"));
+    log.debug("ffmpeg version :\n{}", runCommand("ffmpeg -version"));
   }
 
 }

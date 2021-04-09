@@ -14,11 +14,14 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = (on, config) => {
+module.exports = (on, config) =>
+{
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  on('before:browser:launch', (browser, launchOptions) => {
-    if (browser.name === 'chrome' && browser.isHeadless) {
+  on('before:browser:launch', (browser, launchOptions) =>
+  {
+    if (browser.name === 'chrome' && browser.isHeadless)
+    {
       launchOptions.args.push('--disable-gpu');
       return launchOptions;
     }

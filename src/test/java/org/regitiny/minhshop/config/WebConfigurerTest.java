@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -55,25 +56,25 @@ class WebConfigurerTest
   }
 
   @Test
-  void testStartUpProdServletContext() throws ServletException
+  void shouldStartUpProdServletContext() throws ServletException
   {
     env.setActiveProfiles(JHipsterConstants.SPRING_PROFILE_PRODUCTION);
-    webConfigurer.onStartup(servletContext);
 
+    assertThatCode(() -> webConfigurer.onStartup(servletContext)).doesNotThrowAnyException();
     verify(servletContext, never()).addServlet(eq("H2Console"), any(WebServlet.class));
   }
 
   @Test
-  void testStartUpDevServletContext() throws ServletException
+  void shouldStartUpDevServletContext() throws ServletException
   {
     env.setActiveProfiles(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT);
-    webConfigurer.onStartup(servletContext);
 
+    assertThatCode(() -> webConfigurer.onStartup(servletContext)).doesNotThrowAnyException();
     verify(servletContext).addServlet(eq("H2Console"), any(WebServlet.class));
   }
 
   @Test
-  void testCustomizeServletContainer()
+  void shouldCustomizeServletContainer()
   {
     env.setActiveProfiles(JHipsterConstants.SPRING_PROFILE_PRODUCTION);
     UndertowServletWebServerFactory container = new UndertowServletWebServerFactory();
@@ -88,9 +89,9 @@ class WebConfigurerTest
   }
 
   @Test
-  void testCorsFilterOnApiPath() throws Exception
+  void shouldCorsFilterOnApiPath() throws Exception
   {
-    props.getCors().setAllowedOrigins(Collections.singletonList("*"));
+    props.getCors().setAllowedOrigins(Collections.singletonList("other.domain.com"));
     props.getCors().setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
     props.getCors().setAllowedHeaders(Collections.singletonList("*"));
     props.getCors().setMaxAge(1800L);
@@ -118,7 +119,7 @@ class WebConfigurerTest
   }
 
   @Test
-  void testCorsFilterOnOtherPath() throws Exception
+  void shouldCorsFilterOnOtherPath() throws Exception
   {
     props.getCors().setAllowedOrigins(Collections.singletonList("*"));
     props.getCors().setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
@@ -135,7 +136,7 @@ class WebConfigurerTest
   }
 
   @Test
-  void testCorsFilterDeactivated() throws Exception
+  void shouldCorsFilterDeactivatedForNullAllowedOrigins() throws Exception
   {
     props.getCors().setAllowedOrigins(null);
 
@@ -148,7 +149,7 @@ class WebConfigurerTest
   }
 
   @Test
-  void testCorsFilterDeactivated2() throws Exception
+  void shouldCorsFilterDeactivatedForEmptyAllowedOrigins() throws Exception
   {
     props.getCors().setAllowedOrigins(new ArrayList<>());
 

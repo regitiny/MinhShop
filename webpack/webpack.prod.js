@@ -11,12 +11,13 @@ const commonConfig = require('./webpack.common.js');
 
 const ENV = 'production';
 
-module.exports = webpackMerge(commonConfig({ env: ENV }), {
+module.exports = webpackMerge(commonConfig({env: ENV}), {
   // devtool: 'source-map', // Enable source maps. Please note that this will slow down the build
   mode: ENV,
-  entry: {
-    main: './src/main/webapp/app/index',
-  },
+  entry: [
+    './src/main/webapp/app/index',
+    "./build/openapi/src/main/typescript/open-api"
+  ],
   output: {
     path: utils.root('build/resources/main/static/'),
     filename: 'app/[name].[hash].bundle.js',
@@ -42,7 +43,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
           'postcss-loader',
           {
             loader: 'sass-loader',
-            options: { implementation: sass },
+            options: {implementation: sass},
           },
         ],
       },
@@ -52,15 +53,15 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     runtimeChunk: false,
     minimizer: [
       new TerserPlugin({
-        cache: true,
+        // cache: true,
         parallel: true,
         // sourceMap: true, // Enable source maps. Please note that this will slow down the build
         terserOptions: {
           ecma: 6,
           toplevel: true,
           module: true,
-          beautify: false,
-          comments: false,
+          // beautify: false,
+          // comments: false,
           compress: {
             warnings: false,
             ecma: 6,

@@ -75,66 +75,7 @@ public class PostDetailsServiceImpl implements PostDetailsService
       .map(
         existingPostDetails ->
         {
-          if (postDetailsDTO.getUuid() != null)
-          {
-            existingPostDetails.setUuid(postDetailsDTO.getUuid());
-          }
-
-          if (postDetailsDTO.getPostDetailsId() != null)
-          {
-            existingPostDetails.setPostDetailsId(postDetailsDTO.getPostDetailsId());
-          }
-
-          if (postDetailsDTO.getContent() != null)
-          {
-            existingPostDetails.setContent(postDetailsDTO.getContent());
-          }
-
-          if (postDetailsDTO.getSearchField() != null)
-          {
-            existingPostDetails.setSearchField(postDetailsDTO.getSearchField());
-          }
-
-          if (postDetailsDTO.getRole() != null)
-          {
-            existingPostDetails.setRole(postDetailsDTO.getRole());
-          }
-
-          if (postDetailsDTO.getCreatedDate() != null)
-          {
-            existingPostDetails.setCreatedDate(postDetailsDTO.getCreatedDate());
-          }
-
-          if (postDetailsDTO.getModifiedDate() != null)
-          {
-            existingPostDetails.setModifiedDate(postDetailsDTO.getModifiedDate());
-          }
-
-          if (postDetailsDTO.getCreatedBy() != null)
-          {
-            existingPostDetails.setCreatedBy(postDetailsDTO.getCreatedBy());
-          }
-
-          if (postDetailsDTO.getModifiedBy() != null)
-          {
-            existingPostDetails.setModifiedBy(postDetailsDTO.getModifiedBy());
-          }
-
-          if (postDetailsDTO.getDataSize() != null)
-          {
-            existingPostDetails.setDataSize(postDetailsDTO.getDataSize());
-          }
-
-          if (postDetailsDTO.getComment() != null)
-          {
-            existingPostDetails.setComment(postDetailsDTO.getComment());
-          }
-
-          if (postDetailsDTO.getOtherData() != null)
-          {
-            existingPostDetails.setOtherData(postDetailsDTO.getOtherData());
-          }
-
+          postDetailsMapper.partialUpdate(existingPostDetails, postDetailsDTO);
           return existingPostDetails;
         }
       )

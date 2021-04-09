@@ -13,7 +13,7 @@ module.exports = {
   moduleNameMapper: mapTypescriptAliasToJestAlias({
     '\\.(css|scss)$': 'identity-obj-proxy',
   }),
-  reporters: ['default', ['jest-junit', { outputDirectory: './build/test-results/', outputName: 'TESTS-results-jest.xml' }]],
+  reporters: ['default', ['jest-junit', {outputDirectory: './build/test-results/', outputName: 'TESTS-results-jest.xml'}]],
   testResultsProcessor: 'jest-sonar-reporter',
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   setupFiles: ['<rootDir>/src/main/webapp/app/setup-tests.ts'],
@@ -26,20 +26,25 @@ module.exports = {
   },
 };
 
-function mapTypescriptAliasToJestAlias(alias = {}) {
-  const jestAliases = { ...alias };
-  if (!tsconfig.compilerOptions.paths) {
+function mapTypescriptAliasToJestAlias(alias = {})
+{
+  const jestAliases = {...alias};
+  if (!tsconfig.compilerOptions.paths)
+  {
     return jestAliases;
   }
   Object.entries(tsconfig.compilerOptions.paths)
-    .filter(([key, value]) => {
+    .filter(([key, value]) =>
+    {
       // use Typescript alias in Jest only if this has value
-      if (value.length) {
+      if (value.length)
+      {
         return true;
       }
       return false;
     })
-    .map(([key, value]) => {
+    .map(([key, value]) =>
+    {
       // if Typescript alias ends with /* then in Jest:
       // - alias key must end with /(.*)
       // - alias value must end with /$1
@@ -48,7 +53,8 @@ function mapTypescriptAliasToJestAlias(alias = {}) {
       const aliasValue = value[0].replace(regexToReplace, '$1/$$1');
       return [aliasKey, `<rootDir>/${aliasValue}`];
     })
-    .reduce((aliases, [key, value]) => {
+    .reduce((aliases, [key, value]) =>
+    {
       aliases[key] = value;
       return aliases;
     }, jestAliases);

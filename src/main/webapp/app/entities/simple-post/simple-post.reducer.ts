@@ -20,6 +20,7 @@ export const ACTION_TYPES = {
   FETCH_SIMPLEPOST: 'simplePost/FETCH_SIMPLEPOST',
   CREATE_SIMPLEPOST: 'simplePost/CREATE_SIMPLEPOST',
   UPDATE_SIMPLEPOST: 'simplePost/UPDATE_SIMPLEPOST',
+  PARTIAL_UPDATE_SIMPLEPOST: 'simplePost/PARTIAL_UPDATE_SIMPLEPOST',
   DELETE_SIMPLEPOST: 'simplePost/DELETE_SIMPLEPOST',
   SET_BLOB: 'simplePost/SET_BLOB',
   RESET: 'simplePost/RESET',
@@ -63,6 +64,7 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
     case REQUEST(ACTION_TYPES.CREATE_SIMPLEPOST):
     case REQUEST(ACTION_TYPES.UPDATE_SIMPLEPOST):
     case REQUEST(ACTION_TYPES.DELETE_SIMPLEPOST):
+    case REQUEST(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST):
       return {
         ...state,
         errorMessage: null,
@@ -74,6 +76,7 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
     case FAILURE(ACTION_TYPES.FETCH_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.CREATE_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.UPDATE_SIMPLEPOST):
+    case FAILURE(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.DELETE_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.SORT_SIMPLEPOST):
     case FAILURE(ACTION_TYPES.SEARCH_VISIBLE):
@@ -119,6 +122,7 @@ export default (state: SimplePostState = initialState, action): SimplePostState 
       };
     case SUCCESS(ACTION_TYPES.CREATE_SIMPLEPOST):
     case SUCCESS(ACTION_TYPES.UPDATE_SIMPLEPOST):
+    case SUCCESS(ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST):
       return {
         ...state,
         updating: false,
@@ -209,7 +213,16 @@ export const updateEntity: ICrudPutAction<ISimplePost> = entity => async dispatc
 {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_SIMPLEPOST,
-    payload: axios.put(apiUrl, cleanEntity(entity)),
+    payload: axios.put(`${apiUrl}/${entity.id}`, cleanEntity(entity)),
+  });
+  return result;
+};
+
+export const partialUpdate: ICrudPutAction<ISimplePost> = entity => async dispatch =>
+{
+  const result = await dispatch({
+    type: ACTION_TYPES.PARTIAL_UPDATE_SIMPLEPOST,
+    payload: axios.patch(`${apiUrl}/${entity.id}`, cleanEntity(entity)),
   });
   return result;
 };

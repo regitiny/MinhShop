@@ -6,7 +6,7 @@ import Cart from 'app/modules/shopcart/cart';
 import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic';
 import {ProductViews} from 'app/page-product/product-history-view/product-view'
 import HistoryView from "app/page-product/product-history-view/history-view";
-import {Link, withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export const LaptopDetail = props =>
 {
@@ -15,7 +15,7 @@ export const LaptopDetail = props =>
   const page_path = props.match.url;
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
   const authToken = `Bearer ${Token}`;
-  const urlPage=props.location.pathname
+  const urlPage = props.location.pathname
   window.console.log(props.match);
   useEffect(() =>
   {
@@ -93,8 +93,10 @@ export const LaptopDetail = props =>
   // localStorage.setItem('product',JSON.stringify(productViews))
   useEffect(() =>
   {
-    if(productView)
-      {ProductViews(productView)}
+    if (productView)
+    {
+      ProductViews(productView)
+    }
   }, [productView])
 
   return (

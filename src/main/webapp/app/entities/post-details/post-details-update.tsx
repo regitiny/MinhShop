@@ -28,17 +28,19 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
 
-  const s4=()=>{
-    return Math.floor((1+Math.random()) *0x10000).toString(16).substring(1);
+  const s4 = () =>
+  {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   }
-  const newID=()=>{
-    return s4() + '-' + s4() + '-' + s4()  + '-' + s4() + s4() + '-' + s4() + '-' + s4()  + '-' + s4()
+  const newID = () =>
+  {
+    return s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4()
   }
   const [baseImages, setBaseImages] = useState([]);
   const [dataImages, setDataImages] = useState([]);
-  const [images, setImages]=useState([]);
+  const [images, setImages] = useState([]);
   const promises = [];
-  const [link, setLink] = useState({link: '',id: ''})
+  const [link, setLink] = useState({link: '', id: ''})
 
   const {postDetailsEntity, simplePosts, loading, updating} = props;
 
@@ -110,7 +112,11 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
     await Promise.all(promises).then(
       res =>
       {
-        res && res.length > 0 ? res.map(item => { const newItem={link: item.link, id: newID()};dataImages.push(newItem)}) : dataImages,
+        res && res.length > 0 ? res.map(item =>
+        {
+          const newItem = {link: item.link, id: newID()};
+          dataImages.push(newItem)
+        }) : dataImages,
           setBaseImages(res)
       }
     )
@@ -119,7 +125,6 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
   {
     setLink({link: event.target.value, id: newID()})
   }
-
 
 
   const onSubmitInput = () =>
@@ -141,12 +146,13 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
         dataImages.push(link)
       }
     }
-    setLink({link:'', id:''})
+    setLink({link: '', id: ''})
   }
   window.console.log(dataImages)
 
-  const onDeleteImage=(id)=>{
-    const array=dataImages.slice().filter(x => x.id !== id);
+  const onDeleteImage = (id) =>
+  {
+    const array = dataImages.slice().filter(x => x.id !== id);
 
     setDataImages(array)
   }
@@ -156,19 +162,21 @@ export const PostDetailsUpdate = (props: IPostDetailsUpdateProps) =>
     let result = null;
     if (dataImages && dataImages.length > 0)
     {
-      result = dataImages.map((image, index) =>{
+      result = dataImages.map((image, index) =>
+      {
         window.console.log(image.link)
-        return(
+        return (
           <div key={index} className='d-flex'>
-            <div><img src={image.link} style={{width: 300, display:'block'}} alt='link ảnh không đúng'/></div>
-            <div className="mt-5"><button type="button" className="btn btn-danger" onClick={()=>onDeleteImage(image.id)}>Xóa</button></div>
+            <div><img src={image.link} style={{width: 300, display: 'block'}} alt='link ảnh không đúng'/></div>
+            <div className="mt-5">
+              <button type="button" className="btn btn-danger" onClick={() => onDeleteImage(image.id)}>Xóa</button>
+            </div>
           </div>
         )
       })
     }
     return result
   }
-
 
 
   const saveEntity = (event, errors, values) =>

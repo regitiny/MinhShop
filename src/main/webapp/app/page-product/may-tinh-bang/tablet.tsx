@@ -18,7 +18,7 @@ export interface ISimplePostProps extends StateProps, DispatchProps, RouteCompon
 const Tablet = (props: ISimplePostProps) =>
 {
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
   );
   const Token = Storage.local.get('jhi-authenticationToken') || Storage.session.get('jhi-authenticationToken');
 
@@ -26,7 +26,8 @@ const Tablet = (props: ISimplePostProps) =>
   const [totalTablets, setTotalTablets] = useState([]);
   const authToken = `Bearer ${Token}`;
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       url: OpenApiPathConst.SIMPLE_POST_PATH,
       method: 'get',
@@ -38,7 +39,8 @@ const Tablet = (props: ISimplePostProps) =>
   }, []);
   window.console.log(tablets);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     axios({
       method: 'get',
       url: OpenApiPathConst.SIMPLE_POST_PATH,
@@ -47,7 +49,8 @@ const Tablet = (props: ISimplePostProps) =>
     }).then(res => setTotalTablets(res.data));
   }, []);
   const totalItems = totalTablets ? totalTablets.length : 1;
-  const handlePagination = currentPage => {
+  const handlePagination = currentPage =>
+  {
     props.reset();
     setPaginationState({
       ...paginationState,
@@ -62,57 +65,58 @@ const Tablet = (props: ISimplePostProps) =>
           {tablets && tablets.length > 0
             ? // ? laptops
               //     .filter(tablet => tablet.typePost.typeName === 'tablet')
-              tablets.map(tablet => {
-                // if (tablet.typePost.typeName === 'tablet') {}
-                return (
-                  <div className="col-3 mt-3" key={tablet.uuid + tablet.id}>
-                    {/*<Link to={`/${tablet.id}`}>*/}
-                      <Link to={`${props.match.url}/${tablet.id}`}>
-                      <Card className="p-1 p-sm-1 p-lg-0 ">
-                        <CardHeader className="px-1 px-md-1 p-lg-2">
-                          <div className='image-size'>
-                            <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap" />
+            tablets.map(tablet =>
+            {
+              // if (tablet.typePost.typeName === 'tablet') {}
+              return (
+                <div className="col-3 mt-3" key={tablet.uuid + tablet.id}>
+                  {/*<Link to={`/${tablet.id}`}>*/}
+                  <Link to={`${props.match.url}/${tablet.id}`}>
+                    <Card className="p-1 p-sm-1 p-lg-0 ">
+                      <CardHeader className="px-1 px-md-1 p-lg-2">
+                        <div className='image-size'>
+                          <CardImg top width="100%" src={tablet.imageUrl} alt="Card image cap"/>
+                        </div>
+                        <div className="float-group">
+                          <CardTitle tag="h4" className="float-left">
+                            {tablet.title}
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardBody>
+                        <CardText className="">
+                          <p className="float-left">Giá gốc: </p>
+                          <div className="float-left text-secondary ml-1">
+                            <del>{tablet.price}đ</del>
                           </div>
-                          <div className="float-group">
-                            <CardTitle tag="h4" className="float-left">
-                              {tablet.title}
-                            </CardTitle>
+                          <br/>
+                        </CardText>
+                        <CardText className="">
+                          <p className="float-left">Chỉ còn: </p>
+                          <div className="float-left text-danger ml-1">
+                            <b>{tablet.salePrice.toLocaleString()}đ</b>
                           </div>
-                        </CardHeader>
-                        <CardBody>
-                          <CardText className="">
-                            <p className="float-left">Giá gốc: </p>
-                            <div className="float-left text-secondary ml-1">
-                              <del>{tablet.price}đ</del>
-                            </div>
-                            <br />
-                          </CardText>
-                          <CardText className="">
-                            <p className="float-left">Chỉ còn: </p>
-                            <div className="float-left text-danger ml-1">
-                              <b>{tablet.salePrice.toLocaleString()}đ</b>
-                            </div>
-                            <div className="float-left badge badge-danger text-white ml-2">-{tablet.percentSale}%</div>
-                            <br />
-                          </CardText>
-                          <div className="text-center" style={{ width: '200px' }}>
-                            <Progress animated value={tablet.scores}>
-                              {tablet.scores}
-                            </Progress>
-                          </div>
-                        </CardBody>
-                      </Card>
-                    </Link>
-                  </div>
-                );
-              })
+                          <div className="float-left badge badge-danger text-white ml-2">-{tablet.percentSale}%</div>
+                          <br/>
+                        </CardText>
+                        <div className="text-center" style={{width: '200px'}}>
+                          <Progress animated value={tablet.scores}>
+                            {tablet.scores}
+                          </Progress>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </div>
+              );
+            })
             : null}
         </div>
       </div>
       {tablets.length ? (
         <div className={tablets && tablets.length > 0 ? '' : 'd-none'}>
           <Row className="justify-content-center">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
+            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled/>
           </Row>
           <Row className="justify-content-center">
             <JhiPagination

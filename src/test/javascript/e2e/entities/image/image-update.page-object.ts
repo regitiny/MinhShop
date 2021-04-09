@@ -1,5 +1,5 @@
-import { by, element, ElementFinder, protractor } from 'protractor';
-import { isVisible, waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import {by, element, ElementFinder, protractor} from 'protractor';
+import {isVisible, waitUntilDisplayed, waitUntilHidden} from '../../util/utils';
 
 import path from 'path';
 
@@ -7,7 +7,8 @@ const expect = chai.expect;
 
 const fileToUpload = '../../../../../../src/main/webapp/content/images/logo-jhipster.png';
 const absolutePath = path.resolve(__dirname, fileToUpload);
-export default class ImageUpdatePage {
+export default class ImageUpdatePage
+{
   pageTitle: ElementFinder = element(by.id('minhShopApp.image.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
@@ -25,127 +26,158 @@ export default class ImageUpdatePage {
   dataSizeInput: ElementFinder = element(by.css('input#image-dataSize'));
   commentInput: ElementFinder = element(by.css('input#image-comment'));
 
-  getPageTitle() {
+  getPageTitle()
+  {
     return this.pageTitle;
   }
 
-  async setUuidInput(uuid) {
+  async setUuidInput(uuid)
+  {
     await this.uuidInput.sendKeys(uuid);
   }
 
-  async getUuidInput() {
+  async getUuidInput()
+  {
     return this.uuidInput.getAttribute('value');
   }
 
-  async setImageDataInput(imageData) {
+  async setImageDataInput(imageData)
+  {
     await this.imageDataInput.sendKeys(imageData);
   }
 
-  async getImageDataInput() {
+  async getImageDataInput()
+  {
     return this.imageDataInput.getAttribute('value');
   }
 
-  async setNameImageInput(nameImage) {
+  async setNameImageInput(nameImage)
+  {
     await this.nameImageInput.sendKeys(nameImage);
   }
 
-  async getNameImageInput() {
+  async getNameImageInput()
+  {
     return this.nameImageInput.getAttribute('value');
   }
 
-  async setExtensionInput(extension) {
+  async setExtensionInput(extension)
+  {
     await this.extensionInput.sendKeys(extension);
   }
 
-  async getExtensionInput() {
+  async getExtensionInput()
+  {
     return this.extensionInput.getAttribute('value');
   }
 
-  async setTypeFileInput(typeFile) {
+  async setTypeFileInput(typeFile)
+  {
     await this.typeFileInput.sendKeys(typeFile);
   }
 
-  async getTypeFileInput() {
+  async getTypeFileInput()
+  {
     return this.typeFileInput.getAttribute('value');
   }
 
-  async setSearchFieldInput(searchField) {
+  async setSearchFieldInput(searchField)
+  {
     await this.searchFieldInput.sendKeys(searchField);
   }
 
-  async getSearchFieldInput() {
+  async getSearchFieldInput()
+  {
     return this.searchFieldInput.getAttribute('value');
   }
 
-  async setRoleInput(role) {
+  async setRoleInput(role)
+  {
     await this.roleInput.sendKeys(role);
   }
 
-  async getRoleInput() {
+  async getRoleInput()
+  {
     return this.roleInput.getAttribute('value');
   }
 
-  async setCreatedDateInput(createdDate) {
+  async setCreatedDateInput(createdDate)
+  {
     await this.createdDateInput.sendKeys(createdDate);
   }
 
-  async getCreatedDateInput() {
+  async getCreatedDateInput()
+  {
     return this.createdDateInput.getAttribute('value');
   }
 
-  async setModifiedDateInput(modifiedDate) {
+  async setModifiedDateInput(modifiedDate)
+  {
     await this.modifiedDateInput.sendKeys(modifiedDate);
   }
 
-  async getModifiedDateInput() {
+  async getModifiedDateInput()
+  {
     return this.modifiedDateInput.getAttribute('value');
   }
 
-  async setCreatedByInput(createdBy) {
+  async setCreatedByInput(createdBy)
+  {
     await this.createdByInput.sendKeys(createdBy);
   }
 
-  async getCreatedByInput() {
+  async getCreatedByInput()
+  {
     return this.createdByInput.getAttribute('value');
   }
 
-  async setModifiedByInput(modifiedBy) {
+  async setModifiedByInput(modifiedBy)
+  {
     await this.modifiedByInput.sendKeys(modifiedBy);
   }
 
-  async getModifiedByInput() {
+  async getModifiedByInput()
+  {
     return this.modifiedByInput.getAttribute('value');
   }
 
-  async setDataSizeInput(dataSize) {
+  async setDataSizeInput(dataSize)
+  {
     await this.dataSizeInput.sendKeys(dataSize);
   }
 
-  async getDataSizeInput() {
+  async getDataSizeInput()
+  {
     return this.dataSizeInput.getAttribute('value');
   }
 
-  async setCommentInput(comment) {
+  async setCommentInput(comment)
+  {
     await this.commentInput.sendKeys(comment);
   }
 
-  async getCommentInput() {
+  async getCommentInput()
+  {
     return this.commentInput.getAttribute('value');
   }
 
-  async save() {
+  async save()
+  {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel()
+  {
     await this.cancelButton.click();
   }
 
-  getSaveButton() {
+  getSaveButton()
+  {
     return this.saveButton;
   }
 
-  async enterData() {
+  async enterData()
+  {
     await waitUntilDisplayed(this.saveButton);
     await this.setUuidInput('64c99148-3908-465d-8c4a-e510e3ade974');
     expect(await this.getUuidInput()).to.match(/64c99148-3908-465d-8c4a-e510e3ade974/);

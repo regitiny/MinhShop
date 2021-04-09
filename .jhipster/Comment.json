@@ -1,0 +1,105 @@
+{
+  "name": "Comment",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "javadoc": "uuid",
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
+    },
+    {
+      "fieldName": "groupId",
+      "fieldType": "UUID",
+      "javadoc": "groupId",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "classPK",
+      "fieldType": "String",
+      "javadoc": "classPK is class of entity use comment Example(org.regitiny.minhshop.domain.SimplePost)",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String",
+      "javadoc": "content",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "level",
+      "fieldType": "Integer",
+      "javadoc": "level of comment 0-5",
+      "fieldValidateRules": [
+        "required",
+        "max"
+      ],
+      "fieldValidateRulesMax": "10"
+    },
+    {
+      "fieldName": "searchField",
+      "fieldType": "String",
+      "javadoc": "searchField",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "String",
+      "javadoc": "role",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2048"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "javadoc": "createdDate"
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "Instant",
+      "javadoc": "modifiedDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "javadoc": "createdBy"
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String",
+      "javadoc": "modifiedBy"
+    },
+    {
+      "fieldName": "dataSize",
+      "fieldType": "Long",
+      "javadoc": "dataSize"
+    }
+  ],
+  "relationships": [],
+  "javadoc": "The Comment entity.\\n@author a true jhipster",
+  "entityTableName": "comment",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "searchEngine": "elasticsearch",
+  "changelogDate": "20210331183853"
+}

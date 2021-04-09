@@ -11,6 +11,7 @@ import org.regitiny.minhshop.service.dto.FileDTO;
 import org.regitiny.minhshop.service.mapper.FileMapper;
 import org.regitiny.tools.magic.constant.StringPool;
 import org.regitiny.tools.magic.utils.EntityDefaultPropertiesServiceUtils;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
@@ -47,7 +47,7 @@ public class FileServiceImpl implements FileService
   public FileDTO save(FileDTO fileDTO)
   {
     log.debug("Request to save File : {}", fileDTO);
-    File file = fileMapper.toEntity(fileDTO);
+    File file = (File) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(fileMapper.toEntity(fileDTO));
     file = fileRepository.save(file);
     FileDTO result = fileMapper.toDto(file);
     fileSearchRepository.save(file);
@@ -55,48 +55,47 @@ public class FileServiceImpl implements FileService
   }
 
   @Override
-  public FileDTO upload(MultipartFile fileData)
+  public FileDTO createFileDetail(MultipartFile fileData)
   {
     log.debug("Request to upload File : dataIsEmpty = {}", fileData.isEmpty());
     SecurityUtils.checkAuthenticationAndAuthority(AuthoritiesConstants.MANAGEMENT);
 
     File file = (File) EntityDefaultPropertiesServiceUtils.setPropertiesBeforeSave(new File());
-    try
-    {
-      String nameFile = file.getUuid().toString();
-      byte[] fileDataBytes = fileData.getBytes();
-      String extension = StringPool.BLANK;
-      String typeFile = fileData.getContentType();
-      long dataSize = fileData.getSize();
-      String comment = null;
+    String nameFile = file.getUuid().toString();
+    String extension = StringPool.BLANK;
+    String typeFile = fileData.getContentType();
+    long dataSize = fileData.getSize();
+    String comment = null;
 
-      String imageDataName = fileData.getOriginalFilename();
-      String[] temp = imageDataName != null ? imageDataName.split(StringPool.DOT_IN_REGEX) : new String[0];
-      if (temp.length >= 2) extension = temp[temp.length - 1];
-      nameFile += StringPool.PERIOD + extension;
+    String fileDataName = fileData.getOriginalFilename();
+    String[] temp = fileDataName != null ? fileDataName.split(StringPool.DOT_IN_REGEX) : new String[0];
+    if (temp.length >= 2) extension = temp[temp.length - 1];
+    nameFile += StringPool.PERIOD + extension;
 
-      file.fileData(fileDataBytes)
-        .nameFile(nameFile)
-        .dataSize(dataSize)
-        .fileDataContentType(typeFile)
-        .typeFile(typeFile)
-        .extension(extension)
-        .comment(comment);
-    }
-    catch (IOException e)
-    {
-      log.debug(" IOException = {}", e.getMessage());
-    }
+    file.nameFile(nameFile)
+      .processed(false)
+      .dataSize(dataSize)
+      .typeFile(typeFile)
+      .extension(extension)
+      .comment(comment);
     return fileMapper.toDto(fileRepository.save(file));
 
   }
 
 
   @Override
-  @Cacheable(key = "{#fileName}", cacheNames = FileService.FILE_BY_FILE_NAME_CACHE)
+  @Cacheable(key = "{#fileName}", cacheNames = FILE_BY_FILE_NAME_CACHE)
   public Optional<File> getFileByFileName(String fileName)
   {
     log.debug("file name = {}", fileName);
+    return fileRepository.findByNameFile(fileName);
+  }
+
+  @Override
+  @CachePut(key = "{#fileName}", cacheNames = FILE_BY_FILE_NAME_CACHE)
+  public Optional<File> cacheUpdateFileByFileName(String fileName)
+  {
+    log.debug("cache update : file name = {}", fileName);
     return fileRepository.findByNameFile(fileName);
   }
 
@@ -110,75 +109,7 @@ public class FileServiceImpl implements FileService
       .map(
         existingFile ->
         {
-          if (fileDTO.getUuid() != null)
-          {
-            existingFile.setUuid(fileDTO.getUuid());
-          }
-
-          if (fileDTO.getFileData() != null)
-          {
-            existingFile.setFileData(fileDTO.getFileData());
-          }
-          if (fileDTO.getFileDataContentType() != null)
-          {
-            existingFile.setFileDataContentType(fileDTO.getFileDataContentType());
-          }
-
-          if (fileDTO.getNameFile() != null)
-          {
-            existingFile.setNameFile(fileDTO.getNameFile());
-          }
-
-          if (fileDTO.getExtension() != null)
-          {
-            existingFile.setExtension(fileDTO.getExtension());
-          }
-
-          if (fileDTO.getTypeFile() != null)
-          {
-            existingFile.setTypeFile(fileDTO.getTypeFile());
-          }
-
-          if (fileDTO.getSearchField() != null)
-          {
-            existingFile.setSearchField(fileDTO.getSearchField());
-          }
-
-          if (fileDTO.getRole() != null)
-          {
-            existingFile.setRole(fileDTO.getRole());
-          }
-
-          if (fileDTO.getCreatedDate() != null)
-          {
-            existingFile.setCreatedDate(fileDTO.getCreatedDate());
-          }
-
-          if (fileDTO.getModifiedDate() != null)
-          {
-            existingFile.setModifiedDate(fileDTO.getModifiedDate());
-          }
-
-          if (fileDTO.getCreatedBy() != null)
-          {
-            existingFile.setCreatedBy(fileDTO.getCreatedBy());
-          }
-
-          if (fileDTO.getModifiedBy() != null)
-          {
-            existingFile.setModifiedBy(fileDTO.getModifiedBy());
-          }
-
-          if (fileDTO.getDataSize() != null)
-          {
-            existingFile.setDataSize(fileDTO.getDataSize());
-          }
-
-          if (fileDTO.getComment() != null)
-          {
-            existingFile.setComment(fileDTO.getComment());
-          }
-
+          fileMapper.partialUpdate(existingFile, fileDTO);
           return existingFile;
         }
       )

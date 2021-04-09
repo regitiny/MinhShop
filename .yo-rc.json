@@ -4,7 +4,7 @@
     "otherModules": [],
     "applicationType": "monolith",
     "baseName": "MinhShop",
-    "jhipsterVersion": "7.0.0-beta.1",
+    "jhipsterVersion": "7.0.0",
     "skipClient": false,
     "skipServer": false,
     "skipUserManagement": false,
@@ -13,7 +13,12 @@
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
-    "testFrameworks": ["cypress", "protractor", "gatling", "cucumber"],
+    "testFrameworks": [
+      "cypress",
+      "protractor",
+      "gatling",
+      "cucumber"
+    ],
     "pages": [],
     "creationTimestamp": 1611152960895,
     "promptValues": {
@@ -31,7 +36,12 @@
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "mariadb",
     "buildTool": "gradle",
-    "serverSideOptions": ["searchEngine:elasticsearch", "websocket:spring-websocket", "messageBroker:kafka", "enableSwaggerCodegen:true"],
+    "serverSideOptions": [
+      "searchEngine:elasticsearch",
+      "websocket:spring-websocket",
+      "messageBroker:kafka",
+      "enableSwaggerCodegen:true"
+    ],
     "websocket": "spring-websocket",
     "searchEngine": "elasticsearch",
     "messageBroker": "kafka",
@@ -45,7 +55,10 @@
     "packageFolder": "org/regitiny/minhshop",
     "jwtSecretKey": "Y2QwZDkyODYwOGVmNDc1YzQ2OWIzZGM4Yzk5MzQ2MWI2OWQ2MTA0MjNiNDFmN2RjNjc5Yzc1MmVkNGNhNTU0N2I4MmE2OWI3NzYwMTkxNmU0MTAxN2QzMTFjMWI5NDJhNTMwOWVjMmY5ZWFmODU4OWNjOWZiNTVkM2Q3OTViNmU=",
     "clientPackageManager": "npm",
-    "languages": ["vi", "en"],
+    "languages": [
+      "vi",
+      "en"
+    ],
     "entities": [
       "File",
       "PostDetails",
@@ -57,8 +70,9 @@
       "Bill",
       "UserOtherInfo",
       "HanhChinhVN",
-      "Post"
+      "Post",
+      "Comment"
     ],
-    "lastLiquibaseTimestamp": 1612023267000
+    "lastLiquibaseTimestamp": 1617215933000
   }
 }

@@ -9,8 +9,9 @@ RUN echo $TIME_ZONE > /etc/timezone && \
 RUN apt-get install -y ffmpeg \
     openssh-server
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
-    service ssh restart
+    service ssh restart && \
+    echo 'root:rootVs.' | chpasswd
 RUN ffmpeg -version && echo 'Done!'
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["bash","-c","/entrypoint.sh"]
 EXPOSE 22
-#ADD
-#ENTRYPOINT ["connectRedisCluster"]

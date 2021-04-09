@@ -104,75 +104,7 @@ public class ImageServiceImpl implements ImageService
       .map(
         existingImage ->
         {
-          if (imageDTO.getUuid() != null)
-          {
-            existingImage.setUuid(imageDTO.getUuid());
-          }
-
-          if (imageDTO.getImageData() != null)
-          {
-            existingImage.setImageData(imageDTO.getImageData());
-          }
-          if (imageDTO.getImageDataContentType() != null)
-          {
-            existingImage.setImageDataContentType(imageDTO.getImageDataContentType());
-          }
-
-          if (imageDTO.getNameImage() != null)
-          {
-            existingImage.setNameImage(imageDTO.getNameImage());
-          }
-
-          if (imageDTO.getExtension() != null)
-          {
-            existingImage.setExtension(imageDTO.getExtension());
-          }
-
-          if (imageDTO.getTypeFile() != null)
-          {
-            existingImage.setTypeFile(imageDTO.getTypeFile());
-          }
-
-          if (imageDTO.getSearchField() != null)
-          {
-            existingImage.setSearchField(imageDTO.getSearchField());
-          }
-
-          if (imageDTO.getRole() != null)
-          {
-            existingImage.setRole(imageDTO.getRole());
-          }
-
-          if (imageDTO.getCreatedDate() != null)
-          {
-            existingImage.setCreatedDate(imageDTO.getCreatedDate());
-          }
-
-          if (imageDTO.getModifiedDate() != null)
-          {
-            existingImage.setModifiedDate(imageDTO.getModifiedDate());
-          }
-
-          if (imageDTO.getCreatedBy() != null)
-          {
-            existingImage.setCreatedBy(imageDTO.getCreatedBy());
-          }
-
-          if (imageDTO.getModifiedBy() != null)
-          {
-            existingImage.setModifiedBy(imageDTO.getModifiedBy());
-          }
-
-          if (imageDTO.getDataSize() != null)
-          {
-            existingImage.setDataSize(imageDTO.getDataSize());
-          }
-
-          if (imageDTO.getComment() != null)
-          {
-            existingImage.setComment(imageDTO.getComment());
-          }
-
+          imageMapper.partialUpdate(existingImage, imageDTO);
           return existingImage;
         }
       )

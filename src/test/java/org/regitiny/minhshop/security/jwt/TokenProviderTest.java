@@ -103,8 +103,7 @@ class TokenProviderTest
     TokenProvider tokenProvider = new TokenProvider(jHipsterProperties);
 
     Key key = (Key) ReflectionTestUtils.getField(tokenProvider, "key");
-    assertThat(key).isNotNull();
-    assertThat(key).isEqualTo(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)));
+    assertThat(key).isNotNull().isEqualTo(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)));
   }
 
   @Test
@@ -117,8 +116,7 @@ class TokenProviderTest
     TokenProvider tokenProvider = new TokenProvider(jHipsterProperties);
 
     Key key = (Key) ReflectionTestUtils.getField(tokenProvider, "key");
-    assertThat(key).isNotNull();
-    assertThat(key).isEqualTo(Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret)));
+    assertThat(key).isNotNull().isEqualTo(Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret)));
   }
 
   private Authentication createAuthentication()

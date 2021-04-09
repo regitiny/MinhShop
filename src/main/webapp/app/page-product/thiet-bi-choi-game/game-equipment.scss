@@ -1,20 +1,26 @@
 .game-equipment-detail {
   background: white;
+
   .game-equipment-detail-header {
     padding: 0;
+
     .image-game-equipment {
       //padding-right: 0;
       position: relative;
+
       .image-game-equipment-detail {
         display: none;
         //position: absolute;
       }
+
       .list-image-thumbnail {
         margin: 0;
+
         .image-thumbnail {
           padding: 0;
         }
       }
+
       .active,
       .img-thb:hover {
         outline: 1px solid #0089b9;
@@ -63,13 +69,15 @@ td {
   margin: 0;
   color: black;
 }
+
 /* Add css for game-equipment.tsx */
 //todo chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi
-.card{
-  .image-size{
+.card {
+  .image-size {
     position: relative;
     height: 150px;
-    img{
+
+    img {
       position: absolute;
       max-width: 100%;
       width: auto;
@@ -79,10 +87,11 @@ td {
       transform: translate(-50%, -50%);
     }
   }
-  .float-group{
+
+  .float-group {
     //position: relative;
     //height: 60px;
-    .card-title{
+    .card-title {
       //position: absolute;
       font-size: 20px;
       white-space: nowrap; //todo add khi title quá dài
@@ -90,11 +99,13 @@ td {
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .card-title:hover{
+
+    .card-title:hover {
       white-space: normal;
       overflow: visible;
       width: 100%;
     }
   }
 }
+
 //chỉnh sửa khung ảnh tạm thời để khung trông đều nhau. Khi nào bàn giao phải xóa đi

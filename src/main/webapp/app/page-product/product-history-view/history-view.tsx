@@ -1,31 +1,30 @@
 import './history-view.scss'
-import React, {useState, useRef} from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {Card, CardImg, CardTitle} from 'reactstrap';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+function SampleNextArrow(props)
+{
+  const {className, style, onClick} = props;
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "black"}}
+      style={{...style, display: "block", background: "black"}}
       onClick={onClick}
     />
   );
 }
 
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
+function SamplePrevArrow(props)
+{
+  const {className, style, onClick} = props;
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "black"}}
+      style={{...style, display: "block", background: "black"}}
       onClick={onClick}
     />
   );
@@ -42,8 +41,8 @@ export const HistoryView = (props) =>
     slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow/>,
+    prevArrow: <SamplePrevArrow/>,
     responsive: [
       {
         breakpoint: 1024,
@@ -90,7 +89,7 @@ export const HistoryView = (props) =>
                     {/*<h5>{item.name}</h5>*/}
                     <Card>
                       <div className="image-size">
-                          <CardImg top width="100%" src={item.image} alt="Card image cap" />
+                        <CardImg top width="100%" src={item.image} alt="Card image cap"/>
                       </div>
                       <div className="float-group mt-3">
                         <CardTitle tag="h5" className="text-dark">{item.name}</CardTitle>

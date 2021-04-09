@@ -11,13 +11,14 @@
       ]
     },
     {
-      "fieldName": "fileData",
-      "fieldType": "byte[]",
-      "javadoc": "fileData is data of video in binary form",
-      "fieldTypeBlobContent": "any",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldName": "pathFileOriginal",
+      "fieldType": "String",
+      "javadoc": "pathFileOriginal path of File (original)"
+    },
+    {
+      "fieldName": "pathFileProcessed",
+      "fieldType": "String",
+      "javadoc": "pathFileProcessed path of File (processed)"
     },
     {
       "fieldName": "nameFile",
@@ -47,6 +48,14 @@
       "fieldValidateRulesMaxlength": "32"
     },
     {
+      "fieldName": "processed",
+      "fieldType": "Boolean",
+      "javadoc": "file processed set value to true (default false)",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
       "fieldName": "searchField",
       "fieldType": "byte[]",
       "javadoc": "searchField",
@@ -55,7 +64,11 @@
     {
       "fieldName": "role",
       "fieldType": "String",
-      "javadoc": "role"
+      "javadoc": "role",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2048"
     },
     {
       "fieldName": "createdDate",

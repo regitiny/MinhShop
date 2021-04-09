@@ -27,7 +27,7 @@ export const VisibleSearch = (props: ISimplePostProps) =>
   const [search, setSearch] = useState('');
   const [statusGetSuccess, setStatusGetSuccess] = useState(false);
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
   );
 
   window.console.log(paginationState);
